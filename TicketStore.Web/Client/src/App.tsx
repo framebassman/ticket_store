@@ -1,10 +1,12 @@
 ﻿import React, { Component } from 'react';
+import { PayButton } from './components/PayButton';
 
 class App extends Component {
   render() {
     return (
       <div>
-        hi there
+        <div>hi there</div>
+        <PayButton />
       </div>
     );
   }
