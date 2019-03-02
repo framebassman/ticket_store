@@ -4,9 +4,13 @@
   display: flex;
 }
 
+.description__money {
+  display: flex;
+  align-items: center;
+}
+
 .description__content {
   margin: auto;
-  display: flex;
   align-items: center;
 }
 
