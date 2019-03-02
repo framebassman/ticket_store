@@ -16,6 +16,14 @@
 .title__header {
   font-size: 32px;
   line-height: 42px;
+  margin: 4px;
+}
+
+@media (max-width: 599px) {
+  .title__header {
+    font-size: 26px;
+    line-height: 32px;
+  }
 }
 
 a {

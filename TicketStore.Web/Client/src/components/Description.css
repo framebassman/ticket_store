@@ -7,17 +7,12 @@
 .description__money {
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 
 .description__content {
   margin: auto;
   align-items: center;
-}
-
-@media (max-width: 599px) {
-  .description__content {
-    display: block;
-  }
 }
 
 .description__content--item {
@@ -27,4 +22,21 @@
 .description__content--bold {
   font-size: 32px;
   line-height: 42px;
+}
+
+.description__licence {
+  max-width: 500px;
+  padding-top: 56px;
+  margin: 16px;
+}
+
+@media (max-width: 599px) {
+  .description__money {
+    display: block;
+  }
+
+  .description__content--bold {
+    font-size: 26px;
+    line-height: 32px;
+  }
 }
