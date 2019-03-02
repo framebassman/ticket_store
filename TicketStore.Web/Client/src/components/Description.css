@@ -6,4 +6,20 @@
 
 .description__content {
   margin: auto;
+  display: flex;
+  align-items: center;
+}
+
+.description__money {
+  display: flex;
+  align-items: center;
+}
+
+.description__money--item {
+  margin: 16px;
+}
+
+.description__money--bold {
+  font-size: 32px;
+  line-height: 42px;
 }

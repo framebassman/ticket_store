@@ -2,10 +2,28 @@
   height: 50%;
   text-align: center;
   display: flex;
+  background-image: url(./../assets/img/sparkler.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  color: white;
+}
+
+.title__content {
+  margin: auto;
 }
 
 .title__header {
-  margin: auto;
   font-size: 32px;
   line-height: 42px;
+}
+
+a {
+  color: red; /* Цвет ссылок */
+}
+a:visited {
+  color: #cecece; /* Цвет посещенных ссылок */
+}
+a:active {
+  color: #ffff00; /* Цвет активных ссылок */
 }
