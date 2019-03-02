@@ -1,0 +1,11 @@
+.title {
+  height: 50%;
+  text-align: center;
+  display: flex;
+}
+
+.title__header {
+  margin: auto;
+  font-size: 32px;
+  line-height: 42px;
+}

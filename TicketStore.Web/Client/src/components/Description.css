@@ -1,0 +1,9 @@
+.description {
+  height: 50%;
+  text-align: center;
+  display: flex;
+}
+
+.description__content {
+  margin: auto;
+}
