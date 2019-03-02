@@ -10,16 +10,17 @@
   align-items: center;
 }
 
-.description__money {
-  display: flex;
-  align-items: center;
+@media (max-width: 599px) {
+  .description__content {
+    display: block;
+  }
 }
 
-.description__money--item {
+.description__content--item {
   margin: 16px;
 }
 
-.description__money--bold {
+.description__content--bold {
   font-size: 32px;
   line-height: 42px;
 }

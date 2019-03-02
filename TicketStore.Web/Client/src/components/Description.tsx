@@ -6,11 +6,9 @@ export const Description = () => {
   return (
     <div className="description">
       <div className="description__content">
-        <div className="description__money">
-          <div className="description__money--item">Стоимость</div>
-          <div className="description__money--item description__money--bold">250 ₽</div>
-        </div>
-        <PayButton className="description__money--item" />
+        <div className="description__content--item">Стоимость</div>
+        <div className="description__content--item description__content--bold">250 ₽</div>
+        <PayButton className="description__content--item" />
       </div>
     </div>
   )
