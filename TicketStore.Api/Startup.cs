@@ -4,12 +4,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using TicketStore.Api.Data;
 using TicketStore.Api.Middlewares;
 
 namespace TicketStore.Api
@@ -33,6 +34,14 @@ namespace TicketStore.Api
         {
             services.AddRouting(opt => opt.LowercaseUrls = true);
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services
+                .AddEntityFrameworkNpgsql()
+                .AddDbContext<ApplicationContext>(
+                    options => options.UseNpgsql(
+                        Configuration.GetConnectionString("DefaultConnection")
+                    )
+                )
+                .BuildServiceProvider();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
