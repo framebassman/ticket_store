@@ -8,7 +8,7 @@ namespace TicketStore.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class IncomesController : ControllerBase
+    public class PaymentsController : ControllerBase
     {
         // POST api/values
         [HttpPost]
