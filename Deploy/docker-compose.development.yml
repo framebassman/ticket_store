@@ -7,15 +7,15 @@ services:
             dockerfile: ./Postgres/Dockerfile
         container_name: postgres
         volumes:
-            - pgdata:/var/lib/postgresql/data
+            - pgsdata:/var/lib/postgresql/data
         ports:
             - 5432:5432
         environment:
             - POSTGRES_DB=store
             - POSTGRES_USER=postgres
-            - POSTGRES_PASSWORD=pSjUU6q7RsxaYMz9
-        # logging:
-        #     driver: none
+            - POSTGRES_PASSWORD=W6TTT3WY4Nzqpj5z
+        logging:
+            driver: none
 
 volumes:
-    pgdata:
+    pgsdata:

@@ -18,3 +18,6 @@ docker-cleanup:
 	docker rmi $$(docker images -a | grep "^<none>" | awk '{print $$3}')
 	docker rmi $$(docker images -a --filter=dangling=true -q)
 	docker rm $$(docker ps --filter=status=exited --filter=status=created -q)
+
+db-dev:
+	docker exec -it postgres psql postgresql://postgres:W6TTT3WY4Nzqpj5z@localhost:5432/store
