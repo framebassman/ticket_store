@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TicketStore.Api.Data;
+using TicketStore.Api.Model;
 
 namespace TicketStore.Api.Controllers
 {
@@ -21,20 +22,63 @@ namespace TicketStore.Api.Controllers
 
         // POST api/values
         [HttpPost]
-        public void Post(
-            [FromForm] bool test_notification,
-            [FromForm] string notification_type,
-            [FromForm] string operation_id,
+        public IActionResult Post(
+            [FromForm] Boolean test_notification,
+            [FromForm] String notification_type,
+            [FromForm] String operation_id,
             [FromForm] Decimal amount,
             [FromForm] Decimal withdraw_amount,
-            [FromForm] string currency,
+            [FromForm] String currency,
             [FromForm] DateTime datetime,
-            [FromForm] bool unaccepted,
-            [FromForm] string email,
-            [FromForm] string lastname
+            [FromForm] Boolean unaccepted,
+            [FromForm] String email,
+            [FromForm] String lastname,
+            [FromForm] String sender,
+            [FromForm] Boolean codepro,
+            [FromForm] String label
         )
         {
-            var a = 1;
+            if (new Validator(
+                    notification_type,
+                    operation_id,
+                    amount,
+                    currency,
+                    datetime,
+                    sender,
+                    codepro,
+                    "",
+                    label
+                ).FromYandex()
+            )
+            {
+                var tickets = CombineTickets(new Payment { Email = email, Amount = amount});
+                return new OkObjectResult("OK");
+            }
+            else
+            {
+                return new BadRequestObjectResult("Secret is not matching");
+            }
+        }
+
+        private List<Ticket> CombineTickets(Payment payment)
+        {
+            var saved = _db.Add(payment);
+            _db.SaveChanges();
+
+            var tickets = _db.Tickets.ToList();
+            var result = new List<Ticket>();
+            int count = Convert.ToInt32(payment.Amount) / 250;
+            for (int i = 0; i < count; i++)
+            {
+                result.Add(new Ticket {
+                    CreatedAt = DateTime.Now,
+                    PaymentId = payment.Id,
+                    Number = new BobJenkinsAlgorithm(tickets.Concat(result).ToList()).Next(),
+                });
+            }
+            _db.Tickets.AddRange(result);
+            _db.SaveChanges();
+            return result;
         }
     }
 }
