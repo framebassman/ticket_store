@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using TicketStore.Api.Data;
 
 namespace TicketStore.Api.Controllers
 {
@@ -10,6 +12,13 @@ namespace TicketStore.Api.Controllers
     [ApiController]
     public class PaymentsController : ControllerBase
     {
+        private ApplicationContext _db;
+
+        public PaymentsController(ApplicationContext context)
+        {
+            _db = context;
+        }
+
         // POST api/values
         [HttpPost]
         public void Post(
