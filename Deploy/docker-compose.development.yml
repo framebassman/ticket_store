@@ -1,0 +1,21 @@
+version: '3.6'
+
+services:
+    postgres:
+        build:
+            context: .
+            dockerfile: ./Postgres/Dockerfile
+        container_name: postgres
+        volumes:
+            - pgdata:/var/lib/postgresql/data
+        ports:
+            - 5432:5432
+        environment:
+            - POSTGRES_DB=store
+            - POSTGRES_USER=postgres
+            - POSTGRES_PASSWORD=pSjUU6q7RsxaYMz9
+        # logging:
+        #     driver: none
+
+volumes:
+    pgdata:
