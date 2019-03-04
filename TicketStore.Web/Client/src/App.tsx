@@ -1,10 +1,17 @@
 ﻿import React, { Component } from 'react';
+import { BrowserRouter, Route, Switch} from 'react-router-dom';
 import { Greetings } from './components/Greetings';
+import { Farewell } from './components/Farewell';
 
 class App extends Component {
   render() {
     return (
-      <Greetings />
+      <BrowserRouter>
+        <Switch>
+          <Route path="/farewell" component={Farewell}/>
+          <Route path="" component={Greetings}/>
+        </Switch>
+      </BrowserRouter>
     );
   }
 }

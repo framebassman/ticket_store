@@ -1,0 +1,35 @@
+.farewell {
+  height: 100vh;
+  width:  100vw;
+}
+
+.farewell__item {
+  height: 50%;
+  text-align: center;
+  display: flex;
+}
+
+.farewell__item--centered {
+  margin: auto;
+}
+
+.farewell__item--title {
+  font-size: 32px;
+  line-height: 42px;
+  font-weight: bold;
+}
+  
+@media (max-width: 599px) {
+  .farewell__item--title {
+    font-size: 26px;
+    line-height: 32px;
+  }
+}
+
+.block {
+  display: block;
+}
+
+.footer {
+  padding-top: 220px;
+}
