@@ -14,5 +14,9 @@ namespace TicketStore.Api.Model
         public Int32 PaymentId { get; set; }
         [Column("number")]
         public String Number { get; set; }
+        [Column("roubles")]
+        public Int32 Roubles { get; set; }
+        [Column("expired")]
+        public Boolean Expired { get; set; }
     }
 }

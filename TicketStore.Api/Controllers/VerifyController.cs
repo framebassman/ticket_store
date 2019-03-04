@@ -25,9 +25,9 @@ namespace TicketStore.Api.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return new BadRequestActionResult("Code should have string type");
+                return new BadRequestObjectResult("Code should have string type");
             }
-            return new OkActionResult("OK");
+            return new OkObjectResult("OK");
         }
     }
 }
