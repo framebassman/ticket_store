@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using TicketStore.Api.Data;
 using TicketStore.Api.Model;
+using TicketStore.Api.Model.Http;
 
 namespace TicketStore.Api.Controllers
 {
@@ -23,11 +25,25 @@ namespace TicketStore.Api.Controllers
         [HttpPost]
         public IActionResult Post([FromBody] String code)
         {
+            if (!IsAuthorized(Request))
+            {
+                return new UnauthorizedObjectResult(new UnauthorizedAnswer());
+            }
             if (!ModelState.IsValid)
             {
-                return new BadRequestObjectResult("Code should have string type");
+                return new BadRequestObjectResult(new BadRequestAnswer());
             }
-            return new OkObjectResult("OK");
+            return new OkObjectResult(new Answer("OK"));
+        }
+
+        private Boolean IsAuthorized(HttpRequest request)
+        {
+            var authHeader = request.Headers["Authorization"].First();
+            if (string.IsNullOrEmpty(authHeader))
+            {
+                return false;
+            }
+            return authHeader == "Bearer pkR9vfZ9QdER53mf";
         }
     }
 }
