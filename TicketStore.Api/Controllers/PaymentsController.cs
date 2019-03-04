@@ -14,10 +14,12 @@ namespace TicketStore.Api.Controllers
     public class PaymentsController : ControllerBase
     {
         private ApplicationContext _db;
+        private Configuration _config;
 
-        public PaymentsController(ApplicationContext context)
+        public PaymentsController(ApplicationContext context, Configuration configuration)
         {
             _db = context;
+            _config = configuration;
         }
 
         // POST api/values
@@ -74,6 +76,8 @@ namespace TicketStore.Api.Controllers
                     CreatedAt = DateTime.Now,
                     PaymentId = payment.Id,
                     Number = new BobJenkinsAlgorithm(tickets.Concat(result).ToList()).Next(),
+                    Roubles = payment.Amount,
+                    Expired = false
                 });
             }
             _db.Tickets.AddRange(result);
