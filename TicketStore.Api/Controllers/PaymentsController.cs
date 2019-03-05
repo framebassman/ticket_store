@@ -18,18 +18,18 @@ namespace TicketStore.Api.Controllers
     {
         private ApplicationContext _db;
         private ILogger<PaymentsController> _log;
-        private SendGridService _sendGrid;
+        private YandexService _yandex;
 
         public PaymentsController(ApplicationContext context, ILogger<PaymentsController> log, IConfiguration config)
         {
             _db = context;
             _log = log;
-            _sendGrid = new SendGridService(config.GetValue<String>("EmailSenderKey"), _log);
+            _yandex = new YandexService(config.GetValue<String>("EmailSenderPassword"), _log);
         }
 
         // POST api/values
         [HttpPost]
-        public async Task<IActionResult> Post(
+        public IActionResult Post(
             [FromForm] Boolean test_notification,
             [FromForm] String notification_type,
             [FromForm] String operation_id,
@@ -59,9 +59,9 @@ namespace TicketStore.Api.Controllers
             )
             {
                 _log.LogInformation("Receive Yandex.Money request from {@0}", email);
-                email = "framebassman@yandex.ru";
+                email = "framebassman@gmail.com";
                 var tickets = CombineTickets(new Payment { Email = email, Amount = amount});
-                var response = await _sendGrid.SendTicket(email);
+                _yandex.SendTicket(email);
                 return new OkObjectResult("OK");
             }
             else
