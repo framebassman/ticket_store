@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using TicketStore.Api.Data;
 using TicketStore.Api.Model;
 using TicketStore.Api.Model.Email;
@@ -16,12 +17,14 @@ namespace TicketStore.Api.Controllers
     public class PaymentsController : ControllerBase
     {
         private ApplicationContext _db;
+        private ILogger<PaymentsController> _log;
         private SendGridService _sendGrid;
 
-        public PaymentsController(ApplicationContext context, IConfiguration config)
+        public PaymentsController(ApplicationContext context, ILogger<PaymentsController> log, IConfiguration config)
         {
             _db = context;
-            _sendGrid = new SendGridService(config.GetValue<String>("EmailSenderKey"));
+            _log = log;
+            _sendGrid = new SendGridService(config.GetValue<String>("EmailSenderKey"), _log);
         }
 
         // POST api/values
@@ -55,7 +58,8 @@ namespace TicketStore.Api.Controllers
                 ).FromYandex()
             )
             {
-                email = "FrameBassman@yandex.ru";
+                _log.LogInformation("Receive Yandex.Money request from {@0}", email);
+                email = "framebassman@yandex.ru";
                 var tickets = CombineTickets(new Payment { Email = email, Amount = amount});
                 var response = await _sendGrid.SendTicket(email);
                 return new OkObjectResult("OK");
@@ -68,12 +72,14 @@ namespace TicketStore.Api.Controllers
 
         private List<Ticket> CombineTickets(Payment payment)
         {
+            _log.LogInformation("Receive payment: {@0}", payment);
             var saved = _db.Add(payment);
             _db.SaveChanges();
 
             var tickets = _db.Tickets.ToList();
             var result = new List<Ticket>();
             int count = Convert.ToInt32(payment.Amount) / 250;
+            _log.LogInformation($"Combine {count} tickets");
             for (int i = 0; i < count; i++)
             {
                 result.Add(new Ticket {
