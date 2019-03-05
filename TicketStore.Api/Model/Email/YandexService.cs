@@ -18,15 +18,19 @@ namespace TicketStore.Api.Model.Email
             _log = log;
         }
 
-        public void SendTicket(String to)
+        public void SendTicket(String to, byte[] ticket)
         {
             var message = new MimeMessage ();
 			message.From.Add (new MailboxAddress ("no-reply", "no-reply@romashov.tech"));
 			message.To.Add (new MailboxAddress (to));
 			message.Subject = "Билет The Cellophane Heads - X лет";
-			message.Body = new TextPart ("plain") {
-				Text = @"Hey Chandler"
-			};
+			
+            var builder = new BodyBuilder ();
+            // Set the plain-text version of the message text
+            builder.TextBody = "Билет";
+            // We may also want to attach a calendar event for Monica's party...
+            builder.Attachments.Add($"Ticket-{DateTime.Now}.pdf", ticket, new ContentType("application", "pdf"));
+            message.Body = builder.ToMessageBody();
 
 			using (var client = new SmtpClient ()) {
 				client.ServerCertificateValidationCallback = (s,c,h,e) => true;

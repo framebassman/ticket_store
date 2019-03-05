@@ -9,6 +9,7 @@ using Microsoft.Extensions.Logging;
 using TicketStore.Api.Data;
 using TicketStore.Api.Model;
 using TicketStore.Api.Model.Email;
+using TicketStore.Api.Model.Pdf;
 
 namespace TicketStore.Api.Controllers
 {
@@ -58,10 +59,11 @@ namespace TicketStore.Api.Controllers
                 ).FromYandex()
             )
             {
-                _log.LogInformation("Receive Yandex.Money request from {@0}", email);
+                _log.LogInformation("Receive Yandex.Money request from @{0}", email);
                 email = "framebassman@gmail.com";
                 var tickets = CombineTickets(new Payment { Email = email, Amount = amount});
-                _yandex.SendTicket(email);
+                var pdf = new Pdf(tickets);
+                _yandex.SendTicket(email, pdf.toBytes());
                 return new OkObjectResult("OK");
             }
             else
