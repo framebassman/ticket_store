@@ -2,7 +2,7 @@
 
 namespace TicketStore.Api.Migrations
 {
-    public partial class RoublesAndExpired_In_Ticket : Migration
+    public partial class RoublesAndExpired_InTicket : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -12,11 +12,11 @@ namespace TicketStore.Api.Migrations
                 nullable: false,
                 defaultValue: false);
 
-            migrationBuilder.AddColumn<int>(
+            migrationBuilder.AddColumn<decimal>(
                 name: "roubles",
                 table: "tickets",
                 nullable: false,
-                defaultValue: 0);
+                defaultValue: 0m);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

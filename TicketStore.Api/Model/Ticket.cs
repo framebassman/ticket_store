@@ -15,7 +15,7 @@ namespace TicketStore.Api.Model
         [Column("number")]
         public String Number { get; set; }
         [Column("roubles")]
-        public Int32 Roubles { get; set; }
+        public Decimal Roubles { get; set; }
         [Column("expired")]
         public Boolean Expired { get; set; }
     }

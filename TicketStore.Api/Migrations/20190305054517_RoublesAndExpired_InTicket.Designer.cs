@@ -10,8 +10,8 @@ using TicketStore.Api.Data;
 namespace TicketStore.Api.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20190304063248_RoublesAndExpired_In_Ticket")]
-    partial class RoublesAndExpired_In_Ticket
+    [Migration("20190305054517_RoublesAndExpired_InTicket")]
+    partial class RoublesAndExpired_InTicket
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -56,7 +56,7 @@ namespace TicketStore.Api.Migrations
                     b.Property<int>("PaymentId")
                         .HasColumnName("payment_id");
 
-                    b.Property<int>("Roubles")
+                    b.Property<decimal>("Roubles")
                         .HasColumnName("roubles");
 
                     b.HasKey("Id");

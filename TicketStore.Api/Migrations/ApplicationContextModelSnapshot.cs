@@ -54,7 +54,7 @@ namespace TicketStore.Api.Migrations
                     b.Property<int>("PaymentId")
                         .HasColumnName("payment_id");
 
-                    b.Property<int>("Roubles")
+                    b.Property<decimal>("Roubles")
                         .HasColumnName("roubles");
 
                     b.HasKey("Id");
