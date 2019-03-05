@@ -1,6 +1,9 @@
 using System;
+using System.Text;
 using System.Collections.Generic;
+using System.Web;
 using DinkToPdf;
+using NetBarcode;
 
 namespace TicketStore.Api.Model.Pdf
 {
@@ -21,6 +24,7 @@ namespace TicketStore.Api.Model.Pdf
 
         private HtmlToPdfDocument template()
         {
+            var images = barcodes();
             return new HtmlToPdfDocument()
             {
                 GlobalSettings = {
@@ -31,17 +35,30 @@ namespace TicketStore.Api.Model.Pdf
                 Objects = {
                     new ObjectSettings() {
                         PagesCount = true,
-                        HtmlContent = @"
-                            <div>
-                                <div>Билет номер</div>
-                                <img src=""http://windowsarena.ru/wp-content/uploads/2016/04/yandex_logo.png""/>
-                            </div>
-                        ",
+                        HtmlContent = $"<div><div>Билеты</div>{images}</div>",
                         WebSettings = { DefaultEncoding = "utf-8" },
                         HeaderSettings = { FontSize = 9, Right = "Page [page] of [toPage]", Line = true, Spacing = 2.812 }
                     }
                 }
             };
+        }
+
+        private String barcodes()
+        {
+            var sb = new StringBuilder();
+            foreach (var ticket in _tickets)
+            {
+                sb.Append($"<img src='data:image/png;base64, {barcode(ticket)}'/>")
+                    .Append("<br/>")
+                    .Append("<br/>");
+            }
+            return sb.ToString();
+        }
+
+        private String barcode(Ticket ticket)
+        {
+            var barcode = new Barcode(ticket.Number, NetBarcode.Type.Code128, true);
+            return barcode.GetBase64Image();
         }
     }
 }
