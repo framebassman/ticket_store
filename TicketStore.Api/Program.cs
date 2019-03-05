@@ -7,6 +7,7 @@ using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Serilog;
 
 namespace TicketStore.Api
 {
@@ -14,11 +15,38 @@ namespace TicketStore.Api
     {
         public static void Main(string[] args)
         {
-            CreateWebHostBuilder(args).Build().Run();
+            Serilog.Log.Logger = new LoggerConfiguration()
+                .ReadFrom.Configuration(BuildConfiguration())
+                .Enrich.FromLogContext()
+                .CreateLogger();
+            try
+            {
+                Serilog.Log.Logger.Information("Getting started...");
+                CreateWebHostBuilder(args).UseSerilog().Build().Run();
+            }
+            catch (Exception ex)
+            {
+                Serilog.Log.Logger.Fatal(ex, "Host terminated unexpectedly");
+            }
+            finally
+            {
+                Serilog.Log.CloseAndFlush();
+            }
         }
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>();
+
+        private static IConfiguration BuildConfiguration()
+        {
+            string env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Production";
+            return new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                .AddJsonFile($"appsettings.{env}.json", optional: true)
+                .AddEnvironmentVariables()
+                .Build();
+        }
     }
 }
