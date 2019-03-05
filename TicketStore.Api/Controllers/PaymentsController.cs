@@ -4,8 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using TicketStore.Api.Data;
 using TicketStore.Api.Model;
+using TicketStore.Api.Model.Email;
 
 namespace TicketStore.Api.Controllers
 {
@@ -14,17 +16,17 @@ namespace TicketStore.Api.Controllers
     public class PaymentsController : ControllerBase
     {
         private ApplicationContext _db;
-        private Configuration _config;
+        private SendGridService _sendGrid;
 
-        public PaymentsController(ApplicationContext context, Configuration configuration)
+        public PaymentsController(ApplicationContext context, IConfiguration config)
         {
             _db = context;
-            _config = configuration;
+            _sendGrid = new SendGridService(config.GetValue<String>("EmailSenderKey"));
         }
 
         // POST api/values
         [HttpPost]
-        public IActionResult Post(
+        public async Task<IActionResult> Post(
             [FromForm] Boolean test_notification,
             [FromForm] String notification_type,
             [FromForm] String operation_id,
@@ -53,7 +55,9 @@ namespace TicketStore.Api.Controllers
                 ).FromYandex()
             )
             {
+                email = "FrameBassman@yandex.ru";
                 var tickets = CombineTickets(new Payment { Email = email, Amount = amount});
+                var response = await _sendGrid.SendTicket(email);
                 return new OkObjectResult("OK");
             }
             else
