@@ -16,6 +16,15 @@ services:
             - POSTGRES_PASSWORD=W6TTT3WY4Nzqpj5z
         logging:
             driver: none
+    api:
+        build:
+            context: .
+            dockerfile: ./TicketStore.Api/Dockerfile
+        container_name: ticket_store_api
+        ports:
+            - 3000:5000
+        environment:
+            - ASPNETCORE_ENVIRONMENT=Development
 
 volumes:
     pgsdata:
