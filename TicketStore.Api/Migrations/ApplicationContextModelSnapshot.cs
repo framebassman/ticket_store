@@ -59,7 +59,17 @@ namespace TicketStore.Api.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("PaymentId");
+
                     b.ToTable("tickets");
+                });
+
+            modelBuilder.Entity("TicketStore.Api.Model.Ticket", b =>
+                {
+                    b.HasOne("TicketStore.Api.Model.Payment", "Payment")
+                        .WithMany("Tickets")
+                        .HasForeignKey("PaymentId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

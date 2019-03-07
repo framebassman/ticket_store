@@ -10,8 +10,8 @@ using TicketStore.Api.Data;
 namespace TicketStore.Api.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20190305054517_RoublesAndExpired_InTicket")]
-    partial class RoublesAndExpired_InTicket
+    [Migration("20190307143602_Ticket_And_Payment")]
+    partial class Ticket_And_Payment
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -61,7 +61,17 @@ namespace TicketStore.Api.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("PaymentId");
+
                     b.ToTable("tickets");
+                });
+
+            modelBuilder.Entity("TicketStore.Api.Model.Ticket", b =>
+                {
+                    b.HasOne("TicketStore.Api.Model.Payment", "Payment")
+                        .WithMany("Tickets")
+                        .HasForeignKey("PaymentId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

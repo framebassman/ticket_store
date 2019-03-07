@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Collections.Generic;
 
 namespace TicketStore.Api.Model
 {
@@ -12,5 +13,7 @@ namespace TicketStore.Api.Model
         public String Email { get; set; }
         [Column("amount")]
         public Decimal Amount { get; set; }
+
+        public List<Ticket> Tickets { get; set; }
     }
 }

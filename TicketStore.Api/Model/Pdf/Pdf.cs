@@ -3,6 +3,7 @@ using System.Text;
 using System.Collections.Generic;
 using System.Web;
 using DinkToPdf;
+using DinkToPdf.Contracts;
 using NetBarcode;
 
 namespace TicketStore.Api.Model.Pdf
@@ -10,16 +11,17 @@ namespace TicketStore.Api.Model.Pdf
     public class Pdf
     {
         private List<Ticket> _tickets;
-        public Pdf(List<Ticket> tickets)
+        private IConverter _converter;
+        public Pdf(List<Ticket> tickets, IConverter converter)
         {
             _tickets = tickets;
+            _converter = converter;
         }
 
         public byte[] toBytes()
         {
-            var converter = new SynchronizedConverter(new PdfTools());
             var temp = template();
-            return converter.Convert(temp);
+            return _converter.Convert(temp);
         }
 
         private HtmlToPdfDocument template()

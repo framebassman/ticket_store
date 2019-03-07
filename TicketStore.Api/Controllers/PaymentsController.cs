@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using DinkToPdf.Contracts;
 using TicketStore.Api.Data;
 using TicketStore.Api.Model;
 using TicketStore.Api.Model.Email;
@@ -20,12 +21,14 @@ namespace TicketStore.Api.Controllers
         private ApplicationContext _db;
         private ILogger<PaymentsController> _log;
         private YandexService _yandex;
+        private IConverter _converter;
 
-        public PaymentsController(ApplicationContext context, ILogger<PaymentsController> log, IConfiguration config)
+        public PaymentsController(ApplicationContext context, ILogger<PaymentsController> log, IConfiguration config, IConverter pdfConverter)
         {
             _db = context;
             _log = log;
             _yandex = new YandexService(config.GetValue<String>("EmailSenderPassword"), _log);
+            _converter = pdfConverter;
         }
 
         // POST api/values
@@ -62,7 +65,8 @@ namespace TicketStore.Api.Controllers
                 _log.LogInformation("Receive Yandex.Money request from @{0}", email);
                 email = "framebassman@gmail.com";
                 var tickets = CombineTickets(new Payment { Email = email, Amount = amount});
-                var pdf = new Pdf(tickets);
+                var pdf = new Pdf(tickets, _converter);
+                _log.LogInformation("Combined PDF with barcodes");
                 _yandex.SendTicket(email, pdf.toBytes());
                 return new OkObjectResult("OK");
             }
@@ -75,26 +79,24 @@ namespace TicketStore.Api.Controllers
         private List<Ticket> CombineTickets(Payment payment)
         {
             _log.LogInformation("Receive payment: {@0}", payment);
-            var saved = _db.Add(payment);
-            _db.SaveChanges();
-
-            var tickets = _db.Tickets.ToList();
-            var result = new List<Ticket>();
-            int count = Convert.ToInt32(payment.Amount) / 250;
+            var ticketCost = 250;
+            var savedTickets = _db.Tickets.ToList();
+            var ticketsToSave = new List<Ticket>();
+            int count = Convert.ToInt32(payment.Amount) / ticketCost;
             _log.LogInformation($"Combine {count} tickets");
             for (int i = 0; i < count; i++)
             {
-                result.Add(new Ticket {
+                ticketsToSave.Add(new Ticket {
                     CreatedAt = DateTime.Now,
-                    PaymentId = payment.Id,
-                    Number = new BobJenkinsAlgorithm(tickets.Concat(result).ToList()).Next(),
-                    Roubles = payment.Amount,
+                    Number = new BobJenkinsAlgorithm(savedTickets.Concat(ticketsToSave).ToList()).Next(),
+                    Roubles = ticketCost,
                     Expired = false
                 });
             }
-            _db.Tickets.AddRange(result);
+            payment.Tickets = ticketsToSave;
+            _db.Payments.Add(payment);
             _db.SaveChanges();
-            return result;
+            return ticketsToSave;
         }
     }
 }

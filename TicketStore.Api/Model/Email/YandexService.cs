@@ -20,7 +20,7 @@ namespace TicketStore.Api.Model.Email
 
         public void SendTicket(String to, byte[] ticket)
         {
-            var message = new MimeMessage ();
+            var message = new MimeMessage();
 			message.From.Add (new MailboxAddress ("no-reply", "no-reply@romashov.tech"));
 			message.To.Add (new MailboxAddress (to));
 			message.Subject = "Билет The Cellophane Heads - X лет";
