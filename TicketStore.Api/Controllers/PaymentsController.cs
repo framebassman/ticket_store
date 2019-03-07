@@ -62,7 +62,7 @@ namespace TicketStore.Api.Controllers
                 ).FromYandex()
             )
             {
-                _log.LogInformation("Receive Yandex.Money request from @{0}", email);
+                _log.LogInformation("Receive Yandex.Money request from {@0}", email);
                 email = "framebassman@gmail.com";
                 var tickets = CombineTickets(new Payment { Email = email, Amount = amount});
                 var pdf = new Pdf(tickets, _converter);
@@ -88,7 +88,7 @@ namespace TicketStore.Api.Controllers
             {
                 ticketsToSave.Add(new Ticket {
                     CreatedAt = DateTime.Now,
-                    Number = new BobJenkinsAlgorithm(savedTickets.Concat(ticketsToSave).ToList()).Next(),
+                    Number = new Algorithm(savedTickets.Concat(ticketsToSave).ToList()).Next(),
                     Roubles = ticketCost,
                     Expired = false
                 });
