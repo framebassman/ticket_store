@@ -1,11 +1,11 @@
-build:
+build-dev:
 	docker-compose \
 		--project-directory=${PWD} \
 		--project-name=ticket_store \
 		-f Deploy/docker-compose.development.yml \
 		build ${ARGS}
 
-start:
+start-dev:
 	docker-compose \
 		--project-directory=${PWD} \
 		--project-name=ticket_store \
@@ -18,6 +18,21 @@ stop-dev:
 		--project-name=ticket_store \
 		-f Deploy/docker-compose.development.yml \
 		down
+
+build-prod:
+	docker-compose \
+		--project-directory=${PWD} \
+		--project-name=ticket_store \
+		-f Deploy/docker-compose.production.yml \
+		build ${ARGS}
+
+push:
+	docker login
+	docker-compose -f Deploy/docker-compose.production.yml push
+
+pull:
+	docker login
+	docker-compose -f Deploy/docker-compose.production.yml pull
 
 # clean dungling images/volumes
 docker-cleanup:

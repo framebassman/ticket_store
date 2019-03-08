@@ -1,0 +1,23 @@
+version: '3.6'
+
+services:
+    store_api:
+        image: docker.io/framebassman/store-api:0.0.2
+        build:
+            context: .
+            dockerfile: ./TicketStore.Api/Dockerfile
+        container_name: store_api
+        ports:
+            - 3000:5000
+        environment:
+            - ASPNETCORE_ENVIRONMENT=Production
+    # store_web:
+    #     image: docker.io/framebassman/store-web:0.0.3
+    #     build:
+    #         context: .
+    #         dockerfile: ./TicketStore.Web/Dockerfile
+    #     container_name: store_web
+    #     ports:
+    #         - 4000:5000
+    #     environment:
+    #         - ASPNETCORE_ENVIRONMENT=Production

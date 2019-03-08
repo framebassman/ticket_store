@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Net.Http.Headers;
 
-namespace TicketStore.Api.Middlewares
+namespace TicketStore.Web.Middlewares
 {
     public class HealthCheckMiddleware
     {

@@ -49,6 +49,11 @@ namespace TicketStore.Api.Controllers
             [FromForm] String label
         )
         {
+            if (string.IsNullOrEmpty(email))
+            {
+                _log.LogInformation("Receive Yandex request without email");
+                return new OkObjectResult("It's OK for yandex testing");
+            }
             if (new Validator(
                     notification_type,
                     operation_id,
@@ -63,7 +68,6 @@ namespace TicketStore.Api.Controllers
             )
             {
                 _log.LogInformation("Receive Yandex.Money request from {@0}", email);
-                email = "framebassman@gmail.com";
                 var tickets = CombineTickets(new Payment { Email = email, Amount = amount});
                 var pdf = new Pdf(tickets, _converter);
                 _log.LogInformation("Combined PDF with barcodes");
@@ -79,7 +83,7 @@ namespace TicketStore.Api.Controllers
         private List<Ticket> CombineTickets(Payment payment)
         {
             _log.LogInformation("Receive payment: {@0}", payment);
-            var ticketCost = 250;
+            var ticketCost = 2;
             var savedTickets = _db.Tickets.ToList();
             var ticketsToSave = new List<Ticket>();
             int count = Convert.ToInt32(payment.Amount) / ticketCost;

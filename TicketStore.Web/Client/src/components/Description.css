@@ -32,6 +32,7 @@
 
 #standard-number {
   font-size: 32px;
+  text-align: center;
 }
 
 @media (max-width: 599px) {
@@ -50,7 +51,7 @@
 }
 
 .description__content--number {
-  max-width: 80px;
+  max-width: 100px;
 }
 
 

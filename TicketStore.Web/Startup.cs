@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using TicketStore.Web.Middlewares;
 
 namespace TicketStore.Web
 {
@@ -42,7 +43,7 @@ namespace TicketStore.Web
 
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
-
+            app.UseMiddleware<HealthCheckMiddleware>();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
