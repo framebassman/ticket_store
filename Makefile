@@ -30,13 +30,5 @@ db-dev:
 	docker exec -it postgres psql postgresql://store:W6TTT3WY4Nzqpj5z@localhost:5432/store
 
 db-prod:
-	docker exec -it postgres \
-	mkdir .postgresql && \
-	wget "https://storage.yandexcloud.net/cloud-certs/CA.pem" -O ~/.postgresql/root.crt && \
-	chmod 0600 ~/.postgresql/root.crt \
-	psql "host=rc1b-72blhko8vjza9fgp.mdb.yandexcloud.net \
-      port=6432 \
-      sslmode=verify-full \
-      dbname=store \
-      user=store \
-      target_session_attrs=read-write"
+	docker exec -it postgres psql postgresql://store:W6TTT3WY4Nzqpj5z@82.202.236.173:5432/store
+
