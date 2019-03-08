@@ -30,6 +30,10 @@
   margin: 16px;
 }
 
+#standard-number {
+  font-size: 32px;
+}
+
 @media (max-width: 599px) {
   .description__money {
     display: block;
@@ -39,4 +43,14 @@
     font-size: 26px;
     line-height: 32px;
   }
+
+  #standard-number {
+    font-size: 26px;
+  }
 }
+
+.description__content--number {
+  max-width: 80px;
+}
+
+
