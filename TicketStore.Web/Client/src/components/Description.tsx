@@ -20,7 +20,7 @@ export class Description extends React.Component {
   };
 
   render() {
-    const roubles = 2;
+    const roubles = 150;
     return (
       <div className="description">
          <div className="description__content">
@@ -31,8 +31,7 @@ export class Description extends React.Component {
                   value={this.state.count}
                   onChange={this.handleChange('count')}
                   type="number"
-                  className="description__content--number"
-                  margin="normal"
+                  className="description__content--number description__content--item description__content--bold"
                   variant="outlined"
               />
               <div className="description__content--item description__content--bold">

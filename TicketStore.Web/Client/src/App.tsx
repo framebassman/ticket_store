@@ -8,7 +8,7 @@ class App extends Component {
     return (
       <BrowserRouter>
         <Switch>
-          <Route path="/farewell" component={Farewell}/>
+          <Route path="/tickets/farewell" component={Farewell}/>
           <Route path="" component={Greetings}/>
         </Switch>
       </BrowserRouter>
