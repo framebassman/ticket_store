@@ -20,7 +20,7 @@ export class Description extends React.Component {
   };
 
   render() {
-    const roubles = 150;
+    const roubles = 250;
     return (
       <div className="description">
          <div className="description__content">

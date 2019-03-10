@@ -6,7 +6,7 @@ function iframe(roubles: number): string {
 
 export const PayButton = (props: any) => {
   const { className, roubles } = props;
-  if (roubles >= 0) {
+  if (roubles > 0) {
     return (
       <div className={className} dangerouslySetInnerHTML={{__html: iframe(roubles)}}/>
     )
