@@ -2,6 +2,7 @@
 import { BrowserRouter, Route, Switch} from 'react-router-dom';
 import { Greetings } from './components/Greetings';
 import { Farewell } from './components/Farewell';
+import { Ticket } from './components/Ticket';
 
 class App extends Component {
   render() {
@@ -9,6 +10,7 @@ class App extends Component {
       <BrowserRouter>
         <Switch>
           <Route path="/tickets/farewell" component={Farewell}/>
+          <Route path="/test" component={Ticket}/>
           <Route path="" component={Greetings}/>
         </Switch>
       </BrowserRouter>
