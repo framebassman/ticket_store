@@ -1,7 +1,5 @@
 using System;
-using System.Threading.Tasks;
 using MailKit.Net.Smtp;
-using MailKit;
 using MimeKit;
 using Microsoft.Extensions.Logging;
 
@@ -18,7 +16,7 @@ namespace TicketStore.Api.Model.Email
             _log = log;
         }
 
-        public void SendTicket(String to, byte[] ticket)
+        public void SendTicket(String to, Pdf.Pdf ticket)
         {
             var message = new MimeMessage();
 			message.From.Add (new MailboxAddress ("no-reply", "no-reply@romashov.tech"));
@@ -29,7 +27,7 @@ namespace TicketStore.Api.Model.Email
             // Set the plain-text version of the message text
             builder.TextBody = "Билет";
             // We may also want to attach a calendar event for Monica's party...
-            builder.Attachments.Add($"Ticket-{DateTime.Now}.pdf", ticket, new ContentType("application", "pdf"));
+            builder.Attachments.Add($"Ticket-{DateTime.Now}.pdf", ticket.toBytes(), new ContentType("application", "pdf"));
             message.Body = builder.ToMessageBody();
 
 			using (var client = new SmtpClient ()) {

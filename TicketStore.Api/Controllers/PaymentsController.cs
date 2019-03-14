@@ -71,7 +71,7 @@ namespace TicketStore.Api.Controllers
                 var tickets = CombineTickets(new Payment { Email = email, Amount = amount});
                 var pdf = new Pdf(tickets, _converter);
                 _log.LogInformation("Combined PDF with barcodes");
-                _yandex.SendTicket(email, pdf.toBytes());
+                _yandex.SendTicket(email, pdf);
                 return new OkObjectResult("OK");
             }
             else
