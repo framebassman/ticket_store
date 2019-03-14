@@ -2,7 +2,7 @@ version: '3.6'
 
 services:
     store_api:
-        image: docker.io/framebassman/store-api:1.0.4
+        image: docker.io/framebassman/store-api:1.0.5
         build:
             context: .
             dockerfile: ./TicketStore.Api/Dockerfile

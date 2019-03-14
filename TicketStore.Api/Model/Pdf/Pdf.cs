@@ -32,7 +32,7 @@ namespace TicketStore.Api.Model.Pdf
                 GlobalSettings = {
                     ColorMode = ColorMode.Color,
                     Orientation = Orientation.Portrait,
-                    PaperSize = PaperKind.A6,
+                    PaperSize = PaperKind.A4,
                 },
                 Objects = {
                     new ObjectSettings() {
@@ -52,7 +52,7 @@ namespace TicketStore.Api.Model.Pdf
       </div>
       <div style=""max-width: 600px; margin-left: auto; margin-right: auto;"">
         <div style=""margin: 16px; font-weight: 500;"">РАСПЕЧАТАЙТЕ этот бланк и предъявите при проходе на мероприятие</div>
-        <div style=""font-size: 7px"">
+        <div style=""font-size: 10px"">
           <div>Внимание: Штрих-код, указанный на ЭБ, действителен только для однократного прохода на мероприятие. Не допускайте
           перепечатки и копирования Вашего ЭБ третьими лицами, так как они могут воспользоваться им раньше Вас! Настоящий
           документ является такой же ценностью, как и наличные деньги. Хранение ЭБ, недопущение его копирования и/или иного
