@@ -2,7 +2,7 @@ version: '3.6'
 
 services:
     store_api:
-        image: docker.io/framebassman/store-api:1.0.6
+        image: docker.io/framebassman/store-api:1.0.7
         build:
             context: .
             dockerfile: ./TicketStore.Api/Dockerfile
@@ -12,7 +12,7 @@ services:
         environment:
             - ASPNETCORE_ENVIRONMENT=Production
     store_web:
-        image: docker.io/framebassman/store-web:1.0.6
+        image: docker.io/framebassman/store-web:1.0.7
         build:
             context: .
             dockerfile: ./TicketStore.Web/Dockerfile
