@@ -22,7 +22,7 @@ namespace TicketStore.Api.Controllers
             _db = context;
         }
 
-        [HttpPost]
+        [HttpPost("/ticket")]
         public IActionResult Post([FromBody] string code)
         {
             if (!IsAuthorized(Request))
@@ -33,6 +33,22 @@ namespace TicketStore.Api.Controllers
             {
                 return new BadRequestObjectResult(new BadRequestAnswer());
             }
+
+            var tickets = _db.Tickets.Where(t => t.Number == code).ToList();
+            if (tickets.Count == 0)
+            {
+                return new BadRequestObjectResult(new InvalidCodeAnswer());
+            }
+
+            var ticket = tickets.First(t => t.Expired == false);
+            if (ticket == null)
+            {
+                return new BadRequestObjectResult(new AlreadyVerifiedAnswer());
+            }
+
+            ticket.Expired = true;
+            _db.Tickets.Update(ticket);
+            _db.SaveChanges();
             return new OkObjectResult(new Answer("OK"));
         }
 
