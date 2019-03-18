@@ -7,7 +7,7 @@ export const Title = () => {
       <div className="title__content">
         <div className="title__header">The Cellophane Heads - X&nbsp;лет</div>
         <div>20 апреля 2019 года</div>
-        <div><a href="https://vk.com/cherdak37">Арт-объект Чердак</a></div>
+        <div><a href="https://vk.com/tchxyears">Арт-объект Чердак</a></div>
       </div>
     </div>
   )
