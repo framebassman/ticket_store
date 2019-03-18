@@ -23,7 +23,7 @@ namespace TicketStore.Api.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post([FromBody] String code)
+        public IActionResult Post([FromBody] string code)
         {
             if (!IsAuthorized(Request))
             {
