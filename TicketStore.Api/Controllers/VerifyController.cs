@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using TicketStore.Api.Data;
 using TicketStore.Api.Model;
 using TicketStore.Api.Model.Http;
+using TicketStore.Api.Model.Validator;
 
 namespace TicketStore.Api.Controllers
 {
@@ -22,8 +23,8 @@ namespace TicketStore.Api.Controllers
             _db = context;
         }
 
-        [HttpPost("/ticket")]
-        public IActionResult Post([FromBody] string code)
+        [HttpPost]
+        public IActionResult Post([FromBody] Barcode barcode)
         {
             if (!IsAuthorized(Request))
             {
@@ -34,7 +35,7 @@ namespace TicketStore.Api.Controllers
                 return new BadRequestObjectResult(new BadRequestAnswer());
             }
 
-            var tickets = _db.Tickets.Where(t => t.Number == code).ToList();
+            var tickets = _db.Tickets.Where(t => t.Number == barcode.code).ToList();
             if (tickets.Count == 0)
             {
                 return new BadRequestObjectResult(new InvalidCodeAnswer());
