@@ -2,7 +2,7 @@
   height: 50%;
   text-align: center;
   display: flex;
-  background-image: url(./../assets/img/sparkler.jpg);
+  background-image: url(./../../assets/img/sparkler.jpg);
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;

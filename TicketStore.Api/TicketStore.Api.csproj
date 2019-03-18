@@ -15,6 +15,7 @@
     <PackageReference Include="NetBarcode" Version="1.0.7" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="2.2.0" />
     <PackageReference Include="Serilog.AspNetCore" Version="2.1.2-dev-00028" />
+    <PackageReference Include="Serilog.Enrichers.Thread" Version="3.0.0" />
     <PackageReference Include="Serilog.Formatting.Compact" Version="1.0.1-dev-00925" />
     <PackageReference Include="Serilog.Settings.Configuration" Version="3.0.2-dev-00187" />
     <PackageReference Include="Serilog.Sinks.ColoredConsole" Version="3.0.1" />

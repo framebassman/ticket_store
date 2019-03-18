@@ -1,7 +1,8 @@
 ﻿import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch} from 'react-router-dom';
-import { Greetings } from './components/Greetings';
-import { Farewell } from './components/Farewell';
+import { Greetings } from './components/greetings/Greetings';
+import { Farewell } from './components/farewell/Farewell';
+import { Turnstile } from './components/turnstile/Turnstile';
 
 class App extends Component {
   render() {
@@ -9,6 +10,7 @@ class App extends Component {
       <BrowserRouter>
         <Switch>
           <Route path="/tickets/farewell" component={Farewell}/>
+          <Route path="/tickets/turnstile" component={Turnstile}/>
           <Route path="" component={Greetings}/>
         </Switch>
       </BrowserRouter>
