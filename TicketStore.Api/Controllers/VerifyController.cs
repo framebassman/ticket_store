@@ -55,7 +55,7 @@ namespace TicketStore.Api.Controllers
 
         private Boolean IsAuthorized(HttpRequest request)
         {
-            var authHeader = request.Headers["Authorization"].First();
+            var authHeader = request.Headers["Authorization"].FirstOrDefault();
             if (string.IsNullOrEmpty(authHeader))
             {
                 return false;
