@@ -40,16 +40,7 @@ namespace TicketStore.Api.Model.Pdf
                         HtmlContent = $@"
     <div style=""text-align: center"">
       <div style=""font-weight: 500;font-size: 20px;"">Электронные билеты</div>
-      <div style=""border: 4px solid yellow;max-width: 500px; margin-left: auto; margin-right: auto"">
-        <div style=""text-align: left; margin: 4px"">The Cellophane Heads - X лет</div>
-        <div style=""border: 1px solid black; margin: 4px"">
-          <div style=""display: flex; justify-content: space-between;"">
-            <div style=""font-size: 14px; margin: 4px; text-align: left"">Суббота, 20 апреля 2019 года, 20:00</div>
-            <div style=""font-size: 14px; margin: 4px; text-align: right"">Стоимость: 200 ₽</div>
-          </div>
-          {images}
-        </div>
-      </div>
+      {images}
       <div style=""max-width: 600px; margin-left: auto; margin-right: auto;"">
         <div style=""margin: 16px; font-weight: 500;"">РАСПЕЧАТАЙТЕ этот бланк и предъявите при проходе на мероприятие</div>
         <div style=""font-size: 10px"">
@@ -91,9 +82,21 @@ namespace TicketStore.Api.Model.Pdf
             var sb = new StringBuilder();
             foreach (var ticket in _tickets)
             {
-                sb.Append($"<img src='data:image/png;base64, {barcode(ticket)}'/>")
-                    .Append("<br/>")
-                    .Append("<br/>");
+                var template = $@"
+                  <div style=""border: 4px solid yellow;max-width: 500px; margin-left: auto; margin-right: auto"">
+                    <div style=""text-align: left; margin: 4px"">The Cellophane Heads - X лет</div>
+                    <div style=""border: 1px solid black; margin: 4px"">
+                      <div style=""display: flex; justify-content: space-between;"">
+                        <div style=""font-size: 14px; margin: 4px; text-align: left"">Суббота, 20 апреля 2019 года, 20:00</div>
+                        <div style=""font-size: 14px; margin: 4px; text-align: right"">Стоимость: 200 ₽</div>
+                      </div>
+                      <img src='data:image/png;base64, {barcode(ticket)}'/>
+                      <br />
+                      <br />
+                    </div>
+                  </div>
+                ";
+                sb.Append(template);
             }
             return sb.ToString();
         }

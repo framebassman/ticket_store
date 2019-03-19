@@ -68,7 +68,7 @@ namespace TicketStore.Api.Controllers
             )
             {
                 _log.LogInformation("Receive Yandex.Money request from {@0}", email);
-                var tickets = CombineTickets(new Payment { Email = email, Amount = amount});
+                var tickets = CombineTickets(new Payment { Email = email, Amount = withdraw_amount});
                 var pdf = new Pdf(tickets, _converter);
                 _log.LogInformation("Combined PDF with barcodes");
                 _yandex.SendTicket(email, pdf);
