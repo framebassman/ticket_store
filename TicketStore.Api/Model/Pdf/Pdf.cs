@@ -87,7 +87,7 @@ namespace TicketStore.Api.Model.Pdf
                     <div style=""text-align: left; margin: 4px"">The Cellophane Heads - X лет</div>
                     <div style=""border: 1px solid black; margin: 4px"">
                       <div style=""display: flex; justify-content: space-between;"">
-                        <div style=""font-size: 14px; margin: 4px; text-align: left"">Суббота, 20 апреля 2019 года, 20:00</div>
+                        <div style=""font-size: 14px; margin: 4px; text-align: left"">Суббота, 20 апреля 2019 года, 19:00</div>
                         <div style=""font-size: 14px; margin: 4px; text-align: right"">Стоимость: 200 ₽</div>
                       </div>
                       <img src='data:image/png;base64, {barcode(ticket)}'/>
