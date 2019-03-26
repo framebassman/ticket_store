@@ -1,0 +1,42 @@
+matrix:
+  fast_finish: true
+  include:
+    - language: csharp
+      dist: xenial
+      mono: none
+      dotnet: 2.2
+      before_install:
+        - cd TicketStore.Api/
+      install: 
+        - dotnet clean
+        - dotnet restore
+      script:
+        - dotnet build
+
+    - language: csharp
+      dist: xenial
+      mono: none
+      dotnet: 2.2
+      before_install:
+        - cd TicketStore.Web/
+      install: 
+        - dotnet clean
+        - dotnet restore
+      script:
+        - dotnet build
+
+    - language: node_js
+      node_js:
+        - 10.15.3
+      before_install:
+        - cd TicketStore.Web/Client/
+      install:
+        - npm install
+      script:
+        - npm run build
+
+branches:
+  only:
+    - /.*/
+notifications:
+  email: false
