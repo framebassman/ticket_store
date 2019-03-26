@@ -2,7 +2,7 @@ stages:
   - build
   - test
   - name: deploy
-    if: branch = master
+    if: branch = master AND type != pull_request
 
 jobs:
   include:
@@ -48,7 +48,7 @@ jobs:
         - docker
         - docker-compose
       script: 
-        - bash Scripts/deploy.sh
+        - bash scripts/deploy.sh
 
 branches:
   only:
