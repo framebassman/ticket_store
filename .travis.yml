@@ -47,8 +47,9 @@ jobs:
       services:
         - docker
         - docker-compose
-      script: 
-        - bash scripts/deploy.sh
+      script:
+        - docker-compose --version
+        - bash Scripts/deploy.sh
 
 branches:
   only:
