@@ -1,0 +1,59 @@
+stages:
+  - build
+  - test
+  - name: deploy
+    if: branch = master AND type != pull_request
+
+jobs:
+  include:
+    - stage: build
+      language: csharp
+      dist: xenial
+      mono: none
+      dotnet: 2.2
+      before_install:
+        - cd TicketStore.Api/
+      install: 
+        - dotnet clean
+        - dotnet restore
+      script:
+        - dotnet build
+
+    - stage: build
+      language: csharp
+      dist: xenial
+      mono: none
+      dotnet: 2.2
+      before_install:
+        - cd TicketStore.Web/
+      install: 
+        - dotnet clean
+        - dotnet restore
+      script:
+        - dotnet build
+
+    - stage: build
+      language: node_js
+      node_js:
+        - 10.15.3
+      before_install:
+        - cd TicketStore.Web/Client/
+      install:
+        - npm install
+      script:
+        - npm run build
+
+    - stage: deploy
+      language: none
+      services:
+        - docker
+        - docker-compose
+      script:
+        - docker-compose --version
+        - bash Scripts/deploy.sh
+
+branches:
+  only:
+    - /.*/
+notifications:
+  email: false

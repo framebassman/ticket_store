@@ -1,8 +1,8 @@
-version: '3.6'
+version: '3'
 
 services:
     store_api:
-        image: docker.io/framebassman/store-api:1.0.16
+        image: "docker.io/framebassman/store-api:1.1.${TRAVIS_BUILD_NUMBER}"
         build:
             context: .
             dockerfile: ./TicketStore.Api/Dockerfile
@@ -12,7 +12,7 @@ services:
         environment:
             - ASPNETCORE_ENVIRONMENT=Production
     store_web:
-        image: docker.io/framebassman/store-web:1.0.9
+        image: "docker.io/framebassman/store-web:1.1.${TRAVIS_BUILD_NUMBER}"
         build:
             context: .
             dockerfile: ./TicketStore.Web/Dockerfile
