@@ -44,6 +44,7 @@ jobs:
         - npm run build
 
     - stage: deploy
+      language: none
       services:
         - docker
         - docker-compose
