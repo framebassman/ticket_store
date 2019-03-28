@@ -6,11 +6,12 @@ jobs:
       - image: microsoft/dotnet:2.2-sdk
     steps:
       - checkout
-      - run: cd ~/TicketStore.Api
+      - run: pwd
+      - run: cd TicketStore.Api
       - run: dotnet clean
       - run: dotnet restore
       - run: dotnet build
-      - run: cd ~/TicketStore.Web
+      - run: cd ../TicketStore.Web
       - run: dotnet clean
       - run: dotnet restore
       - run: dotnet build
