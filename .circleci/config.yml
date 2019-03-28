@@ -14,14 +14,14 @@ jobs:
       - run: dotnet clean
       - run: dotnet restore
       - run: dotnet build
-  deploy:
-    requires:
-      - build
-    branches:
-      only:
-      - master
-    steps:
-      - run: echo Hi!
+  # deploy:
+  #   requires:
+  #     - build
+  #   branches:
+  #     only:
+  #     - master
+  #   steps:
+  #     - run: echo Hi!
 
     
 workflows:
@@ -29,4 +29,4 @@ workflows:
   build-test-deploy:
     jobs:
       - build
-      - deploy
+      # - deploy
