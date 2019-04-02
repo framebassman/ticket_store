@@ -1,15 +1,4 @@
-/* .paper {
-  max-width: 320px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.toggle {
-  justify-content: center;
-  margin: 16px;
-  text-align: center;
-} */
-
 .turnstile {
   text-align: center;
+  max-width: 300px;
 }

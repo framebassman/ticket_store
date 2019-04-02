@@ -14,7 +14,8 @@ export class Scanner extends Component<any, any> {
         constraints: {
           width: 640,
           height: 480,
-          facingMode: "environment" // or user
+          facingMode: "environment", // or user
+          aspectRatio: 2
         }
       },
       locator: {

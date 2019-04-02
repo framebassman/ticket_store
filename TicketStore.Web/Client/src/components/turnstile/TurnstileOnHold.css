@@ -1,0 +1,10 @@
+.turnstile__parent {
+  height: 100vh;
+  width: 100vw;
+}
+
+.turnstile__child {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+}
