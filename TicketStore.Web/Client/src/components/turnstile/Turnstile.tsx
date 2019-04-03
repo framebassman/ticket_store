@@ -4,6 +4,7 @@ import { Scanner } from './Scanner';
 import { Result } from './Result';
 import { TurnstileState } from './TurnstileState';
 import { TurnstileOnHold } from './TurnstileOnHold';
+import { beep } from './Beep';
 import './Turnstile.css';
 
 export class Turnstile extends Component<any, TurnstileState> {
@@ -41,6 +42,7 @@ export class Turnstile extends Component<any, TurnstileState> {
   }
 
   _onDetected(result: any) {
+    beep();
     this.setState({
       results: this.state.results.concat([result]),
       pass: true
