@@ -1,6 +1,6 @@
 export interface TurnstileState {
   scanning: boolean,
-  results: any[],
+  result: any,
   pass: boolean,
   isRequested: boolean
 }

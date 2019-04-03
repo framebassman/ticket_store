@@ -12,7 +12,7 @@ export class Turnstile extends Component<any, TurnstileState> {
     super(props, state);
     this.state = {
       scanning: false,
-      results: [],
+      result: undefined,
       pass: false,
       isRequested: false,
     }
@@ -25,12 +25,11 @@ export class Turnstile extends Component<any, TurnstileState> {
       return <TurnstileOnHold onClick={this._scan}/>
     }
 
-    const lastResult = this.state.results[this.state.results.length - 1];
     return (
       <div className="turnstile">
         <Button variant="raised" onClick={this._scan}>Остановить сканирование</Button>
         <ul className="results">
-          <Result result={lastResult}/>
+          <Result result={this.state.result}/>
         </ul>
         <Scanner onDetected={this._onDetected}/>
       </div>
@@ -41,11 +40,14 @@ export class Turnstile extends Component<any, TurnstileState> {
     this.setState({scanning: !this.state.scanning});
   }
 
-  _onDetected(result: any) {
-    beep();
-    this.setState({
-      results: this.state.results.concat([result]),
-      pass: true
-    });
+  _onDetected(current: any) {
+    const previous = this.state.result;
+    if (previous === undefined || previous.codeResult.code !== current.codeResult.code) {
+      beep();
+      this.setState({
+        result: current,
+        pass: true
+      });
+    }
   }
 }
