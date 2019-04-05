@@ -26,10 +26,6 @@ namespace TicketStore.Api.Controllers
         [HttpPost]
         public IActionResult Post([FromBody] Barcode barcode)
         {
-            if (!IsAuthorized(Request))
-            {
-                return new UnauthorizedObjectResult(new UnauthorizedAnswer());
-            }
             if (!ModelState.IsValid)
             {
                 return new BadRequestObjectResult(new BadRequestAnswer());
@@ -51,16 +47,6 @@ namespace TicketStore.Api.Controllers
             _db.Tickets.Update(ticket);
             _db.SaveChanges();
             return new OkObjectResult(new Answer("OK"));
-        }
-
-        private Boolean IsAuthorized(HttpRequest request)
-        {
-            var authHeader = request.Headers["Authorization"].FirstOrDefault();
-            if (string.IsNullOrEmpty(authHeader))
-            {
-                return false;
-            }
-            return authHeader == "Bearer pkR9vfZ9QdER53mf";
         }
     }
 }
