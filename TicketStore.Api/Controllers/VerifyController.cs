@@ -17,6 +17,7 @@ namespace TicketStore.Api.Controllers
     public class VerifyController : ControllerBase
     {
         private ApplicationContext _db;
+        private const string _token = "Bearer pkR9vfZ9QdER53mf";
 
         public VerifyController(ApplicationContext context)
         {
@@ -26,6 +27,11 @@ namespace TicketStore.Api.Controllers
         [HttpPost]
         public IActionResult Post([FromBody] Barcode barcode)
         {
+            if (HttpContext.Request.Headers["Authorization"] != _token)
+            {
+                return new UnauthorizedObjectResult(new UnauthorizedAnswer());
+            }
+
             if (!ModelState.IsValid)
             {
                 return new BadRequestObjectResult(new BadRequestAnswer());

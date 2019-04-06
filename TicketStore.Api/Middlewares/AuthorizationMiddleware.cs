@@ -7,7 +7,6 @@ namespace TicketStore.Api.Middlewares
 {
     public class AuthorizationMiddleware
     {
-        private const string _path = "/healthcheck";
         private const string _token = "Bearer pkR9vfZ9QdER53mf";
         private readonly RequestDelegate _next;
 
