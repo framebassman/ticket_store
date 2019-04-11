@@ -1,8 +1,11 @@
 import { applyMiddleware, combineReducers, compose, createStore } from 'redux';
 import thunk from 'redux-thunk';
+import { reducer as turnstileReducer } from './Turnstile/reducer';
 
 export default function configureStore (initialState: any) {
-  const reducers = {};
+  const reducers = {
+    turnstile: turnstileReducer,
+  };
 
   const middleware = [
     thunk

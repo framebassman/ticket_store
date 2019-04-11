@@ -1,4 +1,8 @@
 import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { actionCreators } from '../../store/Turnstile/actions';
+
 import Button from '@material-ui/core/Button';
 import { Scanner } from './Scanner';
 import { Result } from './Result';
@@ -7,7 +11,7 @@ import { TurnstileOnHold } from './TurnstileOnHold';
 import { beep } from './Beep';
 import './Turnstile.css';
 
-export class Turnstile extends Component<any, TurnstileState> {
+class Turnstile extends Component<any, TurnstileState> {
   constructor(props: any, state: TurnstileState) {
     super(props, state);
     this.state = {
@@ -51,3 +55,8 @@ export class Turnstile extends Component<any, TurnstileState> {
     }
   }
 }
+
+export default connect(
+  (state: any) => state.turnstile,
+  dispatch => bindActionCreators(actionCreators, dispatch)
+)(Turnstile);

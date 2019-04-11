@@ -15,7 +15,6 @@ export class Scanner extends Component<any, any> {
           width: 640,
           height: 480,
           facingMode: "environment", // or user
-          aspectRatio: 2
         }
       },
       locator: {

@@ -1,16 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import configureStore from './store/configureStore';
+import * as serviceWorker from './serviceWorker';
+const initialState = (window as any).initialReduxState;
+const store = configureStore(initialState);
 
 import './index.css';
 import App from './App';
 import { YandexMetrica } from './YandexMetrica';
-import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
-  <div>
+  <Provider store={store}>
     <App/>
     <YandexMetrica accounts={[52190806]} />
-  </div>,
+  </Provider>,
   document.getElementById('root')
 );
 
