@@ -17,13 +17,15 @@ const theme = createMuiTheme({
 });
 
 export const Status = (props: any) => {
-  const { className } = props;
+  const { className, pass } = props;
+  console.log("pass: ", pass);
   return (
     <div className={className}>
       <MuiThemeProvider theme={theme}>
-        <Fab color="primary" >
-          <CheckIcon />
-        </Fab>
+        {pass
+          ? <Fab color="primary" ><CheckIcon /></Fab>
+          : <Fab color="secondary" ><CheckIcon /></Fab>
+        }
       </MuiThemeProvider>
     </div>
   )

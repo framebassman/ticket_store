@@ -1,12 +1,4 @@
 import React, { Component } from 'react';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-import { actionCreators } from '../../store/Turnstile/actions';
-
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import { Formik } from 'formik';
-
 import { TurnstileState } from './TurnstileState';
 import { TurnstileOnHold } from './TurnstileOnHold';
 import ManualTurnstile from './manual/ManualTurnstile';
@@ -25,8 +17,6 @@ export class Turnstile extends Component<any, TurnstileState> {
   }
 
   render() {
-    const { verify } = this.props;
-
     if (this.state.scanning === false) {
       return <TurnstileOnHold onClick={this._toggle}/>
     }
