@@ -12,7 +12,7 @@ class ManualTurnstile extends Component<any, any> {
     render() {
       const { verify } = this.props;
       return (
-        <div className="turnstile__wrapper">
+        <div>
           <Formik
             initialValues={{ code: '' }}
             onSubmit={values => {
@@ -35,13 +35,15 @@ class ManualTurnstile extends Component<any, any> {
                     name="code"
                     type="number"
                     variant="outlined"
+                    autoComplete="off"
+                    autoFocus={true}
                     onChange={handleChange}
                     onBlur={handleBlur}
                     value={values.code}
                   />
                 </div>
                 <Button variant="contained" type="submit">
-                  Проверить
+                  Нажмите, чтобы проверить
                 </Button>
               </form>
           )}
