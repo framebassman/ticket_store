@@ -2,7 +2,7 @@
 import { BrowserRouter, Route, Switch} from 'react-router-dom';
 import { Greetings } from './components/greetings/Greetings';
 import { Farewell } from './components/farewell/Farewell';
-import Turnstile from './components/turnstile/Turnstile';
+import { Turnstile } from './components/turnstile/Turnstile';
 
 class App extends Component {
   render() {

@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { actionCreators } from '../../store/Turnstile/actions';
+import { actionCreators } from '../../../store/Turnstile/actions';
 
 import Button from '@material-ui/core/Button';
 import { Scanner } from './Scanner';
 import { Result } from './Result';
-import { TurnstileState } from './TurnstileState';
-import { TurnstileOnHold } from './TurnstileOnHold';
+import { TurnstileState } from '../TurnstileState';
+import { TurnstileOnHold } from '../TurnstileOnHold';
 import { beep } from './Beep';
-import './Turnstile.css';
+import './Turnstile1.css';
 
 class Turnstile extends Component<any, TurnstileState> {
   constructor(props: any, state: TurnstileState) {
