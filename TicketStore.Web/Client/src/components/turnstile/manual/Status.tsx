@@ -11,6 +11,9 @@ const theme = createMuiTheme({
     primary: green,
     secondary: red,
   },
+  typography: {
+    useNextVariants: true,
+  },
 });
 
 export const Status = (props: any) => {
