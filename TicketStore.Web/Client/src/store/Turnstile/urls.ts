@@ -1,1 +1,1 @@
-export const verifyUrl = 'api/calculator';
+export const verifyUrl = 'https://romashov.tech/store/healthcheck';
