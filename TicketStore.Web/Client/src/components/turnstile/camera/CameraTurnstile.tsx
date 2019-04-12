@@ -9,9 +9,9 @@ import { Result } from './Result';
 import { TurnstileState } from '../TurnstileState';
 import { TurnstileOnHold } from '../TurnstileOnHold';
 import { beep } from './Beep';
-import './Turnstile1.css';
+import './CameraTurnstile.css';
 
-class Turnstile extends Component<any, TurnstileState> {
+class CameraTurnstile extends Component<any, TurnstileState> {
   constructor(props: any, state: TurnstileState) {
     super(props, state);
     this.state = {
@@ -59,4 +59,4 @@ class Turnstile extends Component<any, TurnstileState> {
 export default connect(
   (state: any) => state.turnstile,
   dispatch => bindActionCreators(actionCreators, dispatch)
-)(Turnstile);
+)(CameraTurnstile);
