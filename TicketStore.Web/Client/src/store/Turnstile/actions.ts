@@ -2,8 +2,8 @@ import axios from 'axios';
 const url = require(`./urls/${env()}`)
 
 function env(): string {
-  if (process.env.ASPNETCORE_ENVIRONMENT === 'production'
-      || process.env.NODE_ENV === 'production') {
+  if (process.env.ASPNETCORE_ENVIRONMENT === 'production' ||
+      process.env.NODE_ENV === 'production') {
     return 'prod';
   } else {
     return 'dev';
