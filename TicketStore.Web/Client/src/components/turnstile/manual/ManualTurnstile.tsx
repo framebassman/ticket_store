@@ -26,6 +26,7 @@ class ManualTurnstile extends Component<any, TurnstileState> {
     const { pass } = this.state; 
     return (
       <div>
+        <Status className="turnstile__barcode" pass={pass}/>
         <Formik
           initialValues={{ code: '' }}
           onSubmit={values => {
@@ -55,7 +56,6 @@ class ManualTurnstile extends Component<any, TurnstileState> {
                   value={values.code}
                 />
               </div>
-              <Status className="turnstile__barcode" pass={pass}/>
               <Button variant="contained" type="submit">
                 Нажмите, чтобы проверить
               </Button>
