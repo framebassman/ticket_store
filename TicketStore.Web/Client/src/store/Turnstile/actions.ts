@@ -11,10 +11,11 @@ function env(): string {
 }
 
 export const verifyType = 'VERIFY';
+export const cancelType = 'CANCEL';
 
-async function transfersFromBack(code: string) {
+async function transfersFromBack(barcode: string) {
   try {
-    return await axios.post(url.verifyUrl, code); 
+    return await axios.post(url.verifyUrl, {code: barcode}); 
   }
   catch {
     return { data: {} };

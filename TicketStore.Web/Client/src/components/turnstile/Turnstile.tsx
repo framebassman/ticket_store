@@ -11,6 +11,7 @@ export class Turnstile extends Component<any, TurnstileState> {
         scanning: false,
         result: undefined,
         pass: false,
+        wait: true,
         isRequested: false,
     }
     this._toggle = this._toggle.bind(this);

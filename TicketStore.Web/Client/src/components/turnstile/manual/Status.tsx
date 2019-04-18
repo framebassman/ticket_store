@@ -23,13 +23,13 @@ const theme = createMuiTheme({
 
 export const Status = (props: any) => {
   const { className, pass, wait } = props;
-  if (wait === true) {
-    return (
-      <div className={className}>
-        <Fab color="primary" ><WifiTwoTone /></Fab>
-      </div>
-    )
-  }
+  // if (wait === true) {
+  //   return (
+  //     <div className={className}>
+  //       <Fab color="primary" ><WifiTwoTone /></Fab>
+  //     </div>
+  //   )
+  // }
   return (
     <div className={className}>
       <MuiThemeProvider theme={theme}>
