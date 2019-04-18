@@ -4,9 +4,9 @@ jobs:
   build-web:
     docker:
       - image: microsoft/dotnet:2.2-sdk
-      - image: node:10.15.3-alpine
     steps:
       - checkout
+      - run: curl -sL https://deb.nodesource.com/setup_10.x |  bash - && apt-get install -y nodejs
       - run:
           command: dotnet build
           working_directory: TicketStore.Web
