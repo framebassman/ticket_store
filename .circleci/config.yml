@@ -1,31 +1,27 @@
 version: 2.1
 
 jobs:
-  build:
+  build-web:
     docker:
       - image: microsoft/dotnet:2.2-sdk
       - image: node:10.15.3-alpine
     steps:
       - checkout
-      - run: dotnet clean TicketStore.Api/TicketStore.Api.csproj
-      - run: dotnet restore TicketStore.Api/TicketStore.Api.csproj
-      - run: dotnet build TicketStore.Api/TicketStore.Api.csproj
-      - run: dotnet clean TicketStore.Web/TicketStore.Web.csproj
-      - run: dotnet restore TicketStore.Web/TicketStore.Web.csproj
-      - run: dotnet build TicketStore.Web/TicketStore.Web.csproj
-  # deploy:
-  #   requires:
-  #     - build
-  #   branches:
-  #     only:
-  #     - master
-  #   steps:
-  #     - run: echo Hi!
-
+      - run:
+          command: dotnet build
+          working_directory: TicketStore.Web
+  build-api:
+    docker:
+      - image: microsoft/dotnet:2.2-sdk
+    steps:
+      - checkout
+      - run:
+          command: dotnet build
+          working_directory: TicketStore.Api
     
 workflows:
   version: 2
   build-test-deploy:
     jobs:
-      - build
-      # - deploy
+      - build-api
+      - build-web
