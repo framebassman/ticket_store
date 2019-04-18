@@ -3,9 +3,10 @@ version: 2.1
 jobs:
   build-web:
     docker:
-      - image: microsoft/aspnetcore-build:1.1
+      - image: microsoft/dotnet:2.2-sdk
     steps:
       - checkout
+      - run: curl -sL https://deb.nodesource.com/setup_10.x |  bash - && apt-get install -y nodejs
       - run:
           command: dotnet build
           working_directory: TicketStore.Web
@@ -17,8 +18,6 @@ jobs:
       - run:
           command: dotnet build
           working_directory: TicketStore.Api
-  test-api:
-
     
 workflows:
   version: 2
