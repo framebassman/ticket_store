@@ -17,6 +17,7 @@ namespace TicketStore.Api.Controllers
     public class VerifyController : ControllerBase
     {
         private ApplicationContext _db;
+        private const string _token = "Bearer pkR9vfZ9QdER53mf";
 
         public VerifyController(ApplicationContext context)
         {
@@ -26,10 +27,11 @@ namespace TicketStore.Api.Controllers
         [HttpPost]
         public IActionResult Post([FromBody] Barcode barcode)
         {
-            if (!IsAuthorized(Request))
+            if (HttpContext.Request.Headers["Authorization"] != _token)
             {
                 return new UnauthorizedObjectResult(new UnauthorizedAnswer());
             }
+
             if (!ModelState.IsValid)
             {
                 return new BadRequestObjectResult(new BadRequestAnswer());
@@ -51,16 +53,6 @@ namespace TicketStore.Api.Controllers
             _db.Tickets.Update(ticket);
             _db.SaveChanges();
             return new OkObjectResult(new Answer("OK"));
-        }
-
-        private Boolean IsAuthorized(HttpRequest request)
-        {
-            var authHeader = request.Headers["Authorization"].FirstOrDefault();
-            if (string.IsNullOrEmpty(authHeader))
-            {
-                return false;
-            }
-            return authHeader == "Bearer pkR9vfZ9QdER53mf";
         }
     }
 }

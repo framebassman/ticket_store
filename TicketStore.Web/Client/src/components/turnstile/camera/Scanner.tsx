@@ -9,23 +9,29 @@ export class Scanner extends Component<any, any> {
 
   componentDidMount() {
     Quagga.init({
-        inputStream: {
-            type : "LiveStream",
-            constraints: {
-                width: 640,
-                height: 480,
-                facing: "environment" // or user
-            }
-        },
-        locator: {
-            patchSize: "medium",
-            halfSample: true
-        },
-        numOfWorkers: 2,
-        decoder: {
-            readers : [ "code_128_reader"]
-        },
-        locate: true
+      inputStream: {
+        type : "LiveStream",
+        constraints: {
+          width: 640,
+          height: 480,
+          facingMode: "environment", // or user
+        }
+      },
+      locator: {
+        patchSize: "medium",
+        halfSample: true
+      },
+      numOfWorkers: navigator.hardwareConcurrency,
+      decoder: {
+        readers : [ "code_128_reader"],
+        debug: {
+          drawBoundingBox: true,
+          showFrequency: true,
+          drawScanline: false,
+          showPattern: false
+        }
+      },
+      locate: true
     }, function(err: any) {
         if (err) {
             return console.log(err);
@@ -47,7 +53,6 @@ export class Scanner extends Component<any, any> {
     return (
       <div>
         <div id="interactive" className="viewport"/>
-        <div>Hi</div>
       </div>
     )
   }

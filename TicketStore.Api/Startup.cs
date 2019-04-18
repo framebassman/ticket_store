@@ -64,6 +64,9 @@ namespace TicketStore.Api
             }
 
             app.UseMiddleware<HealthCheckMiddleware>();
+            // app.Map("/api/verify", branchedApp => {
+            //     branchedApp.UseMiddleware<AuthorizationMiddleware>();
+            // });
             app.UseMvc();
         }
     }

@@ -1,0 +1,14 @@
+.turnstile__wrapper {
+  height: 100vh;
+  width: 100vw;
+}
+
+.turnstile__form {
+  height: 100%;
+  text-align: center;
+}
+
+.turnstile__barcode {
+  margin: 32px;
+  text-align: center;
+}

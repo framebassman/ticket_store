@@ -17,16 +17,16 @@ namespace TicketStore.Api.Middlewares
 
         public async Task Invoke(HttpContext context)
         {
-            if (!context.Request.Path.Equals(_path, StringComparison.OrdinalIgnoreCase))
-            {
-                await _next(context);
-            }
-            else
+            if (context.Request.Path.Equals(_path, StringComparison.OrdinalIgnoreCase))
             {
                 context.Response.ContentType = "text/plain";
                 context.Response.StatusCode = 200;
                 context.Response.Headers.Add(HeaderNames.Connection, "close");
                 await context.Response.WriteAsync("OK");
+            }
+            else
+            {
+                await _next(context);
             }
         }
     }
