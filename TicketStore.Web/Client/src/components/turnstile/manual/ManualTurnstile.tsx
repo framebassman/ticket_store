@@ -17,16 +17,17 @@ class ManualTurnstile extends Component<any, TurnstileState> {
         scanning: false,
         result: undefined,
         pass: false,
+        wait: true,
         isRequested: false,
     }
   }
 
   render() {
     const { verify } = this.props;
-    const { pass } = this.state; 
+    const { pass, wait } = this.state; 
     return (
       <div>
-        <Status className="turnstile__barcode" pass={pass}/>
+        <Status className="turnstile__barcode" pass={pass} wait={wait}/>
         <Formik
           initialValues={{ code: '' }}
           onSubmit={values => {

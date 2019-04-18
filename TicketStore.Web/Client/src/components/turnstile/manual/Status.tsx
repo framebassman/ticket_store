@@ -6,6 +6,7 @@ import { actionCreators } from '../../../store/Turnstile/actions';
 import Fab from '@material-ui/core/Fab';
 import CheckIcon from '@material-ui/icons/Check';
 import CancelIcon from '@material-ui/icons/Cancel';
+import WifiTwoTone from '@material-ui/icons/WifiTwoTone';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import green from '@material-ui/core/colors/green';
 import red from '@material-ui/core/colors/red';
@@ -21,7 +22,14 @@ const theme = createMuiTheme({
 });
 
 export const Status = (props: any) => {
-  const { className, pass } = props;
+  const { className, pass, wait } = props;
+  if (wait === true) {
+    return (
+      <div className={className}>
+        <Fab color="primary" ><WifiTwoTone /></Fab>
+      </div>
+    )
+  }
   return (
     <div className={className}>
       <MuiThemeProvider theme={theme}>
