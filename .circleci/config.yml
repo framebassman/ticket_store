@@ -36,9 +36,10 @@ workflows:
       - build-api
       - build-web
       - deploy:
-          branches:
-            only:
-              - master
+          filters:
+            branches:
+              only:
+                - master
           context: docker_hub_creds
           requires:
             - build-api
