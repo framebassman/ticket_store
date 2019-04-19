@@ -18,6 +18,15 @@ jobs:
       - run:
           command: dotnet build
           working_directory: TicketStore.Api
+  deploy:
+    machine:
+      docker_layer_caching: true
+    steps:
+      - checkout
+      - run: docker --version
+      - run: docker-compose --version
+      - run: make --version
+      - run: echo $CIRCLE_BUILD_NUM
     
 workflows:
   version: 2
@@ -25,3 +34,7 @@ workflows:
     jobs:
       - build-api
       - build-web
+      - deploy:
+          requires:
+            - build-api
+            - build-web
