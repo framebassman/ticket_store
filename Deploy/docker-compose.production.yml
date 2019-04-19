@@ -2,7 +2,7 @@ version: '3'
 
 services:
     store_api:
-        image: "docker.io/framebassman/store-api:1.1.${TRAVIS_BUILD_NUMBER}"
+        image: "docker.io/framebassman/store-api:1.2.${CIRCLE_BUILD_NUM}"
         build:
             context: .
             dockerfile: ./TicketStore.Api/Dockerfile
@@ -12,7 +12,7 @@ services:
         environment:
             - ASPNETCORE_ENVIRONMENT=Production
     store_web:
-        image: "docker.io/framebassman/store-web:1.1.${TRAVIS_BUILD_NUMBER}"
+        image: "docker.io/framebassman/store-web:1.2.${CIRCLE_BUILD_NUM}"
         build:
             context: .
             dockerfile: ./TicketStore.Web/Dockerfile

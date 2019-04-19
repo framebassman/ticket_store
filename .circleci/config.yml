@@ -10,6 +10,9 @@ jobs:
       - run:
           command: dotnet build
           working_directory: TicketStore.Web
+      - run:
+          command: npm run build
+          working_directory: TicketStore.Web/Client
   build-api:
     docker:
       - image: microsoft/dotnet:2.2-sdk
@@ -18,6 +21,13 @@ jobs:
       - run:
           command: dotnet build
           working_directory: TicketStore.Api
+  deploy:
+    machine:
+      docker_layer_caching: true
+    steps:
+      - checkout
+      - run: chmod +x ./Scripts/deploy.sh
+      - run: ./Scripts/deploy.sh
     
 workflows:
   version: 2
@@ -25,3 +35,12 @@ workflows:
     jobs:
       - build-api
       - build-web
+      - deploy:
+          filters:
+            branches:
+              only:
+                - master
+          context: docker_hub_creds
+          requires:
+            - build-api
+            - build-web

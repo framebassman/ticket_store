@@ -19,6 +19,8 @@ class CameraTurnstile extends Component<any, TurnstileState> {
       result: undefined,
       pass: false,
       isRequested: false,
+      wait: true,
+      myArray: [""]
     }
     this._scan = this._scan.bind(this);
     this._onDetected = this._onDetected.bind(this);

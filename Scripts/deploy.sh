@@ -1,5 +1,5 @@
 #!/bin/bash
-if [[ $TRAVIS_BUILD_NUMBER != "" ]]; then
+if [[ $CIRCLE_BUILD_NUM != "" ]]; then
   docker-compose \
     --project-directory=${PWD} \
     --project-name=ticket_store \
