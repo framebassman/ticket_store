@@ -10,6 +10,9 @@ jobs:
       - run:
           command: dotnet build
           working_directory: TicketStore.Web
+      - run:
+          command: npm build
+          working_directory: TicketStore.Web/Client
   build-api:
     docker:
       - image: microsoft/dotnet:2.2-sdk
