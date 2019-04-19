@@ -22,6 +22,9 @@ jobs:
           command: dotnet build
           working_directory: TicketStore.Api
   deploy:
+    branches:
+      only:
+        - master
     machine:
       docker_layer_caching: true
     steps:
