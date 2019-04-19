@@ -23,11 +23,7 @@ jobs:
       docker_layer_caching: true
     steps:
       - checkout
-      - run: docker --version
-      - run: docker-compose --version
-      - run: make --version
-      - run: echo $CIRCLE_BUILD_NUM
-      - run: echo $DOCKER_USERNAME
+      - run: ./Scripts/deploy.sh
     
 workflows:
   version: 2
