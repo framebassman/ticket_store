@@ -22,9 +22,6 @@ jobs:
           command: dotnet build
           working_directory: TicketStore.Api
   deploy:
-    branches:
-      only:
-        - master
     machine:
       docker_layer_caching: true
     steps:
@@ -39,6 +36,9 @@ workflows:
       - build-api
       - build-web
       - deploy:
+          branches:
+            only:
+              - master
           context: docker_hub_creds
           requires:
             - build-api
