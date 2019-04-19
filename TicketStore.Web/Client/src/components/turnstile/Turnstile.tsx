@@ -13,6 +13,7 @@ export class Turnstile extends Component<any, TurnstileState> {
         pass: false,
         wait: true,
         isRequested: false,
+        myArray: [""]
     }
     this._toggle = this._toggle.bind(this);
   }
