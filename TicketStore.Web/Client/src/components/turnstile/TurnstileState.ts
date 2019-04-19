@@ -3,5 +3,6 @@ export interface TurnstileState {
   result: any,
   pass: boolean,
   wait: boolean,
-  isRequested: boolean
+  isRequested: boolean,
+  myArray: string[]
 }
