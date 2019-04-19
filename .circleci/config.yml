@@ -27,6 +27,7 @@ jobs:
       - run: docker-compose --version
       - run: make --version
       - run: echo $CIRCLE_BUILD_NUM
+      - run: echo $DOCKER_USERNAME
     
 workflows:
   version: 2
@@ -35,6 +36,7 @@ workflows:
       - build-api
       - build-web
       - deploy:
+          context: docker_hub_creds
           requires:
             - build-api
             - build-web
