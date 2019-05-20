@@ -10,6 +10,18 @@ import { TurnstileState } from '../TurnstileState';
 import { TurnstileOnHold } from '../TurnstileOnHold';
 import { beep } from './Beep';
 import './CameraTurnstile.css';
+import createMuiTheme from "@material-ui/core/styles/createMuiTheme";
+import MuiThemeProvider from "@material-ui/core/styles/MuiThemeProvider";
+
+const theme = createMuiTheme({
+  overrides: {
+    MuiButton: {
+      root: {
+        margin: "16px"
+      }
+    }
+  }
+});
 
 class CameraTurnstile extends Component<any, TurnstileState> {
   constructor(props: any, state: TurnstileState) {
@@ -33,7 +45,9 @@ class CameraTurnstile extends Component<any, TurnstileState> {
 
     return (
       <div className="turnstile">
-        <Button variant="raised" onClick={this._scan}>Остановить сканирование</Button>
+        <MuiThemeProvider theme={theme}>
+          <Button size="large" variant="raised" onClick={this._scan}>Остановить сканирование</Button>
+        </MuiThemeProvider>
         <ul className="results">
           <Result result={this.state.result}/>
         </ul>
