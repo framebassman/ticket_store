@@ -1,5 +1,5 @@
 import axios from 'axios';
-const url = require(`./urls/${env()}`)
+const url = require(`./urls/${env()}`);
 
 function env(): string {
   if (process.env.ASPNETCORE_ENVIRONMENT === 'production' ||
@@ -28,6 +28,11 @@ export const actionCreators = {
     dispatch({
       type: verifyType,
       payload: response
-    })
+    });
+    setTimeout(() => {
+      dispatch({
+        type: verifyType
+      })
+    }, 3000);
   }
 };

@@ -26,7 +26,7 @@ class ManualTurnstile extends Component<any, TurnstileState> {
   render() {
     const { verify } = this.props;
     const { pass, wait } = this.state;
-    alert(JSON.stringify(this.state))
+    alert(JSON.stringify(this.state));
     return (
       <div>
         <Status className="turnstile__barcode" pass={pass} wait={wait}/>
