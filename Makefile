@@ -47,3 +47,6 @@ db-dev:
 db-prod:
 	docker exec -it postgres psql postgresql://store:W6TTT3WY4Nzqpj5z@82.202.236.173:5432/store
 
+# dev
+ngrok:
+	ngrok http 5000 --bind-tls true --region ap
