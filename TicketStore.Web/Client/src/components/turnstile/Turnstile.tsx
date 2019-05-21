@@ -21,17 +21,31 @@ class Turnstile extends Component<any, TurnstileState> {
     this._toggle = this._toggle.bind(this);
   }
 
-  render() {
-    const { verify } = this.props;
-    if (this.state.scanning === false) {
-      return <TurnstileOnHold onClick={this._toggle}/>
-    } else {
-      return <CameraTurnstile verify={verify}/>
+  _toggle() {
+    this.setState({scanning: !this.state.scanning});
+  }
+
+  componentDidUpdate(prevProps: any) {
+    console.log('inside cDU current props.pass: ', this.props.pass);
+    if (prevProps.pass === false && this.props.pass === true) {
+      this.setState({
+          pass: this.props.pass,
+          wait: true,
+        }, () => setTimeout(() => 
+            this.setState({ wait: false }), 
+            2000
+          )
+      );
     }
   }
 
-  _toggle() {
-    this.setState({scanning: !this.state.scanning});
+  render() {
+    const { verify, pass, wait } = this.props;
+    if (this.state.scanning === false) {
+      return <TurnstileOnHold onClick={this._toggle}/>
+    } else {
+      return <CameraTurnstile verify={verify} pass={pass} wait={wait}/>
+    }
   }
 }
 

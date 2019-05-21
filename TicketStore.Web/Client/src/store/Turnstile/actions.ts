@@ -11,7 +11,6 @@ function env(): string {
 }
 
 export const verifyType = 'VERIFY';
-export const cancelType = 'CANCEL';
 
 async function transfersFromBack(barcode: string) {
   try {
@@ -29,10 +28,5 @@ export const actionCreators = {
       type: verifyType,
       payload: response
     });
-    setTimeout(() => {
-      dispatch({
-        type: cancelType
-      })
-    }, 3000);
   }
 };

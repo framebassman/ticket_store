@@ -1,4 +1,4 @@
-import { verifyType, cancelType } from './actions';
+import { verifyType } from './actions';
 import { VerifyState } from './state';
 import { TurnstileState } from '../../components/turnstile/TurnstileState';
 import { DetectedBarcode } from '../../components/turnstile/camera/DetectedBarcode';
@@ -24,10 +24,6 @@ export const reducer = (state: any, action: any): TurnstileState => {
         }
 
         return { ...state, pass: result, wait: false };
-    }
-    
-    if (action.type == cancelType) {
-        return { ...state, wait: true };
     }
 
     return state;

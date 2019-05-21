@@ -22,32 +22,32 @@ export class CameraTurnstile extends Component<any, TurnstileState> {
     this._onDetected = this._onDetected.bind(this);
   }
 
+  _scan() {
+    this.setState({scanning: !this.state.scanning});
+  }
+
+  async _onDetected(current: DetectedBarcode) {
+    const previous = this.state.result;
+    const { verify } = this.props;
+    if (previous === undefined || previous.codeResult.code !== current.codeResult.code) {
+      beep();
+      await verify(current.codeResult.code);
+    }
+  }
+
   render() {
+    const { pass, wait } = this.props;
     return (
       <div className="turnstile">
         {/* <div className="button_stop">
           <Button size="large" variant="contained" onClick={this._scan}>Остановить сканирование</Button>
         </div> */}
+        {wait && <div>{pass}</div>}
+        <Scanner onDetected={this._onDetected}/>
         <ul className="results">
           <Result result={this.state.result}/>
         </ul>
-        <Scanner onDetected={this._onDetected}/>
       </div>
     );
-  }
-
-  _scan() {
-    this.setState({scanning: !this.state.scanning});
-  }
-
-  async _onDetected(current: any) {
-    const previous = this.state.result;
-    const { verify } = this.props;
-    if (previous === undefined || previous.codeResult.code !== current.codeResult.code) {
-      beep();
-      console.log("before scanning: ", this.state.pass);
-      await verify(current.codeResult.code);
-      console.log("after scanning: ", this.state.pass);
-    }
   }
 }
