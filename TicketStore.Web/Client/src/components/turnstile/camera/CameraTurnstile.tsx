@@ -46,7 +46,7 @@ class CameraTurnstile extends Component<any, TurnstileState> {
     return (
       <div className="turnstile">
         <MuiThemeProvider theme={theme}>
-          <Button size="large" variant="raised" onClick={this._scan}>Остановить сканирование</Button>
+          <Button size="large" variant="contained" onClick={this._scan}>Остановить сканирование</Button>
         </MuiThemeProvider>
         <ul className="results">
           <Result result={this.state.result}/>
