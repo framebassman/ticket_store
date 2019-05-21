@@ -49,4 +49,4 @@ db-prod:
 
 # dev
 ngrok:
-	ngrok http 5000 --bind-tls true --region ap
+	ngrok http 5000 --bind-tls true --region eu
