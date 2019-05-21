@@ -1,10 +1,11 @@
 import { verifyType, cancelType } from './actions';
 import { VerifyState } from './state';
 import { TurnstileState } from '../../components/turnstile/TurnstileState';
+import { DetectedBarcode } from '../../components/turnstile/camera/DetectedBarcode';
 
 const initialState: TurnstileState = {
     scanning: false,
-    result: undefined,
+    result: new DetectedBarcode(),
     pass: false,
     wait: true,
     isRequested: false

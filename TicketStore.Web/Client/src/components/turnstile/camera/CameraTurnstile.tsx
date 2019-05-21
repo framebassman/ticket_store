@@ -6,13 +6,14 @@ import { Result } from './Result';
 import { TurnstileState } from '../TurnstileState';
 import { beep } from './Beep';
 import './CameraTurnstile.css';
+import { DetectedBarcode } from './DetectedBarcode';
 
 export class CameraTurnstile extends Component<any, TurnstileState> {
   constructor(props: any, state: TurnstileState) {
     super(props, state);
     this.state = {
       scanning: false,
-      result: undefined,
+      result: new DetectedBarcode(),
       pass: false,
       isRequested: false,
       wait: true
