@@ -7,8 +7,7 @@ const initialState: TurnstileState = {
     result: undefined,
     pass: false,
     wait: true,
-    isRequested: false,
-    myArray: [""]
+    isRequested: false
 };
 
 export const reducer = (state: any, action: any): TurnstileState => {
@@ -16,16 +15,18 @@ export const reducer = (state: any, action: any): TurnstileState => {
     if (action.type == verifyType) {
         const message = action.payload.data;
         let result: boolean;
-        let current;
+        console.log("message from backend: ", message);
         if (message == 'OK') {
-            current = state.myArray.concat("OK")
             result = true;
         } else {
-            current = state.myArray.concat("NOT")
             result = false;
         }
 
-        return { ...state, pass: result, wait: false, myArray: current }
+        return { ...state, pass: result, wait: false };
+    }
+    
+    if (action.type == cancelType) {
+        return { ...state, wait: true };
     }
 
     return state;

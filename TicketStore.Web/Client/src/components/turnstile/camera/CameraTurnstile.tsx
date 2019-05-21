@@ -15,8 +15,7 @@ export class CameraTurnstile extends Component<any, TurnstileState> {
       result: undefined,
       pass: false,
       isRequested: false,
-      wait: true,
-      myArray: [""]
+      wait: true
     }
     this._scan = this._scan.bind(this);
     this._onDetected = this._onDetected.bind(this);
@@ -25,9 +24,9 @@ export class CameraTurnstile extends Component<any, TurnstileState> {
   render() {
     return (
       <div className="turnstile">
-        <div className="button_stop">
+        {/* <div className="button_stop">
           <Button size="large" variant="contained" onClick={this._scan}>Остановить сканирование</Button>
-        </div>
+        </div> */}
         <ul className="results">
           <Result result={this.state.result}/>
         </ul>
@@ -40,14 +39,14 @@ export class CameraTurnstile extends Component<any, TurnstileState> {
     this.setState({scanning: !this.state.scanning});
   }
 
-  _onDetected(current: any) {
+  async _onDetected(current: any) {
     const previous = this.state.result;
+    const { verify } = this.props;
     if (previous === undefined || previous.codeResult.code !== current.codeResult.code) {
       beep();
-      this.setState({
-        result: current,
-        pass: true
-      });
+      console.log("before scanning: ", this.state.pass);
+      await verify(current.codeResult.code);
+      console.log("after scanning: ", this.state.pass);
     }
   }
 }

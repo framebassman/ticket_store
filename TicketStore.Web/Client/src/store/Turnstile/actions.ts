@@ -31,7 +31,7 @@ export const actionCreators = {
     });
     setTimeout(() => {
       dispatch({
-        type: verifyType
+        type: cancelType
       })
     }, 3000);
   }

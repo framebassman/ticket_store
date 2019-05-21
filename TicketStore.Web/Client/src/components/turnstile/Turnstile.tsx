@@ -15,20 +15,18 @@ class Turnstile extends Component<any, TurnstileState> {
         result: undefined,
         pass: false,
         wait: true,
-        isRequested: false,
-        myArray: [""]
+        isRequested: false
     }
     this._toggle = this._toggle.bind(this);
   }
 
   render() {
+    const { verify } = this.props;
     if (this.state.scanning === false) {
       return <TurnstileOnHold onClick={this._toggle}/>
+    } else {
+      return <CameraTurnstile verify={verify}/>
     }
-
-    return (
-      <CameraTurnstile />
-    )
   }
 
   _toggle() {
