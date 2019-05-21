@@ -52,9 +52,7 @@ export class Scanner extends Component<any, any> {
 
   render() {
     return (
-      <div>
-        <div id="interactive" className="viewport"/>
-      </div>
+      <div id="interactive" className="viewport"/>
     )
   }
 }
