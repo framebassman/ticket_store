@@ -28,10 +28,10 @@ export class CameraTurnstile extends Component<any, TurnstileState> {
         {/* <div className="button_stop">
           <Button size="large" variant="contained" onClick={this._scan}>Остановить сканирование</Button>
         </div> */}
+        <Scanner onDetected={this._onDetected}/>
         <ul className="results">
           <Result result={this.state.result}/>
         </ul>
-        <Scanner onDetected={this._onDetected}/>
       </div>
     );
   }
