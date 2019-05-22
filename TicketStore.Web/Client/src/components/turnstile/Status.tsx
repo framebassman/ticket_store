@@ -32,10 +32,10 @@ export const Status = (props: any) => {
     return (
       <MuiThemeProvider theme={waitableTheme}>
         <div className={className}>
-        {pass
-          ? <Fab color="primary"><CheckIcon /></Fab>
-          : <Fab color="secondary"><CancelIcon /></Fab>
-        }
+          {pass
+            ? <Fab color="primary"><CheckIcon /></Fab>
+            : <Fab color="secondary"><CancelIcon /></Fab>
+          }
         </div>
       </MuiThemeProvider>
     )
