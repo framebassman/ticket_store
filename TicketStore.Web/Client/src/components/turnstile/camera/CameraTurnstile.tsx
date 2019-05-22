@@ -5,6 +5,7 @@ import { Scanner } from './Scanner';
 import { Result } from './Result';
 import { TurnstileState } from '../TurnstileState';
 import { beep } from './Beep';
+import { Status } from '../Status';
 import './CameraTurnstile.css';
 import { DetectedBarcode } from './DetectedBarcode';
 
@@ -42,11 +43,11 @@ export class CameraTurnstile extends Component<any, TurnstileState> {
         {/* <div className="button_stop">
           <Button size="large" variant="contained" onClick={this._scan}>Остановить сканирование</Button>
         </div> */}
-        {wait && <div>{pass}</div>}
-        <Scanner onDetected={this._onDetected}/>
+        {wait && <Scanner onDetected={this._onDetected}/>}
         <ul className="results">
           <Result result={this.state.result}/>
         </ul>
+        <Status pass={pass} wait={wait}/>
       </div>
     );
   }
