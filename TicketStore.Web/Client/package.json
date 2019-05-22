@@ -1,7 +1,8 @@
 {
-  "name": "izzy",
+  "name": "web",
   "version": "0.1.0",
   "private": true,
+  "author": "Kolenka Inc.",
   "dependencies": {
     "@material-ui/core": "^3.9.3",
     "@material-ui/icons": "^3.0.2",
