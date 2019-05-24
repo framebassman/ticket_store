@@ -1,21 +1,12 @@
 import axios from 'axios';
-const url = require(`./urls/${env()}`);
-
-function env(): string {
-  if (process.env.ASPNETCORE_ENVIRONMENT === 'production' ||
-      process.env.NODE_ENV === 'production') {
-    return 'prod';
-  } else {
-    return 'dev';
-  }
-}
+import { verifyUrl } from './urls/prod';
 
 export const verifyType = 'VERIFY';
 export const resetType = 'RESET';
 
 async function transfersFromBack(barcode: string) {
   try {
-    return await axios.post(url.verifyUrl, {code: barcode}); 
+    return await axios.post(verifyUrl, {code: barcode}); 
   }
   catch {
     return { data: {} };
