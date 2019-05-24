@@ -31,7 +31,8 @@ export class Scanner extends Component<any, any> {
           showPattern: false
         }
       },
-      locate: true
+      locate: true,
+      frequency: 10,
     }, function(err: any) {
         if (err) {
             return console.log(err);
@@ -51,9 +52,7 @@ export class Scanner extends Component<any, any> {
 
   render() {
     return (
-      <div>
-        <div id="interactive" className="viewport"/>
-      </div>
+      <div id="interactive" className="viewport"/>
     )
   }
 }

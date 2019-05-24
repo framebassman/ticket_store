@@ -2,9 +2,7 @@
 import { BrowserRouter, Route, Switch} from 'react-router-dom';
 import { Greetings } from './components/greetings/Greetings';
 import { Farewell } from './components/farewell/Farewell';
-import { Turnstile } from './components/turnstile/Turnstile';
-import ManualTurnstile from './components/turnstile/manual/ManualTurnstile';
-import CameraTurnstile from "./components/turnstile/camera/CameraTurnstile";
+import Turnstile from './components/turnstile/Turnstile';
 
 class App extends Component {
   render() {
@@ -12,7 +10,7 @@ class App extends Component {
       <BrowserRouter>
         <Switch>
           <Route path="/tickets/farewell" component={Farewell}/>
-          <Route path="/tickets/turnstile" component={CameraTurnstile}/>
+          <Route path="/tickets/turnstile" component={Turnstile}/>
           <Route path="" component={Greetings}/>
         </Switch>
       </BrowserRouter>
