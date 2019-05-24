@@ -25,11 +25,13 @@ async function transfersFromBack(barcode: string) {
 export const actionCreators = {
   verify: (code: string) => async (dispatch: any) => {
     const response = await transfersFromBack(code);
+    console.log('before verifyType')
     dispatch({
       type: verifyType,
       payload: response
     });
     setTimeout(() => {
+      console.log('before resetType')
       dispatch({
         type: resetType
       })

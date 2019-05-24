@@ -15,6 +15,7 @@ export const reducer = (state: any, action: any): TurnstileState => {
     state = state || initialState;
     switch(action.type) {
         case verifyType : {
+            console.log('before verifyType in reducer')
             const message = action.payload.data;
             let result: boolean;
             console.log("message from backend: ", message);
@@ -27,6 +28,7 @@ export const reducer = (state: any, action: any): TurnstileState => {
             return { ...state, pass: result, wait: true };
         }
         case resetType: {
+            console.log('before resetType in reducer')
             return { ...state, wait: false };
         }
     }
