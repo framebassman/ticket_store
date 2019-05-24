@@ -11,6 +11,7 @@ function env(): string {
 }
 
 export const verifyType = 'VERIFY';
+export const resetType = 'RESET';
 
 async function transfersFromBack(barcode: string) {
   try {
@@ -28,5 +29,10 @@ export const actionCreators = {
       type: verifyType,
       payload: response
     });
+    setTimeout(() => {
+      dispatch({
+        type: resetType
+      })
+    }, 2000);
   }
 };

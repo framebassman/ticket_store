@@ -28,6 +28,7 @@ export class CameraTurnstile extends Component<any, TurnstileState> {
   }
 
   _onDetected(current: DetectedBarcode) {
+    console.log('detect barcode');
     beep();
     this.props.verify(current.codeResult.code);
   }
