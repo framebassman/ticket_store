@@ -40,7 +40,6 @@ export const Status = (props: any) => {
       </MuiThemeProvider>
     )
   } else {
-    console.log('in status');
     return (
       <MuiThemeProvider theme={nonWaitableTheme}>
         <div className={className}>
