@@ -25,20 +25,6 @@ class Turnstile extends Component<any, TurnstileState> {
     this.setState({scanning: !this.state.scanning});
   }
 
-  // componentDidUpdate(prevProps: any) {
-  //   console.log('inside cDU current props.pass: ', this.props.pass);
-  //   if (prevProps.pass === false && this.props.pass === true) {
-  //     this.setState({
-  //         pass: this.props.pass,
-  //         wait: true,
-  //       }, () => setTimeout(() => 
-  //           this.setState({ wait: false }), 
-  //           2000
-  //         )
-  //     );
-  //   }
-  // }
-
   render() {
     const { verify, pass, wait } = this.props;
     if (this.state.scanning === false) {
