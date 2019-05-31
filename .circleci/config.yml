@@ -27,15 +27,17 @@ jobs:
       - image: circleci/node:10-jessie
     steps:
       - checkout
-      - run: pwd
-      - run: ls -la
-      - run: cd TicketStore.MobileApp
       - restore_cache:
           key: yarn-v1-{{ checksum "yarn.lock" }}-{{ arch }}
+          working_directory: TicketStore.MobileApp
       - restore_cache:
           key: node-v1-{{ checksum "package.json" }}-{{ arch }}
-      - run: pwd && yarn install
+          working_directory: TicketStore.MobileApp
+      - run:
+          command: yarn install
+          working_directory: TicketStore.MobileApp
       - save_cache:
+          working_directory: TicketStore.MobileApp
           key: yarn-v1-{{ checksum "yarn.lock" }}-{{ arch }}
           paths:
             - ~/.cache/yarn
