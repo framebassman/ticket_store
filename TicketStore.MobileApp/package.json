@@ -8,7 +8,8 @@
     "test": "node ./node_modules/jest/bin/jest.js"
   },
   "jest": {
-    "preset": "jest-expo"
+    "preset": "jest-expo",
+    "testResultsProcessor": "jest-junit"
   },
   "dependencies": {
     "@expo/samples": "2.1.1",
@@ -19,7 +20,8 @@
   },
   "devDependencies": {
     "babel-preset-expo": "^5.0.0",
-    "jest-expo": "^32.0.0"
+    "jest-expo": "^32.0.0",
+    "jest-junit": "^6.4.0"
   },
   "private": true
 }
