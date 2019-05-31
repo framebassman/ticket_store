@@ -50,7 +50,7 @@ jobs:
           environment:
             JEST_JUNIT_OUTPUT: test-results/jest/junit.xml
       - persist_to_workspace:
-          root: TicketStore.MobileApp
+          root: .
           paths:
             - node_modules
       - store_test_results:
