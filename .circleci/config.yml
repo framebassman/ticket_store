@@ -22,7 +22,7 @@ jobs:
           command: dotnet build
           working_directory: TicketStore.Api
   turnstile-tests:
-    working_directory: ~/TicketStore.MobileApp
+    working_directory: ./TicketStore.MobileApp
     docker:
       - image: circleci/node:10-jessie
     steps:
