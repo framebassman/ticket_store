@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Chertopolox",
-    "slug": "The place where you buy event tickets",
+    "name": "Turnstile",
+    "slug": "turnstile",
     "privacy": "public",
     "sdkVersion": "32.0.0",
     "platforms": [
