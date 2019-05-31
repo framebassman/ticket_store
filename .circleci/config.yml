@@ -2,25 +2,27 @@ version: 2.1
 
 jobs:
   build-web:
+    working_directory: ~/repo/TicketStore.Web
     docker:
       - image: microsoft/dotnet:2.2-sdk
     steps:
-      - checkout
+      - checkout:
+          path: ~/repo
       - run: curl -sL https://deb.nodesource.com/setup_10.x |  bash - && apt-get install -y nodejs
       - run:
           command: dotnet build
-          working_directory: TicketStore.Web
       - run:
           command: npm run build
-          working_directory: TicketStore.Web/Client
+          working_directory: Client
   build-api:
+    working_directory: ~/repo/TicketStore.Api
     docker:
       - image: microsoft/dotnet:2.2-sdk
     steps:
-      - checkout
+      - checkout:
+          path: ~/repo
       - run:
           command: dotnet build
-          working_directory: TicketStore.Api
   turnstile-tests:
     working_directory: ~/repo/TicketStore.MobileApp
     docker:
@@ -69,15 +71,15 @@ workflows:
   version: 2
   build-test-deploy:
     jobs:
-      # - build-api
-      # - build-web
+      - build-api
+      - build-web
       - turnstile-tests
-      # - deploy:
-      #     filters:
-      #       branches:
-      #         only:
-      #           - master
-      #     context: docker_hub_creds
-      #     requires:
-      #       - build-api
-      #       - build-web
+      - deploy:
+          filters:
+            branches:
+              only:
+                - master
+          context: docker_hub_creds
+          requires:
+            - build-api
+            - build-web
