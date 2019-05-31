@@ -24,7 +24,7 @@ jobs:
   turnstile-tests:
     working_directory: TicketStore.MobileApp
     docker:
-      - image: circleci/node:10
+      - image: circleci/node:10-jessie
     steps:
       - checkout
       - restore_cache:
