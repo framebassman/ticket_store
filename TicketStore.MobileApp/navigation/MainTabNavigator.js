@@ -3,9 +3,28 @@ import { Platform } from 'react-native';
 import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
 
 import TabBarIcon from '../components/TabBarIcon';
+import TurnstileScreen from '../screens/TurnstileScreen';
 import HomeScreen from '../screens/HomeScreen';
 import LinksScreen from '../screens/LinksScreen';
 import SettingsScreen from '../screens/SettingsScreen';
+
+const TurnstileStack = createStackNavigator({
+  Turnstile: TurnstileScreen,
+});
+
+TurnstileStack.navigationOptions = {
+  tabBarLabel: 'Turnstile',
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon
+      focused={focused}
+      name={
+        Platform.OS === 'ios'
+          ? `ios-information-circle${focused ? '' : '-outline'}`
+          : 'md-information-circle'
+      }
+    />
+  ),
+};
 
 const HomeStack = createStackNavigator({
   Home: HomeScreen,
@@ -54,6 +73,7 @@ SettingsStack.navigationOptions = {
 };
 
 export default createBottomTabNavigator({
+  TurnstileStack,
   HomeStack,
   LinksStack,
   SettingsStack,
