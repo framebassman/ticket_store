@@ -29,6 +29,7 @@ jobs:
       - checkout
       - run: pwd
       - run: ls -la
+      - run: cd TicketStore.MobileApp
       - restore_cache:
           key: yarn-v1-{{ checksum "yarn.lock" }}-{{ arch }}
       - restore_cache:
