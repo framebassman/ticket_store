@@ -22,22 +22,19 @@ jobs:
           command: dotnet build
           working_directory: TicketStore.Api
   turnstile-tests:
-    working_directory: ~/project/TicketStore.MobileApp
+    working_directory: ~/repo/TicketStore.MobileApp
     docker:
       - image: circleci/node:10-jessie
     steps:
-      - checkout
+      - checkout:
+          path: ~/repo
       - restore_cache:
           key: yarn-v1-{{ checksum "yarn.lock" }}-{{ arch }}
-          working_directory: TicketStore.MobileApp
       - restore_cache:
           key: node-v1-{{ checksum "package.json" }}-{{ arch }}
-          working_directory: TicketStore.MobileApp
       - run:
           command: yarn install
-          working_directory: TicketStore.MobileApp
       - save_cache:
-          working_directory: TicketStore.MobileApp
           key: yarn-v1-{{ checksum "yarn.lock" }}-{{ arch }}
           paths:
             - ~/.cache/yarn
