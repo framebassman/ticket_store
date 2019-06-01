@@ -80,6 +80,9 @@ workflows:
     jobs:
       - build-api
       - build-web
+      - test-api
+          requires:
+            - build-api
       - turnstile-tests
       - deploy:
           filters:
