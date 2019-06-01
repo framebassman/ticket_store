@@ -21,8 +21,15 @@ jobs:
     steps:
       - checkout:
           path: ~/repo
-      - run:
-          command: dotnet build
+      - run: dotnet build
+  test-api:
+    working_directory: ~/repo/TicketStore.Api.Tests
+    docker:
+      - image: microsoft/dotnet:2.2-sdk
+    steps:
+      - checkout:
+          path: ~/repo
+      - run: dotnet test
   turnstile-tests:
     working_directory: ~/repo/TicketStore.MobileApp
     docker:
