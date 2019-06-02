@@ -33,7 +33,7 @@ jobs:
             sudo curl -L "https://github.com/docker/compose/releases/download/1.24.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
             sudo chmod +x /usr/local/bin/docker-compose
       - run: make start-test
-      - run: sh ./Scripts/wait-until-app-is-deployed.sh
+      - run: bash ./Scripts/wait-until-app-is-deployed.sh
       - run: dotnet test TicketStore.Api.Tests
   turnstile-tests:
     working_directory: ~/repo/TicketStore.MobileApp
