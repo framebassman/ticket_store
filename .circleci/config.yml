@@ -33,10 +33,6 @@ jobs:
             sudo curl -L "https://github.com/docker/compose/releases/download/1.24.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
             sudo chmod +x /usr/local/bin/docker-compose
       - run:
-          command: |
-            echo export DOTNET_SKIP_FIRST_TIME_EXPERIENCE=1 >> "$BASH_ENV"
-            echo export DOTNET_CLI_TELEMETRY_OPTOUT=1 >> "$BASH_ENV"
-      - run:
           name: install dotnet core
           command: |
             sudo apt-get clean
@@ -46,6 +42,8 @@ jobs:
             sudo dpkg -i packages-microsoft-prod.deb
             sudo apt-get install apt-transport-https
             sudo apt-get update
+            echo export DOTNET_SKIP_FIRST_TIME_EXPERIENCE=1 >> "$BASH_ENV"
+            echo export DOTNET_CLI_TELEMETRY_OPTOUT=1 >> "$BASH_ENV"
             sudo apt-get install dotnet-sdk-2.2
       - run: make start-test
       - run: bash ./Scripts/wait-until-app-is-deployed.sh
