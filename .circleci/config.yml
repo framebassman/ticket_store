@@ -53,7 +53,7 @@ jobs:
           name: transform trx report to junit for CI
           command: trx2junit TicketStore.Api.Tests/TestResults/report.trx
           environment:
-            - PATH="$PATH:/root/.dotnet/tools"
+            PATH: $PATH:/root/.dotnet/tools
       - store_test_results:
           path: TicketStore.Api.Tests/TestResults
   turnstile-tests:
