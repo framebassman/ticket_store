@@ -83,19 +83,19 @@ workflows:
   version: 2
   build-test-deploy:
     jobs:
-      - build-api
-      - build-web
-      - test-api:
-          requires:
-            - build-api
-      - turnstile-tests
-      - deploy:
-          filters:
-            branches:
-              only:
-                - master
-          context: docker_hub_creds
-          requires:
-            - build-api
-            - build-web
-            - test-api
+      # - build-api
+      # - build-web
+      - test-api
+      #     requires:
+      #       - build-api
+      # - turnstile-tests
+      # - deploy:
+      #     filters:
+      #       branches:
+      #         only:
+      #           - master
+      #     context: docker_hub_creds
+      #     requires:
+      #       - build-api
+      #       - build-web
+      #       - test-api

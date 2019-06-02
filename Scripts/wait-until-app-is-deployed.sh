@@ -5,12 +5,12 @@ function service_status_code {
 }
 
 function wait_service {
+  res=$(service_status_code $2)
+  until [[ "$res" == "200" ]]; do
     res=$(service_status_code $2)
-    until [[ "$res" == "200" ]]; do
-      res=$(service_status_code $2)
-      echo "$1 status: $res"
-      sleep 3
-    done
+    echo "$1 status: $res"
+    sleep 3
+  done
 }
 
 apiPort=3000
