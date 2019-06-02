@@ -48,12 +48,14 @@ jobs:
       - run: make start-test
       - run: bash ./Scripts/wait-until-app-is-deployed.sh
       - run: dotnet test TicketStore.Api.Tests --logger "trx;LogFileName=report.trx"
-      - run: dotnet tool install -g trx2junit
+      - run:
+          command: |
+            export PATH="$PATH:/root/.dotnet/tools"
+            dotnet tool install -g trx2junit
       - run:
           name: transform trx report to junit for CI
-          command: trx2junit TicketStore.Api.Tests/TestResults/report.trx
-          environment:
-            PATH: $PATH:/root/.dotnet/tools
+          command: |
+            /root/.dotnet/tools/trx2junit TicketStore.Api.Tests/TestResults/report.trx
       - store_test_results:
           path: TicketStore.Api.Tests/TestResults
   turnstile-tests:
