@@ -23,13 +23,13 @@ jobs:
           path: ~/repo
       - run: dotnet build
   test-api:
-    working_directory: ~/repo/TicketStore.Api.Tests
     docker:
       - image: microsoft/dotnet:2.2-sdk
     steps:
       - checkout:
-          path: ~/repo
-      - run: dotnet test
+      - run: make start-test
+      - run: sh ./Scripts/wait-until-app-is-deployed.sh
+      - run: dotnet test TicketStore.Api.Tests
   turnstile-tests:
     working_directory: ~/repo/TicketStore.MobileApp
     docker:
