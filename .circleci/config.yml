@@ -49,12 +49,10 @@ jobs:
       - run: bash ./Scripts/wait-until-app-is-deployed.sh
       - run: dotnet test TicketStore.Api.Tests --logger "trx;LogFileName=report.trx"
       - run:
+          name: transform trx report to junit for CI
           command: |
             export PATH="$PATH:~/.dotnet/tools"
             dotnet tool install -g trx2junit
-      - run:
-          name: transform trx report to junit for CI
-          command: |
             ~/.dotnet/tools/trx2junit TicketStore.Api.Tests/TestResults/report.trx
       - store_test_results:
           path: TicketStore.Api.Tests/TestResults
