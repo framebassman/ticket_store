@@ -23,10 +23,11 @@ jobs:
           path: ~/repo
       - run: dotnet build
   test-api:
-    docker:
-      - image: microsoft/dotnet:2.2-sdk
+    machine:
+      docker_layer_caching: true
     steps:
       - checkout
+      - run: sudo apt install make -y
       - run: make start-test
       - run: sh ./Scripts/wait-until-app-is-deployed.sh
       - run: dotnet test TicketStore.Api.Tests
@@ -78,18 +79,18 @@ workflows:
   version: 2
   build-test-deploy:
     jobs:
-      - build-api
-      - build-web
-      - test-api:
-          requires:
-            - build-api
-      - turnstile-tests
-      - deploy:
-          filters:
-            branches:
-              only:
-                - master
-          context: docker_hub_creds
-          requires:
-            - build-api
-            - build-web
+      # - build-api
+      # - build-web
+      - test-api
+      #     requires:
+      #       - build-api
+      # - turnstile-tests
+      # - deploy:
+      #     filters:
+      #       branches:
+      #         only:
+      #           - master
+      #     context: docker_hub_creds
+      #     requires:
+      #       - build-api
+      #       - build-web
