@@ -43,9 +43,19 @@ jobs:
             sudo apt-get install apt-transport-https
             sudo apt-get update
             sudo apt-get install dotnet-sdk-2.2
+      - run:
+          name: install tool for generatin junit report
+          command: |
+            export PATH="$PATH:/root/.dotnet/tools"
+            dotnet tool install -g trx2junit
       - run: make start-test
       - run: bash ./Scripts/wait-until-app-is-deployed.sh
-      - run: dotnet test TicketStore.Api.Tests
+      - run: dotnet test TicketStore.Api.Tests --logger "trx;LogFileName=report.trx"
+      - run:
+          name: transform trx report to junit for CI
+          command: trx2junit TicketStore.Api.Tests/TestResults/report.trx
+      - store_test_results:
+          path: TicketStore.Api.Tests/TestResults
   turnstile-tests:
     working_directory: ~/repo/TicketStore.MobileApp
     docker:
