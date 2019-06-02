@@ -1,7 +1,9 @@
+# dev
 build-dev:
 	docker-compose \
 		--project-directory=${PWD} \
 		--project-name=ticket_store \
+		-f Deploy/docker-compose.yml \
 		-f Deploy/docker-compose.development.yml \
 		build ${ARGS}
 
@@ -9,6 +11,7 @@ start-dev:
 	docker-compose \
 		--project-directory=${PWD} \
 		--project-name=ticket_store \
+		-f Deploy/docker-compose.yml \
 		-f Deploy/docker-compose.development.yml \
 		up --build
 
@@ -16,13 +19,33 @@ stop-dev:
 	docker-compose \
 		--project-directory=${PWD} \
 		--project-name=ticket_store \
+		-f Deploy/docker-compose.yml \
 		-f Deploy/docker-compose.development.yml \
 		down
 
+# test
+start-test:
+	docker-compose \
+		--project-directory=${PWD} \
+		--project-name=ticket_store \
+		-f Deploy/docker-compose.yml \
+		-f Deploy/docker-compose.test.yml \
+		up --build -d
+
+stop-test:
+	docker-compose \
+		--project-directory=${PWD} \
+		--project-name=ticket_store \
+		-f Deploy/docker-compose.yml \
+		-f Deploy/docker-compose.test.yml \
+		down
+
+# prod
 build-prod:
 	docker-compose \
 		--project-directory=${PWD} \
 		--project-name=ticket_store \
+		-f Deploy/docker-compose.yml \
 		-f Deploy/docker-compose.production.yml \
 		build ${ARGS}
 
