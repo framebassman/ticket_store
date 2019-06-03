@@ -56,6 +56,8 @@ jobs:
             ~/.dotnet/tools/trx2junit TicketStore.Api.Tests/TestResults/report.trx
       - store_test_results:
           path: TicketStore.Api.Tests/TestResults
+      - store_artifacts:
+          path: TicketStore.Api.Tests/TestResults
   turnstile-tests:
     working_directory: ~/repo/TicketStore.MobileApp
     docker:
