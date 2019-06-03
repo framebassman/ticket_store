@@ -6,12 +6,12 @@ using TicketStore.Api.Tests.Tests.Fixtures;
 
 namespace TicketStore.Api.Tests.Tests.Payments
 {
-    public class YandexSendTestNotification : AbstractFixtureTest
+    public class SendTestNotification : AbstractFixtureTest
     {
-        public YandexSendTestNotification(ApiFixture fixture) : base(fixture) {}
+        public SendTestNotification(ApiFixture fixture) : base(fixture) {}
 
         [Fact]
-        public void SendTestRequest_ReturnTestMessage()
+        public void YandexSendTestRequest_ReturnTestMessage()
         {            
             // Act
             var response = Fixture.Api.SendTestPayment();

@@ -17,5 +17,14 @@ namespace TicketStore.Api.Tests.Model
             request.AddParameter("test_notification", true);
             return Client.Execute(request);
         }
+
+        public IRestResponse SendPayment(Decimal withdraw_amount, Decimal amount)
+        {
+            var request = new RestRequest("api/payments", Method.POST);
+            request.AddHeader("Content-Type", "application/x-www-form-urlencoded");
+            request.AddParameter("withdraw_amount", withdraw_amount);
+            request.AddParameter("amount", amount);
+            return Client.Execute(request);
+        }
     }
 }
