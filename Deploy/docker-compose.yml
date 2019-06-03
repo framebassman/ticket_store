@@ -1,10 +1,6 @@
 version: '3.6'
 
 services:
-    store_api:
-        build:
-            context: .
-            dockerfile: ./TicketStore.Api/Dockerfile
     store_web:
         build:
             context: .
