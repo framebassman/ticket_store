@@ -67,8 +67,11 @@ docker-cleanup:
 db-dev:
 	docker exec -it postgres psql postgresql://store:W6TTT3WY4Nzqpj5z@localhost:5432/store
 
-db-prod:
-	docker exec -it postgres psql postgresql://store:W6TTT3WY4Nzqpj5z@82.202.236.173:5432/store
+migrate-dev:
+	docker exec -it store_api dotnet ef database migrate
+
+migrate-test:
+	docker exec -it store_api dotnet ef database migrate
 
 # dev
 ngrok:

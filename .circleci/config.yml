@@ -47,6 +47,7 @@ jobs:
             sudo apt-get install dotnet-sdk-2.2
       - run: make start-test
       - run: bash ./Scripts/wait-until-app-is-deployed.sh
+      - run: make migrate-test
       - run: dotnet test TicketStore.Api.Tests --logger "trx;LogFileName=report.trx"
       - run:
           name: transform trx report to junit for CI
