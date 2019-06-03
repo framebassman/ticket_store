@@ -27,8 +27,6 @@ jobs:
       docker_layer_caching: true
     steps:
       - checkout
-      - restore_cache:
-          key: dotnet-2.2-docker-compose-3.7-{{ arch }}
       - run:
           name: update docker-compose
           command: |
@@ -47,10 +45,6 @@ jobs:
             echo export DOTNET_SKIP_FIRST_TIME_EXPERIENCE=1 >> "$BASH_ENV"
             echo export DOTNET_CLI_TELEMETRY_OPTOUT=1 >> "$BASH_ENV"
             sudo apt-get install dotnet-sdk-2.2
-      - save_cache:
-          key: dotnet-2.2-docker-compose-3.7-{{ arch }}
-          paths:
-            - /usr
       - run: make start-test
       - run: bash ./Scripts/wait-until-app-is-deployed.sh
       - run: make migrate-test
