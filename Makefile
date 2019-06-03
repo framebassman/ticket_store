@@ -68,10 +68,10 @@ db-dev:
 	docker exec -it postgres psql postgresql://store:W6TTT3WY4Nzqpj5z@localhost:5432/store
 
 migrate-dev:
-	docker exec -it store_api dotnet ef database migrate
+	docker exec -it store_api dotnet ef database update
 
 migrate-test:
-	docker exec -it store_api dotnet ef database migrate
+	docker exec -it store_api dotnet ef database update
 
 # dev
 ngrok:
