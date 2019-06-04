@@ -1,7 +1,9 @@
 using System.Linq;
 using System.Net;
 using Xunit;
+using NHamcrest;
 using TicketStore.Api.Tests.Tests.Fixtures;
+using TicketStore.Api.Tests.Tests.Matchers;
 
 namespace TicketStore.Api.Tests.Tests.Payments
 {
@@ -17,11 +19,10 @@ namespace TicketStore.Api.Tests.Tests.Payments
             
             // Act
             var response = Fixture.Api.SendPayment("framebassman@gmail.com", 299.00m, 300.00m);
-            var after = Fixture.Db.Tickets.Count();
 
             // Assert
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
-            Assert.Equal(before, after);
+            AssertWithTimeout.That(() => Fixture.Db.Tickets.Count(), Is.EqualTo(before));
         }
 
         [Fact]
@@ -36,7 +37,7 @@ namespace TicketStore.Api.Tests.Tests.Payments
 
             // Assert
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
-            Assert.Equal(before + 1, after);
+            AssertWithTimeout.That(() => Fixture.Db.Tickets.Count(), Is.EqualTo(before + 1));
         }
     }
 }
