@@ -23,6 +23,6 @@ fi
 
 # Wait services
 wait_service "api" $apiPort
-wait_service "fake_sender" fakeSenderPort
+wait_service "fake_sender" $fakeSenderPort
 
 echo "I'm ready"
