@@ -14,6 +14,7 @@ function wait_service {
 }
 
 apiPort=3000
+fakeSenderPort=5000
 
 host="localhost"
 if [ "$DOCKER_HOST" != '' ]; then
@@ -22,5 +23,6 @@ fi
 
 # Wait services
 wait_service "api" $apiPort
+wait_service "fake_sender" fakeSenderPort
 
 echo "I'm ready"
