@@ -36,6 +36,7 @@ services:
             driver: none
     fake_sender:
         image: framebassman/fake-sender:1.2.0
+        container_name: fake_sender
         ports:
             - 5000:5050
         volumes:
