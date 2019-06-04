@@ -37,7 +37,7 @@ namespace TicketStore.Api
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
+        public void ConfigureServices(IHostingEnvironment env, IServiceCollection services)
         {
             services.AddRouting(opt => opt.LowercaseUrls = true);
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
@@ -51,8 +51,7 @@ namespace TicketStore.Api
                 .BuildServiceProvider();
             services.AddSingleton(Configuration);
             services.AddSingleton<IConverter>(new SynchronizedConverter(new PdfTools()));
-            services.AddSingleton<EmailService>(
-                new YandexService(Configuration.GetValue<String>("EmailSenderPassword"), _log));
+            services.AddSingleton(new EmailService(env, Configuration, _log));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
