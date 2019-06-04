@@ -13,12 +13,12 @@ namespace TicketStore.Api.Model.Email
 
         public override void SendTicket(String to, Pdf.Pdf ticket)
         {
-
+            throw new NotImplementedException();
         }
 
         public override void Dispose()
         {
-
+            throw new NotImplementedException();
         }
     }
 }

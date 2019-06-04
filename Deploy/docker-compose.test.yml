@@ -11,14 +11,14 @@ services:
         ports:
             - 3000:5000
         environment:
-            - ASPNETCORE_ENVIRONMENT=Development
+            - ASPNETCORE_ENVIRONMENT=Test
         tty: true
     store_web:
         container_name: store_web
         ports:
             - 4000:5000
         environment:
-            - ASPNETCORE_ENVIRONMENT=Development
+            - ASPNETCORE_ENVIRONMENT=Test
     postgres:
         build:
             context: .
