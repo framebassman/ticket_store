@@ -5,7 +5,7 @@ using Microsoft.Extensions.Logging;
 
 namespace TicketStore.Api.Model.Email
 {
-    public class YandexService : IDisposable
+    public class YandexService : EmailService
     {
         private String _password;
         private ILogger _log;
@@ -21,7 +21,7 @@ namespace TicketStore.Api.Model.Email
             _smtpClient.Authenticate ("no-reply@romashov.tech", _password);
         }
 
-        public void SendTicket(String to, Pdf.Pdf ticket)
+        public override void SendTicket(String to, Pdf.Pdf ticket)
         {
             var builder = new BodyBuilder
             {
@@ -39,7 +39,7 @@ namespace TicketStore.Api.Model.Email
             _smtpClient.Send(message);
         }
 
-        public void Dispose()
+        public override void Dispose()
         {
             _smtpClient.Disconnect(true);
 	        _smtpClient.Dispose();
