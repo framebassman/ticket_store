@@ -19,6 +19,7 @@ namespace TicketStore.Api.Model.Email
 
         public EmailService Service()
         {
+            _log.LogInformation("Environment: {0}", _env.EnvironmentName);
             if (_env.IsEnvironment("Test"))
             {
                 return new FakeSenderService(_env, _conf, _log);
