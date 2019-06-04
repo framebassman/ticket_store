@@ -21,7 +21,7 @@ namespace TicketStore.Api.Tests.Tests.Payments
 
             // Assert
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
-            Assert.Equal(before + 1, after);
+            Assert.Equal(before, after);
         }
 
         [Fact]
@@ -36,7 +36,7 @@ namespace TicketStore.Api.Tests.Tests.Payments
 
             // Assert
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
-            Assert.Equal(before, after);
+            Assert.Equal(before + 1, after);
         }
     }
 }
