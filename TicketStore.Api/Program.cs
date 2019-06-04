@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Serilog;
 using Sentry;
+using Sentry.Extensibility;
 
 namespace TicketStore.Api
 {
@@ -46,7 +47,7 @@ namespace TicketStore.Api
                         options.MaxQueueItems = 100;
                         options.ShutdownTimeout = TimeSpan.FromSeconds(5);
                         options.DecompressionMethods = DecompressionMethods.None;
-                        options.IncludeRequestPayload = true;
+                        options.MaxRequestBodySize = RequestSize.Always;
                     }
                 );
 
