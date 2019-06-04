@@ -13,23 +13,10 @@ namespace TicketStore.Api.Tests.Model
             Client = new RestClient(
                 new UriBuilder(
                     "http",
-                    this.Host(),
+                    new AppHost().Value(),
                     this.Port()
                 ).Uri
             );
-        }
-
-        private String Host()
-        {
-            var variable = Environment.GetEnvironmentVariable("DOCKER_HOST");
-            if (String.IsNullOrEmpty(variable))
-            {
-                return "localhost";
-            }
-            else
-            {
-                return new UriBuilder(variable).Host;
-            }
         }
     }
 }

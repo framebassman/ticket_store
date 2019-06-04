@@ -1,6 +1,4 @@
-using System;
 using System.Net;
-using RestSharp;
 using Xunit;
 using TicketStore.Api.Tests.Tests.Fixtures;
 
