@@ -34,6 +34,12 @@ services:
             - POSTGRES_PASSWORD=W6TTT3WY4Nzqpj5z
         logging:
             driver: none
+    fake_sender:
+        image: framebassman/fake-sender:1.2.0
+        ports:
+            - 5000:5050
+        volumes:
+            - /var/log/fake_sender:/var/log
 
 volumes:
     pgsdata:
