@@ -51,7 +51,7 @@ namespace TicketStore.Api
                 .BuildServiceProvider();
             services.AddSingleton(Configuration);
             services.AddSingleton<IConverter>(new SynchronizedConverter(new PdfTools()));
-            services.AddSingleton(
+            services.AddSingleton<EmailService>(
                 new YandexService(Configuration.GetValue<String>("EmailSenderPassword"), _log));
         }
 
