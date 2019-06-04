@@ -5,3 +5,6 @@ services:
         build:
             context: .
             dockerfile: ./TicketStore.Web/Dockerfile
+    store_api:
+        volumes:
+            - /var/log/store_api:/app/logs

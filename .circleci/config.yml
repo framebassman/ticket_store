@@ -60,6 +60,9 @@ jobs:
       - store_artifacts:
           path: TicketStore.Api.Tests/TestResults
           destination: TestResults
+      - store_artifacts:
+          path: /var/log/store_api
+          destination: Logs/TicketStore.Api
   turnstile-tests:
     working_directory: ~/repo/TicketStore.MobileApp
     docker:
