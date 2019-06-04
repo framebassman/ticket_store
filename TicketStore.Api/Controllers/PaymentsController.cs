@@ -20,14 +20,20 @@ namespace TicketStore.Api.Controllers
     {
         private ApplicationContext _db;
         private ILogger<PaymentsController> _log;
-        private YandexService _yandex;
+        private EmailService _emailService;
         private IConverter _converter;
 
-        public PaymentsController(ApplicationContext context, ILogger<PaymentsController> log, IConfiguration config, IConverter pdfConverter)
+        public PaymentsController(
+            ApplicationContext context,
+            ILogger<PaymentsController> log,
+            IConfiguration config,
+            IConverter pdfConverter,
+            EmailService emailService
+        )
         {
             _db = context;
             _log = log;
-            _yandex = new YandexService(config.GetValue<String>("EmailSenderPassword"), _log);
+            _emailService = emailService;
             _converter = pdfConverter;
         }
 
@@ -71,7 +77,7 @@ namespace TicketStore.Api.Controllers
                 var tickets = CombineTickets(new Payment { Email = email, Amount = withdraw_amount});
                 var pdf = new Pdf(tickets, _converter);
                 _log.LogInformation("Combined PDF with barcodes");
-                _yandex.SendTicket(email, pdf);
+                _emailService.SendTicket(email, pdf);
                 return new OkObjectResult("OK");
             }
             else
