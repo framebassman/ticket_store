@@ -62,6 +62,9 @@ jobs:
       - store_artifacts:
           path: /var/log/store_api
           destination: Logs/TicketStore.Api
+      - store_artifacts:
+          path: /var/log/fake_sender
+          destination: Logs/FakeSender
   turnstile-tests:
     working_directory: ~/repo/TicketStore.MobileApp
     docker:
