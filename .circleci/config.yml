@@ -53,11 +53,13 @@ jobs:
           name: transform trx report to junit for CI
           command: |
             dotnet tool install -g trx2junit
-            ~/.dotnet/tools/trx2junit TicketStore.Api.Tests/TestResults/report.trx
+            export PATH="$PATH:/root/.dotnet/tools"
+            trx2junit TicketStore.Api.Tests/TestResults/report.trx
       - store_test_results:
           path: TicketStore.Api.Tests/TestResults
       - store_artifacts:
           path: TicketStore.Api.Tests/TestResults
+          destination: TestResults
   turnstile-tests:
     working_directory: ~/repo/TicketStore.MobileApp
     docker:
