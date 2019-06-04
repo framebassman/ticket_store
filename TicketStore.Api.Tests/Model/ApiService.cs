@@ -24,6 +24,7 @@ namespace TicketStore.Api.Tests.Model
             request.AddHeader("Content-Type", "application/x-www-form-urlencoded");
             request.AddParameter("withdraw_amount", withdraw_amount);
             request.AddParameter("amount", amount);
+            request.AddParameter("email", email);
             return Client.Execute(request);
         }
     }
