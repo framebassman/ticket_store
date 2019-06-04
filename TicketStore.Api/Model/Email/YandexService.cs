@@ -12,7 +12,7 @@ namespace TicketStore.Api.Model.Email
         private readonly ILogger _log;
         private readonly SmtpClient _smtpClient;
 
-        public YandexService(IHostingEnvironment env, IConfiguration conf, ILogger log) : base(env, conf, log)
+        public YandexService(IHostingEnvironment env, IConfiguration conf, ILogger log)
         {
             _log = log;
             _smtpClient = new SmtpClient();

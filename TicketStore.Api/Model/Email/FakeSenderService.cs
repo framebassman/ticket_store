@@ -7,7 +7,7 @@ namespace TicketStore.Api.Model.Email
 {
     public class FakeSenderService : EmailService
     {
-        public FakeSenderService(IHostingEnvironment env, IConfiguration conf, ILogger log) : base(env, conf, log)
+        public FakeSenderService(IHostingEnvironment env, IConfiguration conf, ILogger log)
         {
         }
 
