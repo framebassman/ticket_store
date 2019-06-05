@@ -27,7 +27,7 @@ namespace TicketStore.Api.Tests.Tests.Matchers
                     .AppendDescriptionOf(matcher)
                     .AppendText("\n but: ");
                 matcher.DescribeMismatch(actual, description);
-                throw new MatchException(actual, actual, description.ToString());
+                Assert.That(actual, matcher);
             }
         }
 
@@ -37,7 +37,6 @@ namespace TicketStore.Api.Tests.Tests.Matchers
             T value = func.Invoke();
             while (stopwatch.ElapsedMilliseconds < timeout && !matcher.Matches(value))
             {
-                Console.WriteLine("wait {0} ms", delay);
                 Thread.Sleep(delay);
                 value = func.Invoke();
             }
