@@ -1,6 +1,8 @@
 using System.Linq;
 using System.Net;
+using Microsoft.EntityFrameworkCore;
 using NHamcrest;
+using TicketStore.Api.Tests.Model;
 using TicketStore.Api.Tests.Model.Services.Verify.Answers;
 using TicketStore.Api.Tests.Tests.Fixtures;
 using TicketStore.Api.Tests.Tests.Matchers;
@@ -26,7 +28,12 @@ namespace TicketStore.Api.Tests.Tests.Verification
             // Assert
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
             Assert.Equal(new OkAnswer().ToString(), response.Content);
-            AssertWithTimeout.That(() => Fixture.Db.Tickets.First(t => t.Payment.Email == email).Expired, Is.True());
+
+            var id = ticket.Id;
+            Fixture.Db.Entry(ticket).State = EntityState.Detached;
+            ticket = Fixture.Db.Find<Ticket>(id);
+            
+            Assert.True(ticket.Expired);
         }
 
         [Fact]
@@ -36,7 +43,7 @@ namespace TicketStore.Api.Tests.Tests.Verification
             var response = Fixture.Api.VerifyBarcode("-1");
 
             // Assert
-            Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
+            Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
             Assert.Equal(new NotFoundAnswer().ToString(), response.Content);
         }
     }
