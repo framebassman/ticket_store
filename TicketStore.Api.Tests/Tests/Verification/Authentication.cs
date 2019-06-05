@@ -1,6 +1,7 @@
 using System.Linq;
 using System.Net;
 using NHamcrest;
+using TicketStore.Api.Tests.Model.Services.Verify.Answers;
 using TicketStore.Api.Tests.Tests.Fixtures;
 using TicketStore.Api.Tests.Tests.Matchers;
 using Xunit;
@@ -26,7 +27,7 @@ namespace TicketStore.Api.Tests.Tests.Verification
 
             // Assert
             Assert.Equal(HttpStatusCode.Unauthorized, response.StatusCode);
-            Assert.Equal("unauthorized", response.Content);
+            Assert.Equal(new UnauthorizedAnswer().ToString(), response.Content);
             AssertWithTimeout.That(() => Fixture.Db.Tickets.First(t => t.Payment.Email == email).Expired, Is.False());
         }
     }

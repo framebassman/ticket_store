@@ -1,6 +1,7 @@
 using System.Linq;
 using System.Net;
 using NHamcrest;
+using TicketStore.Api.Tests.Model.Services.Verify.Answers;
 using TicketStore.Api.Tests.Tests.Fixtures;
 using TicketStore.Api.Tests.Tests.Matchers;
 using Xunit;
@@ -24,7 +25,7 @@ namespace TicketStore.Api.Tests.Tests.Verification
 
             // Assert
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
-            Assert.Equal("OK", response.Content);
+            Assert.Equal(new OkAnswer().ToString(), response.Content);
             AssertWithTimeout.That(() => Fixture.Db.Tickets.First(t => t.Payment.Email == email).Expired, Is.True());
         }
 
@@ -36,7 +37,7 @@ namespace TicketStore.Api.Tests.Tests.Verification
 
             // Assert
             Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
-            Assert.Equal("cannot find code in database", response.Content);
+            Assert.Equal(new NotFoundAnswer().ToString(), response.Content);
         }
     }
 }
