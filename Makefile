@@ -66,6 +66,9 @@ docker-cleanup:
 
 db-dev:
 	docker exec -it postgres psql postgresql://store:W6TTT3WY4Nzqpj5z@localhost:5432/store
+	
+cleanup-db-dev:
+    docker exec -it postgres psql postgresql://store:W6TTT3WY4Nzqpj5z@localhost:5432/store -c 'DROP SCHEMA public CASCADE;' -c '\q'
 
 migrate-dev:
 	docker exec -it store_api dotnet ef database update

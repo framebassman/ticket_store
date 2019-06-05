@@ -53,7 +53,7 @@ jobs:
           name: stop application
           command: |
             make stop-test
-            make docker-cleanup -i
+            make cleanup-db-dev
           when: always
       - run:
           name: transform trx report to junit for CI
