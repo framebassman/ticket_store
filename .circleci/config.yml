@@ -52,8 +52,8 @@ jobs:
       - run:
           name: stop application
           command: |
-            make stop-test
             make cleanup-db-dev
+            make stop-test
           when: always
       - run:
           name: transform trx report to junit for CI
