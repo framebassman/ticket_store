@@ -1,5 +1,6 @@
 using System;
 using RestSharp;
+using TicketStore.Api.Tests.Model.Services.Verify;
 
 namespace TicketStore.Api.Tests.Model.Services
 {
@@ -45,7 +46,7 @@ namespace TicketStore.Api.Tests.Model.Services
         {
             var request = new RestRequest("api/verify", Method.POST);
             request.AddHeader("Content-Type", "application/json");
-            request.AddJsonBody(new {code = ticketNumber});
+            request.AddJsonBody(new Barcode(ticketNumber));
             return request;
         }
     }
