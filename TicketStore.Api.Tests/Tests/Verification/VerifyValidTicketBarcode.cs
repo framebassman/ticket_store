@@ -29,9 +29,12 @@ namespace TicketStore.Api.Tests.Tests.Verification
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
             Assert.Equal(new OkAnswer().ToString(), response.Content);
 
-            Fixture.Db.Entry(ticket).State = EntityState.Detached;
             AssertWithTimeout.That("Ticket should be expired",
-                () => Fixture.Db.Find<Ticket>(ticket.Id).Expired, Is.False());
+                () =>
+                {
+                    Fixture.Db.Entry(ticket).State = EntityState.Detached;
+                    return Fixture.Db.Find<Ticket>(ticket.Id).Expired;
+                }, Is.True());
         }
 
         [Fact]
