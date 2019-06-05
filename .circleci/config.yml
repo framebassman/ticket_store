@@ -50,12 +50,6 @@ jobs:
       - run: make migrate-test
       - run: dotnet test TicketStore.Api.Tests --logger "trx;LogFileName=report.trx"
       - run:
-          name: stop application
-          command: |
-            make cleanup-db-dev
-            make stop-test
-          when: always
-      - run:
           name: transform trx report to junit for CI
           command: |
             dotnet tool install -g trx2junit
@@ -72,6 +66,12 @@ jobs:
       - store_artifacts:
           path: /var/log/fake_sender
           destination: Logs/FakeSender
+      - run:
+          name: stop application
+          command: |
+            make cleanup-db-dev
+            make stop-test
+          when: always
   turnstile-tests:
     working_directory: ~/repo/TicketStore.MobileApp
     docker:

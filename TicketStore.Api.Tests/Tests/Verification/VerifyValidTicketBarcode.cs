@@ -34,7 +34,7 @@ namespace TicketStore.Api.Tests.Tests.Verification
                 {
                     Fixture.Db.Entry(ticket).State = EntityState.Detached;
                     return Fixture.Db.Find<Ticket>(ticket.Id).Expired;
-                }, Is.False());
+                }, Is.True());
         }
 
         [Fact]
