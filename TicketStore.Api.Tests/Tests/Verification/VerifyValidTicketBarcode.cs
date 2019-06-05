@@ -28,7 +28,7 @@ namespace TicketStore.Api.Tests.Tests.Verification
             // Assert
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
             Assert.Equal(new OkAnswer().ToString(), response.Content);
-            AssertWithTimeout.That(() => Fixture.Db.Find<Ticket>(ticket.Id).Expired, Is.True());
+            Assert.True(Fixture.Db.Find<Ticket>(ticket.Id).Expired);
         }
 
         [Fact]
