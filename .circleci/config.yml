@@ -51,7 +51,9 @@ jobs:
       - run: dotnet test TicketStore.Api.Tests --logger "trx;LogFileName=report.trx"
       - run:
           name: stop application
-          command: make stop-test
+          command: |
+            make stop-test
+            make docker-cleanup -i
           when: always
       - run:
           name: transform trx report to junit for CI
