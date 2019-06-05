@@ -1,11 +1,9 @@
 using System.Linq;
 using System.Net;
 using Microsoft.EntityFrameworkCore;
-using NHamcrest;
 using TicketStore.Api.Tests.Model;
 using TicketStore.Api.Tests.Model.Services.Verify.Answers;
 using TicketStore.Api.Tests.Tests.Fixtures;
-using TicketStore.Api.Tests.Tests.Matchers;
 using Xunit;
 
 namespace TicketStore.Api.Tests.Tests.Verification
@@ -28,6 +26,8 @@ namespace TicketStore.Api.Tests.Tests.Verification
             // Assert
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
             Assert.Equal(new OkAnswer().ToString(), response.Content);
+
+            Fixture.Db.Entry(ticket).State = EntityState.Detached;
             Assert.True(Fixture.Db.Find<Ticket>(ticket.Id).Expired);
         }
 
