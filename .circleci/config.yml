@@ -48,7 +48,7 @@ jobs:
       - run: make start-test
       - run: bash ./Scripts/wait-until-app-is-deployed.sh
       - run: make migrate-test
-      - run: dotnet test TicketStore.Api.Tests --no-build --logger "trx;LogFileName=report.trx"
+      - run: dotnet test TicketStore.Api.Tests --logger "trx;LogFileName=report.trx"
       - run:
           name: stop application
           command: |
