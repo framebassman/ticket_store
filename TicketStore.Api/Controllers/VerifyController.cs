@@ -13,10 +13,10 @@ namespace TicketStore.Api.Controllers
     public class VerifyController : ControllerBase
     {
         private readonly ApplicationContext _db;
-        private readonly ILogger _log;
+        private readonly ILogger<VerifyController> _log;
         private const string _token = "Bearer pkR9vfZ9QdER53mf";
 
-        public VerifyController(ApplicationContext context, ILogger log)
+        public VerifyController(ApplicationContext context, ILogger<VerifyController> log)
         {
             _db = context;
             _log = log;
