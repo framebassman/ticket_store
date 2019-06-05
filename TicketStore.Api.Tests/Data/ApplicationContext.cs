@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using TicketStore.Api.Tests.Model;
+using TicketStore.Api.Tests.Environment;
 
 namespace TicketStore.Api.Tests.Data
 {

@@ -1,5 +1,6 @@
 using System;
 using RestSharp;
+using TicketStore.Api.Tests.Environment;
 
 namespace TicketStore.Api.Tests.Model.Services
 {

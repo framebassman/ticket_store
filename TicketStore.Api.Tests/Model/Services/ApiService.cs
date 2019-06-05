@@ -45,7 +45,7 @@ namespace TicketStore.Api.Tests.Model.Services
         {
             var request = new RestRequest("api/verify", Method.POST);
             request.AddHeader("Content-Type", "application/json");
-            request.AddParameter("code", ticketNumber);
+            request.AddJsonBody(new {code = ticketNumber});
             return request;
         }
     }
