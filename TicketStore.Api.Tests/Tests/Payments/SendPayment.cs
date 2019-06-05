@@ -12,7 +12,7 @@ namespace TicketStore.Api.Tests.Tests.Payments
         public SendPayment(ApiFixture fixture) : base (fixture) {}
 
         [Fact]
-        public void YandexSendPayment_ValidPayment_ReturnsOk()
+        public void YandexSendPayment_InvalidPayment_ReturnsOk()
         {
             // Arrange
             var email = "test1@test.test";
@@ -28,7 +28,7 @@ namespace TicketStore.Api.Tests.Tests.Payments
         }
 
         [Fact]
-        public void YandexSendPayment_InvalidPayment_ReturnsOk()
+        public void YandexSendPayment_ValidPayment_ReturnsOk()
         {
             // Arrange
             var email = "test2@test.test";
