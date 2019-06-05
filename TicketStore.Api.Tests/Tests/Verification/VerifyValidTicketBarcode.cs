@@ -15,7 +15,7 @@ namespace TicketStore.Api.Tests.Tests.Verification
         public void SendExistBarcode_ReturnsOk()
         {
             // Arrange
-            var email = "test2@test.test";
+            var email = "test4@test.test";
             Fixture.Api.SendPayment(email, 300.00m, 300.00m);
             var ticket = Fixture.Db.Tickets.First(t => t.Payment.Email == email);
 
