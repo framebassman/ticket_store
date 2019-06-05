@@ -37,6 +37,7 @@ namespace TicketStore.Api.Tests.Tests.Matchers
             T value = func.Invoke();
             while (stopwatch.ElapsedMilliseconds < timeout && !matcher.Matches(value))
             {
+                Console.WriteLine("wait {0} ms", delay);
                 Thread.Sleep(delay);
                 value = func.Invoke();
             }
