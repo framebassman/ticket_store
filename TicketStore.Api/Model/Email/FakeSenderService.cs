@@ -37,7 +37,6 @@ namespace TicketStore.Api.Model.Email
         public override void SendTicket(String to, Pdf.Pdf ticket)
         {
             _log.LogInformation("[FakeSender] Sending ticket to {0}", to);
-            PingFakeSender();
             IEnumerable<FakeEmail> json = new List<FakeEmail>
             {
                 new FakeEmail
