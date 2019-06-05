@@ -27,5 +27,26 @@ namespace TicketStore.Api.Tests.Model.Services
             request.AddParameter("email", email);
             return Client.Execute(request);
         }
+
+        public IRestResponse VerifyBarcode(string ticketNumber)
+        {
+            var request = CreateVerifyRequest(ticketNumber);
+            request.AddHeader("Authorization", "Bearer pkR9vfZ9QdER53mf");
+            return Client.Execute(request);
+        }
+
+        public IRestResponse VerifyBarcodeWithoutAuth(string ticketNumber)
+        {
+            var request = CreateVerifyRequest(ticketNumber);
+            return Client.Execute(request);
+        }
+
+        private RestRequest CreateVerifyRequest(string ticketNumber)
+        {
+            var request = new RestRequest("api/verify", Method.POST);
+            request.AddHeader("Content-Type", "application/json");
+            request.AddParameter("code", ticketNumber);
+            return request;
+        }
     }
 }
