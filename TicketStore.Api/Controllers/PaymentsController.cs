@@ -60,7 +60,7 @@ namespace TicketStore.Api.Controllers
                 _log.LogInformation("Receive Yandex request without email");
                 return new OkObjectResult("It's OK for yandex testing");
             }
-            if (new Validator(
+            if (!new Validator(
                     notification_type,
                     operation_id,
                     amount,
@@ -73,17 +73,20 @@ namespace TicketStore.Api.Controllers
                 ).FromYandex()
             )
             {
-                _log.LogInformation("Receive Yandex.Money request from {@0}", email);
-                var tickets = CombineTickets(new Payment { Email = email, Amount = withdraw_amount});
-                var pdf = new Pdf(tickets, _converter);
-                _log.LogInformation("Combined PDF with barcodes");
-                _emailService.SendTicket(email, pdf);
-                return new OkObjectResult("OK");
-            }
-            else
-            {
                 return new BadRequestObjectResult("Secret is not matching");
             }
+            
+            _log.LogInformation("Receive Yandex.Money request from {@0}", email);
+            var tickets = CombineTickets(new Payment { Email = email, Amount = withdraw_amount});
+            
+            if (tickets.Count == 0)
+            {
+                return new OkObjectResult("Payment is less than ticket cost");
+            }
+            var pdf = new Pdf(tickets, _converter);
+            _log.LogInformation("Combined PDF with barcodes");
+            _emailService.SendTicket(email, pdf);
+            return new OkObjectResult("OK");
         }
 
         private List<Ticket> CombineTickets(Payment payment)
