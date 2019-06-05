@@ -1,7 +1,7 @@
 using System;
 using RestSharp;
 
-namespace TicketStore.Api.Tests.Model
+namespace TicketStore.Api.Tests.Model.Services
 {
     public abstract class TicketStoreService
     {
