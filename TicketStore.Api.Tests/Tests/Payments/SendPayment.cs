@@ -2,6 +2,7 @@ using System.Linq;
 using System.Net;
 using Xunit;
 using NHamcrest;
+using TicketStore.Api.Tests.Data;
 using TicketStore.Api.Tests.Tests.Fixtures;
 using TicketStore.Api.Tests.Tests.Matchers;
 
@@ -15,7 +16,7 @@ namespace TicketStore.Api.Tests.Tests.Payments
         public void YandexSendPayment_InvalidPayment_ReturnsOk()
         {
             // Arrange
-            var email = "test1@test.test";
+            var email = Generator.Email();
             var before = Fixture.Db.Tickets.Count();
             
             // Act
@@ -31,7 +32,7 @@ namespace TicketStore.Api.Tests.Tests.Payments
         public void YandexSendPayment_ValidPayment_ReturnsOk()
         {
             // Arrange
-            var email = "test2@test.test";
+            var email = Generator.Email();
             var before = Fixture.Db.Tickets.Count();
             
             // Act

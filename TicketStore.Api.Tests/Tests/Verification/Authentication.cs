@@ -1,6 +1,7 @@
 using System.Linq;
 using System.Net;
 using NHamcrest;
+using TicketStore.Api.Tests.Data;
 using TicketStore.Api.Tests.Model.Services.Verify.Answers;
 using TicketStore.Api.Tests.Tests.Fixtures;
 using TicketStore.Api.Tests.Tests.Matchers;
@@ -18,7 +19,7 @@ namespace TicketStore.Api.Tests.Tests.Verification
             var response1 = Fixture.Api.VerifyBarcodeWithoutAuth("-1");
             
             // Arrange
-            var email = "test3@test.test";
+            var email = Generator.Email();
             Fixture.Api.SendPayment(email, 300.00m, 300.00m);
             var ticket = Fixture.Db.Tickets.First(t => t.Payment.Email == email);
 
