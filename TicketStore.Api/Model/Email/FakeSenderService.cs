@@ -2,8 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Net.NetworkInformation;
-using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -50,35 +48,6 @@ namespace TicketStore.Api.Model.Email
             };
             Task.Run(() => _client.PostAsJsonAsync("api/emails", json)).Wait();
             _log.LogInformation("[FakeSender] Successfully send ticket to {0}", to);
-        }
-
-        private void PingFakeSender()
-        {
-            Ping pingSender = new Ping();
-            PingOptions options = new PingOptions();
-
-            // Use the default Ttl value which is 128,
-            // but change the fragmentation behavior.
-            options.DontFragment = true;
-
-            // Create a buffer of 32 bytes of data to be transmitted.
-            string data = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
-            byte[] buffer = Encoding.ASCII.GetBytes(data);
-            int timeout = 120;
-            PingReply reply = pingSender.Send(_uri.ToString(), timeout, buffer, options);
-            
-            if (reply.Status == IPStatus.Success)
-            {
-                _log.LogInformation("Address: {0}", reply.Address.ToString());
-                _log.LogInformation("RoundTrip time: {0}", reply.RoundtripTime);
-                _log.LogInformation("Time to live: {0}", reply.Options.Ttl);
-                _log.LogInformation("Don't fragment: {0}", reply.Options.DontFragment);
-                _log.LogInformation("Buffer size: {0}", reply.Buffer.Length);
-            }
-            else
-            {
-                _log.LogError("Reply status is {0}", reply.Status);
-            }
         }
 
         public override void Dispose()
