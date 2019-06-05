@@ -24,7 +24,7 @@ namespace TicketStore.Api.Tests.Tests.Payments
             // Assert
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
             AssertWithTimeout.That(() => Fixture.Db.Tickets.Count(), Is.EqualTo(before));
-            AssertWithTimeout.That(() => Fixture.FakeSender.EmailsForAddress(email).Data.Count(), Is.EqualTo(0));
+            AssertWithTimeout.That(() => Fixture.FakeSender.EmailsForAddress(email).Data.Count, Is.EqualTo(0));
         }
 
         [Fact]
@@ -40,7 +40,7 @@ namespace TicketStore.Api.Tests.Tests.Payments
             // Assert
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
             AssertWithTimeout.That(() => Fixture.Db.Tickets.Count(), Is.EqualTo(before + 1));
-            AssertWithTimeout.That(() => Fixture.FakeSender.EmailsForAddress(email).Data.Count(), Is.EqualTo(1));
+            AssertWithTimeout.That(() => Fixture.FakeSender.EmailsForAddress(email).Data.Count, Is.EqualTo(1));
         }
     }
 }
