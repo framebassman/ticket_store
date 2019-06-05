@@ -20,12 +20,12 @@ namespace TicketStore.Api.Model.Email
         public FakeSenderService(IHostingEnvironment env, IConfiguration conf, ILogger log)
         {
             _log = log;
-            _log.LogInformation("FakeSender host: {0}", conf.GetSection("FakeSender").GetValue<string>("Host"));
             _uri = new UriBuilder(
                 "http",
                 conf.GetSection("FakeSender").GetValue<string>("Host"),
                 conf.GetSection("FakeSender").GetValue<int>("Port")
             ).Uri;
+            _log.LogInformation("FakeSender uri: {0}", _uri.ToString());
             
             _client = HttpClientFactory.Create();
             _client.BaseAddress = _uri;
