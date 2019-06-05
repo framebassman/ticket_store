@@ -1,14 +1,8 @@
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
 using TicketStore.Api.Data;
-using TicketStore.Api.Model;
 using TicketStore.Api.Model.Http;
-using TicketStore.Api.Model.Validator;
+using TicketStore.Api.Model.Validation;
 
 namespace TicketStore.Api.Controllers
 {
