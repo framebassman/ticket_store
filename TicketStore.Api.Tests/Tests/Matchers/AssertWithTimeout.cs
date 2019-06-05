@@ -20,14 +20,13 @@ namespace TicketStore.Api.Tests.Tests.Matchers
         public static void That<T>(String reason, Func<T> func, IMatcher<T> matcher)
         {
             T actual = WaitAndGetActualValue(func, matcher, _timeout, _delay);
-            if (!matcher.Matches(actual)) {
-                Description description = new StringDescription();
-                description.AppendText(reason)
-                    .AppendText("\nExpected: ")
-                    .AppendDescriptionOf(matcher)
-                    .AppendText("\n but: ");
-                matcher.DescribeMismatch(actual, description);
-                Assert.That(actual, matcher);
+            if (!matcher.Matches(actual)) 
+            {
+                StringDescription stringDescription1 = new StringDescription();
+                matcher.DescribeTo(stringDescription1);
+                StringDescription stringDescription2 = new StringDescription();
+                matcher.DescribeMismatch(actual, stringDescription2);
+                throw new MatchException(stringDescription1.ToString(), stringDescription2.ToString(), reason);
             }
         }
 
