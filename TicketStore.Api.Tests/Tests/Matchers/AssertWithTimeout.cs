@@ -3,6 +3,7 @@ using System.Threading;
 using System.Diagnostics;
 using NHamcrest;
 using NHamcrest.Core;
+using NHamcrest.XUnit;
 
 namespace TicketStore.Api.Tests.Tests.Matchers
 {
@@ -26,6 +27,7 @@ namespace TicketStore.Api.Tests.Tests.Matchers
                     .AppendDescriptionOf(matcher)
                     .AppendText("\n but: ");
                 matcher.DescribeMismatch(actual, description);
+                throw new MatchException(actual, actual, description.ToString());
             }
         }
 
