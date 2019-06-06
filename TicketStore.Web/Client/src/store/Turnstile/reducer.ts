@@ -1,5 +1,4 @@
 import { verifyType, resetType } from './actions';
-import { VerifyState } from './state';
 import { TurnstileState } from '../../components/turnstile/TurnstileState';
 import { DetectedBarcode } from '../../components/turnstile/camera/DetectedBarcode';
 
@@ -19,7 +18,7 @@ export const reducer = (state: any, action: any): TurnstileState => {
             const message = action.payload.data;
             let result: boolean;
             console.log("message from backend: ", message);
-            if (message == 'OK') {
+            if (message === 'OK') {
                 result = true;
             } else {
                 result = false;

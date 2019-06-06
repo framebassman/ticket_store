@@ -4,7 +4,7 @@ import yellow from '@material-ui/core/colors/yellow';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
 export const PayButton = (props: any) => {
-  const { className, buttonClassName, roubles, target } = props;
+  const { roubles, target } = props;
   const theme = createMuiTheme({
     palette: {
       primary: yellow,

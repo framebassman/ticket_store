@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-
-import Button from '@material-ui/core/Button';
 import { Scanner } from './Scanner';
 import { Result } from './Result';
 import { TurnstileState } from '../TurnstileState';
