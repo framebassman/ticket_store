@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Switch} from 'react-router-dom';
 import { Greetings } from './components/greetings/Greetings';
 import { Farewell } from './components/farewell/Farewell';
 import Turnstile from './components/turnstile/Turnstile';
+import Afisha from './components/afisha/Afisha';
 
 class App extends Component {
   render() {
@@ -11,7 +12,7 @@ class App extends Component {
         <Switch>
           <Route path="/tickets/farewell" component={Farewell}/>
           <Route path="/tickets/turnstile" component={Turnstile}/>
-          <Route path="" component={Greetings}/>
+          <Route path="" component={Afisha}/>
         </Switch>
       </BrowserRouter>
     );
