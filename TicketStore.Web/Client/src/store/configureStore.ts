@@ -1,11 +1,13 @@
 import { applyMiddleware, combineReducers, compose, createStore } from 'redux';
 import thunk from 'redux-thunk';
-import { reducer as turnstileReducer } from './Turnstile/reducer';
 import { composeWithDevTools } from 'redux-devtools-extension';
+import { reducer as turnstileReducer } from './Turnstile/reducer';
+import { reducer as afishaReducer } from './Afisha/reducer';
 
 export default function configureStore (initialState: any) {
   const reducers = {
     turnstile: turnstileReducer,
+    afisha: afishaReducer,
   };
 
   const middleware = [
