@@ -1,5 +1,5 @@
-export default theme => ({
+export const styles = {
   afisha: {
-    margin: 'auto'
+    margin: '16px'
   }
-});
+};
