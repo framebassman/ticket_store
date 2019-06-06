@@ -28,7 +28,7 @@ steps:
   inputs:
     testResultsFormat: 'JUnit' # Options: JUnit, NUnit, VSTest, xUnit, cTest
     testResultsFiles: 'test-results/jest/junit.xml' 
-    searchFolder: '$(build.sourcesDirectory)/TicketStore.MobileAp' # Optional
+    searchFolder: '$(build.sourcesDirectory)/TicketStore.MobileApp' # Optional
     #mergeTestResults: false # Optional
     #failTaskOnFailedTests: false # Optional
     #testRunTitle: # Optional
