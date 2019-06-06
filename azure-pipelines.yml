@@ -1,0 +1,22 @@
+trigger:
+  paths:
+    exclude:
+    - README.md
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- task: NodeTool@0
+  inputs:
+    versionSpec: '10.x'
+  displayName: 'Install Node.js'
+
+- script: |
+    yarn install
+    mkdir -p test-results/jest
+    yarn run test
+  workingDirectory: $(build.sourcesDirectory)/TicketStore.MobileApp
+  displayName: 'npm install and build'
+  env:
+    JEST_JUNIT_OUTPUT: test-results/jest/junit.xml
