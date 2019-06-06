@@ -6,6 +6,14 @@ trigger:
     exclude:
     - README.md
 
+pr:
+  branches:
+    include:
+    - '*' 
+  paths:
+    exclude:
+    - README.md
+
 pool:
   vmImage: 'ubuntu-latest'
 
