@@ -1,25 +1,25 @@
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import { eventsUrl } from './urls';
 
 export const fetchEventsType = 'FETCH_EVENTS';
+export const eventsHasErroredType = 'EVENTS_HAS_ERRORED';
 
-async function transfersFromBack() {
-  try {
-    const eventsFromBack = await axios.get(eventsUrl);
-    return { events: eventsFromBack };
-  }
-  catch {
-    return { events: [] };
-  }
+async function transfersFromBack(): Promise<AxiosResponse<any>> {
+  return await axios.get(eventsUrl);
 }
 
 export const actionCreators = {
   fetchEvents: () => async (dispatch: any) => {
     const response = await transfersFromBack();
-    console.log('before fetchEventsType');
-    dispatch({
-      type: fetchEventsType,
-      payload: response
-    });
+    if (response.status === 200) {
+      dispatch({
+        type: fetchEventsType,
+        payload: response.data
+      });
+    } else {
+      dispatch({
+        type: eventsHasErroredType
+      })
+    }
   }
 };
