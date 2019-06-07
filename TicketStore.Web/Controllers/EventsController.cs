@@ -30,7 +30,7 @@ namespace TicketStore.Web.Controllers
                     {
                         Artist = "Oxxxymiron",
                         PressRelease = PressReleaseTemplate(),
-                        Price = 5m,
+                        Roubles = 5m,
                         YandexMoneyAccount = _yandexMoneyAccount,
                         Time = DateTime.Now
                     },
@@ -38,7 +38,7 @@ namespace TicketStore.Web.Controllers
                     {
                         Artist = "Face",
                         PressRelease = PressReleaseTemplate(),
-                        Price = 4m,
+                        Roubles = 4m,
                         YandexMoneyAccount = _yandexMoneyAccount,
                         Time = DateTime.Now
                     },
@@ -46,7 +46,7 @@ namespace TicketStore.Web.Controllers
                     {
                         Artist = "XXXTenacion",
                         PressRelease = PressReleaseTemplate(),
-                        Price = 1m,
+                        Roubles = 1m,
                         YandexMoneyAccount = _yandexMoneyAccount,
                         Time = DateTime.Now
                     },
@@ -54,7 +54,7 @@ namespace TicketStore.Web.Controllers
                     {
                         Artist = "Виктор Цой",
                         PressRelease = PressReleaseTemplate(),
-                        Price = 3m,
+                        Roubles = 3m,
                         YandexMoneyAccount = _yandexMoneyAccount,
                         Time = DateTime.Now
                     },
@@ -62,7 +62,7 @@ namespace TicketStore.Web.Controllers
                     {
                         Artist = "Филипп Киркоров",
                         PressRelease = PressReleaseTemplate(),
-                        Price = 2m,
+                        Roubles = 2m,
                         YandexMoneyAccount = _yandexMoneyAccount,
                         Time = DateTime.Now
                     }

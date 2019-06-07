@@ -2,37 +2,37 @@ import { eventsFetchDataSuccessType, eventsHasErroredType, eventsIsLoadingType }
 import { combineReducers } from 'redux';
 
 function eventsHasErrored(state = false, action) {
-    switch (action.type) {
-        case eventsHasErroredType:
-            return action.hasErrored;
+  switch (action.type) {
+    case eventsHasErroredType:
+      return action.hasErrored;
 
-        default:
-            return state;
-    }
+    default:
+      return state;
+  }
 }
 
 function eventsIsLoading(state = false, action) {
-    switch (action.type) {
-        case eventsIsLoadingType:
-            return action.isLoading;
+  switch (action.type) {
+    case eventsIsLoadingType:
+      return action.isLoading;
 
-        default:
-            return state;
-    }
+    default:
+      return state;
+  }
 }
 
 function events(state = [], action) {
-    switch (action.type) {
-        case eventsFetchDataSuccessType:
-            return action.events;
+  switch (action.type) {
+    case eventsFetchDataSuccessType:
+      return action.events;
 
-        default:
-            return state;
-    }
+    default:
+      return state;
+  }
 }
 
 export const reducer = combineReducers({
-    events,
-    eventsHasErrored,
-    eventsIsLoading
+  events,
+  eventsHasErrored,
+  eventsIsLoading
 });
