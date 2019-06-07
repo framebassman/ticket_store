@@ -8,7 +8,7 @@ import Event from './Event';
 import { withStyles } from '@material-ui/styles';
 import { styles } from './Afisha.styles';
 import Grid from '@material-ui/core/Grid';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import { CenteredProgress } from '../../components/core/progress/CenteredProgress';
 
 
 class Afisha extends Component<any, AfishaState> {
@@ -23,7 +23,7 @@ class Afisha extends Component<any, AfishaState> {
     }
 
     if (isLoading) {
-      return <CircularProgress />
+      return <CenteredProgress />
     }
 
     return (
