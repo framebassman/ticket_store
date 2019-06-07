@@ -11,7 +11,7 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import { useStyles } from './Menu.styles';
 import Logo from './Logo';
-import { MenuFooter } from './MenuFooter';
+import MenuFooter from './MenuFooter';
 
 export const Menu = (props) => {
   const classes = useStyles();

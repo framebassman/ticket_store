@@ -1,11 +1,19 @@
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
+import { styles } from './MenuFooter.styles';
+import { withStyles } from '@material-ui/styles';
 
-export const MenuFooter = () => {
+const MenuFooter = (props: any) => {
+  const { classes } = props;
   return (
-    <Typography component="footer">
-      <Box>Сделано в компании Kolenka Inc.</Box>
+    <Typography component="div">
+      <div className={classes.content}></div>
+      <div className={classes.footer}>
+        <div>Сделано в компании</div>
+        <div>Kolenka Inc.</div>
+      </div>
     </Typography>
   )
 }
+
+export default withStyles(styles)(MenuFooter);
