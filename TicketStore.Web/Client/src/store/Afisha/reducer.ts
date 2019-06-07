@@ -1,4 +1,4 @@
-import { itemsFetchDataSuccessType, itemsHasErroredType, itemsIsLoadingType } from './actions';
+import { eventsFetchDataSuccessType, eventsHasErroredType, eventsIsLoadingType } from './actions';
 import { AfishaState } from './state';
 import { combineReducers } from 'redux';
 
@@ -8,9 +8,9 @@ const initialState: AfishaState = {
     items: []
 };
 
-export function itemsHasErrored(state = false, action) {
+function eventsHasErrored(state = false, action) {
     switch (action.type) {
-        case itemsHasErroredType:
+        case eventsHasErroredType:
             return action.hasErrored;
 
         default:
@@ -18,9 +18,9 @@ export function itemsHasErrored(state = false, action) {
     }
 }
 
-export function itemsIsLoading(state = false, action) {
+function eventsIsLoading(state = false, action) {
     switch (action.type) {
-        case itemsIsLoadingType:
+        case eventsIsLoadingType:
             console.log('isLoading action', action);
             return action.isLoading;
 
@@ -29,11 +29,11 @@ export function itemsIsLoading(state = false, action) {
     }
 }
 
-export function items(state = [], action) {
+function events(state = [], action) {
     switch (action.type) {
-        case itemsFetchDataSuccessType:
+        case eventsFetchDataSuccessType:
             console.log('items action', action);
-            return action.items;
+            return action.events;
 
         default:
             return state;
@@ -41,7 +41,7 @@ export function items(state = [], action) {
 }
 
 export const reducer = combineReducers({
-    items,
-    itemsHasErrored,
-    itemsIsLoading
+    events,
+    eventsHasErrored,
+    eventsIsLoading
 });

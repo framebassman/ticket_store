@@ -19,7 +19,7 @@ class Afisha extends Component<any, any> {
 
   render() {
     console.log('inside render');
-    const { classes, items, hasErrored, isLoading } = this.props;
+    const { classes, events, hasErrored, isLoading } = this.props;
     if (hasErrored) {
       return <p>Sorry! There was an error loading the items</p>;
     }
@@ -31,7 +31,7 @@ class Afisha extends Component<any, any> {
     return (
       <div>
         <Grid container justify="center">
-          {items.map((event, key) => (
+          {events.map((event, key) => (
             <Event artist={event.artist} key={key}/>
           ))}
         </Grid>
@@ -42,9 +42,9 @@ class Afisha extends Component<any, any> {
 
 const mapStateToProps = (state) => {
   return {
-      items: state.afisha.items,
-      hasErrored: state.afisha.itemsHasErrored,
-      isLoading: state.afisha.itemsIsLoading
+      events: state.afisha.events,
+      hasErrored: state.afisha.eventsHasErrored,
+      isLoading: state.afisha.eventsIsLoading
   };
 };
 const mapDispatchToProps = (dispatch) => {

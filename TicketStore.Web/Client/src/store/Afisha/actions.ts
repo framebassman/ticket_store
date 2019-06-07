@@ -1,13 +1,13 @@
 import axios from 'axios';
 import { eventsUrl } from './urls';
 
-export const itemsFetchDataSuccessType = 'ITEMS_FETCH_DATA_SUCCESS';
-export const itemsHasErroredType = 'EVENTS_HAS_ERRORED';
-export const itemsIsLoadingType = 'ITEMS_IS_LOADING';
+export const eventsFetchDataSuccessType = 'ITEMS_FETCH_DATA_SUCCESS';
+export const eventsHasErroredType = 'EVENTS_HAS_ERRORED';
+export const eventsIsLoadingType = 'ITEMS_IS_LOADING';
 
 export function itemsFetchData() {
   return (dispatch) => {
-      dispatch(itemsIsLoading(true));
+      dispatch(eventsIsLoading(true));
 
       axios.get(eventsUrl)
           .then((response) => {
@@ -15,13 +15,13 @@ export function itemsFetchData() {
                 throw Error(response.statusText);
               }
 
-              dispatch(itemsIsLoading(false));
+              dispatch(eventsIsLoading(false));
 
               return response;
           })
           .then((response) => response.data)
-          .then((items) => dispatch(itemsFetchDataSuccess(items)))
-          .catch(() => dispatch(itemsHasErrored(true)));
+          .then((items) => dispatch(eventsFetchDataSuccess(items)))
+          .catch(() => dispatch(eventsHasErrored(true)));
   };
 }
 
@@ -30,28 +30,28 @@ export function errorAfterFiveSeconds() {
   return (dispatch) => {
       setTimeout(() => {
           // This function is able to dispatch other action creators
-          dispatch(itemsHasErrored(true));
+          dispatch(eventsHasErrored(true));
       }, 5000);
   };
 }
 
-export function itemsHasErrored(bool: boolean) {
+export function eventsHasErrored(bool: boolean) {
   return {
-      type: itemsHasErroredType,
+      type: eventsHasErroredType,
       hasErrored: bool
   };
 }
 
-export function itemsIsLoading(bool: boolean) {
+export function eventsIsLoading(bool: boolean) {
   return {
-      type: itemsIsLoadingType,
+      type: eventsIsLoadingType,
       isLoading: bool
   };
 }
 
-export function itemsFetchDataSuccess(items) {
+export function eventsFetchDataSuccess(events) {
   return {
-      type: itemsFetchDataSuccessType,
-      items
+      type: eventsFetchDataSuccessType,
+      events
   };
 }
