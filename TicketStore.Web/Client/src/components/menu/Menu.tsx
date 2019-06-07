@@ -9,15 +9,15 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import { useStyles } from './AfishaWithMenu.styles';
-import Afisha from './Afisha';
-import { Logo } from './Logo';
+import { useStyles } from './Menu.styles';
+import Logo from './Logo';
 import { MenuFooter } from './MenuFooter';
 
-export const AfishaWithMenu = () => {
+export const Menu = (props) => {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
+  const { children } = props;
 
   function handleDrawerOpen() {
     setOpen(true);
@@ -71,7 +71,7 @@ export const AfishaWithMenu = () => {
         })}
       >
         <div className={classes.drawerHeader} />
-        <Afisha />
+        {children}
       </main>
     </div>
   );

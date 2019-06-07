@@ -9,7 +9,7 @@ export interface PayButtonProps {
 }
 
 export const PayButton = (props: PayButtonProps) => {
-  const { className, roubles, target } = props;
+  const { roubles, target } = props;
   if (roubles > 0) {
     return (
       <form style={{marginLeft: 'auto', marginRight: 'auto'}} method="POST" action="https://money.yandex.ru/quickpay/confirm.xml">

@@ -11,7 +11,7 @@ import { EventTime } from '../core/time/EventTime';
 
 class Event extends Component<any, any> {
   render() {
-    const { classes, artist, roubles, pressRelease, yandexMoneyAccount, time, posterUrl } = this.props;
+    const { classes, artist, roubles, yandexMoneyAccount, time, posterUrl } = this.props;
     return (
       <Card className={classes.card}>
         <CardContent>
