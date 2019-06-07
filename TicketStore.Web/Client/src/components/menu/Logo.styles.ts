@@ -13,7 +13,8 @@ export const styles = {
     position: 'absolute' as 'absolute',
     left: 300,
     top: 27,
-    fontSize: '10pt'
+    fontSize: '10pt',
+    display: 'none'
   },
   '@media (max-width: 600px)': {
     description: {
