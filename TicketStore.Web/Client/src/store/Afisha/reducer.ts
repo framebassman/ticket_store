@@ -1,27 +1,47 @@
-import { fetchEventsType, eventsHasErroredType } from './actions';
+import { itemsFetchDataSuccessType, itemsHasErroredType, itemsIsLoadingType } from './actions';
 import { AfishaState } from './state';
+import { combineReducers } from 'redux';
 
 const initialState: AfishaState = {
-    isLoading: true,
+    isLoading: false,
     hasErrored: false,
-    events: []
+    items: []
 };
 
-export const reducer = (state: any, action: any): AfishaState => {
-    state = state || initialState;
-    switch(action.type) {
-        case fetchEventsType : {
-            console.log('before fetchEventsType in reducer');
-            const newEvents = [];
-            newEvents.concat(action.payload);
-            console.log('after fetchEventsType in reducer');
-            console.log('fetched events: ', newEvents);
-            return { ...state, events: newEvents, isLoading: false };
-        }
-        case eventsHasErroredType : {
-            return { ...state, hasErrored: true };
-        }
-    }
+export function itemsHasErrored(state = false, action) {
+    switch (action.type) {
+        case itemsHasErroredType:
+            return action.hasErrored;
 
-    return state;
+        default:
+            return state;
+    }
 }
+
+export function itemsIsLoading(state = false, action) {
+    switch (action.type) {
+        case itemsIsLoadingType:
+            console.log('isLoading action', action);
+            return action.isLoading;
+
+        default:
+            return state;
+    }
+}
+
+export function items(state = [], action) {
+    switch (action.type) {
+        case itemsFetchDataSuccessType:
+            console.log('items action', action);
+            return action.items;
+
+        default:
+            return state;
+    }
+}
+
+export const reducer = combineReducers({
+    items,
+    itemsHasErrored,
+    itemsIsLoading
+});

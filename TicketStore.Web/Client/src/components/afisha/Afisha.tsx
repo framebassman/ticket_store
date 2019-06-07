@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { actionCreators } from '../../store/Afisha/actions';
+import { itemsFetchData } from '../../store/Afisha/actions';
 import { AfishaState } from '../../store/Afisha/state';
 
 import Event from './Event';
@@ -12,38 +12,26 @@ import Grid from '@material-ui/core/Grid';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 
-class Afisha extends Component<any, AfishaState> {
-  constructor(props: any, state: any) {
-    super(props, state);
-    this.state = {
-      hasErrored: false,
-      isLoading: true,
-      events: []
-    }
-  }
-
+class Afisha extends Component<any, any> {
   componentDidMount() {
-    console.log('inside didMount');
-    const { fetchEvents } = this.props;
-    fetchEvents();
-    // const result = fetchEvents();
-    // console.log('fetch result: ', result);
+    this.props.fetchData();
   }
 
   render() {
-    const { classes, events, fetchEvents} = this.props;
-    if (this.state.hasErrored) {
+    console.log('inside render');
+    const { classes, items, hasErrored, isLoading } = this.props;
+    if (hasErrored) {
       return <p>Sorry! There was an error loading the items</p>;
     }
 
-    if (this.state.isLoading === true) {
+    if (isLoading) {
       return <CircularProgress />
     }
 
     return (
-      <div className={classes.afisha}>
+      <div>
         <Grid container justify="center">
-          {events.map((event, key) => (
+          {items.map((event, key) => (
             <Event artist={event.artist} key={key}/>
           ))}
         </Grid>
@@ -52,9 +40,17 @@ class Afisha extends Component<any, AfishaState> {
   }
 }
 
-export default connect(
-  (state: any) => state.afisha,
-  dispatch => bindActionCreators(actionCreators, dispatch)
-)(Afisha);
+const mapStateToProps = (state) => {
+  return {
+      items: state.afisha.items,
+      hasErrored: state.afisha.itemsHasErrored,
+      isLoading: state.afisha.itemsIsLoading
+  };
+};
+const mapDispatchToProps = (dispatch) => {
+  return {
+      fetchData: () => dispatch(itemsFetchData())
+  };
+};
 
-// export default withStyles(styles)(Afisha);
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Afisha));
