@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { itemsFetchData } from '../../store/Afisha/actions';
+import { eventsFetchData } from '../../store/Afisha/actions';
 import { AfishaState } from '../../store/Afisha/state';
 
 import Event from './Event';
@@ -12,13 +11,12 @@ import Grid from '@material-ui/core/Grid';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 
-class Afisha extends Component<any, any> {
+class Afisha extends Component<any, AfishaState> {
   componentDidMount() {
     this.props.fetchData();
   }
 
   render() {
-    console.log('inside render');
     const { classes, events, hasErrored, isLoading } = this.props;
     if (hasErrored) {
       return <p>Sorry! There was an error loading the items</p>;
@@ -29,7 +27,7 @@ class Afisha extends Component<any, any> {
     }
 
     return (
-      <div>
+      <div className={classes.afisha}>
         <Grid container justify="center">
           {events.map((event, key) => (
             <Event artist={event.artist} key={key}/>
@@ -49,7 +47,7 @@ const mapStateToProps = (state) => {
 };
 const mapDispatchToProps = (dispatch) => {
   return {
-      fetchData: () => dispatch(itemsFetchData())
+      fetchData: () => dispatch(eventsFetchData())
   };
 };
 

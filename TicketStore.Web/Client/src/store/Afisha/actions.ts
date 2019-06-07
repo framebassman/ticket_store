@@ -1,11 +1,11 @@
 import axios from 'axios';
 import { eventsUrl } from './urls';
 
-export const eventsFetchDataSuccessType = 'ITEMS_FETCH_DATA_SUCCESS';
+export const eventsFetchDataSuccessType = 'EVENTS_FETCH_DATA_SUCCESS';
 export const eventsHasErroredType = 'EVENTS_HAS_ERRORED';
-export const eventsIsLoadingType = 'ITEMS_IS_LOADING';
+export const eventsIsLoadingType = 'EVENTS_IS_LOADING';
 
-export function itemsFetchData() {
+export function eventsFetchData() {
   return (dispatch) => {
       dispatch(eventsIsLoading(true));
 
@@ -35,21 +35,21 @@ export function errorAfterFiveSeconds() {
   };
 }
 
-export function eventsHasErrored(bool: boolean) {
+function eventsHasErrored(bool: boolean) {
   return {
       type: eventsHasErroredType,
       hasErrored: bool
   };
 }
 
-export function eventsIsLoading(bool: boolean) {
+function eventsIsLoading(bool: boolean) {
   return {
       type: eventsIsLoadingType,
       isLoading: bool
   };
 }
 
-export function eventsFetchDataSuccess(events) {
+function eventsFetchDataSuccess(events) {
   return {
       type: eventsFetchDataSuccessType,
       events

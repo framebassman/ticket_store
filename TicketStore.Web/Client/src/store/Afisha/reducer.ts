@@ -1,12 +1,5 @@
 import { eventsFetchDataSuccessType, eventsHasErroredType, eventsIsLoadingType } from './actions';
-import { AfishaState } from './state';
 import { combineReducers } from 'redux';
-
-const initialState: AfishaState = {
-    isLoading: false,
-    hasErrored: false,
-    items: []
-};
 
 function eventsHasErrored(state = false, action) {
     switch (action.type) {
@@ -21,7 +14,6 @@ function eventsHasErrored(state = false, action) {
 function eventsIsLoading(state = false, action) {
     switch (action.type) {
         case eventsIsLoadingType:
-            console.log('isLoading action', action);
             return action.isLoading;
 
         default:
@@ -32,7 +24,6 @@ function eventsIsLoading(state = false, action) {
 function events(state = [], action) {
     switch (action.type) {
         case eventsFetchDataSuccessType:
-            console.log('items action', action);
             return action.events;
 
         default:
