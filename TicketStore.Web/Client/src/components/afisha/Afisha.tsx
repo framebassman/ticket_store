@@ -23,7 +23,10 @@ class Afisha extends Component<any, AfishaState> {
     if (hasErrored) {
       return (
         <Typography align="center" component="div">
-          <Box margin={16}>У нас что-то сломалось. Мы уже знаем об этом и уже чиним.</Box>
+          <Box marginTop={16}>
+            <div>У нас что-то сломалось.</div>
+            <div>Мы уже знаем об этом и уже чиним.</div>
+          </Box>
         </Typography>
       );
     }
