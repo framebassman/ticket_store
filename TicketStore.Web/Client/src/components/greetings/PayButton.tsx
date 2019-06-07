@@ -8,10 +8,7 @@ export const PayButton = (props: any) => {
   const theme = createMuiTheme({
     palette: {
       primary: yellow,
-    },
-    typography: {
-      useNextVariants: true,
-    },
+    }
   });
   if (roubles > 0) {
     return (

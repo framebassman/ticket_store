@@ -11,18 +11,12 @@ const waitableTheme = createMuiTheme({
   palette: {
     primary: green,
     secondary: red,
-  },
-  typography: {
-    useNextVariants: true,
-  },
+  }
 });
 const nonWaitableTheme = createMuiTheme({
     palette: {
       primary: yellow,
-    },
-    typography: {
-      useNextVariants: true,
-    },
+    }
   });
 
 export const Status = (props: any) => {
