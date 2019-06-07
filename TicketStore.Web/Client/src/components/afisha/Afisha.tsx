@@ -8,6 +8,8 @@ import Event from './Event';
 import { withStyles } from '@material-ui/styles';
 import { styles } from './Afisha.styles';
 import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import Box from '@material-ui/core/Box';
 import { CenteredProgress } from '../core/progress/CenteredProgress';
 
 
@@ -19,7 +21,11 @@ class Afisha extends Component<any, AfishaState> {
   render() {
     const { classes, events, hasErrored, isLoading } = this.props;
     if (hasErrored) {
-      return <p>Sorry! There was an error loading the items</p>;
+      return (
+        <Typography align="center" component="div">
+          <Box margin={16}>У нас что-то сломалось. Мы уже знаем об этом и уже чиним.</Box>
+        </Typography>
+      );
     }
 
     if (isLoading) {
