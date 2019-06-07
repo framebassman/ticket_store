@@ -32,7 +32,8 @@ namespace TicketStore.Web.Controllers
                         PressRelease = PressReleaseTemplate(),
                         Roubles = 5m,
                         YandexMoneyAccount = _yandexMoneyAccount,
-                        Time = DateTime.Now
+                        Time = DateTime.Now,
+                        PosterUrl = new Uri("https://pp.userapi.com/c849224/v849224484/14cde2/0GUw8PewP58.jpg")
                     },
                     new Event
                     {
@@ -40,7 +41,8 @@ namespace TicketStore.Web.Controllers
                         PressRelease = PressReleaseTemplate(),
                         Roubles = 4m,
                         YandexMoneyAccount = _yandexMoneyAccount,
-                        Time = DateTime.Now
+                        Time = DateTime.Now,
+                        PosterUrl = new Uri("https://pp.userapi.com/c849224/v849224484/14cde2/0GUw8PewP58.jpg")
                     },
                     new Event
                     {
@@ -48,7 +50,8 @@ namespace TicketStore.Web.Controllers
                         PressRelease = PressReleaseTemplate(),
                         Roubles = 1m,
                         YandexMoneyAccount = _yandexMoneyAccount,
-                        Time = DateTime.Now
+                        Time = DateTime.Now,
+                        PosterUrl = new Uri("https://pp.userapi.com/c849224/v849224484/14cde2/0GUw8PewP58.jpg")
                     },
                     new Event
                     {
@@ -56,7 +59,8 @@ namespace TicketStore.Web.Controllers
                         PressRelease = PressReleaseTemplate(),
                         Roubles = 3m,
                         YandexMoneyAccount = _yandexMoneyAccount,
-                        Time = DateTime.Now
+                        Time = DateTime.Now,
+                        PosterUrl = new Uri("https://pp.userapi.com/c849224/v849224484/14cde2/0GUw8PewP58.jpg")
                     },
                     new Event
                     {
@@ -64,7 +68,8 @@ namespace TicketStore.Web.Controllers
                         PressRelease = PressReleaseTemplate(),
                         Roubles = 2m,
                         YandexMoneyAccount = _yandexMoneyAccount,
-                        Time = DateTime.Now
+                        Time = DateTime.Now,
+                        PosterUrl = new Uri("https://pp.userapi.com/c849224/v849224484/14cde2/0GUw8PewP58.jpg")
                     }
                 }
             );

@@ -37,6 +37,7 @@ class Afisha extends Component<any, AfishaState> {
               pressRelease={event.pressRelease}
               yandexMoneyAccount={event.yandexMoneyAccount}
               time={event.time}
+              posterUrl={event.posterUrl}
             />
           ))}
         </Grid>

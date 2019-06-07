@@ -9,5 +9,6 @@ namespace TicketStore.Web.Model
         public String PressRelease;
         public String YandexMoneyAccount;
         public DateTime Time;
+        public Uri PosterUrl;
     }
 }
