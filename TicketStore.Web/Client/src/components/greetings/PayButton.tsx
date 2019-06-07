@@ -25,6 +25,7 @@ export const PayButton = (props: PayButtonProps) => {
         <input type="hidden" name="need-email" value="true" />
         <input type="hidden" name="targets" value={target} />
         <input type="hidden" name="sum" value={roubles} data-type="number"></input>
+        <input type="hidden" name="paymentType" value="AC"/>
         <MuiThemeProvider theme={theme}>
           <Button variant="contained" color="primary" size="large" type="submit">Купить билет</Button>
         </MuiThemeProvider>
