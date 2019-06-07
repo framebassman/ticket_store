@@ -2,7 +2,7 @@
 import { BrowserRouter, Route, Switch} from 'react-router-dom';
 import { Farewell } from './components/farewell/Farewell';
 import Turnstile from './components/turnstile/Turnstile';
-import Afisha from './components/afisha/Afisha';
+import { AfishaWithMenu } from './components/afisha/AfishaWithMenu';
 
 class App extends Component {
   render() {
@@ -11,7 +11,7 @@ class App extends Component {
         <Switch>
           <Route path="/tickets/farewell" component={Farewell}/>
           <Route path="/tickets/turnstile" component={Turnstile}/>
-          <Route path="" component={Afisha}/>
+          <Route path="" component={AfishaWithMenu}/>
         </Switch>
       </BrowserRouter>
     );
