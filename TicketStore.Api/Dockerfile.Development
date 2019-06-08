@@ -1,0 +1,22 @@
+FROM microsoft/dotnet:2.2-sdk
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+        zlib1g \
+        fontconfig \
+        libfreetype6 \
+        libx11-6 \
+        libxext6 \
+        libxrender1 \
+    && curl -o /usr/lib/libwkhtmltox.so \
+        --location \
+        https://github.com/rdvojmoc/DinkToPdf/raw/v1.0.8/v0.12.4/64%20bit/libwkhtmltox.so
+RUN apt-get update \
+    && apt-get install -y \
+        libgdiplus \
+        libc6-dev
+COPY ./TicketStore.Api/ /app
+WORKDIR /app
+RUN dotnet clean
+RUN dotnet restore
+RUN dotnet build
+ENTRYPOINT dotnet run

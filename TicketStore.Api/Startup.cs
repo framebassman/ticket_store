@@ -31,10 +31,12 @@ namespace TicketStore.Api
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables();
             Configuration = builder.Build();
+            Environment = env;
             _log = log;
         }
 
         public IConfiguration Configuration { get; }
+        public IHostingEnvironment Environment { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -51,8 +53,7 @@ namespace TicketStore.Api
                 .BuildServiceProvider();
             services.AddSingleton(Configuration);
             services.AddSingleton<IConverter>(new SynchronizedConverter(new PdfTools()));
-            services.AddSingleton(
-                new YandexService(Configuration.GetValue<String>("EmailSenderPassword"), _log));
+            services.AddSingleton(new EmailStrategy(Environment, Configuration, _log).Service());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

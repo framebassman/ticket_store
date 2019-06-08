@@ -1,27 +1,30 @@
 using System;
 using MailKit.Net.Smtp;
 using MimeKit;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
 namespace TicketStore.Api.Model.Email
 {
-    public class YandexService : IDisposable
+    public class YandexService : EmailService
     {
-        private String _password;
-        private ILogger _log;
-        private SmtpClient _smtpClient;
+        private readonly ILogger _log;
+        private readonly SmtpClient _smtpClient;
 
-        public YandexService(String password, ILogger log)
+        public YandexService(IHostingEnvironment env, IConfiguration conf, ILogger log)
         {
-            _password = password;
             _log = log;
             _smtpClient = new SmtpClient();
             _smtpClient.ServerCertificateValidationCallback = (s,c,h,e) => true;
             _smtpClient.Connect ("smtp.yandex.ru", 465, true);
-            _smtpClient.Authenticate ("no-reply@romashov.tech", _password);
+            _smtpClient.Authenticate (
+                "no-reply@romashov.tech", 
+                conf.GetValue<String>("EmailSenderPassword")
+                );
         }
 
-        public void SendTicket(String to, Pdf.Pdf ticket)
+        public override void SendTicket(String to, Pdf.Pdf ticket)
         {
             var builder = new BodyBuilder
             {
@@ -39,7 +42,7 @@ namespace TicketStore.Api.Model.Email
             _smtpClient.Send(message);
         }
 
-        public void Dispose()
+        public override void Dispose()
         {
             _smtpClient.Disconnect(true);
 	        _smtpClient.Dispose();

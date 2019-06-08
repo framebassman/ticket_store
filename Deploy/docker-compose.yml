@@ -1,0 +1,10 @@
+version: '3.6'
+
+services:
+    store_web:
+        build:
+            context: .
+            dockerfile: ./TicketStore.Web/Dockerfile
+    store_api:
+        volumes:
+            - /var/log/store_api:/app/logs

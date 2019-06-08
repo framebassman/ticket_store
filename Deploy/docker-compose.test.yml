@@ -8,17 +8,18 @@ services:
             dockerfile: ./TicketStore.Api/Dockerfile.Development
         depends_on:
             - postgres
+            - fake_sender
         ports:
             - 3000:5000
         environment:
-            - ASPNETCORE_ENVIRONMENT=Development
+            - ASPNETCORE_ENVIRONMENT=Test
         tty: true
     store_web:
         container_name: store_web
         ports:
             - 4000:5000
         environment:
-            - ASPNETCORE_ENVIRONMENT=Development
+            - ASPNETCORE_ENVIRONMENT=Test
     postgres:
         build:
             context: .
@@ -34,6 +35,13 @@ services:
             - POSTGRES_PASSWORD=W6TTT3WY4Nzqpj5z
         logging:
             driver: none
+    fake_sender:
+        image: framebassman/fake-sender:1.2.0
+        container_name: fake_sender
+        ports:
+            - 5000:5050
+        volumes:
+            - /var/log/fake_sender:/var/log
 
 volumes:
     pgsdata:
