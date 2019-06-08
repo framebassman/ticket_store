@@ -1,7 +1,9 @@
+# dev
 build-dev:
 	docker-compose \
 		--project-directory=${PWD} \
 		--project-name=ticket_store \
+		-f Deploy/docker-compose.yml \
 		-f Deploy/docker-compose.development.yml \
 		build ${ARGS}
 
@@ -9,6 +11,7 @@ start-dev:
 	docker-compose \
 		--project-directory=${PWD} \
 		--project-name=ticket_store \
+		-f Deploy/docker-compose.yml \
 		-f Deploy/docker-compose.development.yml \
 		up --build
 
@@ -16,13 +19,33 @@ stop-dev:
 	docker-compose \
 		--project-directory=${PWD} \
 		--project-name=ticket_store \
+		-f Deploy/docker-compose.yml \
 		-f Deploy/docker-compose.development.yml \
 		down
 
+# test
+start-test:
+	docker-compose \
+		--project-directory=${PWD} \
+		--project-name=ticket_store \
+		-f Deploy/docker-compose.yml \
+		-f Deploy/docker-compose.test.yml \
+		up --build -d
+
+stop-test:
+	docker-compose \
+		--project-directory=${PWD} \
+		--project-name=ticket_store \
+		-f Deploy/docker-compose.yml \
+		-f Deploy/docker-compose.test.yml \
+		down
+
+# prod
 build-prod:
 	docker-compose \
 		--project-directory=${PWD} \
 		--project-name=ticket_store \
+		-f Deploy/docker-compose.yml \
 		-f Deploy/docker-compose.production.yml \
 		build ${ARGS}
 
@@ -43,9 +66,15 @@ docker-cleanup:
 
 db-dev:
 	docker exec -it postgres psql postgresql://store:W6TTT3WY4Nzqpj5z@localhost:5432/store
+	
+cleanup-db-dev:
+	docker exec -it postgres psql postgresql://store:W6TTT3WY4Nzqpj5z@localhost:5432/store -c 'DROP SCHEMA public CASCADE;' -c '\q'
 
-db-prod:
-	docker exec -it postgres psql postgresql://store:W6TTT3WY4Nzqpj5z@82.202.236.173:5432/store
+migrate-dev:
+	docker exec -it store_api dotnet ef database update
+
+migrate-test:
+	docker exec -it store_api dotnet ef database update
 
 # dev
 ngrok:

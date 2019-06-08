@@ -1,6 +1,6 @@
 using System;
 
-namespace TicketStore.Api.Model.Validator
+namespace TicketStore.Api.Model.Validation
 {
     public class Barcode
     {

@@ -1,9 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using DinkToPdf.Contracts;
@@ -20,14 +18,20 @@ namespace TicketStore.Api.Controllers
     {
         private ApplicationContext _db;
         private ILogger<PaymentsController> _log;
-        private YandexService _yandex;
+        private EmailService _emailService;
         private IConverter _converter;
 
-        public PaymentsController(ApplicationContext context, ILogger<PaymentsController> log, IConfiguration config, IConverter pdfConverter)
+        public PaymentsController(
+            ApplicationContext context,
+            ILogger<PaymentsController> log,
+            IConfiguration config,
+            IConverter pdfConverter,
+            EmailService emailService
+        )
         {
             _db = context;
             _log = log;
-            _yandex = new YandexService(config.GetValue<String>("EmailSenderPassword"), _log);
+            _emailService = emailService;
             _converter = pdfConverter;
         }
 
@@ -54,7 +58,7 @@ namespace TicketStore.Api.Controllers
                 _log.LogInformation("Receive Yandex request without email");
                 return new OkObjectResult("It's OK for yandex testing");
             }
-            if (new Validator(
+            if (!new Validator(
                     notification_type,
                     operation_id,
                     amount,
@@ -67,17 +71,20 @@ namespace TicketStore.Api.Controllers
                 ).FromYandex()
             )
             {
-                _log.LogInformation("Receive Yandex.Money request from {@0}", email);
-                var tickets = CombineTickets(new Payment { Email = email, Amount = withdraw_amount});
-                var pdf = new Pdf(tickets, _converter);
-                _log.LogInformation("Combined PDF with barcodes");
-                _yandex.SendTicket(email, pdf);
-                return new OkObjectResult("OK");
-            }
-            else
-            {
                 return new BadRequestObjectResult("Secret is not matching");
             }
+            
+            _log.LogInformation("Receive Yandex.Money request from {@0}", email);
+            var tickets = CombineTickets(new Payment { Email = email, Amount = withdraw_amount});
+            
+            if (tickets.Count == 0)
+            {
+                return new OkObjectResult("Payment is less than ticket cost");
+            }
+            var pdf = new Pdf(tickets, _converter);
+            _log.LogInformation("Combined PDF with barcodes");
+            _emailService.SendTicket(email, pdf);
+            return new OkObjectResult("OK");
         }
 
         private List<Ticket> CombineTickets(Payment payment)

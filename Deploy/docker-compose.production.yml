@@ -5,19 +5,10 @@ services:
         image: "docker.io/framebassman/store-api:1.2.${CIRCLE_BUILD_NUM}"
         build:
             context: .
-            dockerfile: ./TicketStore.Api/Dockerfile
-        container_name: store_api
-        ports:
-            - 3000:5000
+            dockerfile: ./TicketStore.Api/Dockerfile.Production
         environment:
             - ASPNETCORE_ENVIRONMENT=Production
     store_web:
         image: "docker.io/framebassman/store-web:1.2.${CIRCLE_BUILD_NUM}"
-        build:
-            context: .
-            dockerfile: ./TicketStore.Web/Dockerfile
-        container_name: store_web
-        ports:
-            - 4000:5000
         environment:
             - ASPNETCORE_ENVIRONMENT=Production

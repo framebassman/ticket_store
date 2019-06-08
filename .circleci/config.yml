@@ -21,8 +21,57 @@ jobs:
     steps:
       - checkout:
           path: ~/repo
+      - run: dotnet build
+  test-api:
+    machine:
+      docker_layer_caching: true
+    steps:
+      - checkout
       - run:
-          command: dotnet build
+          name: update docker-compose
+          command: |
+            sudo curl -L "https://github.com/docker/compose/releases/download/1.24.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+            sudo chmod +x /usr/local/bin/docker-compose
+      - run:
+          name: install dotnet core
+          command: |
+            sudo apt-get clean
+            sudo apt-get update
+            sudo apt-get install dpkg
+            wget -q https://packages.microsoft.com/config/ubuntu/14.04/packages-microsoft-prod.deb
+            sudo dpkg -i packages-microsoft-prod.deb
+            sudo apt-get install apt-transport-https
+            sudo apt-get update
+            echo export DOTNET_SKIP_FIRST_TIME_EXPERIENCE=1 >> "$BASH_ENV"
+            echo export DOTNET_CLI_TELEMETRY_OPTOUT=1 >> "$BASH_ENV"
+            sudo apt-get install dotnet-sdk-2.2
+      - run: make start-test
+      - run: bash ./Scripts/wait-until-app-is-deployed.sh
+      - run: make migrate-test
+      - run: dotnet test TicketStore.Api.Tests --logger "trx;LogFileName=report.trx"
+      - run:
+          name: transform trx report to junit for CI
+          command: |
+            dotnet tool install -g trx2junit
+            ~/.dotnet/tools/trx2junit TicketStore.Api.Tests/TestResults/report.trx
+          when: always
+      - store_test_results:
+          path: TicketStore.Api.Tests/TestResults
+      - store_artifacts:
+          path: TicketStore.Api.Tests/TestResults
+          destination: TestResults
+      - store_artifacts:
+          path: /var/log/store_api
+          destination: Logs/TicketStore.Api
+      - store_artifacts:
+          path: /var/log/fake_sender
+          destination: Logs/FakeSender
+      - run:
+          name: stop application
+          command: |
+            make cleanup-db-dev
+            make stop-test
+          when: always
   deploy:
     machine:
       docker_layer_caching: true
@@ -37,12 +86,16 @@ workflows:
     jobs:
       - build-api
       - build-web
+      - test-api:
+          requires:
+          - build-api
       - deploy:
           filters:
             branches:
               only:
-                - master
+               - master
           context: docker_hub_creds
           requires:
-            - build-api
-            - build-web
+           - build-api
+           - build-web
+           - test-api
