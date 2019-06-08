@@ -14,7 +14,7 @@ const store = configureStore(initialState);
 ReactDOM.render(
   <Provider store={store}>
     <App/>
-    <YandexMetrica accounts={[52190806]} />
+    <YandexMetrica accounts={[53979967]} />
   </Provider>,
   document.getElementById('root')
 );

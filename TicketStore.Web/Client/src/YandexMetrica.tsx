@@ -28,4 +28,4 @@ export const YandexMetrica = (props: YandexMetricaProps) => {
   } else {
     return null;
   }
-}
+};
