@@ -78,7 +78,7 @@ jobs:
     steps:
       - checkout
       - run: chmod +x ./Scripts/deploy.sh
-      - run: ./Scripts/deploy.sh
+      - run: ./Scripts/publish-to-docker-hub.sh
 
 workflows:
   version: 2
