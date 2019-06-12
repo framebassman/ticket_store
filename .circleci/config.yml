@@ -82,7 +82,7 @@ jobs:
       - run:
           name: Deploy Over SSH
           command: |
-            ssh root@chertopolokh.ru 'git clone git@github.com:FrameBassman/ticket_store.git --branch feature/afisha --single-branch'
+            ssh root@chertopolokh.ru 'git clone git@github.com:FrameBassman/ticket_store.git --branch master --single-branch'
             ssh root@chertopolokh.ru 'export CIRCLE_BUILD_NUM='"'$CIRCLE_BUILD_NUM'"'; cd ticket_store && make stop-prod start-prod && make docker-cleanup -i'
       - run:
           name: Deploy check
@@ -97,7 +97,11 @@ workflows:
       - test-api:
           requires:
             - build-api
-      - deploy
+      - deploy:
+          # filters:
+          #   branches:
+          #     only:
+          #       - master
           context: docker_hub_creds
           requires:
             - build-api
