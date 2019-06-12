@@ -51,6 +51,14 @@ build-prod:
 		-f Deploy/docker-compose.production.yml \
 		build ${ARGS}
 
+stop-prod:
+	docker-compose \
+		--project-directory=${PWD} \
+		--project-name=ticket_store \
+		-f Deploy/docker-compose.yml \
+		-f Deploy/docker-compose.production.yml \
+		down
+
 start-prod:
 	chmod 600 ./Proxy/traefik/certs/acme.json
 	docker-compose \
