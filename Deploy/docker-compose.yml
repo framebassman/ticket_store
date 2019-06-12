@@ -6,6 +6,7 @@ services:
         build:
             context: .
             dockerfile: ./TicketStore.Web/Dockerfile
+        image: "docker.io/framebassman/store-proxy:1.2.${CIRCLE_BUILD_NUM}"
         ports:
             - 80:80
             - 443:443
