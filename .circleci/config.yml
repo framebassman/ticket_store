@@ -77,6 +77,11 @@ jobs:
       docker_layer_caching: true
     steps:
       - checkout
+      - run:
+          name: update docker-compose
+          command: |
+            sudo curl -L "https://github.com/docker/compose/releases/download/1.24.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+            sudo chmod +x /usr/local/bin/docker-compose
       - run: bash ./Scripts/publish-to-docker-hub.sh
       - run:
           name: Deploy Over SSH
