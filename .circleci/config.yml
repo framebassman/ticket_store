@@ -98,10 +98,6 @@ workflows:
           requires:
             - build-api
       - deploy
-          # filters:
-          #   branches:
-          #     only:
-          #       - master
           context: docker_hub_creds
           requires:
             - build-api
