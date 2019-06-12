@@ -20,7 +20,7 @@ services:
             - "traefik.port=5000"
             - "traefik.backend=web"
             - "traefik.frontend.rule=PathPrefixStrip:/"
-            - "traefik.docker.network=store_default"
+            - "traefik.docker.network=ticket_store_default"
         volumes:
             - /var/log/store_web:/app/logs
         tty: true
@@ -32,7 +32,7 @@ services:
             - "traefik.frontend.redirect.regex=^(.*)/api$$"
             - "traefik.frontend.redirect.replacement=$$1/api/"
             - "traefik.frontend.rule=PathPrefix:/api;ReplacePathRegex: ^/api/(.*) /$$1"
-            - "traefik.docker.network=store_default"
+            - "traefik.docker.network=ticket_store_default"
         volumes:
             - /var/log/store_api:/app/logs
         tty: true
