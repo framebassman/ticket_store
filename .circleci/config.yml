@@ -79,6 +79,24 @@ jobs:
       - checkout
       - run: chmod +x ./Scripts/deploy.sh
       - run: ./Scripts/publish-to-docker-hub.sh
+      - run:
+          name: Deploy Over SSH
+          command: |
+            ssh root@chertopolokh.ru 'git clone git@github.com:FrameBassman/ticket_store.git --branch master --single-branch'
+            ssh root@chertopolokh.ru 'export CIRCLE_BUILD_NUM='"'$CIRCLE_BUILD_NUM'"'; cd ticket_store && make stop-prod start-prod && make docker-cleanup -i'
+      - run:
+          name: Deploy check
+          command: bash ./Scripts/check-deployment.sh https://chertopolokh.ru
+workflows:
+  version: 2
+  build-test-deploy:
+    jobs:
+      - deploy:
+          filters:
+            branches:
+              only:
+                - master
+
 
 workflows:
   version: 2
