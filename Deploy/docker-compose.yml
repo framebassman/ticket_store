@@ -29,6 +29,7 @@ services:
             - /var/log/store_web:/app/logs
         tty: true
     store_proxy:
+        container_name: store_proxy
         build:
             context: .
             dockerfile: ./Proxy/Dockerfile

@@ -1,4 +1,4 @@
-FROM traefik:2.0
+FROM traefik:1.7
 COPY ./Proxy .
 ENTRYPOINT ["./traefik"]
 CMD ["--configfile=./traefik/config/traefik.toml"]
