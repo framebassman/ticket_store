@@ -2,7 +2,6 @@ version: '3.6'
 
 services:
     store_api:
-        container_name: store_api
         build:
             context: .
             dockerfile: ./TicketStore.Api/Dockerfile.Development
@@ -14,7 +13,6 @@ services:
         environment:
             - ASPNETCORE_ENVIRONMENT=Test
     store_web:
-        container_name: store_web
         ports:
             - 4000:5000
         environment:

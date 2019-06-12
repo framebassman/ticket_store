@@ -1,16 +1,21 @@
 version: '3.6'
 
 services:
-    store_proxy:
-        container_name: store_proxy
-        image: "docker.io/framebassman/store-proxy:1.2.${CIRCLE_BUILD_NUM}"
-        ports:
-            - 80:80
-            - 443:443
+    store_api:
+        container_name: store_api
+        labels:
+            - "traefik.enable=true"
+            - "traefik.port=5000"
+            - "traefik.backend=store_api"
+            - "traefik.frontend.redirect.regex=^(.*)/api$$"
+            - "traefik.frontend.redirect.replacement=$$1/api/"
+            - "traefik.frontend.rule=PathPrefix:/api;ReplacePathRegex: ^/api/(.*) /$$1"
+            - "traefik.docker.network=ticket_store_default"
         volumes:
-            - /var/run/docker.sock:/var/run/docker.sock
-            - ./Proxy/traefik/certs/acme.json:/acme.json
+            - /var/log/store_api:/app/logs
+        tty: true
     store_web:
+        container_name: store_web
         build:
             context: .
             dockerfile: ./TicketStore.Web/Dockerfile
@@ -23,15 +28,13 @@ services:
         volumes:
             - /var/log/store_web:/app/logs
         tty: true
-    store_api:
-        labels:
-            - "traefik.enable=true"
-            - "traefik.port=5000"
-            - "traefik.backend=store_api"
-            - "traefik.frontend.redirect.regex=^(.*)/api$$"
-            - "traefik.frontend.redirect.replacement=$$1/api/"
-            - "traefik.frontend.rule=PathPrefix:/api;ReplacePathRegex: ^/api/(.*) /$$1"
-            - "traefik.docker.network=ticket_store_default"
+    store_proxy:
+        build:
+            context: .
+            dockerfile: ./Proxy/Dockerfile
+        ports:
+            - 80:80
+            - 443:443
         volumes:
-            - /var/log/store_api:/app/logs
-        tty: true
+            - /var/run/docker.sock:/var/run/docker.sock
+            - ./Proxy/traefik/certs/acme.json:/acme.json
