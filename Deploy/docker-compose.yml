@@ -2,6 +2,7 @@ version: '3.6'
 
 services:
     store_proxy:
+        container_name: store_proxy
         build:
             context: .
             dockerfile: ./TicketStore.Web/Dockerfile
