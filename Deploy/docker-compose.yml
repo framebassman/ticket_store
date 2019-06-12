@@ -1,10 +1,38 @@
 version: '3.6'
 
 services:
+    store_proxy:
+        build:
+            context: .
+            dockerfile: ./TicketStore.Web/Dockerfile
+        ports:
+            - 80:80
+            - 443:443
+        volumes:
+            - /var/run/docker.sock:/var/run/docker.sock
+            - ./Proxy/traefik/certs/acme.json:/acme.json
     store_web:
         build:
             context: .
             dockerfile: ./TicketStore.Web/Dockerfile
+        labels:
+            - "traefik.enable=true"
+            - "traefik.port=5000"
+            - "traefik.backend=web"
+            - "traefik.frontend.rule=PathPrefixStrip:/"
+            - "traefik.docker.network=store_default"
+        volumes:
+            - /var/log/store_web:/app/logs
+        tty: true
     store_api:
+        labels:
+            - "traefik.enable=true"
+            - "traefik.port=5000"
+            - "traefik.backend=store_api"
+            - "traefik.frontend.redirect.regex=^(.*)/api$$"
+            - "traefik.frontend.redirect.replacement=$$1/api/"
+            - "traefik.frontend.rule=PathPrefix:/api;ReplacePathRegex: ^/api/(.*) /$$1"
+            - "traefik.docker.network=store_default"
         volumes:
             - /var/log/store_api:/app/logs
+        tty: true
