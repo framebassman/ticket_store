@@ -77,7 +77,7 @@ jobs:
       docker_layer_caching: true
     steps:
       - checkout
-      - run: ./Scripts/publish-to-docker-hub.sh
+      - run: bash ./Scripts/publish-to-docker-hub.sh
       - run:
           name: Deploy Over SSH
           command: |
