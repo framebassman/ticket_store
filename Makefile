@@ -8,7 +8,7 @@ build-dev:
 		build ${ARGS}
 
 start-dev:
-	chmod 600 ./Proxy/traefik/certs/acme.json
+	chmod 600 ./Proxy/certs/acme.json
 	docker-compose \
 		--project-directory=${PWD} \
 		--project-name=ticket_store \
@@ -26,7 +26,7 @@ stop-dev:
 
 # test
 start-test:
-	chmod 600 ./Proxy/traefik/certs/acme.json
+	chmod 600 ./Proxy/certs/acme.json
 	docker-compose \
 		--project-directory=${PWD} \
 		--project-name=ticket_store \
@@ -60,7 +60,7 @@ stop-prod:
 		down
 
 start-prod:
-	chmod 600 ./Proxy/traefik/certs/acme.json
+	chmod 600 ./Proxy/certs/acme.json
 	docker-compose \
 		--project-directory=${PWD} \
 		--project-name=ticket_store \
