@@ -37,8 +37,9 @@ email = "dmitry@romashov.tech"
 storage = "acme.json"
 caServer = "https://acme-v02.api.letsencrypt.org/directory"
 entryPoint = "https"
-  [acme.httpChallenge]
-  entryPoint = "http"
+  [acme.dnsChallenge]
+    provider = "digitalocean"
+    delayBeforeCheck = 0
 
 [[acme.domains]]
   main = "chertopolokh.ru"
