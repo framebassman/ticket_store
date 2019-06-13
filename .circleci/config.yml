@@ -89,7 +89,7 @@ jobs:
             ssh root@chertopolokh.ru 'rm -rf ticket_store'
             ssh root@chertopolokh.ru 'git clone git@github.com:FrameBassman/ticket_store.git --branch feature/afisha --single-branch'
             ssh root@chertopolokh.ru 'export CIRCLE_BUILD_NUM='"'$CIRCLE_BUILD_NUM'"'; cd ticket_store && make stop-prod start-prod && make docker-cleanup -i'
-            ssh root@chertopolokh.ru 'docker rmi $(docker images --filter=reference='framebassman/*' -aq) -f'
+            ssh root@chertopolokh.ru 'docker image prune --all --force'
       - run:
           name: Deploy check
           command: bash ./Scripts/check-deployment.sh https://chertopolokh.ru
