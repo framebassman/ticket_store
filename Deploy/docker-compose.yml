@@ -22,7 +22,7 @@ services:
         labels:
             - "traefik.enable=true"
             - "traefik.port=5000"
-            - "traefik.backend=web"
+            - "traefik.backend=store_web"
             - "traefik.frontend.rule=PathPrefixStrip:/"
             - "traefik.docker.network=ticket_store_default"
         volumes:
@@ -38,4 +38,4 @@ services:
             - 443:443
         volumes:
             - /var/run/docker.sock:/var/run/docker.sock
-            - ./Proxy/traefik/certs/acme.json:/acme.json
+            - ./Proxy/certs/acme.json:/acme.json
