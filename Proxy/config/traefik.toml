@@ -1,8 +1,6 @@
 debug = false
+logLevel = "DEBUG"
 defaultEntryPoints = ["http", "https"]
-
-[log]
-level = "DEBUG"
 
 [entryPoints]
   [entryPoints.http]
