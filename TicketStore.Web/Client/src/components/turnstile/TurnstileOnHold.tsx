@@ -9,7 +9,7 @@ export const TurnstileOnHold = (props: any) => {
     <div className="turnstile__parent">
       <div className="turnstile__child">
         <Button variant="contained" onClick={onClick}>
-          <Typography variant="display1">Начать сканировать</Typography>
+          <Typography variant="h1">Начать сканировать</Typography>
         </Button>
       </div>
     </div>

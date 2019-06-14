@@ -2,7 +2,7 @@ import React from 'react';
 import { YMInitializer } from 'react-yandex-metrika';
 
 function isProd(): boolean {
-  return process.env.ASPNETCORE_ENVIRONMENT === 'production'
+  return process.env.ASPNETCORE_ENVIRONMENT === 'Production'
     || process.env.NODE_ENV === 'production';
 }
 
@@ -26,6 +26,6 @@ export const YandexMetrica = (props: YandexMetricaProps) => {
       />
     )
   } else {
-    return (<div style={{display: 'none'}} />);
+    return null;
   }
-}
+};

@@ -8,6 +8,7 @@ build-dev:
 		build ${ARGS}
 
 start-dev:
+	chmod 600 ./Proxy/certs/acme.json
 	docker-compose \
 		--project-directory=${PWD} \
 		--project-name=ticket_store \
@@ -25,6 +26,7 @@ stop-dev:
 
 # test
 start-test:
+	chmod 600 ./Proxy/certs/acme.json
 	docker-compose \
 		--project-directory=${PWD} \
 		--project-name=ticket_store \
@@ -48,6 +50,29 @@ build-prod:
 		-f Deploy/docker-compose.yml \
 		-f Deploy/docker-compose.production.yml \
 		build ${ARGS}
+
+stop-prod:
+	docker-compose \
+		--project-directory=${PWD} \
+		--project-name=ticket_store \
+		-f Deploy/docker-compose.yml \
+		-f Deploy/docker-compose.production.yml \
+		down
+
+start-prod:
+	chmod 600 ./Proxy/certs/acme.json
+	docker-compose \
+		--project-directory=${PWD} \
+		--project-name=ticket_store \
+		-f Deploy/docker-compose.yml \
+		-f Deploy/docker-compose.production.yml \
+		pull
+	docker-compose \
+		--project-directory=${PWD} \
+		--project-name=ticket_store \
+		-f Deploy/docker-compose.yml \
+		-f Deploy/docker-compose.production.yml \
+		up -d
 
 push:
 	docker login

@@ -1,4 +1,4 @@
-version: '3'
+version: '3.6'
 
 services:
     store_api:
@@ -12,3 +12,5 @@ services:
         image: "docker.io/framebassman/store-web:1.2.${CIRCLE_BUILD_NUM}"
         environment:
             - ASPNETCORE_ENVIRONMENT=Production
+    store_proxy:
+        image: "docker.io/framebassman/store-proxy:1.2.${CIRCLE_BUILD_NUM}"

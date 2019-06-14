@@ -1,10 +1,13 @@
 import { applyMiddleware, combineReducers, compose, createStore } from 'redux';
 import thunk from 'redux-thunk';
+import { composeWithDevTools } from 'redux-devtools-extension';
 import { reducer as turnstileReducer } from './Turnstile/reducer';
+import { reducer as afishaReducer } from './Afisha/reducer';
 
 export default function configureStore (initialState: any) {
   const reducers = {
     turnstile: turnstileReducer,
+    afisha: afishaReducer,
   };
 
   const middleware = [
@@ -14,17 +17,23 @@ export default function configureStore (initialState: any) {
   // In development, use the browser's Redux dev tools extension if installed
   const enhancers = [];
   const isDevelopment = process.env.NODE_ENV === 'development';
-  if (isDevelopment && typeof window !== 'undefined' && (window as any).__REDUX_DEVTOOLS_EXTENSION__) {
-    enhancers.push((window as any).__REDUX_DEVTOOLS_EXTENSION__());
-  }
 
   const rootReducer = combineReducers({
     ...reducers
   });
 
+  let composed: any = null;
+
+  if (isDevelopment) {
+    composed = composeWithDevTools(applyMiddleware(...middleware), ...enhancers);
+  }
+  else {
+    composed = compose(applyMiddleware(...middleware), ...enhancers);
+  }
+
   return createStore(
     rootReducer,
     initialState,
-    compose(applyMiddleware(...middleware), ...enhancers)
+    composed
   );
 }
