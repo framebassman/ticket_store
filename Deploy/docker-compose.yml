@@ -3,6 +3,8 @@ version: '3.6'
 services:
     store_api:
         container_name: store_api
+        networks:
+            - store
         labels:
             - "traefik.enable=true"
             - "traefik.port=5000"
@@ -16,6 +18,8 @@ services:
         tty: true
     store_web:
         container_name: store_web
+        networks:
+            - store
         build:
             context: .
             dockerfile: ./TicketStore.Web/Dockerfile
@@ -30,6 +34,8 @@ services:
         tty: true
     store_proxy:
         container_name: store_proxy
+        networks:
+            - store
         build:
             context: .
             dockerfile: ./Proxy/Dockerfile
