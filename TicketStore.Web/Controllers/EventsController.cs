@@ -48,7 +48,7 @@ namespace TicketStore.Web.Controllers
                     {
                         Artist = "XXXTenacion",
                         PressRelease = PressReleaseTemplate(),
-                        Roubles = 1m,
+                        Roubles = 3m,
                         YandexMoneyAccount = _yandexMoneyAccount,
                         Time = DateTime.Now,
                         PosterUrl = new Uri("https://pp.userapi.com/c849224/v849224484/14cde2/0GUw8PewP58.jpg")
