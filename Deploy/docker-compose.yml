@@ -3,8 +3,6 @@ version: '3.6'
 services:
     store_api:
         container_name: store_api
-        networks:
-            - store
         labels:
             - "traefik.enable=true"
             - "traefik.port=5000"
@@ -12,14 +10,12 @@ services:
             - "traefik.frontend.redirect.regex=^(.*)/store_api$$"
             - "traefik.frontend.redirect.replacement=$$1/store_api/"
             - "traefik.frontend.rule=PathPrefix:/store_api;ReplacePathRegex: ^/store_api/(.*) /$$1"
-            - "traefik.docker.network=store"
+            - "traefik.docker.network=ticket_store_default"
         volumes:
             - /var/log/store_api:/app/logs
         tty: true
     store_web:
         container_name: store_web
-        networks:
-            - store
         build:
             context: .
             dockerfile: ./TicketStore.Web/Dockerfile
@@ -28,14 +24,12 @@ services:
             - "traefik.port=5000"
             - "traefik.backend=store_web"
             - "traefik.frontend.rule=PathPrefixStrip:/"
-            - "traefik.docker.network=store"
+            - "traefik.docker.network=ticket_store_default"
         volumes:
             - /var/log/store_web:/app/logs
         tty: true
     store_proxy:
         container_name: store_proxy
-        networks:
-            - store
         build:
             context: .
             dockerfile: ./Proxy/Dockerfile
@@ -45,6 +39,3 @@ services:
         volumes:
             - /var/run/docker.sock:/var/run/docker.sock
             - ./Proxy/certs/acme.json:/acme.json
-
-networks:
-    store:
