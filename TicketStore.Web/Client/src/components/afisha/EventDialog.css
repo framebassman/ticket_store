@@ -1,0 +1,24 @@
+.event-dialog__money-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  max-width: 300px;
+}
+
+.event-dialog__item {
+  margin: 16px;
+}
+
+.event-dialog__bold {
+  font-size: 32px;
+}
+
+.event-dialog__bold input {
+  font-size: 32px;
+  text-align: center;
+}
+
+.event-dialog__actions {
+  justify-content: center;
+}
