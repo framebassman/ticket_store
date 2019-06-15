@@ -1,4 +1,6 @@
-export const styles = {
+import { makeStyles } from '@material-ui/styles';
+
+export const styles = makeStyles({
   action: {
     justifyContent: 'center'
   },
@@ -22,5 +24,5 @@ export const styles = {
       marginLeft: 'auto',
       marginRight: 'auto'
   }
-}
+});
   

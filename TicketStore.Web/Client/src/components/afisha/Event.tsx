@@ -11,13 +11,15 @@ import { PayButton } from '../greetings/PayButton';
 import { EventTime } from '../core/time/EventTime';
 import { EventDialog } from './EventDialog';
 
-class Event extends Component<any, any> {
-  // constructor(props: any, state: any) {
-  //   super(props, state);
-  //   this.state = {
-  //     isDialogOpened: false
-  //   }
-  // }
+export default class Event extends Component<any, any> {
+  constructor(props: any, state: any) {
+    super(props, state);
+    this.state = {
+      isDialogOpened: false
+    };
+    this._handleClickClose = this._handleClickClose.bind(this);
+    this._handleClickOpen = this._handleClickOpen.bind(this);
+  }
   
   _handleClickOpen() {
     this.setState({
@@ -32,27 +34,30 @@ class Event extends Component<any, any> {
   }
 
   render() {
-    const { classes, artist, roubles, yandexMoneyAccount, time, posterUrl } = this.props;
-    // const { isDialogOpened } = this.state;
+    // const classes = styles();
+    const { artist, roubles, yandexMoneyAccount, time, posterUrl } = this.props;
+    const { isDialogOpened } = this.state;
     return (
       <div>
-        <Card className={classes.card}>
+        {/* <Card className={classes.card}> */}
+        <Card>
           <CardContent>
             <Typography align="center" variant="h5" component="h2">{artist}</Typography>
             <CardContent>
               <CardMedia width="140" component="img" image={posterUrl} />
             </CardContent>
             <EventTime startedAt={new Date(time)}/>
-            <CardActions className={classes.action}>
+            {/* <CardActions className={classes.action}> */}
+            <CardActions>
               {/* <PayButton roubles={roubles} target={artist} yandexMoneyAccount={yandexMoneyAccount}/> */}
               <Button variant="contained" color="secondary" size="large" onClick={this._handleClickOpen}>Купить билет</Button>
             </CardActions>
           </CardContent>
         </Card>
-        {/* <EventDialog open={isDialogOpened} handleClose={this._handleClickClose}/> */}
+        <EventDialog open={isDialogOpened} handleClose={this._handleClickClose} roubles={roubles} target={artist} yandexMoneyAccount={yandexMoneyAccount}/>
       </div>
     )
   }
 }
 
-export default withStyles(styles)(Event);
+// export default withStyles(styles)(Event);

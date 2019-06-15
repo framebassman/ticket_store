@@ -5,9 +5,10 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import { PayButton } from '../greetings/PayButton';
 
 export const EventDialog = (props: any) => {
-  const {open, handleClose} = props;
+  const { open, handleClose, roubles, target, yandexMoneyAccount } = props;
   return (
     <Dialog
       open={open}
@@ -22,13 +23,8 @@ export const EventDialog = (props: any) => {
           Google, even when no apps are running.
         </DialogContentText>
       </DialogContent>
-      <DialogActions>
-        <Button onClick={handleClose} color="primary">
-          Disagree
-        </Button>
-        <Button onClick={handleClose} color="primary" autoFocus>
-          Agree
-        </Button>
+      <DialogActions style={{justifyContent: 'center'}}>
+        <PayButton roubles={roubles} target={target} yandexMoneyAccount={yandexMoneyAccount}/>
       </DialogActions>
     </Dialog>
   )
