@@ -22,3 +22,7 @@
 .event-dialog__actions {
   justify-content: center;
 }
+
+.event-dialog__license {
+  text-align: center;
+}
