@@ -11,12 +11,10 @@ namespace TicketStore.Web.Controllers
     public class EventsController : ControllerBase
     {
         private readonly ILogger<EventsController> _log;
-        private readonly String _yandexMoneyAccount;
 
         public EventsController(ILogger<EventsController> log)
         {
             _log = log;
-            _yandexMoneyAccount = "410011021763706";
         }
 
         [HttpGet]
@@ -28,46 +26,46 @@ namespace TicketStore.Web.Controllers
                 {
                     new Event
                     {
+                        MerchantId = 1,
                         Artist = "Oxxxymiron",
                         PressRelease = PressReleaseTemplate(),
                         Roubles = 5m,
-                        YandexMoneyAccount = _yandexMoneyAccount,
                         Time = DateTime.Now,
                         PosterUrl = new Uri("https://pp.userapi.com/c849224/v849224484/14cde2/0GUw8PewP58.jpg")
                     },
                     new Event
                     {
+                        MerchantId = 1,
                         Artist = "Face",
                         PressRelease = PressReleaseTemplate(),
                         Roubles = 4m,
-                        YandexMoneyAccount = _yandexMoneyAccount,
                         Time = DateTime.Now,
                         PosterUrl = new Uri("https://pp.userapi.com/c849224/v849224484/14cde2/0GUw8PewP58.jpg")
                     },
                     new Event
                     {
+                        MerchantId = 1,
                         Artist = "XXXTenacion",
                         PressRelease = PressReleaseTemplate(),
                         Roubles = 3m,
-                        YandexMoneyAccount = _yandexMoneyAccount,
                         Time = DateTime.Now,
                         PosterUrl = new Uri("https://pp.userapi.com/c849224/v849224484/14cde2/0GUw8PewP58.jpg")
                     },
                     new Event
                     {
+                        MerchantId = 1,
                         Artist = "Виктор Цой",
                         PressRelease = PressReleaseTemplate(),
                         Roubles = 3m,
-                        YandexMoneyAccount = _yandexMoneyAccount,
                         Time = DateTime.Now,
                         PosterUrl = new Uri("https://pp.userapi.com/c849224/v849224484/14cde2/0GUw8PewP58.jpg")
                     },
                     new Event
                     {
+                        MerchantId = 1,
                         Artist = "Филипп Киркоров",
                         PressRelease = PressReleaseTemplate(),
                         Roubles = 2m,
-                        YandexMoneyAccount = _yandexMoneyAccount,
                         Time = DateTime.Now,
                         PosterUrl = new Uri("https://pp.userapi.com/c849224/v849224484/14cde2/0GUw8PewP58.jpg")
                     }
