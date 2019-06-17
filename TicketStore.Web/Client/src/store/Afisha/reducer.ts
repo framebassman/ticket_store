@@ -1,4 +1,7 @@
-import { eventsFetchDataSuccessType, eventsHasErroredType, eventsIsLoadingType } from './actions';
+import {
+  eventsFetchDataSuccessType, eventsHasErroredType, eventsIsLoadingType,
+  merchantFetchDataSuccessType, merchantHasErroredType, merchantIsLoadingType
+} from './types';
 import { combineReducers } from 'redux';
 
 function eventsHasErrored(state = false, action) {

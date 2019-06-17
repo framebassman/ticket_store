@@ -15,7 +15,7 @@ import { CenteredProgress } from '../core/progress/CenteredProgress';
 
 class Afisha extends Component<any, AfishaState> {
   componentDidMount() {
-    this.props.fetchData();
+    this.props.fetchEvents();
   }
 
   render() {
@@ -64,7 +64,7 @@ const mapStateToProps = (state) => {
 };
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchData: () => dispatch(eventsFetchData())
+    fetchEvents: () => dispatch(eventsFetchData())
   };
 };
 

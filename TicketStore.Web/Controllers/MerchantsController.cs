@@ -20,9 +20,7 @@ namespace TicketStore.Web.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            _log.LogInformation("Return hardcoded merchants");
-            return new OkObjectResult(
-                new List<Merchant>
+            var result = new List<Merchant>
                 {
                     new Merchant
                     {
@@ -30,8 +28,9 @@ namespace TicketStore.Web.Controllers
                         YandexMoneyAccount = "410011021763706",
                         Place = "Чердак"
                     }
-                }
-            );
+                };
+            _log.LogInformation("Return hardcoded merchants: {@Result}", result);
+            return new OkObjectResult(result);
         }
 
     }

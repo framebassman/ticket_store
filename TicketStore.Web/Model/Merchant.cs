@@ -4,8 +4,8 @@ namespace TicketStore.Web.Model
 {
     public class Merchant
     {
-        public Int32 Id; 
-        public String YandexMoneyAccount;
-        public String Place;
+        public Int32 Id { get; set; }
+        public String YandexMoneyAccount { get; set; }
+        public String Place { get; set; }
     }
 }

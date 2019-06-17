@@ -1,9 +1,6 @@
 import axios from 'axios';
 import { eventsUrl } from './urls';
-
-export const eventsFetchDataSuccessType = 'EVENTS_FETCH_DATA_SUCCESS';
-export const eventsHasErroredType = 'EVENTS_HAS_ERRORED';
-export const eventsIsLoadingType = 'EVENTS_IS_LOADING';
+import { eventsFetchDataSuccessType, eventsHasErroredType, eventsIsLoadingType } from './types';
 
 export function eventsFetchData() {
   return (dispatch) => {
@@ -22,16 +19,6 @@ export function eventsFetchData() {
       .then((response) => response.data)
       .then((items) => dispatch(eventsFetchDataSuccess(items)))
       .catch(() => dispatch(eventsHasErrored(true)));
-  };
-}
-
-export function errorAfterFiveSeconds() {
-  // We return a function instead of an action object
-  return (dispatch) => {
-    setTimeout(() => {
-      // This function is able to dispatch other action creators
-      dispatch(eventsHasErrored(true));
-    }, 5000);
   };
 }
 
