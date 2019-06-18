@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { eventsUrl } from './urls';
+import { eventsUrl } from '../urls';
 import { eventsFetchDataSuccessType, eventsHasErroredType, eventsIsLoadingType } from './types';
 
 export function eventsFetchData() {

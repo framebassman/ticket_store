@@ -1,6 +1,5 @@
 import {
-  eventsFetchDataSuccessType, eventsHasErroredType, eventsIsLoadingType,
-  merchantFetchDataSuccessType, merchantHasErroredType, merchantIsLoadingType
+  eventsFetchDataSuccessType, eventsHasErroredType, eventsIsLoadingType
 } from './types';
 import { combineReducers } from 'redux';
 

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { eventsFetchData } from '../../store/Afisha/actions';
+import { eventsFetchData } from '../../store/Afisha/events/actions';
 import { AfishaState } from '../../store/Afisha/state';
 
 import Event from './Event';
