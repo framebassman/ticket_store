@@ -2,7 +2,7 @@ import { applyMiddleware, combineReducers, compose, createStore } from 'redux';
 import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { reducer as turnstileReducer } from './Turnstile/reducer';
-import { reducer as afishaReducer } from './Afisha/events/reducer';
+import { reducer as afishaReducer } from './Afisha/reducer';
 
 export default function configureStore (initialState: any) {
   const reducers = {

@@ -2,11 +2,11 @@ import axios from 'axios';
 import { eventsUrl } from '../urls';
 import { eventsFetchDataSuccessType, eventsHasErroredType, eventsIsLoadingType } from './types';
 
-export function eventsFetchData() {
+export function eventsFetchData(merchantId: number) {
   return (dispatch) => {
     dispatch(eventsIsLoading(true));
 
-    axios.get(eventsUrl)
+    axios.get(eventsUrl, { params: { merchantId }})
       .then((response) => {
         if (response.status !== 200) {
           throw Error(response.statusText);
