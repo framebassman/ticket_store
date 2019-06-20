@@ -48,7 +48,6 @@ namespace TicketStore.Web.Controllers
         {
             return new Event
             {
-                MerchantId = 1,
                 Artist = _artists[index],
                 PressRelease = PressReleaseTemplate(),
                 Roubles = new Decimal(_random.Next(2, 5)),

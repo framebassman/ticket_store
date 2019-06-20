@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { eventsUrl, merchantsUrl } from '../urls';
 import { eventsFetchDataSuccessType, eventsHasErroredType, eventsIsLoadingType } from './types';
-import { merchantsFetchData } from '../merchants/actions';
 import { merchantsHasErrored, merchantsIsLoading, merchantsFetchDataSuccess } from '../merchants/actions';
 
 export function eventsFetchData(merchantId: number) {
@@ -25,7 +24,7 @@ export function eventsFetchData(merchantId: number) {
 }
 
 export function allEventsFetch() {
-  return (dispatch) => {
+  return (dispatch, getState) => {
     dispatch(merchantsIsLoading(true));
 
     axios.get(merchantsUrl)
@@ -46,7 +45,7 @@ export function allEventsFetch() {
         dispatch(eventsIsLoading(true));
         const events: any[] = [];
 
-        merchants.forEach(merchant => {
+        merchants.forEach((merchant, index) => {
           axios.get(eventsUrl, { params: { merchantId: merchant.id }})
             .then((response) => {
               if (response.status !== 200) {
@@ -55,12 +54,14 @@ export function allEventsFetch() {
               return response;
             })
             .then((response) => response.data)
-            .then((fetchedEvents) => events.push(fetchedEvents))
+            .then((fetchedEvents) => {
+              dispatch(eventsFetchDataSuccess(fetchedEvents));
+            })
             .catch(() => dispatch(eventsHasErrored(true)))
         });
 
         dispatch(eventsIsLoading(false));
-        dispatch(eventsFetchDataSuccess(events));
+        return events;
       })
       .catch((err) => {
         console.log('error: ', err);

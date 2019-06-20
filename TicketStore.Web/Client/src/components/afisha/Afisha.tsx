@@ -16,7 +16,7 @@ import { CenteredProgress } from '../core/progress/CenteredProgress';
 
 class Afisha extends Component<any, AfishaState> {
   componentDidMount() {
-    const { fetchMerchants, fetchEvents, fetchAllEvents } = this.props;
+    const { fetchAllEvents } = this.props;
     fetchAllEvents();
   }
 
@@ -24,7 +24,7 @@ class Afisha extends Component<any, AfishaState> {
     const {
       classes,
       events, eventsHasErrored, eventsIsLoading,
-      merchants, merchantsHasErrored, merchantsIsLoading,
+      merchantsHasErrored, merchantsIsLoading,
     } = this.props;
     if (merchantsHasErrored || eventsHasErrored) {
       return (
