@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { merchantsFetchData } from '../../store/Afisha/merchants/actions';
-import { eventsFetchData } from '../../store/Afisha/events/actions';
+import { eventsFetchData, allEventsFetch } from '../../store/Afisha/events/actions';
 import { AfishaState } from '../../store/Afisha/state';
 
 import Event from './Event';
@@ -16,11 +16,8 @@ import { CenteredProgress } from '../core/progress/CenteredProgress';
 
 class Afisha extends Component<any, AfishaState> {
   componentDidMount() {
-    const { fetchMerchants, fetchEvents } = this.props;
-    fetchMerchants()
-      .then((merchants: any[]) => {
-        fetchEvents(merchants[0].id)
-      })
+    const { fetchMerchants, fetchEvents, fetchAllEvents } = this.props;
+    fetchAllEvents();
   }
 
   render() {
@@ -43,8 +40,6 @@ class Afisha extends Component<any, AfishaState> {
     if (merchantsIsLoading || eventsIsLoading) {
       return <CenteredProgress />
     }
-
-    console.log("merchants in render: ", merchants);
 
     return (
       <div className={classes.afisha}>
@@ -79,7 +74,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     fetchMerchants: () => dispatch(merchantsFetchData()),
-    fetchEvents: (merchantId: number) => dispatch(eventsFetchData(merchantId))
+    fetchEvents: (merchantId: number) => dispatch(eventsFetchData(merchantId)),
+    fetchAllEvents: () => dispatch(allEventsFetch())
   };
 };
 

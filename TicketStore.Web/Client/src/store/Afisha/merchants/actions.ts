@@ -22,21 +22,21 @@ export function merchantsFetchData() {
   };
 }
 
-function merchantsHasErrored(bool: boolean) {
+export function merchantsHasErrored(bool: boolean) {
   return {
     type: merchantsHasErroredType,
     hasErrored: bool
   };
 }
 
-function merchantsIsLoading(bool: boolean) {
+export function merchantsIsLoading(bool: boolean) {
   return {
     type: merchantsIsLoadingType,
     isLoading: bool
   };
 }
 
-function merchantsFetchDataSuccess(merchants) {
+export function merchantsFetchDataSuccess(merchants) {
   return {
     type: merchantsFetchDataSuccessType,
     merchants

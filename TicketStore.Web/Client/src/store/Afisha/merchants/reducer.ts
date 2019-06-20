@@ -26,7 +26,7 @@ function merchantsHasErrored(state = false, action) {
   function merchants(state = [], action) {
     switch (action.type) {
       case merchantsFetchDataSuccessType:
-        return action.events;
+        return action.merchants;
   
       default:
         return state;
