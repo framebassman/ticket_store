@@ -8,12 +8,18 @@ export interface PayButtonProps {
   yandexMoneyAccount: string
 }
 
+function isEmpty(origin: string) {
+  return !origin || !origin.length;
+}
+
 export const PayButton = (props: PayButtonProps) => {
-  const { roubles, target } = props;
-  if (roubles > 0) {
+  const { roubles, target, yandexMoneyAccount } = props;
+  if (roubles <= 0 || isEmpty(yandexMoneyAccount)) {
+    return null;
+  } else {
     return (
       <form style={{marginLeft: 'auto', marginRight: 'auto'}} method="POST" action="https://money.yandex.ru/quickpay/confirm.xml">
-        <input type="hidden" name="receiver" value="410011021763706" />
+        <input type="hidden" name="receiver" value={yandexMoneyAccount} />
         <input type="hidden" name="quickpay-form" value="small" />
         <input type="hidden" name="need-email" value="true" />
         <input type="hidden" name="targets" value={target} />
@@ -22,7 +28,5 @@ export const PayButton = (props: PayButtonProps) => {
         <Button variant="contained" color="secondary" size="large" type="submit">Купить билет</Button>
       </form>
     )
-  } else {
-    return null;
   }
 }

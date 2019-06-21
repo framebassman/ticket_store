@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { eventsFetchData } from '../../store/Afisha/actions';
+import { merchantsFetchData } from '../../store/Afisha/merchants/actions';
+import { eventsFetchData, allEventsFetch } from '../../store/Afisha/events/actions';
 import { AfishaState } from '../../store/Afisha/state';
 
 import Event from './Event';
@@ -15,12 +16,17 @@ import { CenteredProgress } from '../core/progress/CenteredProgress';
 
 class Afisha extends Component<any, AfishaState> {
   componentDidMount() {
-    this.props.fetchData();
+    const { fetchAllEvents } = this.props;
+    fetchAllEvents();
   }
 
   render() {
-    const { classes, events, hasErrored, isLoading } = this.props;
-    if (hasErrored) {
+    const {
+      classes,
+      events, eventsHasErrored, eventsIsLoading,
+      merchantsHasErrored, merchantsIsLoading,
+    } = this.props;
+    if (merchantsHasErrored || eventsHasErrored) {
       return (
         <Typography align="center" component="div">
           <Box marginTop={16}>
@@ -31,7 +37,7 @@ class Afisha extends Component<any, AfishaState> {
       );
     }
 
-    if (isLoading) {
+    if (merchantsIsLoading || eventsIsLoading) {
       return <CenteredProgress />
     }
 
@@ -57,14 +63,19 @@ class Afisha extends Component<any, AfishaState> {
 
 const mapStateToProps = (state) => {
   return {
-    events: state.afisha.events,
-    hasErrored: state.afisha.eventsHasErrored,
-    isLoading: state.afisha.eventsIsLoading
+    events: state.afisha.events.events,
+    eventsHasErrored: state.afisha.events.eventsHasErrored,
+    eventsIsLoading: state.afisha.events.eventsIsLoading,
+    merchants: state.afisha.merchants.merchants,
+    merchantsHasErrored: state.afisha.merchants.merchantsHasErrored,
+    merchantsIsLoading: state.afisha.merchants.merchantsIsLoading,
   };
 };
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchData: () => dispatch(eventsFetchData())
+    fetchMerchants: () => dispatch(merchantsFetchData()),
+    fetchEvents: (merchantId: number) => dispatch(eventsFetchData(merchantId)),
+    fetchAllEvents: () => dispatch(allEventsFetch())
   };
 };
 
