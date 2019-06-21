@@ -28,14 +28,14 @@ services:
         volumes:
             - /var/log/store_web:/app/logs
         tty: true
-    # store_proxy:
-    #     container_name: store_proxy
-    #     build:
-    #         context: .
-    #         dockerfile: ./Proxy/Dockerfile
-    #     ports:
-    #         - 80:80
-    #         - 443:443
-    #     volumes:
-    #         - /var/run/docker.sock:/var/run/docker.sock
-    #         - ./Proxy/certs/acme.json:/acme.json
+    store_proxy:
+        container_name: store_proxy
+        build:
+            context: .
+            dockerfile: ./Proxy/Dockerfile
+        ports:
+            - 80:80
+            - 443:443
+        volumes:
+            - /var/run/docker.sock:/var/run/docker.sock
+            - ./Proxy/certs/acme.json:/acme.json
