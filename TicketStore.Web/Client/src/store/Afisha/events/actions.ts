@@ -24,7 +24,7 @@ export function eventsFetchData(merchantId: number) {
 }
 
 export function allEventsFetch() {
-  return (dispatch, getState) => {
+  return (dispatch) => {
     dispatch(merchantsIsLoading(true));
 
     axios.get(merchantsUrl)
@@ -41,26 +41,26 @@ export function allEventsFetch() {
         dispatch(merchantsFetchDataSuccess(merchants))
         return merchants;
       })
-      .then((merchants: any[]) => {
+      .then(async (merchants: any[]) => {
         dispatch(eventsIsLoading(true));
-        const events: any[] = [];
+        let events: any[] = [];
 
-        merchants.forEach((merchant, index) => {
-          axios.get(eventsUrl, { params: { merchantId: merchant.id }})
-            .then((response) => {
-              if (response.status !== 200) {
-                throw Error(response.statusText);
-              }
-              return response;
-            })
-            .then((response) => response.data)
-            .then((fetchedEvents) => {
-              dispatch(eventsFetchDataSuccess(fetchedEvents));
-            })
-            .catch(() => dispatch(eventsHasErrored(true)))
-        });
-
+        for (const merchant of merchants) {
+          const resp = await axios.get(eventsUrl, { params: { merchantId: merchant.id } });
+          if (resp.status !== 200) {
+            throw Error(resp.statusText);
+          }
+          const merchantEvents: any[] = [];
+          const fetchedEvents: any[] = resp.data;
+          for (const event of fetchedEvents) {
+            merchantEvents.push(
+              Object.assign({}, event, { yandexMoneyAccount: merchant.yandexMoneyAccount })
+            );
+          }
+          events = events.concat(merchantEvents);
+        }
         dispatch(eventsIsLoading(false));
+        dispatch(eventsFetchDataSuccess(events));
         return events;
       })
       .catch((err) => {
