@@ -13,6 +13,9 @@ services:
             - ASPNETCORE_ENVIRONMENT=Development
         tty: true
     store_web:
+        build:
+            context: .
+            dockerfile: ./TicketStore.Web/Dockerfile.Development
         ports:
             - 4000:5000
         environment:
