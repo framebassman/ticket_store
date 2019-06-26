@@ -45,6 +45,9 @@ jobs:
             echo export DOTNET_SKIP_FIRST_TIME_EXPERIENCE=1 >> "$BASH_ENV"
             echo export DOTNET_CLI_TELEMETRY_OPTOUT=1 >> "$BASH_ENV"
             sudo apt-get install dotnet-sdk-2.2
+      - run:
+          name: clear data in database
+          command: docker volume prune -f
       - run: make start-test
       - run: bash ./Scripts/wait-until-app-is-deployed.sh
       - run: make migrate-test
