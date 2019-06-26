@@ -11,7 +11,7 @@ namespace TicketStore.Api.Tests.Data
 
         public ApplicationContext() : base(
             new DbContextOptionsBuilder<ApplicationContext>().UseNpgsql(
-                    $"Host={new AppHost().Value()};Port=5432;Database=store;Username=store;Password=W6TTT3WY4Nzqpj5z"
+                    $"Host={new AppHost().Value()};Port=5432;Database=store;Username=store_user;Password=KqCQzyH2akGB9gQ4"
                 ).Options
             ) { }
     }
