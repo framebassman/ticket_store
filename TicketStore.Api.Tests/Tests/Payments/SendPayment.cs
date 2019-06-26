@@ -20,7 +20,7 @@ namespace TicketStore.Api.Tests.Tests.Payments
             var before = Fixture.Db.Tickets.Count();
             
             // Act
-            var response = Fixture.Api.SendPayment(email, 299.00m, 300.00m);
+            var response = Fixture.Api.SendPayment(email, 1.99m, 2.00m);
 
             // Assert
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
@@ -36,7 +36,7 @@ namespace TicketStore.Api.Tests.Tests.Payments
             var before = Fixture.Db.Tickets.Count();
             
             // Act
-            var response = Fixture.Api.SendPayment(email, 300.00m, 299.00m);
+            var response = Fixture.Api.SendPayment(email, 2.00m, 1.99m);
 
             // Assert
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
