@@ -6,13 +6,11 @@ export const resetType = 'RESET';
 
 async function transfersFromBack(barcode: string) {
   try {
-    const response = await axios.post(
+    return await axios.post(
       verifyUrl,
       { code: barcode },
       { headers: { Authorization: 'Bearer pkR9vfZ9QdER53mf'}}
     );
-    setTimeout(() => {}, 2000);
-    return response;
   }
   catch {
     return { data: {} };

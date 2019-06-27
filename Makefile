@@ -92,6 +92,12 @@ docker-cleanup:
 db-dev:
 	docker exec -it postgres psql postgresql://store_user:KqCQzyH2akGB9gQ4@localhost:5432/store
 
+db-test:
+	docker exec -it postgres psql postgresql://store_user:KqCQzyH2akGB9gQ4@localhost:5432/store
+
+db-prod:
+	psql postgresql://store:GMQCruf5SzsCGR2xd3euUVZQG3c@188.68.210.162:5432/store
+
 migrate-dev:
 	docker exec -it store_api dotnet ef database update
 
