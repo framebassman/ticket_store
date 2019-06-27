@@ -90,10 +90,7 @@ docker-cleanup:
 	docker rm $$(docker ps --filter=status=exited --filter=status=created -q)
 
 db-dev:
-	docker exec -it postgres psql postgresql://store:W6TTT3WY4Nzqpj5z@localhost:5432/store
-	
-cleanup-db-dev:
-	docker exec -it postgres psql postgresql://store:W6TTT3WY4Nzqpj5z@localhost:5432/store -c 'DROP SCHEMA public CASCADE;' -c '\q'
+	docker exec -it postgres psql postgresql://store_user:KqCQzyH2akGB9gQ4@localhost:5432/store
 
 migrate-dev:
 	docker exec -it store_api dotnet ef database update

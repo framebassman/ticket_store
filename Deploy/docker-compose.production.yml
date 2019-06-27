@@ -10,6 +10,9 @@ services:
             - ASPNETCORE_ENVIRONMENT=Production
     store_web:
         image: "docker.io/framebassman/store-web:1.2.${CIRCLE_BUILD_NUM}"
+        build:
+            context: .
+            dockerfile: ./TicketStore.Web/Dockerfile.Production
         environment:
             - ASPNETCORE_ENVIRONMENT=Production
     store_proxy:

@@ -16,9 +16,6 @@ services:
         tty: true
     store_web:
         container_name: store_web
-        build:
-            context: .
-            dockerfile: ./TicketStore.Web/Dockerfile
         labels:
             - "traefik.enable=true"
             - "traefik.port=5000"
