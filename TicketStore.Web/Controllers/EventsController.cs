@@ -50,7 +50,7 @@ namespace TicketStore.Web.Controllers
             {
                 Artist = _artists[index],
                 PressRelease = PressReleaseTemplate(),
-                Roubles = new Decimal(_random.Next(2, 5)),
+                Roubles = new Decimal(2),
                 Time = DateTime.Now,
                 PosterUrl = new Uri("https://pp.userapi.com/c849224/v849224484/14cde2/0GUw8PewP58.jpg")
             };

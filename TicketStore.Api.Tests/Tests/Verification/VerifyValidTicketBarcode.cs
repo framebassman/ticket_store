@@ -20,7 +20,7 @@ namespace TicketStore.Api.Tests.Tests.Verification
         {
             // Arrange
             var email = Generator.Email();
-            Fixture.Api.SendPayment(email, 300.00m, 300.00m);
+            Fixture.Api.SendPayment(email, 2.00m, 2.00m);
             var ticket = Fixture.Db.Tickets.First(t => t.Payment.Email == email);
 
             // Act

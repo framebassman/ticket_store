@@ -16,11 +16,9 @@ namespace TicketStore.Api.Tests.Tests.Verification
         [Fact]
         public void SendBarcode_WithoutBearerToken_ReturnsUnauthorized()
         {
-            var response1 = Fixture.Api.VerifyBarcodeWithoutAuth("-1");
-            
             // Arrange
             var email = Generator.Email();
-            Fixture.Api.SendPayment(email, 300.00m, 300.00m);
+            Fixture.Api.SendPayment(email, 2.00m, 2.00m);
             var ticket = Fixture.Db.Tickets.First(t => t.Payment.Email == email);
 
             // Act
