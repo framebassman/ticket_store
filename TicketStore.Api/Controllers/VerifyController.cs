@@ -45,7 +45,7 @@ namespace TicketStore.Api.Controllers
                 return new BadRequestObjectResult(new InvalidCodeAnswer());
             }
 
-            var ticket = tickets.First(t => t.Expired == false);
+            var ticket = tickets.FirstOrDefault(t => t.Expired == false);
             if (ticket == null)
             {
                 _log.LogInformation("Ticket has been already expired");
