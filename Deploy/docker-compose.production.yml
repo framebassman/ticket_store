@@ -8,6 +8,7 @@ services:
             dockerfile: ./TicketStore.Api/Dockerfile.Production
         environment:
             - ASPNETCORE_ENVIRONMENT=Production
+            - SENTRY_RELEASE=1.2.${CIRCLE_BUILD_NUM}
     store_web:
         image: "docker.io/framebassman/store-web:1.2.${CIRCLE_BUILD_NUM}"
         build:
@@ -15,5 +16,6 @@ services:
             dockerfile: ./TicketStore.Web/Dockerfile.Production
         environment:
             - ASPNETCORE_ENVIRONMENT=Production
+            - SENTRY_RELEASE=1.2.${CIRCLE_BUILD_NUM}
     store_proxy:
         image: "docker.io/framebassman/store-proxy:1.2.${CIRCLE_BUILD_NUM}"

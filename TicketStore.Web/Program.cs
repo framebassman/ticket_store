@@ -3,6 +3,8 @@ using System.IO;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
+using Sentry;
+using Sentry.Extensibility;
 using Serilog;
 using Log = Serilog.Log;
 
@@ -35,6 +37,16 @@ namespace TicketStore.Web
                 .UseUrls("http://0.0.0.0:5000")
                 .UseStartup<Startup>()
                 .UseSerilog()
+                .UseSentry(options =>
+                    {
+                        options.Environment = CurrentEnv();
+                        options.MaxQueueItems = 100;
+                        options.ShutdownTimeout = TimeSpan.FromSeconds(5);
+                        options.DecompressionMethods = DecompressionMethods.None;
+                        options.MaxRequestBodySize = RequestSize.Always;
+                        options.Release = Environment.GetEnvironmentVariable("SENTRY_RELEASE");
+                    }
+                )
         ;
         
         private static IConfiguration BuildConfiguration()
