@@ -24,10 +24,10 @@ namespace TicketStore.Api.Middlewares
             }
             else
             {
-                context.Response.ContentType = "text/plain";
+                context.Response.ContentType = "application/json";
                 context.Response.StatusCode = 401;
                 context.Response.Headers.Add(HeaderNames.Connection, "close");
-                await context.Response.WriteAsync("Unauthorized");
+                await context.Response.WriteAsync("{\"message\":\"unauthorized\"}");
             }
         }
     }

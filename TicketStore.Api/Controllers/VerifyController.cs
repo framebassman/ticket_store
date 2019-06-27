@@ -1,6 +1,7 @@
 using System.IO;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Logging;
 using TicketStore.Api.Data;
 using TicketStore.Api.Model.Http;
@@ -25,12 +26,6 @@ namespace TicketStore.Api.Controllers
         [HttpPost]
         public IActionResult Post([FromBody] Barcode barcode)
         {
-            if (HttpContext.Request.Headers["Authorization"] != _token)
-            {
-                _log.LogWarning("Invalid authorization data");
-                return new UnauthorizedObjectResult(new UnauthorizedAnswer());
-            }
-
             if (!ModelState.IsValid)
             {
                 using (var input = HttpContext.Request.Body)
