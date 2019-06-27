@@ -12,7 +12,7 @@ namespace TicketStore.Api.Tests.Tests.Payments
     {
         public SendPayment(ApiFixture fixture) : base (fixture) {}
 
-        [Fact]
+        [Fact(Skip = "rewrite db using")]
         public void YandexSendPayment_InvalidPayment_ReturnsOk()
         {
             // Arrange
