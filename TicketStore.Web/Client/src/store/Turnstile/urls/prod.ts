@@ -1,1 +1,1 @@
-export const verifyUrl = '/store/api/verify';
+export const verifyUrl = '/store_api/api/verify';
