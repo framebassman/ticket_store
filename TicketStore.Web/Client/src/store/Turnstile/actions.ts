@@ -4,9 +4,17 @@ import { verifyUrl } from './urls/prod';
 export const verifyType = 'VERIFY';
 export const resetType = 'RESET';
 
+const authHeader = {
+  Authorization: "Bearer pkR9vfZ9QdER53mf"
+}
+
 async function transfersFromBack(barcode: string) {
+  const params = {
+    code: barcode
+  };
+  const headers = authHeader;
   try {
-    return await axios.post(verifyUrl, {code: barcode}); 
+    return await axios.post(verifyUrl, {params, headers}); 
   }
   catch {
     return { data: {} };
