@@ -72,7 +72,6 @@ jobs:
       - run:
           name: stop application
           command: |
-            make cleanup-db-dev
             make stop-test
           when: always
   deploy:
