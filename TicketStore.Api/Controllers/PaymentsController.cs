@@ -90,7 +90,7 @@ namespace TicketStore.Api.Controllers
         private List<Ticket> CombineTickets(Payment payment)
         {
             _log.LogInformation("Receive payment: {@0}", payment);
-            var ticketCost = 300;
+            var ticketCost = 2;
             var savedTickets = _db.Tickets.ToList();
             var ticketsToSave = new List<Ticket>();
             int count = Convert.ToInt32(payment.Amount) / ticketCost;
