@@ -130,6 +130,4 @@ workflows:
       #       - build-web
       #       - test-api
       - deploy:
-          context:
-            - docker_hub_creds
-            - sentry_creds
+          context: credentials
