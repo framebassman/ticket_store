@@ -43,7 +43,7 @@ namespace TicketStore.Api.Model.Email
                 smtpClient.Connect("smtp.yandex.ru", 465, true);
                 _log.LogInformation("Authenticate via SmtpClient");
                 smtpClient.Authenticate(_smtpUsername, _smtpPassword);
-                _log.LogInformation("Authenticate via SmtpClient");
+                _log.LogInformation("Send email via Yandex account");
                 smtpClient.Send(message);
                 _log.LogInformation("Disconnect and dispose");
                 smtpClient.Disconnect(true);
