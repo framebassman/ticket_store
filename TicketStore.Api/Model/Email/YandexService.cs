@@ -10,42 +10,45 @@ namespace TicketStore.Api.Model.Email
     public class YandexService : EmailService
     {
         private readonly ILogger _log;
-        private readonly SmtpClient _smtpClient;
+        private readonly String _smtpUsername;
+        private readonly String _smtpPassword;
 
         public YandexService(IHostingEnvironment env, IConfiguration conf, ILogger log)
         {
             _log = log;
-            _smtpClient = new SmtpClient();
-            _smtpClient.ServerCertificateValidationCallback = (s,c,h,e) => true;
-            _smtpClient.Connect ("smtp.yandex.ru", 465, true);
-            _smtpClient.Authenticate (
-                "no-reply@romashov.tech", 
-                conf.GetValue<String>("EmailSenderPassword")
-                );
+            _smtpUsername = "no-reply@romashov.tech";
+            _smtpPassword = conf.GetValue<String>("EmailSenderPassword");
         }
 
         public override void SendTicket(String to, Pdf.Pdf ticket)
         {
             var builder = new BodyBuilder
             {
-                TextBody = "Билет",
+                TextBody = "Билеты во вложении",
             };
             builder.Attachments.Add($"Ticket-{DateTime.Now}.pdf", ticket.toBytes(), new ContentType("application", "pdf"));
 
             var message = new MimeMessage();
 			message.From.Add (new MailboxAddress ("no-reply", "no-reply@romashov.tech"));
 			message.To.Add (new MailboxAddress (to));
-			message.Subject = "Билет The Cellophane Heads - X лет";
+			message.Subject = "Билеты от Чертополоха";
             message.Body = builder.ToMessageBody();
             
             _log.LogInformation("Send ticket to @{0}", to);
-            _smtpClient.Send(message);
+
+            using (var smtpClient = new SmtpClient())
+            {
+                smtpClient.ServerCertificateValidationCallback = (s,c,h,e) => true;
+                smtpClient.Connect("smtp.yandex.ru", 465, true);
+                smtpClient.Authenticate(_smtpUsername, _smtpPassword);
+                smtpClient.Send(message);
+                smtpClient.Disconnect(true);
+            }
+            
         }
 
         public override void Dispose()
         {
-            _smtpClient.Disconnect(true);
-	        _smtpClient.Dispose();
         }
     }
 }
