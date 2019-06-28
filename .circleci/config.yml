@@ -96,7 +96,7 @@ jobs:
       - run:
           name: create release in sentry
           command: |
-            sentry-cli releases new -p tickets $VERSION
+            sentry-cli releases new -p $SENTRY_PROJECT_NAME $VERSION
       - run: bash ./Scripts/publish-to-docker-hub.sh
       - run:
           name: Deploy Over SSH
