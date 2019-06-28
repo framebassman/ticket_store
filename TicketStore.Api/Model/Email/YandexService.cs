@@ -38,10 +38,14 @@ namespace TicketStore.Api.Model.Email
 
             using (var smtpClient = new SmtpClient())
             {
+                _log.LogInformation("Create new SmtpClient");
                 smtpClient.ServerCertificateValidationCallback = (s,c,h,e) => true;
                 smtpClient.Connect("smtp.yandex.ru", 465, true);
+                _log.LogInformation("Authenticate via SmtpClient");
                 smtpClient.Authenticate(_smtpUsername, _smtpPassword);
+                _log.LogInformation("Authenticate via SmtpClient");
                 smtpClient.Send(message);
+                _log.LogInformation("Disconnect and dispose");
                 smtpClient.Disconnect(true);
             }
             
