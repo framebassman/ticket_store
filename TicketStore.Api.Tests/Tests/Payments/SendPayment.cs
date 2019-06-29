@@ -12,19 +12,23 @@ namespace TicketStore.Api.Tests.Tests.Payments
     {
         public SendPayment(ApiFixture fixture) : base (fixture) {}
 
-        [Fact(Skip = "rewrite db using")]
+        [Fact]
         public void YandexSendPayment_InvalidPayment_ReturnsOk()
         {
             // Arrange
             var email = Generator.Email();
-            var before = Fixture.Db.Tickets.Count();
+            var before = Fixture.Db.Tickets.Select(t => t.Payment.Email == email);
             
             // Act
             var response = Fixture.Api.SendPayment(email, 1.99m, 2.00m);
 
             // Assert
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
-            AssertWithTimeout.That(() => Fixture.Db.Tickets.Count(), Is.EqualTo(before));
+            AssertWithTimeout.That(
+                () => Fixture.Db.Tickets.Select(t => t.Payment.Email == email).Count(),
+                Is.EqualTo(before.Count()
+                )
+            );
             AssertWithTimeout.That(() => Fixture.FakeSender.EmailsForAddress(email).Data.Count, Is.EqualTo(0));
         }
 
@@ -33,14 +37,17 @@ namespace TicketStore.Api.Tests.Tests.Payments
         {
             // Arrange
             var email = Generator.Email();
-            var before = Fixture.Db.Tickets.Count();
+            var before = Fixture.Db.Tickets.Select(t => t.Payment.Email == email);
             
             // Act
             var response = Fixture.Api.SendPayment(email, 2.00m, 1.99m);
 
             // Assert
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
-            AssertWithTimeout.That(() => Fixture.Db.Tickets.Count(), Is.EqualTo(before + 1));
+            AssertWithTimeout.That(
+                () => Fixture.Db.Tickets.Select(t => t.Payment.Email == email).Count(),
+                Is.EqualTo(before.Count() + 1)
+            );
             AssertWithTimeout.That(() => Fixture.FakeSender.EmailsForAddress(email).Data.Count, Is.EqualTo(1));
         }
     }

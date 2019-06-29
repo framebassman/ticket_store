@@ -31,11 +31,11 @@ namespace TicketStore.Api.Tests.Tests.Verification
             Assert.Equal(new OkAnswer().ToString(), response.Content);
 
             AssertWithTimeout.That("Ticket should be expired",
-                () =>
-                {
+                () => {
                     Fixture.Db.Entry(ticket).State = EntityState.Detached;
                     return Fixture.Db.Find<Ticket>(ticket.Id).Expired;
-                }, Is.True());
+                },
+                Is.True());
         }
 
         [Fact]
