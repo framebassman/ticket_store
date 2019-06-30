@@ -93,7 +93,7 @@ namespace TicketStore.Api.Controllers
             var ticketCost = new Decimal(2);
             var savedTickets = _db.Tickets.ToList();
             var ticketsToSave = new List<Ticket>();
-            int count = payment.Amount / ticketCost;
+            int count = CalculateTicketsCount(payment.Amount, ticketCost);
             _log.LogInformation($"Combine {count} tickets");
             for (int i = 0; i < count; i++)
             {
@@ -108,6 +108,15 @@ namespace TicketStore.Api.Controllers
             _db.Payments.Add(payment);
             _db.SaveChanges();
             return ticketsToSave;
+        }
+
+        private Int32 CalculateTicketsCount(Decimal amount, Decimal cost)
+        {
+            return Convert.ToInt32(
+                Math.Truncate(
+                    Decimal.Divide(amount, cost)
+                )
+            );
         }
     }
 }
