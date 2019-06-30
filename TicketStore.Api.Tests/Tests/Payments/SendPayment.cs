@@ -26,8 +26,7 @@ namespace TicketStore.Api.Tests.Tests.Payments
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
             AssertWithTimeout.That(
                 () => Fixture.Db.Tickets.Select(t => t.Payment.Email == email).Count(),
-                Is.EqualTo(before.Count()
-                )
+                Is.EqualTo(before.Count())
             );
             AssertWithTimeout.That(() => Fixture.FakeSender.EmailsForAddress(email).Data.Count, Is.EqualTo(0));
         }
@@ -37,7 +36,8 @@ namespace TicketStore.Api.Tests.Tests.Payments
         {
             // Arrange
             var email = Generator.Email();
-            var before = Fixture.Db.Tickets.Select(t => t.Payment.Email == email);
+            var before = Fixture.Db.Tickets.Where(t => t.Payment.Email == email).ToList();
+            Fixture.Db.Tickets.RemoveRange(before);
             
             // Act
             var response = Fixture.Api.SendPayment(email, 2.00m, 1.99m);
@@ -45,7 +45,7 @@ namespace TicketStore.Api.Tests.Tests.Payments
             // Assert
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
             AssertWithTimeout.That(
-                () => Fixture.Db.Tickets.Select(t => t.Payment.Email == email).Count(),
+                () => Fixture.Db.Tickets.Count(t => t.Payment.Email == email),
                 Is.EqualTo(before.Count() + 1)
             );
             AssertWithTimeout.That(() => Fixture.FakeSender.EmailsForAddress(email).Data.Count, Is.EqualTo(1));
