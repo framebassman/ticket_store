@@ -22,10 +22,7 @@ namespace TicketStore.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddRobotify(c => c
-                .AddDisallowAllRobotGroupProvider()
-                .AddRobotGroupsFromAppSettings()
-            );
+            services.AddRobotify(c => c.AddRobotGroupsFromAppSettings());
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             // In production, the React files will be served from this directory
@@ -38,24 +35,14 @@ namespace TicketStore.Web
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-            else
-            {
-                app.UseExceptionHandler("/Error");
-            }
-
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
             app.UseMiddleware<HealthCheckMiddleware>();
             app.UseRobotify(c => c
-                .Enabled(true)
-                .WithSitemap(new Uri("/sitemap"))
-                .DisableFileHeaderComments()
-                .WithCrawlDelay(delayInSeconds: 10)
+                .WithSitemap(new Uri("https://chertopolokh.ru/sitemap"))
+                .WithCrawlDelay(10)
             );
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
