@@ -117,11 +117,12 @@ workflows:
   version: 2
   build-test-deploy:
     jobs:
-      - build-api
-      - build-web
-      - test-api:
-          requires:
-            - build-api
+#      - build-api
+#      - build-web
+#      - test-api:
+#          requires:
+#            - build-api
+      - test-api
       - deploy:
           filters:
             branches:
@@ -129,6 +130,6 @@ workflows:
                 - master
           context: credentials
           requires:
-            - build-api
-            - build-web
+#            - build-api
+#            - build-web
             - test-api

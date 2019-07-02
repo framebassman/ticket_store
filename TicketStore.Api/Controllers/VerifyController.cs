@@ -1,11 +1,10 @@
 using System.IO;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Logging;
-using TicketStore.Api.Data;
 using TicketStore.Api.Model.Http;
 using TicketStore.Api.Model.Validation;
+using TicketStore.Data;
 
 namespace TicketStore.Api.Controllers
 {

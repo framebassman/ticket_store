@@ -29,10 +29,6 @@ services:
             - pgsdata:/var/lib/postgresql/data
         ports:
             - 5432:5432
-        environment:
-            - POSTGRES_DB=store
-            - POSTGRES_USER=store
-            - POSTGRES_PASSWORD=W6TTT3WY4Nzqpj5z
         logging:
             driver: none
     fake_sender:

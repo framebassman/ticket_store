@@ -5,6 +5,7 @@ using System.Web;
 using DinkToPdf;
 using DinkToPdf.Contracts;
 using NetBarcode;
+using TicketStore.Data.Model;
 
 namespace TicketStore.Api.Model.Pdf
 {

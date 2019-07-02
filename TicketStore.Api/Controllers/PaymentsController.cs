@@ -5,10 +5,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using DinkToPdf.Contracts;
-using TicketStore.Api.Data;
 using TicketStore.Api.Model;
 using TicketStore.Api.Model.Email;
 using TicketStore.Api.Model.Pdf;
+using TicketStore.Data;
+using TicketStore.Data.Model;
 
 namespace TicketStore.Api.Controllers
 {
