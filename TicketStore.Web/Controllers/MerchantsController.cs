@@ -25,7 +25,7 @@ namespace TicketStore.Web.Controllers
                     new Merchant
                     {
                         Id = 1,
-                        YandexMoneyAccount = "410011021763706",
+                        YandexMoneyAccount = "410019797958519",
                         Place = "Чердак"
                     }
                 };

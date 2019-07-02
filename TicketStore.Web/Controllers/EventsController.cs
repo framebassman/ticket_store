@@ -17,7 +17,6 @@ namespace TicketStore.Web.Controllers
         public EventsController(ILogger<EventsController> log)
         {
             _log = log;
-            _artists = new List<String>{"Oxxxymiron", "Face", "XXXTenacion", "Виктор Цой", "Филипп Киркоров"};
             _random = new Random();
         }
 
@@ -29,9 +28,29 @@ namespace TicketStore.Web.Controllers
                 _log.LogWarning("Request without merchantId parameter");
                 return new BadRequestObjectResult("Request should contains merchantId parameter");
             }
-            var result = HardcodedEvents(5);
+            var result = DistemperAndAgata();
             _log.LogInformation("Return hardcoded events: {@result}", result);
             return new OkObjectResult(result);
+        }
+
+        private IEnumerable<Event> DistemperAndAgata()
+        {
+            var result = new List<Event>();
+            result.Add(new Event
+            {
+                Artist = "Distemper",
+                Roubles = new decimal(2),
+                Time = new DateTime(2019, 10, 4, 19, 00, 00),
+                PosterUrl = new Uri("https://pp.userapi.com/c858028/v858028662/7c5d/r0sdXNhQXW0.jpg")
+            });
+            result.Add(new Event
+            {
+                Artist = "Глеб Самойлов и The\u00A0Matrixxx",
+                Roubles = new decimal(3),
+                Time = new DateTime(2019, 09, 14, 19, 00, 00),
+                PosterUrl = new Uri("https://pp.userapi.com/c852132/v852132662/15e4b7/zN4K2Pe9NKk.jpg")
+            });
+            return result;
         }
 
         private IEnumerable<Event> HardcodedEvents(Int32 counter)
