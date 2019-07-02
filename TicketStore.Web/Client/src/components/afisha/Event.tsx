@@ -5,7 +5,7 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
-import { EventTime } from '../core/time/EventTime';
+import { EventTime, calculateWhen, calculateStart } from '../core/time/EventTime';
 import { EventDialog } from './EventDialog';
 import './Event.css';
 
@@ -48,7 +48,13 @@ export default class Event extends Component<any, any> {
             </CardActions>
           </CardContent>
         </Card>
-        <EventDialog open={isDialogOpened} handleClose={this._handleClickClose} roubles={roubles} target={artist} yandexMoneyAccount={yandexMoneyAccount}/>
+        <EventDialog
+          open={isDialogOpened}
+          handleClose={this._handleClickClose}
+          roubles={roubles}
+          target={`${artist} — ${calculateWhen(new Date(time))}`}
+          yandexMoneyAccount={yandexMoneyAccount}
+        />
       </div>
     )
   }
