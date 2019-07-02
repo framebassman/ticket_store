@@ -102,7 +102,7 @@ migrate-dev:
 	docker exec -it store_api dotnet ef database update
 
 migrate-test:
-	docker exec -it store_api dotnet ef database update
+	dotnet ef database update --project TicketStore.Data/TicketStore.Data.csproj --context store_dbContext --verbose
 
 # dev
 ngrok:

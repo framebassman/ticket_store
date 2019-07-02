@@ -2,26 +2,24 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-using TicketStore.Api.Data;
+using TicketStore.Data;
 
-namespace TicketStore.Api.Migrations
+namespace TicketStore.Data.Migrations.store_db
 {
-    [DbContext(typeof(ApplicationContext))]
-    [Migration("20190307143602_Ticket_And_Payment")]
-    partial class Ticket_And_Payment
+    [DbContext(typeof(store_dbContext))]
+    partial class store_dbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn)
-                .HasAnnotation("ProductVersion", "2.2.2-servicing-10034")
+                .HasAnnotation("ProductVersion", "2.2.4-servicing-10062")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
-            modelBuilder.Entity("TicketStore.Api.Model.Payment", b =>
+            modelBuilder.Entity("TicketStore.Data.Model.Payment", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -38,7 +36,7 @@ namespace TicketStore.Api.Migrations
                     b.ToTable("payments");
                 });
 
-            modelBuilder.Entity("TicketStore.Api.Model.Ticket", b =>
+            modelBuilder.Entity("TicketStore.Data.Model.Ticket", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -66,9 +64,9 @@ namespace TicketStore.Api.Migrations
                     b.ToTable("tickets");
                 });
 
-            modelBuilder.Entity("TicketStore.Api.Model.Ticket", b =>
+            modelBuilder.Entity("TicketStore.Data.Model.Ticket", b =>
                 {
-                    b.HasOne("TicketStore.Api.Model.Payment", "Payment")
+                    b.HasOne("TicketStore.Data.Model.Payment", "Payment")
                         .WithMany("Tickets")
                         .HasForeignKey("PaymentId")
                         .OnDelete(DeleteBehavior.Cascade);

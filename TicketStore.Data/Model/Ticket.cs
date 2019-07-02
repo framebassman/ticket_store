@@ -1,7 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace TicketStore.Api.Model
+namespace TicketStore.Data.Model
 {
     [Table("tickets")]
     public class Ticket

@@ -2,7 +2,7 @@ using System;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Collections.Generic;
 
-namespace TicketStore.Api.Model
+namespace TicketStore.Data.Model
 {
     [Table("payments")]
     public class Payment
