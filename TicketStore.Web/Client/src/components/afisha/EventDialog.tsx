@@ -14,7 +14,7 @@ function declOfNum(num: number, titles: string[]) {
 
 export class EventDialog extends Component<any, any> {
   state: any = {
-    count: 2,
+    count: 1,
   }
 
   handleChange = (count: any) => (event: any) => {
