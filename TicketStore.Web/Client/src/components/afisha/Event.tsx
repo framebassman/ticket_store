@@ -5,7 +5,7 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
-import { EventTime, calculateWhen, calculateStart } from '../core/time/EventTime';
+import { EventTime, calculateWhen } from '../core/time/EventTime';
 import { EventDialog } from './EventDialog';
 import './Event.css';
 

@@ -28,12 +28,12 @@ namespace TicketStore.Web.Controllers
                 _log.LogWarning("Request without merchantId parameter");
                 return new BadRequestObjectResult("Request should contains merchantId parameter");
             }
-            var result = DestamperAndAgata();
+            var result = DistemperAndAgata();
             _log.LogInformation("Return hardcoded events: {@result}", result);
             return new OkObjectResult(result);
         }
 
-        private IEnumerable<Event> DestamperAndAgata()
+        private IEnumerable<Event> DistemperAndAgata()
         {
             var result = new List<Event>();
             result.Add(new Event
