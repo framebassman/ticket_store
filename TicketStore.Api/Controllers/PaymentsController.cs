@@ -122,17 +122,20 @@ namespace TicketStore.Api.Controllers
 
         private Decimal CalculateTicketCost(string label)
         {
-            if (label.ToLower().Contains("distemper"))
+            if (!string.IsNullOrEmpty(label))
             {
-                _time = "Пятница, 4 октября 2019 года, 19:00";
-                _log.LogInformation("Label {@0} contains 'distemper'. Price is 2. Time is {@1}", label, _time);
-                return new decimal(2);
-            } 
-            else if (label.ToLower().Contains("глеб самойлов"))
-            {
-                _time = "Суббота, 14 сентября 2019 года, 19:00";
-                _log.LogInformation("Label {@0} contains 'глеб самойлов'. Price is 3. Time is {@1}", label, _time);
-                return new decimal(3);
+                if (label.ToLower().Contains("distemper"))
+                {
+                    _time = "Пятница, 4 октября 2019 года, 19:00";
+                    _log.LogInformation("Label {@0} contains 'distemper'. Price is 2. Time is {@1}", label, _time);
+                    return new decimal(2);
+                } 
+                else if (label.ToLower().Contains("глеб самойлов"))
+                {
+                    _time = "Суббота, 14 сентября 2019 года, 19:00";
+                    _log.LogInformation("Label {@0} contains 'глеб самойлов'. Price is 3. Time is {@1}", label, _time);
+                    return new decimal(3);
+                }
             }
             _time = "Безвременье";
             _log.LogInformation("Return default price with default time");
