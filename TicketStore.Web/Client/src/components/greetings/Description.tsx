@@ -43,6 +43,7 @@ export class Description extends React.Component {
               <PayButton
                 className="description__content--item"
                 roubles={roubles * this.state.count}
+                targets="The Cellophane Heads - X лет"
                 label="The Cellophane Heads - X лет"
                 yandexMoneyAccount="410011021763706"
               />
