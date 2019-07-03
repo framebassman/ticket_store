@@ -52,7 +52,7 @@ export default class Event extends Component<any, any> {
           open={isDialogOpened}
           handleClose={this._handleClickClose}
           roubles={roubles}
-          target={`${artist} — ${calculateWhen(new Date(time))}`}
+          name={`${artist} — ${calculateWhen(new Date(time))}`}
           yandexMoneyAccount={yandexMoneyAccount}
         />
       </div>

@@ -24,7 +24,7 @@ export class EventDialog extends Component<any, any> {
   };
   
   render() {
-    const { open, handleClose, roubles, target, yandexMoneyAccount } = this.props;
+    const { open, handleClose, roubles, name, yandexMoneyAccount } = this.props;
     return (
       <Dialog
         open={open}
@@ -32,7 +32,7 @@ export class EventDialog extends Component<any, any> {
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <DialogTitle id="alert-dialog-title">{target}</DialogTitle>
+        <DialogTitle id="alert-dialog-title">{name}</DialogTitle>
         <DialogContent>
           <div className={"event-dialog__money-section"}>
             <div className="event-dialog__item">
@@ -54,7 +54,7 @@ export class EventDialog extends Component<any, any> {
           </div>
         </DialogContent>
         <DialogActions className={"event-dialog__actions"}>
-          <PayButton roubles={roubles * this.state.count} target={target} yandexMoneyAccount={yandexMoneyAccount}/>
+          <PayButton roubles={roubles * this.state.count} label={name} yandexMoneyAccount={yandexMoneyAccount}/>
         </DialogActions>
       </Dialog>
     )
