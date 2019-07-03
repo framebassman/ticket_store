@@ -102,7 +102,8 @@ namespace TicketStore.Api.Controllers
                     CreatedAt = DateTime.Now,
                     Number = new Algorithm(savedTickets.Concat(ticketsToSave).ToList()).Next(),
                     Roubles = ticketCost,
-                    Expired = false
+                    Expired = false,
+                    EventName = label
                 });
             }
             payment.Tickets = ticketsToSave;
@@ -127,14 +128,14 @@ namespace TicketStore.Api.Controllers
                 if (label.ToLower().Contains("distemper"))
                 {
                     _time = "Пятница, 4 октября 2019 года, 19:00";
-                    _log.LogInformation("Label {@0} contains 'distemper'. Price is 2. Time is {@1}", label, _time);
-                    return new decimal(2);
+                    _log.LogInformation("Label {@0} contains 'distemper'. Price is 3. Time is {@1}", label, _time);
+                    return new decimal(3);
                 } 
                 else if (label.ToLower().Contains("глеб самойлов"))
                 {
                     _time = "Суббота, 14 сентября 2019 года, 19:00";
-                    _log.LogInformation("Label {@0} contains 'глеб самойлов'. Price is 3. Time is {@1}", label, _time);
-                    return new decimal(3);
+                    _log.LogInformation("Label {@0} contains 'глеб самойлов'. Price is 4. Time is {@1}", label, _time);
+                    return new decimal(4);
                 }
             }
             _time = "Безвременье";
