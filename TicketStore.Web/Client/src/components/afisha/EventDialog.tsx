@@ -54,7 +54,7 @@ export class EventDialog extends Component<any, any> {
           </div>
         </DialogContent>
         <DialogActions className={"event-dialog__actions"}>
-          <PayButton roubles={roubles * this.state.count} label={name} yandexMoneyAccount={yandexMoneyAccount}/>
+          <PayButton roubles={roubles * this.state.count} targets={name} label={name} yandexMoneyAccount={yandexMoneyAccount}/>
         </DialogActions>
       </Dialog>
     )
