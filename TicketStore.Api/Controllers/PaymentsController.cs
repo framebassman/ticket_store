@@ -128,14 +128,14 @@ namespace TicketStore.Api.Controllers
                 if (label.ToLower().Contains("distemper"))
                 {
                     _time = "Пятница, 4 октября 2019 года, 19:00";
-                    _log.LogInformation("Label {@0} contains 'distemper'. Price is 3. Time is {@1}", label, _time);
-                    return new decimal(3);
+                    _log.LogInformation("Label {@0} contains 'distemper'. Price is 600. Time is {@1}", label, _time);
+                    return new decimal(600);
                 } 
                 else if (label.ToLower().Contains("глеб самойлов"))
                 {
                     _time = "Суббота, 14 сентября 2019 года, 19:00";
-                    _log.LogInformation("Label {@0} contains 'глеб самойлов'. Price is 4. Time is {@1}", label, _time);
-                    return new decimal(4);
+                    _log.LogInformation("Label {@0} contains 'глеб самойлов'. Price is 800. Time is {@1}", label, _time);
+                    return new decimal(800);
                 }
             }
             _time = "Безвременье";

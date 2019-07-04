@@ -39,14 +39,14 @@ namespace TicketStore.Web.Controllers
             result.Add(new Event
             {
                 Artist = "Distemper",
-                Roubles = new decimal(3),
+                Roubles = new decimal(600),
                 Time = new DateTime(2019, 10, 4, 19, 00, 00),
                 PosterUrl = new Uri("https://pp.userapi.com/c858028/v858028662/7c5d/r0sdXNhQXW0.jpg")
             });
             result.Add(new Event
             {
                 Artist = "Глеб Самойлов и The\u00A0Matrixxx",
-                Roubles = new decimal(4),
+                Roubles = new decimal(800),
                 Time = new DateTime(2019, 09, 14, 19, 00, 00),
                 PosterUrl = new Uri("https://pp.userapi.com/c852132/v852132662/15e4b7/zN4K2Pe9NKk.jpg")
             });
