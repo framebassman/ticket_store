@@ -103,9 +103,6 @@ migrate-dev:
 
 migrate-test:
 	docker exec -it store_api dotnet ef database update
-	
-migrate-prod:
-    dotnet ef database update 
 
 # dev
 ngrok:
