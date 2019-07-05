@@ -17,6 +17,8 @@ namespace TicketStore.Data
             _isInsideDocker =
                 Convert.ToBoolean(Environment.GetEnvironmentVariable("DOTNET_RUNNING_IN_CONTAINER",
                     EnvironmentVariableTarget.Process));
+            Console.WriteLine("Environment: {0}", _environmentName);
+            Console.WriteLine("Is application inside docker container: {0}", _isInsideDocker);
         }
 
         public String ConnectionString()
@@ -57,7 +59,7 @@ namespace TicketStore.Data
 
         private String CalculateBasePath()
         {
-            var dirname = "./DataConfigs";
+            var dirname = "./DbConfigs";
             var info = new DirectoryInfo(dirname);
             if (!info.Exists)
             {
