@@ -32,7 +32,7 @@ namespace TicketStore.Data
                 }
                 else
                 {
-                    var dockerHostEnv = Environment.GetEnvironmentVariable("DOCKER_HOST", EnvironmentVariableTarget.Machine);
+                    var dockerHostEnv = Environment.GetEnvironmentVariable("DOCKER_HOST", EnvironmentVariableTarget.Process);
                     if (string.IsNullOrEmpty(dockerHostEnv))
                     {
                         return candidate.Replace("$HOST", "localhost");

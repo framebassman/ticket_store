@@ -1,3 +1,4 @@
+using System;
 using Microsoft.EntityFrameworkCore;
 using TicketStore.Data.Model;
 
@@ -15,7 +16,9 @@ namespace TicketStore.Data
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
             var settings = new ApplicationSettings();
-            options.UseNpgsql(settings.ConnectionString());
+            var connectionString = settings.ConnectionString();
+            Console.WriteLine("Used ConnectionString: {0}", connectionString);
+            options.UseNpgsql(connectionString);
         }
     }
 }
