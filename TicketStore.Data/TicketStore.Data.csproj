@@ -11,4 +11,10 @@
         <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="2.2.4" />
         <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="2.2.4" />
     </ItemGroup>
+
+    <ItemGroup>
+        <Content Include="DbConfigs\*.*">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+    </ItemGroup>
 </Project>
