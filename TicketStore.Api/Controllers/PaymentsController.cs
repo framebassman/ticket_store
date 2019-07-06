@@ -21,6 +21,7 @@ namespace TicketStore.Api.Controllers
         private ILogger<PaymentsController> _log;
         private EmailService _emailService;
         private IConverter _converter;
+        private String _time;
 
         public PaymentsController(
             ApplicationContext context,
@@ -76,22 +77,22 @@ namespace TicketStore.Api.Controllers
             }
             
             _log.LogInformation("Receive Yandex.Money request from {@0}", email);
-            var tickets = CombineTickets(new Payment { Email = email, Amount = withdraw_amount});
+            var tickets = CombineTickets(label, new Payment { Email = email, Amount = withdraw_amount});
             
             if (tickets.Count == 0)
             {
                 return new OkObjectResult("Payment is less than ticket cost");
             }
-            var pdf = new Pdf(tickets, _converter);
+            var pdf = new Pdf(label, _time, tickets[0].Roubles, tickets, _converter);
             _log.LogInformation("Combined PDF with barcodes");
             _emailService.SendTicket(email, pdf);
             return new OkObjectResult("OK");
         }
 
-        private List<Ticket> CombineTickets(Payment payment)
+        private List<Ticket> CombineTickets(String label, Payment payment)
         {
             _log.LogInformation("Receive payment: {@0}", payment);
-            var ticketCost = new Decimal(2);
+            var ticketCost = CalculateTicketCost(label);
             var savedTickets = _db.Tickets.ToList();
             var ticketsToSave = new List<Ticket>();
             int count = CalculateTicketsCount(payment.Amount, ticketCost);
@@ -102,7 +103,8 @@ namespace TicketStore.Api.Controllers
                     CreatedAt = DateTime.Now,
                     Number = new Algorithm(savedTickets.Concat(ticketsToSave).ToList()).Next(),
                     Roubles = ticketCost,
-                    Expired = false
+                    Expired = false,
+                    EventName = label
                 });
             }
             payment.Tickets = ticketsToSave;
@@ -118,6 +120,28 @@ namespace TicketStore.Api.Controllers
                     Decimal.Divide(amount, cost)
                 )
             );
+        }
+
+        private Decimal CalculateTicketCost(string label)
+        {
+            if (!string.IsNullOrEmpty(label))
+            {
+                if (label.ToLower().Contains("distemper"))
+                {
+                    _time = "Пятница, 4 октября 2019 года, 19:00";
+                    _log.LogInformation("Label {@0} contains 'distemper'. Price is 600. Time is {@1}", label, _time);
+                    return new decimal(600);
+                } 
+                else if (label.ToLower().Contains("глеб самойлов"))
+                {
+                    _time = "Суббота, 14 сентября 2019 года, 19:00";
+                    _log.LogInformation("Label {@0} contains 'глеб самойлов'. Price is 800. Time is {@1}", label, _time);
+                    return new decimal(800);
+                }
+            }
+            _time = "Безвременье";
+            _log.LogInformation("Return default price with default time");
+            return new decimal(2);
         }
     }
 }

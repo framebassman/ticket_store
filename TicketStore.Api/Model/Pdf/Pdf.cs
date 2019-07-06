@@ -11,21 +11,27 @@ namespace TicketStore.Api.Model.Pdf
 {
     public class Pdf
     {
+        private String _eventName;
+        private String _time;
+        private Decimal _price;
         private List<Ticket> _tickets;
         private IConverter _converter;
-        public Pdf(List<Ticket> tickets, IConverter converter)
+        public Pdf(String eventName, String time, decimal price, List<Ticket> tickets, IConverter converter)
         {
+            _eventName = eventName;
+            _time = time;
+            _price = price;
             _tickets = tickets;
             _converter = converter;
         }
 
         public byte[] toBytes()
         {
-            var temp = template();
+            var temp = Template();
             return _converter.Convert(temp);
         }
 
-        private HtmlToPdfDocument template()
+        private HtmlToPdfDocument Template()
         {
             var images = barcodes();
             return new HtmlToPdfDocument()
@@ -50,6 +56,19 @@ namespace TicketStore.Api.Model.Pdf
           документ является такой же ценностью, как и наличные деньги. Хранение ЭБ, недопущение его копирования и/или иного
           воспроизведение является обязанностью Клиента. Организатор не несет ответственности за сохранность Ваших ЭБ.
           Организатор не несет ответственности за билеты, приобретенные у третьих лиц, в том числе приобретенные «с рук»
+          </div>
+          <div style=""margin: 16px;"">
+            <div style=""font-weight: 600"">Правила клуба</div>
+            <div>
+                Наличие билета на концерт дает право находиться в клубе во время концерта, указанного в билете без посадочного места.
+                После окончания концерта администрация имеет право попросить посетителей покинуть зал. 
+                В клубе может быть произведен досмотр, с целью обеспечения безопасности его посетителей.
+                Посетители не должны оказывать сопротивления досматривающим, в противном случае администрация может отказать 
+                клиенту в праве на повторное посещение. Администрация не несет ответственность за билеты,
+                приобретённые в неустановленных местах. Клуб не несет ответственности за сохранность личных вещей, транспортных 
+                средств и другого имущества, оставленного на территории клуба. Посетителю придется покинуть клуб
+                в случае проявления агрессии по отношению к другим гостям и/или к персоналу.
+            </div>
           </div>
           <div style=""margin: 16px;"">
             <div style=""font-weight: 600"">Порядок прохождения контроля с ЭБ</div>
@@ -85,11 +104,11 @@ namespace TicketStore.Api.Model.Pdf
             {
                 var template = $@"
                   <div style=""border: 4px solid yellow;max-width: 500px; margin-left: auto; margin-right: auto"">
-                    <div style=""text-align: left; margin: 4px"">The Cellophane Heads - X лет</div>
+                    <div style=""text-align: left; margin: 4px"">{_eventName}</div>
                     <div style=""border: 1px solid black; margin: 4px"">
                       <div style=""display: flex; justify-content: space-between;"">
-                        <div style=""font-size: 14px; margin: 4px; text-align: left"">Суббота, 20 апреля 2019 года, 19:00</div>
-                        <div style=""font-size: 14px; margin: 4px; text-align: right"">Стоимость: 200 ₽</div>
+                        <div style=""font-size: 14px; margin: 4px; text-align: left"">{_time}</div>
+                        <div style=""font-size: 14px; margin: 4px; text-align: right"">Стоимость: {_price} ₽</div>
                       </div>
                       <img src='data:image/png;base64, {barcode(ticket)}'/>
                       <br />

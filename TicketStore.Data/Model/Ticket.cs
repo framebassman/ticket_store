@@ -16,6 +16,8 @@ namespace TicketStore.Data.Model
         public Decimal Roubles { get; set; }
         [Column("expired")]
         public Boolean Expired { get; set; }
+        [Column("event_name")]
+        public String EventName { get; set; }
         
         [Column("payment_id")]
         public Int32 PaymentId { get; set; }

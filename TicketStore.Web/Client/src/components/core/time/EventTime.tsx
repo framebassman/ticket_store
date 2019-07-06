@@ -10,14 +10,14 @@ const monthNames = ["января", "февраля", "март", "апреля"
   "июля", "августа", "сентября", "октября", "ноября", "декабря"
 ];
 
-function calculateWhen(startedAt: Date): String {
+export function calculateWhen(startedAt: Date): String {
   const year = startedAt.getFullYear();
   const date = startedAt.getDate();
   const month = monthNames[startedAt.getMonth()];
   return `${date} ${month} ${year}`;
 }
 
-function calculateStart(startedAt: Date): String {
+export function calculateStart(startedAt: Date): String {
   const hoursTimezoneOffset = startedAt.getTimezoneOffset() / 60;
   const hoursUtc = startedAt.getUTCHours();
   const hoursWithoutZeros = hoursUtc - hoursTimezoneOffset;
