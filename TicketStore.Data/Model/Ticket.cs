@@ -22,5 +22,9 @@ namespace TicketStore.Data.Model
         [Column("payment_id")]
         public Int32 PaymentId { get; set; }
         public Payment Payment { get; set; }
+        
+        [Column("event_id")]
+        public Int32 EventId { get; set; }
+        public Event Event { get; set; }
     }
 }
