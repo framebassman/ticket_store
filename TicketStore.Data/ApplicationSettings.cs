@@ -59,7 +59,10 @@ namespace TicketStore.Data
 
         private String CalculateBasePath()
         {
-            var dirname = "./DbConfigs";
+            var executionPathWithFile = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase);
+            var executionPath = executionPathWithFile.TrimStart("file:".ToCharArray());
+            Console.WriteLine("Execution path: {0}", executionPath);
+            var dirname = Path.Combine(executionPath, "DbConfigs");
             var info = new DirectoryInfo(dirname);
             if (!info.Exists)
             {

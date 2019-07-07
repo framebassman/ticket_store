@@ -1,8 +1,7 @@
-using System;
-using System.Collections.Generic;
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using TicketStore.Web.Model;
+using TicketStore.Data;
 
 namespace TicketStore.Web.Controllers
 {
@@ -11,24 +10,18 @@ namespace TicketStore.Web.Controllers
     public class MerchantsController : ControllerBase
     {
         private readonly ILogger<MerchantsController> _log;
+        private readonly ApplicationContext _db;
 
-        public MerchantsController(ILogger<MerchantsController> log)
+        public MerchantsController(ILogger<MerchantsController> log, ApplicationContext db)
         {
             _log = log;
+            _db = db;
         }
 
         [HttpGet]
         public IActionResult GetAll()
         {
-            var result = new List<Merchant>
-                {
-                    new Merchant
-                    {
-                        Id = 1,
-                        YandexMoneyAccount = "410019797958519",
-                        Place = "Чердак"
-                    }
-                };
+            var result = _db.Merchants.ToList();
             _log.LogInformation("Return hardcoded merchants: {@Result}", result);
             return new OkObjectResult(result);
         }

@@ -59,6 +59,21 @@ stop-prod:
 		-f Deploy/docker-compose.production.yml \
 		down
 
+# db only
+start-db:
+	docker-compose \
+		--project-directory=${PWD} \
+		--project-name=ticket_store \
+		-f Deploy/docker-compose.db.yml \
+		up --build -d
+
+stop-db:
+	docker-compose \
+		--project-directory=${PWD} \
+		--project-name=ticket_store \
+		-f Deploy/docker-compose.db.yml \
+		down
+
 start-prod:
 	chmod 600 ./Proxy/certs/acme.json
 	docker-compose \

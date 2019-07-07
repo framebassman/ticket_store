@@ -14,6 +14,11 @@ namespace TicketStore.Data.Migrations
                 nullable: false,
                 defaultValue: 0);
 
+            migrationBuilder.AddColumn<string>(
+                name: "event_name",
+                table: "tickets",
+                nullable: true);
+
             migrationBuilder.CreateTable(
                 name: "merchants",
                 columns: table => new
@@ -89,6 +94,10 @@ namespace TicketStore.Data.Migrations
 
             migrationBuilder.DropColumn(
                 name: "event_id",
+                table: "tickets");
+
+            migrationBuilder.DropColumn(
+                name: "event_name",
                 table: "tickets");
         }
     }

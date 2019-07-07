@@ -10,7 +10,7 @@ using TicketStore.Data;
 namespace TicketStore.Data.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20190707054934_Merchant_And_Event")]
+    [Migration("20190707062611_Merchant_And_Event")]
     partial class Merchant_And_Event
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
