@@ -16,11 +16,11 @@ namespace TicketStore.Api.Model.Pdf
         private Decimal _price;
         private List<Ticket> _tickets;
         private IConverter _converter;
-        public Pdf(String eventName, String time, decimal price, List<Ticket> tickets, IConverter converter)
+        public Pdf(Event concert, List<Ticket> tickets, IConverter converter)
         {
-            _eventName = eventName;
-            _time = time;
-            _price = price;
+            _eventName = concert.Artist;
+            _time = concert.Time.ToString();
+            _price = concert.Roubles;
             _tickets = tickets;
             _converter = converter;
         }
