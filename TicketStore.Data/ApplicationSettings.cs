@@ -23,28 +23,7 @@ namespace TicketStore.Data
 
         public String ConnectionString()
         {
-            var candidate = BuildConfiguration().GetConnectionString("DefaultConnection");
-            if (_environmentName == "Test")
-            {
-                if (_isInsideDocker)
-                {
-                    return candidate.Replace("$HOST","postgres");
-                }
-                else
-                {
-                    var dockerHostEnv = Environment.GetEnvironmentVariable("DOCKER_HOST", EnvironmentVariableTarget.Process);
-                    if (string.IsNullOrEmpty(dockerHostEnv))
-                    {
-                        return candidate.Replace("$HOST", "localhost");
-                    }
-                    else
-                    {
-                        var dockerHost = new UriBuilder(dockerHostEnv).Host;
-                        return candidate.Replace("$HOST", dockerHost);
-                    }
-                }
-            }
-            return candidate;
+            return BuildConfiguration().GetConnectionString("DefaultConnection");
         }
         
         private IConfiguration BuildConfiguration()

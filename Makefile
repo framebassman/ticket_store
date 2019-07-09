@@ -114,11 +114,10 @@ db-prod:
 	psql postgresql://store_user:GMQCruf5SzsCGR2xd3euUVZQG3c@188.68.210.162:5432/store_db
 
 migrate-dev:
-	docker exec -it store_api dotnet ef database update
+	docker exec store_api dotnet ef database update --verbose
 
 migrate-test:
-	export ASPNETCORE_ENVIRONMENT=Test; \
-	dotnet ef database update --project TicketStore.Data/TicketStore.Data.csproj --verbose
+	docker exec store_api dotnet ef database update --verbose
 
 # dev
 ngrok:
