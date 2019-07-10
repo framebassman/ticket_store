@@ -85,7 +85,7 @@ namespace TicketStore.Api.Controllers
             
             var concert = _db.Events.FirstOrDefault(
                 e => e.MerchantId == merchant.Id && 
-                $"{e.Artist} - {e.Time.ToString("d MMMM yyyy", CultureInfo.CreateSpecificCulture("ru-RU"))}" == label
+                $"{e.Artist} — {e.Time.ToString("d MMMM yyyy", CultureInfo.CreateSpecificCulture("ru-RU"))}" == label
             );
             if (concert == null)
             {
