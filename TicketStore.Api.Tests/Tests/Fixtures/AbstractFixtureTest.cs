@@ -25,11 +25,11 @@ namespace TicketStore.Api.Tests.Tests.Fixtures
         {
             if (Fixture.Db.Events.Count() != 0)
             {
-                Fixture.Db.Events.RemoveRange(Events);
+                Fixture.Db.Events.RemoveRange(Fixture.Db.Events);
             }
             if (Fixture.Db.Merchants.Count() != 0)
             {
-                Fixture.Db.Merchants.RemoveRange(Merchant);
+                Fixture.Db.Merchants.RemoveRange(Fixture.Db.Merchants);
             }
         }
 
