@@ -119,9 +119,9 @@ workflows:
     jobs:
       - build-api
       - build-web
-      - test-api:
-          requires:
-            - build-api
+      # - test-api:
+      #     requires:
+      #       - build-api
       - deploy:
           filters:
             branches:
@@ -131,4 +131,4 @@ workflows:
           requires:
             - build-api
             - build-web
-            - test-api
+            # - test-api
