@@ -17,10 +17,7 @@ namespace TicketStore.Data
         
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
-            var settings = new ApplicationSettings();
-            var connectionString = settings.ConnectionString();
-            Console.WriteLine("Used ConnectionString: {0}", connectionString);
-            options.UseNpgsql(connectionString);
+            options.UseNpgsql(new ApplicationSettings().ConnectionString());
         }
     }
 }

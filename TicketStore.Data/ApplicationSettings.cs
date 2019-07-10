@@ -7,18 +7,12 @@ namespace TicketStore.Data
     public class ApplicationSettings
     {
         private readonly String _environmentName;
-        private readonly Boolean _isInsideDocker; 
         
         public ApplicationSettings()
         {
             _environmentName = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT",
                                    EnvironmentVariableTarget.Process)
                                ?? "Development";
-            _isInsideDocker =
-                Convert.ToBoolean(Environment.GetEnvironmentVariable("DOTNET_RUNNING_IN_CONTAINER",
-                    EnvironmentVariableTarget.Process));
-            Console.WriteLine("Environment: {0}", _environmentName);
-            Console.WriteLine("Is application inside docker container: {0}", _isInsideDocker);
         }
 
         public String ConnectionString()
@@ -38,18 +32,21 @@ namespace TicketStore.Data
 
         private String CalculateBasePath()
         {
-            var executionPathWithFile = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase);
-            var executionPath = executionPathWithFile.TrimStart("file:".ToCharArray());
-            Console.WriteLine("Execution path: {0}", executionPath);
-            var dirname = Path.Combine(executionPath, "DbConfigs");
+            var dirname = Path.Combine(AbsolutePathOfProject(), "DbConfigs");
             var info = new DirectoryInfo(dirname);
             if (!info.Exists)
             {
                 Console.WriteLine("There is no directory via address {0}", info.FullName);
                 throw new FileNotFoundException("There is no file via address {0}", info.FullName);
             }
-            Console.WriteLine("Base path for configs: {0}", info.FullName);
             return info.FullName;
+        }
+
+        private String AbsolutePathOfProject()
+        {
+            var prefix = "file:";
+            var pathWithPrefix = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase);
+            return pathWithPrefix.TrimStart(prefix.ToCharArray());            
         }
     }
 }

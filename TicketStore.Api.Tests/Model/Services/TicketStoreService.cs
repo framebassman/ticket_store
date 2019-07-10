@@ -6,7 +6,7 @@ namespace TicketStore.Api.Tests.Model.Services
 {
     public abstract class TicketStoreService
     {
-        protected readonly RestClient Client;
+        protected RestClient Client;
         protected abstract int Port();
 
         public TicketStoreService()
@@ -18,6 +18,8 @@ namespace TicketStore.Api.Tests.Model.Services
                     this.Port()
                 ).Uri
             );
+            Client.RemoteCertificateValidationCallback = 
+                (sender, certificate, chain, sslPolicyErrors) => true;
         }
     }
 }

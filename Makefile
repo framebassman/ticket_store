@@ -117,7 +117,8 @@ migrate-dev:
 	docker exec store_api dotnet ef database update --verbose
 
 migrate-test:
-	docker exec store_api dotnet ef database update --verbose
+	export ASPNETCORE_ENVIRONMENT=TestMigrations; \
+	dotnet ef database update --project TicketStore.Data/TicketStore.Data.csproj --verbose
 
 # dev
 ngrok:

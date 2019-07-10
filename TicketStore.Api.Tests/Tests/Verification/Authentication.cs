@@ -17,8 +17,10 @@ namespace TicketStore.Api.Tests.Tests.Verification
         public void SendBarcode_WithoutBearerToken_ReturnsUnauthorized()
         {
             // Arrange
+            var sender = Merchant.YandexMoneyAccount;
+            var label = Events[0].Artist;
             var email = Generator.Email();
-            Fixture.Api.SendPayment(email, 2.00m, 2.00m);
+            Fixture.Api.SendPayment(sender, label, email, 2.00m, 2.00m);
             var ticket = Fixture.Db.Tickets.First(t => t.Payment.Email == email);
 
             // Act

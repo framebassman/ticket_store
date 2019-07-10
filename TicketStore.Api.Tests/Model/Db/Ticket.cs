@@ -1,7 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace TicketStore.Api.Tests.Model
+namespace TicketStore.Api.Tests.Model.Db
 {
     [Table("tickets")]
     public class Ticket
@@ -16,9 +16,15 @@ namespace TicketStore.Api.Tests.Model
         public Decimal Roubles { get; set; }
         [Column("expired")]
         public Boolean Expired { get; set; }
+        [Column("event_name")]
+        public String EventName { get; set; }
+        
         [Column("payment_id")]
         public Int32 PaymentId { get; set; }
-        
         public Payment Payment { get; set; }
+        
+        [Column("event_id")]
+        public Int32 EventId { get; set; }
+        public Event Event { get; set; }
     }
 }
