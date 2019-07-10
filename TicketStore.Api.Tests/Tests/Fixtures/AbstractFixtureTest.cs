@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using TicketStore.Api.Tests.Model.Db;
 using Xunit;
@@ -22,8 +23,14 @@ namespace TicketStore.Api.Tests.Tests.Fixtures
 
         public void CleanUpDatabase()
         {
-            Fixture.Db.Events.RemoveRange(Events);
-            Fixture.Db.Merchants.RemoveRange(Merchant);
+            if (Fixture.Db.Events.Count() != 0)
+            {
+                Fixture.Db.Events.RemoveRange(Events);
+            }
+            if (Fixture.Db.Merchants.Count() != 0)
+            {
+                Fixture.Db.Merchants.RemoveRange(Merchant);
+            }
         }
 
         public void SeedTestData()
