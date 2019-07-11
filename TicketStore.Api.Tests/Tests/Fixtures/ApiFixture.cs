@@ -30,8 +30,7 @@ namespace TicketStore.Api.Tests.Tests.Fixtures
         {
             Db.Dispose();
         }
-        
-        
+
         public void CleanUpDatabase()
         {
             if (Db.Events.Count() != 0)

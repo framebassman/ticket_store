@@ -9,21 +9,25 @@ using TicketStore.Api.Tests.Tests.Matchers;
 
 namespace TicketStore.Api.Tests.Tests.Payments
 {
-    public class SendPayment : AbstractFixtureTest
+    public class SendPayment : IClassFixture<ApiFixture>
     {
-        public SendPayment(ApiFixture fixture) : base (fixture) {}
+        private readonly ApiFixture _fixture;
+        public SendPayment(ApiFixture fixture)
+        {
+            _fixture = fixture;
+        }
 
         [Fact]
         public void YandexSendPayment_InvalidPayment_ReturnsOk()
         {
             // Arrange
-            var sender = Merchant.YandexMoneyAccount;
-            var testEvent = Events[1];
+            var sender = _fixture.Merchant.YandexMoneyAccount;
+            var testEvent = _fixture.Events[1];
             var email = Generator.Email();
-            var before = Fixture.Db.Tickets.Select(t => t.Payment.Email == email);
+            var before = _fixture.Db.Tickets.Select(t => t.Payment.Email == email);
 
             // Act
-            var response = Fixture.Api.SendPayment(
+            var response = _fixture.Api.SendPayment(
                 sender,
                 new YandexPaymentLabel(testEvent), 
                 email,
@@ -34,23 +38,23 @@ namespace TicketStore.Api.Tests.Tests.Payments
             // Assert
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
             AssertWithTimeout.That(
-                () => Fixture.Db.Tickets.Select(t => t.Payment.Email == email).Count(),
+                () => _fixture.Db.Tickets.Select(t => t.Payment.Email == email).Count(),
                 Is.EqualTo(before.Count())
             );
-            AssertWithTimeout.That(() => Fixture.FakeSender.EmailsForAddress(email).Data.Count, Is.EqualTo(0));
+            AssertWithTimeout.That(() => _fixture.FakeSender.EmailsForAddress(email).Data.Count, Is.EqualTo(0));
         }
 
         [Fact]
         public void YandexSendPayment_ValidPayment_ReturnsOk()
         {
             // Arrange
-            var sender = Merchant.YandexMoneyAccount;
-            var testEvent = Events[0];
+            var sender = _fixture.Merchant.YandexMoneyAccount;
+            var testEvent = _fixture.Events[0];
             var email = Generator.Email();
-            var before = Fixture.Db.Tickets.Where(t => t.Payment.Email == email).ToList();
+            var before = _fixture.Db.Tickets.Where(t => t.Payment.Email == email).ToList();
 
             // Act
-            var response = Fixture.Api.SendPayment(
+            var response = _fixture.Api.SendPayment(
                 sender,
                 new YandexPaymentLabel(testEvent),
                 email,
@@ -61,10 +65,10 @@ namespace TicketStore.Api.Tests.Tests.Payments
             // Assert
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
             AssertWithTimeout.That(
-                () => Fixture.Db.Tickets.Count(t => t.Payment.Email == email),
+                () => _fixture.Db.Tickets.Count(t => t.Payment.Email == email),
                 Is.EqualTo(before.Count() + 1)
             );
-            AssertWithTimeout.That(() => Fixture.FakeSender.EmailsForAddress(email).Data.Count, Is.EqualTo(1));
+            AssertWithTimeout.That(() => _fixture.FakeSender.EmailsForAddress(email).Data.Count, Is.EqualTo(1));
         }
     }
 }

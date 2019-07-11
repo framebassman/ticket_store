@@ -4,15 +4,20 @@ using TicketStore.Api.Tests.Tests.Fixtures;
 
 namespace TicketStore.Api.Tests.Tests.Payments
 {
-    public class SendTestNotification : AbstractFixtureTest
+    public class SendTestNotification : IClassFixture<ApiFixture>
     {
-        public SendTestNotification(ApiFixture fixture) : base(fixture) {}
+        private readonly ApiFixture _fixture;
+
+        public SendTestNotification(ApiFixture fixture)
+        {
+            _fixture = fixture;
+        }
 
         [Fact]
         public void YandexSendTestRequest_ReturnTestMessage()
         {            
             // Act
-            var response = Fixture.Api.SendTestPayment();
+            var response = _fixture.Api.SendTestPayment();
             
             // Assert
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);

@@ -10,27 +10,31 @@ using Xunit;
 
 namespace TicketStore.Api.Tests.Tests.Verification
 {
-    public class Authentication : AbstractFixtureTest
+    public class Authentication : IClassFixture<ApiFixture>
     {
-        public Authentication(ApiFixture fixture) : base(fixture) { }
+        private readonly ApiFixture _fixture;
+        public Authentication(ApiFixture fixture)
+        {
+            _fixture = fixture;
+        }
 
         [Fact]
         public void SendBarcode_WithoutBearerToken_ReturnsUnauthorized()
         {
             // Arrange
-            var sender = Merchant.YandexMoneyAccount;
-            var testEvent = Events[0];
+            var sender = _fixture.Merchant.YandexMoneyAccount;
+            var testEvent = _fixture.Events[0];
             var email = Generator.Email();
-            Fixture.Api.SendPayment(sender, new YandexPaymentLabel(testEvent), email, testEvent.Roubles, testEvent.Roubles);
-            var ticket = Fixture.Db.Tickets.First(t => t.Payment.Email == email);
+            _fixture.Api.SendPayment(sender, new YandexPaymentLabel(testEvent), email, testEvent.Roubles, testEvent.Roubles);
+            var ticket = _fixture.Db.Tickets.First(t => t.Payment.Email == email);
 
             // Act
-            var response = Fixture.Api.VerifyBarcodeWithoutAuth(ticket.Number);
+            var response = _fixture.Api.VerifyBarcodeWithoutAuth(ticket.Number);
 
             // Assert
             Assert.Equal(HttpStatusCode.Unauthorized, response.StatusCode);
             Assert.Equal(new UnauthorizedAnswer().ToString(), response.Content);
-            AssertWithTimeout.That(() => Fixture.Db.Tickets.First(t => t.Payment.Email == email).Expired, Is.False());
+            AssertWithTimeout.That(() => _fixture.Db.Tickets.First(t => t.Payment.Email == email).Expired, Is.False());
         }
     }
 }
