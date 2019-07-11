@@ -55,12 +55,12 @@ namespace TicketStore.Api.Controllers
             [FromForm] String label
         )
         {
-            email = NormalizeEmail(email);
             if (string.IsNullOrEmpty(email))
             {
                 _log.LogInformation("Receive Yandex request without email");
                 return new OkObjectResult("It's OK for yandex testing");
             }
+            email = NormalizeEmail(email);
             _log.LogInformation("Receive Yandex.Money request from {@0} to {@1} about {@2}", email, sender, label);
             if (!new Validator(
                     notification_type,
