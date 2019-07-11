@@ -20,12 +20,12 @@ namespace TicketStore.Api.Tests.Model.Services
             return Client.Execute(request);
         }
 
-        public IRestResponse SendPayment(String sender, String label, String email, Decimal withdraw_amount, Decimal amount)
+        public IRestResponse SendPayment(String sender, YandexPaymentLabel label, String email, Decimal withdraw_amount, Decimal amount)
         {
             var request = new RestRequest("api/payments", Method.POST);
             request.AddHeader("Content-Type", "application/x-www-form-urlencoded");
             request.AddParameter("sender", sender);
-            request.AddParameter("label", label);
+            request.AddParameter("label", label.Value());
             request.AddParameter("email", email);
             request.AddParameter("withdraw_amount", withdraw_amount);
             request.AddParameter("amount", amount);

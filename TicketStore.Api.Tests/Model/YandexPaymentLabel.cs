@@ -4,11 +4,11 @@ using TicketStore.Api.Tests.Model.Db;
 
 namespace TicketStore.Api.Tests.Model
 {
-    public class LabelCalculator
+    public class YandexPaymentLabel
     {
         private Event _concert;
 
-        public LabelCalculator(Event concert)
+        public YandexPaymentLabel(Event concert)
         {
             _concert = concert;
         }

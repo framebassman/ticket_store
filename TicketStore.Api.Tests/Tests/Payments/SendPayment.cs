@@ -18,17 +18,17 @@ namespace TicketStore.Api.Tests.Tests.Payments
         {
             // Arrange
             var sender = Merchant.YandexMoneyAccount;
-            var label = new LabelCalculator(Events[0]).Value();
+            var testEvent = Events[1];
             var email = Generator.Email();
             var before = Fixture.Db.Tickets.Select(t => t.Payment.Email == email);
 
             // Act
             var response = Fixture.Api.SendPayment(
                 sender,
-                label,
+                new YandexPaymentLabel(testEvent), 
                 email,
-                1.99m,
-                2.00m
+                testEvent.Roubles - 0.01m,
+                testEvent.Roubles
             );
 
             // Assert
@@ -45,13 +45,19 @@ namespace TicketStore.Api.Tests.Tests.Payments
         {
             // Arrange
             var sender = Merchant.YandexMoneyAccount;
-            var label = new LabelCalculator(Events[0]).Value();
+            var testEvent = Events[0];
             var email = Generator.Email();
             var before = Fixture.Db.Tickets.Where(t => t.Payment.Email == email).ToList();
             Fixture.Db.Tickets.RemoveRange(before);
             
             // Act
-            var response = Fixture.Api.SendPayment(sender, label, email, 2.00m, 1.99m);
+            var response = Fixture.Api.SendPayment(
+                sender,
+                new YandexPaymentLabel(testEvent),
+                email,
+                testEvent.Roubles,
+                testEvent.Roubles - 0.01m
+            );
 
             // Assert
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
