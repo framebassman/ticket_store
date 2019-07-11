@@ -48,8 +48,7 @@ namespace TicketStore.Api.Tests.Tests.Payments
             var testEvent = Events[0];
             var email = Generator.Email();
             var before = Fixture.Db.Tickets.Where(t => t.Payment.Email == email).ToList();
-            Fixture.Db.Tickets.RemoveRange(before);
-            
+
             // Act
             var response = Fixture.Api.SendPayment(
                 sender,
