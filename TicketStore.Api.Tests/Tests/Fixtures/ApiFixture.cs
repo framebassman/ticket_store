@@ -46,8 +46,6 @@ namespace TicketStore.Api.Tests.Tests.Fixtures
 
         public void SeedTestData()
         {
-            Db.Events.RemoveRange(Events);
-            Db.Merchants.RemoveRange(Merchant);
             Merchant = new Merchant
             {
                 Place = "Test Place",
