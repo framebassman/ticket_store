@@ -55,6 +55,7 @@ namespace TicketStore.Api.Controllers
             [FromForm] String label
         )
         {
+            email = NormalizeEmail(email);
             if (string.IsNullOrEmpty(email))
             {
                 _log.LogInformation("Receive Yandex request without email");
@@ -102,6 +103,11 @@ namespace TicketStore.Api.Controllers
             _log.LogInformation("Combined PDF with barcodes");
             _emailService.SendTicket(email, pdf);
             return new OkObjectResult("OK");
+        }
+
+        private String NormalizeEmail(String origin)
+        {
+            return origin.Trim();
         }
 
         private List<Ticket> CombineTickets(Event concert, Payment payment)
