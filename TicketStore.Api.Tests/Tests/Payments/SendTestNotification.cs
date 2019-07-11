@@ -4,7 +4,8 @@ using TicketStore.Api.Tests.Tests.Fixtures;
 
 namespace TicketStore.Api.Tests.Tests.Payments
 {
-    public class SendTestNotification : IClassFixture<ApiFixture>
+    [Collection("Api collection")]
+    public class SendTestNotification
     {
         private readonly ApiFixture _fixture;
 

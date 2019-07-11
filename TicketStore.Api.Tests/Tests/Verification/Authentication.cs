@@ -10,7 +10,8 @@ using Xunit;
 
 namespace TicketStore.Api.Tests.Tests.Verification
 {
-    public class Authentication : IClassFixture<ApiFixture>
+    [Collection("Api collection")]
+    public class Authentication
     {
         private readonly ApiFixture _fixture;
         public Authentication(ApiFixture fixture)

@@ -12,7 +12,8 @@ using Xunit;
 
 namespace TicketStore.Api.Tests.Tests.Verification
 {
-    public class VerifyValidTicketBarcode : IClassFixture<ApiFixture>
+    [Collection("Api collection")]
+    public class VerifyValidTicketBarcode
     {
         private readonly ApiFixture _fixture;
         public VerifyValidTicketBarcode(ApiFixture fixture)
