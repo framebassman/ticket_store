@@ -1,6 +1,7 @@
 using System;
 using System.Text;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Web;
 using DinkToPdf;
 using DinkToPdf.Contracts;
@@ -19,21 +20,37 @@ namespace TicketStore.Api.Model.Pdf
         public Pdf(Event concert, List<Ticket> tickets, IConverter converter)
         {
             _eventName = concert.Artist;
-            _time = concert.Time.ToString();
+            _time = FormatTime(concert.Time);
             _price = concert.Roubles;
             _tickets = tickets;
             _converter = converter;
         }
 
-        public byte[] toBytes()
+        public byte[] ToBytes()
         {
             var temp = Template();
             return _converter.Convert(temp);
         }
 
+        // TODO: Remove this, Ticket should returns Time
+        public String Time()
+        {
+            return _time;
+        }
+
+        private String FormatTime(DateTime origin)
+        {
+            var allLowerCase = origin.ToString("f", CultureInfo.CreateSpecificCulture("ru-RU"));
+            var firstLetterIsCapital = new StringBuilder()
+                .Append(allLowerCase[0].ToString().ToUpper())
+                .Append(allLowerCase.Substring(1, allLowerCase.Length - 1))
+                .ToString();
+            return firstLetterIsCapital;
+        }
+
         private HtmlToPdfDocument Template()
         {
-            var images = barcodes();
+            var images = Barcodes();
             return new HtmlToPdfDocument()
             {
                 GlobalSettings = {
@@ -97,7 +114,7 @@ namespace TicketStore.Api.Model.Pdf
             };
         }
 
-        private String barcodes()
+        private String Barcodes()
         {
             var sb = new StringBuilder();
             foreach (var ticket in _tickets)
@@ -110,7 +127,7 @@ namespace TicketStore.Api.Model.Pdf
                         <div style=""font-size: 14px; margin: 4px; text-align: left"">{_time}</div>
                         <div style=""font-size: 14px; margin: 4px; text-align: right"">Стоимость: {_price} ₽</div>
                       </div>
-                      <img src='data:image/png;base64, {barcode(ticket)}'/>
+                      <img src='data:image/png;base64, {Barcode(ticket)}'/>
                       <br />
                       <br />
                     </div>
@@ -121,7 +138,7 @@ namespace TicketStore.Api.Model.Pdf
             return sb.ToString();
         }
 
-        private String barcode(Ticket ticket)
+        private String Barcode(Ticket ticket)
         {
             var barcode = new Barcode(ticket.Number, NetBarcode.Type.Code128, true);
             return barcode.GetBase64Image();
