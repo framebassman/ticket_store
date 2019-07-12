@@ -52,17 +52,24 @@ jobs:
       - run: bash ./Scripts/wait-until-app-is-deployed.sh
       - run: make migrate-test
       - run: dotnet test TicketStore.Api.Tests --logger "trx;LogFileName=report.trx"
+      - run: dotnet test TicketStore.Api.Tests.Unit --logger "trx;LogFileName=report.trx"
       - run:
           name: transform trx report to junit for CI
           command: |
             dotnet tool install -g trx2junit
             ~/.dotnet/tools/trx2junit TicketStore.Api.Tests/TestResults/report.trx
+            ~/.dotnet/tools/trx2junit TicketStore.Api.Tests.Unit/TestResults/report.trx
           when: always
       - store_test_results:
           path: TicketStore.Api.Tests/TestResults
+      - store_test_results:
+          path: TicketStore.Api.Tests.Unit/TestResults
       - store_artifacts:
           path: TicketStore.Api.Tests/TestResults
-          destination: TestResults
+          destination: TestResults/TicketStore.Api.Tests
+      - store_artifacts:
+          path: TicketStore.Api.Tests.Unit/TestResults
+          destination: TestResults/TicketStore.Api.Tests.Unit
       - store_artifacts:
           path: /var/log/store_api
           destination: Logs/TicketStore.Api
