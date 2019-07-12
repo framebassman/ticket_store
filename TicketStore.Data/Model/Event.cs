@@ -1,6 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 using TicketStore.Data.Model;
 
 namespace TicketStore.Data.Model
@@ -23,8 +24,10 @@ namespace TicketStore.Data.Model
         
         [Column("merchant_id")]
         public Int32 MerchantId { get; set; }
+        [JsonIgnore]
         public Merchant Merchant { get; set; }
         
+        [JsonIgnore]
         public List<Ticket> Tickets { get; set; }
     }
 }

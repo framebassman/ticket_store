@@ -1,6 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace TicketStore.Data.Model
 {
@@ -14,6 +15,7 @@ namespace TicketStore.Data.Model
         [Column("place")]
         public String Place { get; set; }
         
+        [JsonIgnore]
         public List<Event> Events { get; set; }
     }
 }
