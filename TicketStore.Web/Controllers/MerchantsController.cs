@@ -22,7 +22,7 @@ namespace TicketStore.Web.Controllers
         public IActionResult GetAll()
         {
             var result = _db.Merchants.ToList();
-            _log.LogInformation("Return hardcoded merchants: {@Result}", result);
+            _log.LogInformation("Return merchants: {@Result} from db", result);
             return new OkObjectResult(result);
         }
 

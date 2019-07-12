@@ -32,7 +32,7 @@ namespace TicketStore.Web.Controllers
             }
 
             var result = _db.Events.Where(e => e.MerchantId == merchantId).ToList();
-            _log.LogInformation("Return hardcoded events: {@result}", result);
+            _log.LogInformation("Return events: {@result} for merchantId: {@merchantId}", result, merchantId);
             return new OkObjectResult(result);
         }
     }
