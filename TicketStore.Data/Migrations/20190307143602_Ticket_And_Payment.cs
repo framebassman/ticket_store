@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
-namespace TicketStore.Api.Migrations
+namespace TicketStore.Data.Migrations
 {
     public partial class Ticket_And_Payment : Migration
     {

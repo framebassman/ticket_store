@@ -8,9 +8,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using DinkToPdf;
 using DinkToPdf.Contracts;
-using TicketStore.Api.Data;
 using TicketStore.Api.Middlewares;
 using TicketStore.Api.Model.Email;
+using TicketStore.Data;
 
 namespace TicketStore.Api
 {
@@ -39,12 +39,7 @@ namespace TicketStore.Api
             services.AddRouting(opt => opt.LowercaseUrls = true);
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services
-                .AddEntityFrameworkNpgsql()
-                .AddDbContext<ApplicationContext>(
-                    options => options.UseNpgsql(
-                        Configuration.GetConnectionString("DefaultConnection")
-                    )
-                )
+                .AddDbContext<ApplicationContext>()
                 .BuildServiceProvider();
             services.AddSingleton(Configuration);
             services.AddSingleton<IConverter>(new SynchronizedConverter(new PdfTools()));

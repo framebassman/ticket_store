@@ -4,6 +4,7 @@ RUN curl -sL https://deb.nodesource.com/setup_10.x |  bash -
 RUN apt-get install -y nodejs
 
 COPY ./TicketStore.Web/ /app
+COPY ./TicketStore.Data/ /TicketStore.Data
 WORKDIR /app
 RUN dotnet clean
 RUN dotnet restore

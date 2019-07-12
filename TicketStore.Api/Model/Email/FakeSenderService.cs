@@ -42,7 +42,7 @@ namespace TicketStore.Api.Model.Email
                     to = to,
                     subject = "Билет The Cellophane Heads - X лет",
                     html = "",
-                    attachment = ticket.toBytes().ToString()
+                    attachment = ticket.ToBytes().ToString()
                 }
                 
             };

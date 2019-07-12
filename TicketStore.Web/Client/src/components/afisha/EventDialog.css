@@ -8,6 +8,7 @@
 
 .event-dialog__item {
   margin: 16px;
+  text-align: center;
 }
 
 .event-dialog__bold {
@@ -25,4 +26,10 @@
 
 .event-dialog__license {
   text-align: center;
+}
+
+@media (max-width: 599px) {
+  .event-dialog__money-section {
+    display: block;
+  }
 }

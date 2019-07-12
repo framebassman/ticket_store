@@ -1,134 +1,141 @@
-# version: 2.1
+version: 2.1
 
-# jobs:
-#   build-web:
-#     working_directory: ~/repo/TicketStore.Web
-#     docker:
-#       - image: microsoft/dotnet:2.2-sdk
-#     steps:
-#       - checkout:
-#           path: ~/repo
-#       - run: curl -sL https://deb.nodesource.com/setup_10.x |  bash - && apt-get install -y nodejs
-#       - run:
-#           command: dotnet build
-#       - run:
-#           command: npm run build
-#           working_directory: Client
-#   build-api:
-#     working_directory: ~/repo/TicketStore.Api
-#     docker:
-#       - image: microsoft/dotnet:2.2-sdk
-#     steps:
-#       - checkout:
-#           path: ~/repo
-#       - run: dotnet build
-#   test-api:
-#     machine:
-#       docker_layer_caching: true
-#     steps:
-#       - checkout
-#       - run:
-#           name: update docker-compose
-#           command: |
-#             sudo curl -L "https://github.com/docker/compose/releases/download/1.24.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-#             sudo chmod +x /usr/local/bin/docker-compose
-#       - run:
-#           name: install dotnet core
-#           command: |
-#             sudo apt-get clean
-#             sudo apt-get update
-#             sudo apt-get install dpkg
-#             wget -q https://packages.microsoft.com/config/ubuntu/14.04/packages-microsoft-prod.deb
-#             sudo dpkg -i packages-microsoft-prod.deb
-#             sudo apt-get install apt-transport-https
-#             sudo apt-get update
-#             echo export DOTNET_SKIP_FIRST_TIME_EXPERIENCE=1 >> "$BASH_ENV"
-#             echo export DOTNET_CLI_TELEMETRY_OPTOUT=1 >> "$BASH_ENV"
-#             sudo apt-get install dotnet-sdk-2.2
-#       - run:
-#           name: clear data in database
-#           command: docker volume prune -f
-#       - run: make start-test
-#       - run: bash ./Scripts/wait-until-app-is-deployed.sh
-#       - run: make migrate-test
-#       - run: dotnet test TicketStore.Api.Tests --logger "trx;LogFileName=report.trx"
-#       - run:
-#           name: transform trx report to junit for CI
-#           command: |
-#             dotnet tool install -g trx2junit
-#             ~/.dotnet/tools/trx2junit TicketStore.Api.Tests/TestResults/report.trx
-#           when: always
-#       - store_test_results:
-#           path: TicketStore.Api.Tests/TestResults
-#       - store_artifacts:
-#           path: TicketStore.Api.Tests/TestResults
-#           destination: TestResults
-#       - store_artifacts:
-#           path: /var/log/store_api
-#           destination: Logs/TicketStore.Api
-#       - store_artifacts:
-#           path: /var/log/fake_sender
-#           destination: Logs/FakeSender
-#       - run:
-#           name: stop application
-#           command: |
-#             make stop-test
-#           when: always
-#   deploy:
-#     machine:
-#       docker_layer_caching: true
-#     steps:
-#       - checkout
-#       - run:
-#           name: define version
-#           command: |
-#             echo 'export VERSION="1.4.$CIRCLE_BUILD_NUM"' >> $BASH_ENV
-#       - run:
-#           name: install sentry-cli and verify that cli was installed successfully
-#           command: |
-#             curl -sL https://sentry.io/get-cli/ | bash
-#             sentry-cli --help
-#       - run:
-#           name: update docker-compose
-#           command: |
-#             sudo curl -L "https://github.com/docker/compose/releases/download/1.24.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-#             sudo chmod +x /usr/local/bin/docker-compose
-#       - run:
-#           name: create release in sentry
-#           command: |
-#             sentry-cli releases new -p $SENTRY_PROJECT_NAME $VERSION
-#       - run: bash ./Scripts/publish-to-docker-hub.sh
-#       - run:
-#           name: Deploy Over SSH
-#           command: |
-#             ssh root@chertopolokh.ru 'rm -rf ticket_store'
-#             ssh root@chertopolokh.ru 'git clone git@github.com:FrameBassman/ticket_store.git --branch master --single-branch'
-#             ssh root@chertopolokh.ru 'export VERSION='"'$VERSION'"'; cd ticket_store && make stop-prod start-prod && make docker-cleanup -i'
-#             ssh root@chertopolokh.ru 'docker image prune --all --force'
-#       - run:
-#           name: Deploy check
-#           command: bash ./Scripts/check-deployment.sh https://chertopolokh.ru
-#       - run:
-#           name: finish sentry release
-#           command: |
-#             sentry-cli releases deploys $VERSION new -e Production
+jobs:
+  build-web:
+    working_directory: ~/repo/TicketStore.Web
+    docker:
+      - image: microsoft/dotnet:2.2-sdk
+    steps:
+      - checkout:
+          path: ~/repo
+      - run: curl -sL https://deb.nodesource.com/setup_10.x |  bash - && apt-get install -y nodejs
+      - run:
+          command: dotnet build
+      - run:
+          command: npm run build
+          working_directory: Client
+  build-api:
+    working_directory: ~/repo/TicketStore.Api
+    docker:
+      - image: microsoft/dotnet:2.2-sdk
+    steps:
+      - checkout:
+          path: ~/repo
+      - run: dotnet build
+  test-api:
+    machine:
+      docker_layer_caching: true
+    steps:
+      - checkout
+      - run:
+          name: update docker-compose
+          command: |
+            sudo curl -L "https://github.com/docker/compose/releases/download/1.24.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+            sudo chmod +x /usr/local/bin/docker-compose
+      - run:
+          name: install dotnet core
+          command: |
+            sudo apt-get clean
+            sudo apt-get update
+            sudo apt-get install dpkg
+            wget -q https://packages.microsoft.com/config/ubuntu/14.04/packages-microsoft-prod.deb
+            sudo dpkg -i packages-microsoft-prod.deb
+            sudo apt-get install apt-transport-https
+            sudo apt-get update
+            echo export DOTNET_SKIP_FIRST_TIME_EXPERIENCE=1 >> "$BASH_ENV"
+            echo export DOTNET_CLI_TELEMETRY_OPTOUT=1 >> "$BASH_ENV"
+            sudo apt-get install dotnet-sdk-2.2
+      - run:
+          name: clear data in database
+          command: docker volume prune -f
+      - run: make start-test
+      - run: bash ./Scripts/wait-until-app-is-deployed.sh
+      - run: make migrate-test
+      - run: dotnet test TicketStore.Api.Tests --logger "trx;LogFileName=report.trx"
+      - run: dotnet test TicketStore.Api.Tests.Unit --logger "trx;LogFileName=report.trx"
+      - run:
+          name: transform trx report to junit for CI
+          command: |
+            dotnet tool install -g trx2junit
+            ~/.dotnet/tools/trx2junit TicketStore.Api.Tests/TestResults/report.trx
+            ~/.dotnet/tools/trx2junit TicketStore.Api.Tests.Unit/TestResults/report.trx
+          when: always
+      - store_test_results:
+          path: TicketStore.Api.Tests/TestResults
+      - store_test_results:
+          path: TicketStore.Api.Tests.Unit/TestResults
+      - store_artifacts:
+          path: TicketStore.Api.Tests/TestResults
+          destination: TestResults/TicketStore.Api.Tests
+      - store_artifacts:
+          path: TicketStore.Api.Tests.Unit/TestResults
+          destination: TestResults/TicketStore.Api.Tests.Unit
+      - store_artifacts:
+          path: /var/log/store_api
+          destination: Logs/TicketStore.Api
+      - store_artifacts:
+          path: /var/log/fake_sender
+          destination: Logs/FakeSender
+      - run:
+          name: stop application
+          command: |
+            make stop-test
+          when: always
+  deploy:
+    machine:
+      docker_layer_caching: true
+    steps:
+      - checkout
+      - run:
+          name: define version
+          command: |
+            echo 'export VERSION="1.4.$CIRCLE_BUILD_NUM"' >> $BASH_ENV
+      - run:
+          name: install sentry-cli and verify that cli was installed successfully
+          command: |
+            curl -sL https://sentry.io/get-cli/ | bash
+            sentry-cli --help
+      - run:
+          name: update docker-compose
+          command: |
+            sudo curl -L "https://github.com/docker/compose/releases/download/1.24.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+            sudo chmod +x /usr/local/bin/docker-compose
+      - run:
+          name: create release in sentry
+          command: |
+            sentry-cli releases new -p $SENTRY_PROJECT_NAME $VERSION
+      - run: bash ./Scripts/publish-to-docker-hub.sh
+      - run:
+          name: Deploy Over SSH
+          command: |
+            ssh root@chertopolokh.ru 'rm -rf ticket_store'
+            ssh root@chertopolokh.ru 'git clone git@github.com:FrameBassman/ticket_store.git --branch master --single-branch'
+            ssh root@chertopolokh.ru 'export VERSION='"'$VERSION'"'; cd ticket_store && make stop-prod start-prod && make docker-cleanup -i'
+            ssh root@chertopolokh.ru 'docker image prune --all --force'
+      - run:
+          name: Deploy check
+          command: bash ./Scripts/check-deployment.sh https://chertopolokh.ru
+      - run:
+          name: finish sentry release
+          command: |
+            sentry-cli releases deploys $VERSION new -e Production
 
-# workflows:
-#   version: 2
-#   build-test-deploy:
-#     jobs:
-#       - build-api
-#       - build-web
-#       - test-api:
-#           requires:
-#             - build-api
-#       - deploy:
-#           filters:
-#             branches:
-#               only:
-#                 - master
-#           context: credentials
-#           requires:
-#             - build-api
-#             - build-web
-#             - test-api
+workflows:
+  version: 2
+  build-test-deploy:
+    jobs:
+      - build-api
+      - build-web
+      - test-api:
+          requires:
+            - build-api
+      - deploy:
+          filters:
+            branches:
+              only:
+                - master
+          context: credentials
+          requires:
+            - build-api
+            - build-web
+            - test-api

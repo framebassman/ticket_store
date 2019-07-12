@@ -59,6 +59,21 @@ stop-prod:
 		-f Deploy/docker-compose.production.yml \
 		down
 
+# db only
+start-db:
+	docker-compose \
+		--project-directory=${PWD} \
+		--project-name=ticket_store \
+		-f Deploy/docker-compose.db.yml \
+		up --build -d
+
+stop-db:
+	docker-compose \
+		--project-directory=${PWD} \
+		--project-name=ticket_store \
+		-f Deploy/docker-compose.db.yml \
+		down
+
 start-prod:
 	chmod 600 ./Proxy/certs/acme.json
 	docker-compose \
@@ -90,19 +105,20 @@ docker-cleanup:
 	docker rm $$(docker ps --filter=status=exited --filter=status=created -q)
 
 db-dev:
-	docker exec -it postgres psql postgresql://store_user:KqCQzyH2akGB9gQ4@localhost:5432/store
+	docker exec -it postgres psql postgresql://store_user:KqCQzyH2akGB9gQ4@localhost:5432/store_db
 
 db-test:
-	docker exec -it postgres psql postgresql://store_user:KqCQzyH2akGB9gQ4@localhost:5432/store
+	docker exec -it postgres psql postgresql://store_user:KqCQzyH2akGB9gQ4@localhost:5432/store_db
 
 db-prod:
-	psql postgresql://store:GMQCruf5SzsCGR2xd3euUVZQG3c@188.68.210.162:5432/store
+	psql postgresql://store_user:GMQCruf5SzsCGR2xd3euUVZQG3c@188.68.210.162:5432/store_db
 
 migrate-dev:
-	docker exec -it store_api dotnet ef database update
+	docker exec store_api dotnet ef database update --verbose
 
 migrate-test:
-	docker exec -it store_api dotnet ef database update
+	export ASPNETCORE_ENVIRONMENT=TestMigrations; \
+	dotnet ef database update --project TicketStore.Data/TicketStore.Data.csproj --verbose
 
 # dev
 ngrok:

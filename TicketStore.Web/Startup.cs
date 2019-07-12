@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Robotify.AspNetCore;
+using TicketStore.Data;
 using TicketStore.Web.Middlewares;
 
 namespace TicketStore.Web
@@ -24,6 +25,9 @@ namespace TicketStore.Web
         {
             services.AddRobotify(c => c.AddRobotGroupsFromAppSettings());
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services
+                .AddDbContext<ApplicationContext>()
+                .BuildServiceProvider();
 
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>

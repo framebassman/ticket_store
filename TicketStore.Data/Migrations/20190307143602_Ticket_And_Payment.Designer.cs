@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-using TicketStore.Api.Data;
+using TicketStore.Data;
 
-namespace TicketStore.Api.Migrations
+namespace TicketStore.Data.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
     [Migration("20190307143602_Ticket_And_Payment")]

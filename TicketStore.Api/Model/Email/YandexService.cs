@@ -26,7 +26,7 @@ namespace TicketStore.Api.Model.Email
             {
                 TextBody = "Билеты во вложении",
             };
-            builder.Attachments.Add($"Ticket-{DateTime.Now}.pdf", ticket.toBytes(), new ContentType("application", "pdf"));
+            builder.Attachments.Add($"Ticket-{DateTime.Now}.pdf", ticket.ToBytes(), new ContentType("application", "pdf"));
 
             var message = new MimeMessage();
 			message.From.Add (new MailboxAddress ("no-reply", "no-reply@romashov.tech"));

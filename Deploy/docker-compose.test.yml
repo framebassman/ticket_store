@@ -4,7 +4,7 @@ services:
     store_api:
         build:
             context: .
-            dockerfile: ./TicketStore.Api/Dockerfile.Development
+            dockerfile: ./TicketStore.Api/Dockerfile.Production
         depends_on:
             - postgres
             - fake_sender
@@ -15,7 +15,7 @@ services:
     store_web:
         build:
             context: .
-            dockerfile: ./TicketStore.Api/Dockerfile.Development
+            dockerfile: ./TicketStore.Web/Dockerfile.Production
         ports:
             - 4000:5000
         environment:
@@ -29,10 +29,6 @@ services:
             - pgsdata:/var/lib/postgresql/data
         ports:
             - 5432:5432
-        environment:
-            - POSTGRES_DB=store
-            - POSTGRES_USER=store
-            - POSTGRES_PASSWORD=W6TTT3WY4Nzqpj5z
         logging:
             driver: none
     fake_sender:

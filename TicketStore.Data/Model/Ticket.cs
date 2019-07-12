@@ -1,7 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace TicketStore.Api.Model
+namespace TicketStore.Data.Model
 {
     [Table("tickets")]
     public class Ticket
@@ -22,5 +22,9 @@ namespace TicketStore.Api.Model
         [Column("payment_id")]
         public Int32 PaymentId { get; set; }
         public Payment Payment { get; set; }
+        
+        [Column("event_id")]
+        public Int32 EventId { get; set; }
+        public Event Event { get; set; }
     }
 }
