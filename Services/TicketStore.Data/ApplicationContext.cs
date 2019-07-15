@@ -7,6 +7,7 @@ namespace TicketStore.Data
     public class ApplicationContext : DbContext
     {
         private readonly DbContextOptions<ApplicationContext> _options;
+        private readonly Boolean _isInUnitTests;
         public DbSet<Merchant> Merchants { get; set; }
         public DbSet<Event> Events { get; set; }
         public DbSet<Payment> Payments { get; set; }
@@ -15,12 +16,13 @@ namespace TicketStore.Data
         // This constructor should be used in production code
         public ApplicationContext() : base()
         {
+            _isInUnitTests = false;
         }
 
         // This constructor should be used in unit tests
         public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
         {
-            _options = options;
+            _isInUnitTests = true;
         }
         
         protected override void OnConfiguring(DbContextOptionsBuilder builder)
@@ -33,12 +35,7 @@ namespace TicketStore.Data
 
         private Boolean IsAppRunning()
         {
-            return !IsItUnitTestEnvironment();
-        }
-
-        private Boolean IsItUnitTestEnvironment()
-        {
-            return _options != null;
+            return !_isInUnitTests;
         }
     }
 }
