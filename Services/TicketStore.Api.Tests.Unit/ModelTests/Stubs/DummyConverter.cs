@@ -2,7 +2,7 @@ using System;
 using DinkToPdf.Contracts;
 using DinkToPdf.EventDefinitions;
 
-namespace TicketStore.Api.Tests.Unit
+namespace TicketStore.Api.Tests.Unit.ModelTests.Stubs
 {
     public class DummyConverter : IConverter
     {

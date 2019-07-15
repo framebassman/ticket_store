@@ -1,10 +1,11 @@
 using System;
 using System.Collections.Generic;
 using TicketStore.Api.Model.Pdf;
+using TicketStore.Api.Tests.Unit.ModelTests.Stubs;
 using TicketStore.Data.Model;
 using Xunit;
 
-namespace TicketStore.Api.Tests.Unit
+namespace TicketStore.Api.Tests.Unit.ModelTests
 {
     public class PdfTimeTest
     {
