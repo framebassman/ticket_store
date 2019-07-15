@@ -27,8 +27,7 @@ jobs:
     machine:
       docker_layer_caching: true
     steps:
-      - checkout:
-          path: ~/repo
+      - checkout
       - run:
           name: update docker-compose
           command: |
@@ -53,24 +52,30 @@ jobs:
       - run: make start-test
       - run: bash ./Scripts/wait-until-app-is-deployed.sh
       - run: make migrate-test
-      - run: dotnet test TicketStore.Api.Tests --logger "trx;LogFileName=report.trx"
-      - run: dotnet test TicketStore.Api.Tests.Unit --logger "trx;LogFileName=report.trx"
+      - run:
+          name: integration tests
+          command: dotnet test TicketStore.Api.Tests --logger "trx;LogFileName=report.trx"
+          working_directory: Services
+      - run:
+          name: unit tests
+          command: dotnet test TicketStore.Api.Tests.Unit --logger "trx;LogFileName=report.trx"
+          working_directory: Services
       - run:
           name: transform trx report to junit for CI
           command: |
             dotnet tool install -g trx2junit
-            ~/.dotnet/tools/trx2junit TicketStore.Api.Tests/TestResults/report.trx
-            ~/.dotnet/tools/trx2junit TicketStore.Api.Tests.Unit/TestResults/report.trx
+            ~/.dotnet/tools/trx2junit Services/TicketStore.Api.Tests/TestResults/report.trx
+            ~/.dotnet/tools/trx2junit Services/TicketStore.Api.Tests.Unit/TestResults/report.trx
           when: always
       - store_test_results:
-          path: TicketStore.Api.Tests/TestResults
+          path: Services/TicketStore.Api.Tests/TestResults
       - store_test_results:
-          path: TicketStore.Api.Tests.Unit/TestResults
+          path: Services/TicketStore.Api.Tests.Unit/TestResults
       - store_artifacts:
-          path: TicketStore.Api.Tests/TestResults
+          path: Services/TicketStore.Api.Tests/TestResults
           destination: TestResults/TicketStore.Api.Tests
       - store_artifacts:
-          path: TicketStore.Api.Tests.Unit/TestResults
+          path: Services/TicketStore.Api.Tests.Unit/TestResults
           destination: TestResults/TicketStore.Api.Tests.Unit
       - store_artifacts:
           path: /var/log/store_api
