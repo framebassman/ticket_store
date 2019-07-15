@@ -2,7 +2,7 @@ version: 2.1
 
 jobs:
   build-web:
-    working_directory: ~/repo/TicketStore.Web
+    working_directory: ~/repo/Services/TicketStore.Web
     docker:
       - image: microsoft/dotnet:2.2-sdk
     steps:
@@ -15,7 +15,7 @@ jobs:
           command: npm run build
           working_directory: Client
   build-api:
-    working_directory: ~/repo/TicketStore.Api
+    working_directory: ~/repo/Services/TicketStore.Api
     docker:
       - image: microsoft/dotnet:2.2-sdk
     steps:
@@ -23,10 +23,12 @@ jobs:
           path: ~/repo
       - run: dotnet build
   test-api:
+    working_directory: ~/repo/Services
     machine:
       docker_layer_caching: true
     steps:
-      - checkout
+      - checkout:
+          path: ~/repo
       - run:
           name: update docker-compose
           command: |

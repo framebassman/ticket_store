@@ -1,6 +1,6 @@
 FROM microsoft/dotnet:2.2-sdk AS build-env
-COPY ./TicketStore.Api/ /app
-COPY ./TicketStore.Data/ /TicketStore.Data
+COPY ./Services/TicketStore.Api/ /app
+COPY ./Services/TicketStore.Data/ /TicketStore.Data
 WORKDIR /app
 RUN dotnet clean
 RUN dotnet restore

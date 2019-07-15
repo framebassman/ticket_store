@@ -14,8 +14,8 @@ RUN apt-get update \
     && apt-get install -y \
         libgdiplus \
         libc6-dev
-COPY ./TicketStore.Api/ /app
-COPY ./TicketStore.Data/ /TicketStore.Data
+COPY ./Services/TicketStore.Api/ /app
+COPY ./Services/TicketStore.Data/ /TicketStore.Data
 WORKDIR /app
 RUN dotnet clean
 RUN dotnet restore
