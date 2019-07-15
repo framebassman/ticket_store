@@ -6,18 +6,39 @@ namespace TicketStore.Data
 {
     public class ApplicationContext : DbContext
     {
+        private readonly DbContextOptions<ApplicationContext> _options;
         public DbSet<Merchant> Merchants { get; set; }
         public DbSet<Event> Events { get; set; }
         public DbSet<Payment> Payments { get; set; }
         public DbSet<Ticket> Tickets { get; set; }
 
+        // This constructor should be used in production code
         public ApplicationContext() : base()
         {
         }
-        
-        protected override void OnConfiguring(DbContextOptionsBuilder options)
+
+        // This constructor should be used in unit tests
+        public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
         {
-            options.UseNpgsql(new ApplicationSettings().ConnectionString());
+            _options = options;
+        }
+        
+        protected override void OnConfiguring(DbContextOptionsBuilder builder)
+        {
+            if (IsAppRunning())
+            {
+                builder.UseNpgsql(new ApplicationSettings().ConnectionString());                
+            }
+        }
+
+        private Boolean IsAppRunning()
+        {
+            return !IsItUnitTestEnvironment();
+        }
+
+        private Boolean IsItUnitTestEnvironment()
+        {
+            return _options != null;
         }
     }
 }
