@@ -118,7 +118,7 @@ migrate-dev:
 
 migrate-test:
 	export ASPNETCORE_ENVIRONMENT=TestMigrations; \
-	dotnet ef database update --project TicketStore.Data/TicketStore.Data.csproj --verbose
+	dotnet ef database update --project Services/TicketStore.Data/TicketStore.Data.csproj --verbose
 
 # dev
 ngrok:
