@@ -17,7 +17,7 @@ namespace TicketStore.Data
         // For migrations
         public ApplicationContext() : base()
         {
-            
+            _options = new DbContextOptions<ApplicationContext>();
         }
 
         public ApplicationContext(DbContextOptions<ApplicationContext> options) : base()
@@ -40,8 +40,15 @@ namespace TicketStore.Data
 
         private Boolean IsAppRunning()
         {
-            var result = _options.GetExtension<CoreOptionsExtension>();
-            return result.ApplicationServiceProvider != null;
+            try
+            {
+                var result = _options.GetExtension<InMemoryOptionsExtension>();
+                return result == null;
+            }
+            catch (InvalidOperationException e)
+            {
+                return true;
+            }
         }
     }
 }
