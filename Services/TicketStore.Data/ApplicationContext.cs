@@ -14,6 +14,12 @@ namespace TicketStore.Data
         public DbSet<Payment> Payments { get; set; }
         public DbSet<Ticket> Tickets { get; set; }
 
+        // For migrations
+        public ApplicationContext() : base()
+        {
+            
+        }
+
         public ApplicationContext(DbContextOptions<ApplicationContext> options) : base()
         {
             _options = options;
