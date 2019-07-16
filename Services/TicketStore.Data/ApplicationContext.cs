@@ -45,7 +45,7 @@ namespace TicketStore.Data
                 var result = _options.GetExtension<InMemoryOptionsExtension>();
                 return result == null;
             }
-            catch (InvalidOperationException e)
+            catch (InvalidOperationException)
             {
                 return true;
             }
