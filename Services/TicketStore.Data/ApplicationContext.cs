@@ -1,5 +1,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.InMemory.Infrastructure.Internal;
 using TicketStore.Data.Model;
 
 namespace TicketStore.Data
@@ -7,22 +9,14 @@ namespace TicketStore.Data
     public class ApplicationContext : DbContext
     {
         private readonly DbContextOptions<ApplicationContext> _options;
-        private readonly Boolean _isInUnitTests;
         public DbSet<Merchant> Merchants { get; set; }
         public DbSet<Event> Events { get; set; }
         public DbSet<Payment> Payments { get; set; }
         public DbSet<Ticket> Tickets { get; set; }
 
-        // This constructor should be used in production code
-        public ApplicationContext() : base()
+        public ApplicationContext(DbContextOptions<ApplicationContext> options) : base()
         {
-            _isInUnitTests = false;
-        }
-
-        // This constructor should be used in unit tests
-        public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
-        {
-            _isInUnitTests = true;
+            _options = options;
         }
         
         protected override void OnConfiguring(DbContextOptionsBuilder builder)
@@ -31,11 +25,17 @@ namespace TicketStore.Data
             {
                 builder.UseNpgsql(new ApplicationSettings().ConnectionString());                
             }
+            else
+            {
+                var inMemoryOptions = _options.GetExtension<InMemoryOptionsExtension>();
+                builder.UseInMemoryDatabase(databaseName: inMemoryOptions.StoreName);
+            }
         }
 
         private Boolean IsAppRunning()
         {
-            return !_isInUnitTests;
+            var result = _options.GetExtension<CoreOptionsExtension>();
+            return result.ApplicationServiceProvider != null;
         }
     }
 }
