@@ -11,7 +11,7 @@
             "preLaunchTask": "build",
             "program": "${workspaceFolder}/Services/TicketStore.Api/bin/Debug/netcoreapp2.2/TicketStore.Api.dll",
             "args": [],
-            "cwd": "${workspaceFolder}/TicketStore.Api",
+            "cwd": "${workspaceFolder}/Services/TicketStore.Api",
             "stopAtEntry": false,
             "internalConsoleOptions": "openOnSessionStart",
             "serverReadyAction": {
@@ -33,7 +33,7 @@
           "preLaunchTask": "build",
           "program": "${workspaceFolder}/Services/TicketStore.Web/bin/Debug/netcoreapp2.2/TicketStore.Web.dll",
           "args": [],
-          "cwd": "${workspaceFolder}/TicketStore.Web",
+          "cwd": "${workspaceFolder}/Services/TicketStore.Web",
           "stopAtEntry": false,
           "internalConsoleOptions": "openOnSessionStart",
           "serverReadyAction": {
