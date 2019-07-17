@@ -2,6 +2,7 @@ import React from 'react';
 import Fab from '@material-ui/core/Fab';
 import CheckIcon from '@material-ui/icons/Check';
 import CancelIcon from '@material-ui/icons/Cancel';
+import ScannerIcon from '@material-ui/icons/Scanner';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import green from '@material-ui/core/colors/green';
 import red from '@material-ui/core/colors/red';
@@ -14,10 +15,10 @@ const waitableTheme = createMuiTheme({
   }
 });
 const nonWaitableTheme = createMuiTheme({
-    palette: {
-      primary: yellow,
-    }
-  });
+  palette: {
+    primary: yellow,
+  }
+});
 
 export const Status = (props: any) => {
   const { className, pass, wait } = props;
@@ -26,8 +27,16 @@ export const Status = (props: any) => {
       <MuiThemeProvider theme={waitableTheme}>
         <div className={className}>
           {pass
-            ? <Fab color="primary"><CheckIcon /></Fab>
-            : <Fab color="secondary"><CancelIcon /></Fab>
+            ? (
+              <div>
+                <Fab color="primary"><CheckIcon /></Fab> Успешно! 
+              </div>
+            )
+            : (
+              <div>
+                <Fab color="secondary"><CancelIcon /></Fab> Ошибочка вышла! 
+              </div>
+            )
           }
         </div>
       </MuiThemeProvider>
@@ -36,7 +45,7 @@ export const Status = (props: any) => {
     return (
       <MuiThemeProvider theme={nonWaitableTheme}>
         <div className={className}>
-          <Fab color="primary"><CheckIcon /></Fab>
+          <Fab color="primary"><ScannerIcon /></Fab> Готов сканировать!
         </div>
       </MuiThemeProvider>
     )

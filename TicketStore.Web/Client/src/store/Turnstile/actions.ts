@@ -18,8 +18,8 @@ async function transfersFromBack(barcode: string) {
 }
 
 export const actionCreators = {
-  verify: (code: string) => async (dispatch: any) => {
-    const response = await transfersFromBack(code);
+  verify: (barcode: string) => async (dispatch: any) => {
+    const response = await transfersFromBack(barcode);
     dispatch({
       type: verifyType,
       payload: response
