@@ -27,7 +27,9 @@ class Turnstile extends Component<any, TurnstileState> {
 
   render() {
     const { verify, pass, wait } = this.props;
-    if (this.state.scanning === false) {
+    const { scanning } = this.state;
+
+    if (scanning === false) {
       return <TurnstileOnHold onClick={this._toggle}/>
     } else {
       return <CameraTurnstile verify={verify} pass={pass} wait={wait}/>

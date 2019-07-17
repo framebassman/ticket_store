@@ -3,7 +3,7 @@ import { Scanner } from './Scanner';
 import { Result } from './Result';
 import { TurnstileState } from '../TurnstileState';
 import { beep } from './Beep';
-import { Status } from '../Status';
+import { Status } from './Status';
 import './CameraTurnstile.css';
 import { DetectedBarcode } from './DetectedBarcode';
 
