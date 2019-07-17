@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
-import { throttle } from 'lodash';
+import * as throttle from 'lodash/throttle';
 import { connect } from 'react-redux';
 
 import { actionCreators } from '../../../store/Turnstile/actions';
