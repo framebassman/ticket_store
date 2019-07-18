@@ -26,7 +26,6 @@ namespace TicketStore.Api.Controllers
         public PaymentsController(
             ApplicationContext context,
             ILogger<PaymentsController> log,
-            IConfiguration config,
             IConverter pdfConverter,
             EmailService emailService
         )

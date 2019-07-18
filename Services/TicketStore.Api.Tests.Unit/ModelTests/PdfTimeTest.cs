@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using TicketStore.Api.Model.Pdf;
-using TicketStore.Api.Tests.Unit.ModelTests.Stubs;
+using TicketStore.Api.Tests.Unit.Stubs;
 using TicketStore.Data.Model;
 using Xunit;
 
