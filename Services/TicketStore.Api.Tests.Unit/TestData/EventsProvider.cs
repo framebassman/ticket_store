@@ -16,7 +16,6 @@ namespace TicketStore.Api.Tests.Unit.TestData
         {
             return new Event
             {
-                Id = 1,
                 Artist = "Test artist",
                 Roubles = 1.00m,
                 PressRelease = "Test press release",

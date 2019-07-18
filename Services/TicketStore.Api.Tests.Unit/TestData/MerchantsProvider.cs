@@ -6,7 +6,7 @@ namespace TicketStore.Api.Tests.Unit.TestData
     {
         public Merchant First()
         {
-            return new Merchant{ Id = 1, YandexMoneyAccount = "1", Place = "Test" };
+            return new Merchant{ YandexMoneyAccount = "1", Place = "Test" };
         }
     }
 }
