@@ -14,6 +14,25 @@ jobs:
       - run:
           command: npm run build
           working_directory: Client
+  test-unit-web:
+    working_directory: ~/repo/Services/TicketStore.Web.Tests.Unit
+    docker:
+      - image: microsoft/dotnet:2.2-sdk
+    steps:
+      - checkout:
+          path: ~/repo
+      - run: dotnet test --logger "trx;LogFileName=report.trx"
+      - run:
+          name: transform trx report to junit for CI
+          command: |
+            dotnet tool install -g trx2junit
+            ~/.dotnet/tools/trx2junit TestResults/report.trx
+          when: always
+      - store_test_results:
+          path: TestResults
+      - store_artifacts:
+          path: TestResults
+          destination: TestResults/TicketStore.Web.Tests.Unit
   test-unit-api:
     working_directory: ~/repo/Services/TicketStore.Api.Tests.Unit
     docker:
@@ -132,11 +151,15 @@ workflows:
   version: 2
   build-test-deploy:
     jobs:
-      - test-unit-api
       - build-web
+      - test-unit-web:
+          requires:
+            - build-web
+      - test-unit-api
       - test-integration:
           requires:
             - test-unit-api
+            - test-unit-web
       - deploy:
           filters:
             branches:

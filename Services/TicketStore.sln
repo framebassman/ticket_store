@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketStore.Data", "TicketS
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketStore.Api.Tests.Unit", "TicketStore.Api.Tests.Unit\TicketStore.Api.Tests.Unit.csproj", "{57BE71A5-0030-4651-AA0B-D8316B321D35}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketStore.Web.Tests.Unit", "TicketStore.Web.Tests.Unit\TicketStore.Web.Tests.Unit.csproj", "{75F20DA3-5339-43C1-BAC2-4110C331D7C4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -86,5 +88,17 @@ Global
 		{57BE71A5-0030-4651-AA0B-D8316B321D35}.Release|x64.Build.0 = Release|Any CPU
 		{57BE71A5-0030-4651-AA0B-D8316B321D35}.Release|x86.ActiveCfg = Release|Any CPU
 		{57BE71A5-0030-4651-AA0B-D8316B321D35}.Release|x86.Build.0 = Release|Any CPU
+		{75F20DA3-5339-43C1-BAC2-4110C331D7C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{75F20DA3-5339-43C1-BAC2-4110C331D7C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{75F20DA3-5339-43C1-BAC2-4110C331D7C4}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{75F20DA3-5339-43C1-BAC2-4110C331D7C4}.Debug|x64.Build.0 = Debug|Any CPU
+		{75F20DA3-5339-43C1-BAC2-4110C331D7C4}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{75F20DA3-5339-43C1-BAC2-4110C331D7C4}.Debug|x86.Build.0 = Debug|Any CPU
+		{75F20DA3-5339-43C1-BAC2-4110C331D7C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{75F20DA3-5339-43C1-BAC2-4110C331D7C4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{75F20DA3-5339-43C1-BAC2-4110C331D7C4}.Release|x64.ActiveCfg = Release|Any CPU
+		{75F20DA3-5339-43C1-BAC2-4110C331D7C4}.Release|x64.Build.0 = Release|Any CPU
+		{75F20DA3-5339-43C1-BAC2-4110C331D7C4}.Release|x86.ActiveCfg = Release|Any CPU
+		{75F20DA3-5339-43C1-BAC2-4110C331D7C4}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
