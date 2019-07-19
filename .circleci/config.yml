@@ -17,7 +17,7 @@ jobs:
   test-unit-web:
     working_directory: ~/repo/Services/TicketStore.Web.Tests.Unit
     docker:
-      - image: microsoft/dotnet:2.2-sdk
+      - image: framebassman/dotnet-nodejs:2.2-sdk_10.x
     steps:
       - checkout:
           path: ~/repo
