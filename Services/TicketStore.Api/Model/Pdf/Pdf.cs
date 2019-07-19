@@ -2,7 +2,6 @@ using System;
 using System.Text;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Web;
 using DinkToPdf;
 using DinkToPdf.Contracts;
 using NetBarcode;
@@ -13,14 +12,16 @@ namespace TicketStore.Api.Model.Pdf
     public class Pdf
     {
         private String _eventName;
-        private String _time;
+        private DateTime _originTime;
         private Decimal _price;
         private List<Ticket> _tickets;
         private IConverter _converter;
+        private TimeZoneInfo _mskTimezone;
         public Pdf(Event concert, List<Ticket> tickets, IConverter converter)
         {
+            _mskTimezone = TimeZoneInfo.FindSystemTimeZoneById("Europe/Moscow");
             _eventName = concert.Artist;
-            _time = FormatTime(concert.Time);
+            _originTime = concert.Time;
             _price = concert.Roubles;
             _tickets = tickets;
             _converter = converter;
@@ -35,12 +36,14 @@ namespace TicketStore.Api.Model.Pdf
         // TODO: Remove this, Ticket should returns Time
         public String Time()
         {
-            return _time;
+            return FormatTime(_originTime);
         }
 
         private String FormatTime(DateTime origin)
         {
-            var allLowerCase = origin.ToString("f", CultureInfo.CreateSpecificCulture("ru-RU"));
+            var originTime = DateTime.SpecifyKind(origin, DateTimeKind.Utc);
+            var withTimezone = TimeZoneInfo.ConvertTimeFromUtc(originTime, _mskTimezone);
+            var allLowerCase = withTimezone.ToString("f", CultureInfo.CreateSpecificCulture("ru-RU"));
             var firstLetterIsCapital = new StringBuilder()
                 .Append(allLowerCase[0].ToString().ToUpper())
                 .Append(allLowerCase.Substring(1, allLowerCase.Length - 1))
@@ -124,7 +127,7 @@ namespace TicketStore.Api.Model.Pdf
                     <div style=""text-align: left; margin: 4px"">{_eventName}</div>
                     <div style=""border: 1px solid black; margin: 4px"">
                       <div style=""display: flex; justify-content: space-between;"">
-                        <div style=""font-size: 14px; margin: 4px; text-align: left"">{_time}</div>
+                        <div style=""font-size: 14px; margin: 4px; text-align: left"">{FormatTime(_originTime)}</div>
                         <div style=""font-size: 14px; margin: 4px; text-align: right"">Стоимость: {_price} ₽</div>
                       </div>
                       <img src='data:image/png;base64, {Barcode(ticket)}'/>

@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using System.Text;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using TicketStore.Api.Controllers;
 using TicketStore.Api.Model.Email;
 using TicketStore.Api.Tests.Unit.Stubs;
@@ -32,7 +33,6 @@ namespace TicketStore.Api.Tests.Unit.ControllersTests.Payments
             Assert.Equal(1, 1);
         }
 
-        // (["False", "", "", "0", "800", "", "01/01/0001 00:00:00", "False", "framebassman@gmail.com", "", "410019797958519", "False", "Глеб Самойлов и The Matrixxx — 14 сентября 2019"])
         [Fact]
         public void EventInDatabaseWithoutTimezone_ControllerReturnsDateInUtc()
         {
