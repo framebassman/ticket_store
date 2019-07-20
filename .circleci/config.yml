@@ -2,11 +2,12 @@ version: 2.1
 
 jobs:
   build-client:
-    working_directory: ./Services/TicketStore.Web/Client
+    working_directory: ~/repo/Services/TicketStore.Web/Client
     docker:
       - image: node:10.16.0-stretch-slim 
     steps:
-      - checkout
+      - checkout:
+          path: ~/repo
       - run: npm install
       - run: npm run build
   test-unit-web:
