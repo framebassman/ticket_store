@@ -2,7 +2,7 @@ version: 2.1
 
 jobs:
   build-client:
-    working_directory: Services/TicketStore.Web/Client
+    working_directory: ./Services/TicketStore.Web/Client
     docker:
       - image: node:10.16.0-stretch-slim 
     steps:
