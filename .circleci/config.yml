@@ -4,7 +4,7 @@ jobs:
   build-client:
     working_directory: ~/repo/Services/TicketStore.Web/Client
     docker:
-      - image: node/10.16.0-stretch-slim 
+      - image: node:10.16.0-stretch-slim 
     steps:
       - checkout:
           path: ~/repo
