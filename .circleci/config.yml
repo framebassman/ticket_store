@@ -1,19 +1,15 @@
 version: 2.1
 
 jobs:
-  build-web:
-    working_directory: ~/repo/Services/TicketStore.Web
+  build-client:
+    working_directory: ~/repo/Services/TicketStore.Web/Client
     docker:
-      - image: microsoft/dotnet:2.2-sdk
+      - image: node/10.16.0-stretch-slim 
     steps:
       - checkout:
           path: ~/repo
-      - run: curl -sL https://deb.nodesource.com/setup_10.x |  bash - && apt-get install -y nodejs
-      - run:
-          command: dotnet build
-      - run:
-          command: npm run build
-          working_directory: Client
+      - run: npm install
+      - run: npm run build
   test-unit-web:
     working_directory: ~/repo/Services/TicketStore.Web.Tests.Unit
     docker:
@@ -151,10 +147,10 @@ workflows:
   version: 2
   build-test-deploy:
     jobs:
-      - build-web
+      - build-client
       - test-unit-web:
           requires:
-            - build-web
+            - build-client
       - test-unit-api
       - test-integration:
           requires:
@@ -167,6 +163,7 @@ workflows:
                 - master
           context: credentials
           requires:
+            - build-client
+            - test-unit-web
             - test-unit-api
-            - build-web
             - test-integration
