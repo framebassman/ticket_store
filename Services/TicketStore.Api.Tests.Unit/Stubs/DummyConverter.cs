@@ -13,10 +13,12 @@ namespace TicketStore.Api.Tests.Unit.Stubs
             return result;
         }
 
+#pragma warning disable 0067
         public event EventHandler<PhaseChangedArgs> PhaseChanged;
         public event EventHandler<ProgressChangedArgs> ProgressChanged;
         public event EventHandler<FinishedArgs> Finished;
         public event EventHandler<ErrorArgs> Error;
         public event EventHandler<WarningArgs> Warning;
+#pragma warning restore 0067
     }
 }
