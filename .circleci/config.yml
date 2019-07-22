@@ -17,6 +17,11 @@ jobs:
             - /home/circleci/.npm
       - run: npm run build
       - run: npm test
+      - store_test_results:
+          path: reports
+      - store_artifacts:
+          path: reports
+          destination: TestResults/TicketStore.Web.Client.Unit
   test-unit-web:
     working_directory: ~/repo/Services/TicketStore.Web.Tests.Unit
     docker:
