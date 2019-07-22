@@ -41,6 +41,7 @@
     <Content Remove="$(SpaRoot)**" />
     <None Remove="$(SpaRoot)**" />
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
+    <None Include="Client\src\__tests__\afisha\time\DateTimeInUserLocale.tsx" />
   </ItemGroup>
 
   <ItemGroup>

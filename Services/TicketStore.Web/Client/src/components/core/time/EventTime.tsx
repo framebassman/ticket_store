@@ -33,8 +33,8 @@ export function EventTime(props: EventTimeProps) {
   const start = calculateStart(startedAt);
   return (
     <Typography style={{margin: '4px'}} component="div">
-      <Box textAlign="center" fontSize="fontSize">{when}</Box>
-      <Box textAlign="center" fontSize="fontSize">{start}</Box>
+      <Box id="when" textAlign="center" fontSize="fontSize">{when}</Box>
+      <Box id="start" textAlign="center" fontSize="fontSize">{start}</Box>
     </Typography>
   )
 }
