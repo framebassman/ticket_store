@@ -154,10 +154,10 @@ workflows:
   version: 2
   build-test-deploy:
     jobs:
-      - build-client
+      - test-unit-client
       - test-unit-web:
           requires:
-            - build-client
+            - test-unit-client
       - test-unit-api
       - test-integration:
           requires:
@@ -170,7 +170,7 @@ workflows:
                 - master
           context: credentials
           requires:
-            - build-client
+            - test-unit-client
             - test-unit-web
             - test-unit-api
             - test-integration
