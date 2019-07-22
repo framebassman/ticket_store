@@ -8,17 +8,15 @@ function setTimezoneToMsk(): void {
     }
 }
 
-function restoreTimezone(current: number): void {
-    Date.prototype.getTimezoneOffset = function() {
-        return current;
-    }
+function restoreTimezone(current): void {
+    Date.prototype.getTimezoneOffset = current;
 }
 
 describe('<EventTime />', () => {
     describe('User locale', () => {
         let wrapper: ReactWrapper;
         const dateFromBackend = '2019-10-04T16:00:00Z';
-        const currentTimezone = Date.prototype.getTimezoneOffset();
+        const currentTimezone = Date.prototype.getTimezoneOffset;
 
         beforeEach(() => {
             wrapper = mount(<EventTime startedAt={new Date(dateFromBackend)}/>);
