@@ -2,9 +2,9 @@ import React from 'react';
 import { mount, ReactWrapper } from 'enzyme';
 import {EventTime} from "../../../components/core/time/EventTime";
 
-function setTimezoneToMsk(): void {
+function setTimezoneToMinsk(): void {
     Date.prototype.getTimezoneOffset = function() {
-        return -180;
+        return -120;
     }
 }
 
@@ -19,8 +19,8 @@ describe('<EventTime />', () => {
         const currentTimezone = Date.prototype.getTimezoneOffset;
 
         beforeEach(() => {
+            setTimezoneToMinsk();
             wrapper = mount(<EventTime startedAt={new Date(dateFromBackend)}/>);
-            setTimezoneToMsk();
         });
 
         afterEach(() => {
@@ -33,7 +33,7 @@ describe('<EventTime />', () => {
             expect(wrapper.find('#when').hostNodes().text())
                 .toEqual('4 октября 2019');
             expect(wrapper.find('#start').hostNodes().text())
-                .toEqual('Начало в 19:00 часов');
+                .toEqual('Начало в 18:00 часов');
         });
     });
 });
