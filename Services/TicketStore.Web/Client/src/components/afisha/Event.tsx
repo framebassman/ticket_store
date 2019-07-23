@@ -42,7 +42,7 @@ export default class Event extends Component<any, any> {
             <CardContent>
               <CardMedia width="140" component="img" image={posterUrl} />
             </CardContent>
-            <EventTime startedAt={new Date(time)}/>
+            <EventTime origin={time}/>
             <CardActions className={"event__action"}>
               <Button variant="contained" color="secondary" size="large" onClick={this._handleClickOpen}>Купить билет</Button>
             </CardActions>
