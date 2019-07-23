@@ -4,7 +4,7 @@ services:
     store_api:
         build:
             context: .
-            dockerfile: ./TicketStore.Api/Dockerfile.Development
+            dockerfile: ./Services/TicketStore.Api/Dockerfile.Development
         depends_on:
             - postgres
         ports:
@@ -15,7 +15,7 @@ services:
     store_web:
         build:
             context: .
-            dockerfile: ./TicketStore.Web/Dockerfile.Development
+            dockerfile: ./Services/TicketStore.Web/Dockerfile.Development
         ports:
             - 4000:5000
         environment:
@@ -23,7 +23,7 @@ services:
     postgres:
         build:
             context: .
-            dockerfile: ./Postgres/Dockerfile
+            dockerfile: ./Services/Postgres/Dockerfile
         container_name: postgres
         volumes:
             - pgsdata:/var/lib/postgresql/data

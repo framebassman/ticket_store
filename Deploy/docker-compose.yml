@@ -29,10 +29,10 @@ services:
         container_name: store_proxy
         build:
             context: .
-            dockerfile: ./Proxy/Dockerfile
+            dockerfile: ./Services/Proxy/Dockerfile
         ports:
             - 80:80
             - 443:443
         volumes:
             - /var/run/docker.sock:/var/run/docker.sock
-            - ./Proxy/certs/acme.json:/acme.json
+            - ./Services/Proxy/certs/acme.json:/acme.json

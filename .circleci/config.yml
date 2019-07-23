@@ -1,28 +1,67 @@
 version: 2.1
 
 jobs:
-  build-web:
-    working_directory: ~/repo/TicketStore.Web
+  test-unit-client:
+    working_directory: ~/repo/Services/TicketStore.Web/Client
+    docker:
+      - image: node:10.16.0-stretch-slim 
+    steps:
+      - checkout:
+          path: ~/repo
+      - restore_cache:
+          key: npm-cache-v1-{{ checksum "package-lock.json" }}
+      - run: npm ci
+      - save_cache:
+          key: npm-cache-v1-{{ checksum "package-lock.json" }}
+          paths:
+            - /home/circleci/.npm
+      - run: npm run build
+      - run: npm test
+      - store_test_results:
+          path: reports
+      - store_artifacts:
+          path: reports
+          destination: TestResults/TicketStore.Web.Client.Unit
+  test-unit-web:
+    working_directory: ~/repo/Services/TicketStore.Web.Tests.Unit
+    docker:
+      - image: framebassman/dotnet-nodejs:2.2-sdk_10.x
+    steps:
+      - checkout:
+          path: ~/repo
+      - run: dotnet test --logger "trx;LogFileName=report.trx"
+      - run:
+          name: transform trx report to junit for CI
+          command: |
+            dotnet tool install -g trx2junit
+            ~/.dotnet/tools/trx2junit TestResults/report.trx
+          when: always
+      - store_test_results:
+          path: TestResults
+      - store_artifacts:
+          path: TestResults
+          destination: TestResults/TicketStore.Web.Tests.Unit
+  test-unit-api:
+    working_directory: ~/repo/Services/TicketStore.Api.Tests.Unit
     docker:
       - image: microsoft/dotnet:2.2-sdk
     steps:
       - checkout:
           path: ~/repo
-      - run: curl -sL https://deb.nodesource.com/setup_10.x |  bash - && apt-get install -y nodejs
+      - run: dotnet test --logger "trx;LogFileName=report.trx"
       - run:
-          command: dotnet build
-      - run:
-          command: npm run build
-          working_directory: Client
-  build-api:
-    working_directory: ~/repo/TicketStore.Api
-    docker:
-      - image: microsoft/dotnet:2.2-sdk
-    steps:
-      - checkout:
-          path: ~/repo
-      - run: dotnet build
-  test-api:
+          name: transform trx report to junit for CI
+          command: |
+            dotnet tool install -g trx2junit
+            ~/.dotnet/tools/trx2junit TestResults/report.trx
+          when: always
+      - store_test_results:
+          path: TestResults
+      - store_artifacts:
+          path: TestResults
+          destination: TestResults/TicketStore.Api.Tests.Unit
+  test-integration:
+    working_directory: ~/repo/Services
     machine:
       docker_layer_caching: true
     steps:
@@ -51,25 +90,21 @@ jobs:
       - run: make start-test
       - run: bash ./Scripts/wait-until-app-is-deployed.sh
       - run: make migrate-test
-      - run: dotnet test TicketStore.Api.Tests --logger "trx;LogFileName=report.trx"
-      - run: dotnet test TicketStore.Api.Tests.Unit --logger "trx;LogFileName=report.trx"
+      - run:
+          name: integration tests
+          command: dotnet test TicketStore.Api.Tests --logger "trx;LogFileName=report.trx"
+          working_directory: Services
       - run:
           name: transform trx report to junit for CI
           command: |
             dotnet tool install -g trx2junit
-            ~/.dotnet/tools/trx2junit TicketStore.Api.Tests/TestResults/report.trx
-            ~/.dotnet/tools/trx2junit TicketStore.Api.Tests.Unit/TestResults/report.trx
+            ~/.dotnet/tools/trx2junit Services/TicketStore.Api.Tests/TestResults/report.trx
           when: always
       - store_test_results:
-          path: TicketStore.Api.Tests/TestResults
-      - store_test_results:
-          path: TicketStore.Api.Tests.Unit/TestResults
+          path: Services/TicketStore.Api.Tests/TestResults
       - store_artifacts:
-          path: TicketStore.Api.Tests/TestResults
+          path: Services/TicketStore.Api.Tests/TestResults
           destination: TestResults/TicketStore.Api.Tests
-      - store_artifacts:
-          path: TicketStore.Api.Tests.Unit/TestResults
-          destination: TestResults/TicketStore.Api.Tests.Unit
       - store_artifacts:
           path: /var/log/store_api
           destination: Logs/TicketStore.Api
@@ -124,11 +159,15 @@ workflows:
   version: 2
   build-test-deploy:
     jobs:
-      - build-api
-      - build-web
-      - test-api:
+      - test-unit-client
+      - test-unit-web:
           requires:
-            - build-api
+            - test-unit-client
+      - test-unit-api
+      - test-integration:
+          requires:
+            - test-unit-api
+            - test-unit-web
       - deploy:
           filters:
             branches:
@@ -136,6 +175,7 @@ workflows:
                 - master
           context: credentials
           requires:
-            - build-api
-            - build-web
-            - test-api
+            - test-unit-client
+            - test-unit-web
+            - test-unit-api
+            - test-integration
