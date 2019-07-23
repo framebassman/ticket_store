@@ -3,7 +3,7 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 
 export interface EventTimeProps {
-  startedAt: Date
+  origin: string
 }
 
 const monthNames = ["января", "февраля", "март", "апреля", "мая", "июня",
@@ -28,9 +28,9 @@ export function calculateStart(startedAt: Date): String {
 }
 
 export function EventTime(props: EventTimeProps) {
-  const { startedAt } = props;
-  const when = calculateWhen(startedAt);
-  const start = calculateStart(startedAt);
+  const { origin } = props;
+  const when = calculateWhen(new Date(origin));
+  const start = calculateStart(new Date(origin));
   return (
     <Typography style={{margin: '4px'}} component="div">
       <Box id="when" textAlign="center" fontSize="fontSize">{when}</Box>
