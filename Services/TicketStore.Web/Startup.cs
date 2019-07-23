@@ -2,6 +2,7 @@ using System;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Rewrite;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -51,6 +52,8 @@ namespace TicketStore.Web
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
             app.UseMiddleware<HealthCheckMiddleware>();
+            app.UseRewriter(new RewriteOptions()
+                .AddRedirect("index.html", "/"));
             app.UseRobotify(c => c
                 .WithSitemap(new Uri("https://chertopolokh.ru/sitemap"))
                 .WithCrawlDelay(10)
