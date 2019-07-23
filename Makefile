@@ -75,7 +75,7 @@ stop-db:
 		down
 
 start-prod:
-	chmod 600 ./Proxy/certs/acme.json
+	chmod 600 ./Services/Proxy/certs/acme.json
 	docker-compose \
 		--project-directory=${PWD} \
 		--project-name=ticket_store \
