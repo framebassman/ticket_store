@@ -27,10 +27,26 @@ export function calculateStart(startedAt: Date): String {
   return `Начало в ${hours}:${minutes} часов`;
 }
 
+function formatDateFromString(origin: string): Date {
+  let seed: string;
+  if (hasTimezone(origin)) {
+    seed = origin;
+  }
+  else {
+    seed = origin + 'Z';
+  }
+  return new Date(seed);
+}
+
+function hasTimezone(origin: string): boolean {
+  return origin[origin.length - 1] === 'Z';
+}
+
 export function EventTime(props: EventTimeProps) {
   const { origin } = props;
-  const when = calculateWhen(new Date(origin));
-  const start = calculateStart(new Date(origin));
+  const date = formatDateFromString(origin);
+  const when = calculateWhen(date);
+  const start = calculateStart(date);
   return (
     <Typography style={{margin: '4px'}} component="div">
       <Box id="when" textAlign="center" fontSize="fontSize">{when}</Box>
