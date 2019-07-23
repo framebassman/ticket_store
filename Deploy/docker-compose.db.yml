@@ -4,7 +4,7 @@ services:
     postgres:
         build:
             context: .
-            dockerfile: ./Postgres/Dockerfile
+            dockerfile: ./Services/Postgres/Dockerfile
         container_name: postgres
         volumes:
             - pgsdata:/var/lib/postgresql/data

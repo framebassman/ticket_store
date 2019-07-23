@@ -7,8 +7,22 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/TicketStore.Api/TicketStore.Api.csproj"
+                "${workspaceFolder}/Services/TicketStore.Api/TicketStore.Api.csproj"
             ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "test",
+            "command": "dotnet",
+            "type": "shell",
+            "group": "test",
+            "args": [
+                "test",
+                "${workspaceFolder}/Services/TicketStore.Api.Tests.Unit/TicketStore.Api.Tests.Unit.csproj"
+            ],
+            "presentation": {
+                "reveal": "silent"
+            },
             "problemMatcher": "$msCompile"
         }
     ]

@@ -5,7 +5,7 @@ services:
         image: "docker.io/framebassman/store-api:${VERSION}"
         build:
             context: .
-            dockerfile: ./TicketStore.Api/Dockerfile.Production
+            dockerfile: ./Services/TicketStore.Api/Dockerfile.Production
         environment:
             - ASPNETCORE_ENVIRONMENT=Production
             - SENTRY_RELEASE=${VERSION}
@@ -13,7 +13,7 @@ services:
         image: "docker.io/framebassman/store-web:${VERSION}"
         build:
             context: .
-            dockerfile: ./TicketStore.Web/Dockerfile.Production
+            dockerfile: ./Services/TicketStore.Web/Dockerfile.Production
         environment:
             - ASPNETCORE_ENVIRONMENT=Production
             - SENTRY_RELEASE=${VERSION}

@@ -27,7 +27,7 @@ steps:
     yarn install
     mkdir -p test-results/jest
     yarn run test
-  workingDirectory: $(build.sourcesDirectory)/TicketStore.MobileApp
+  workingDirectory: $(build.sourcesDirectory)/Services/TicketStore.MobileApp
   displayName: 'npm install and build'
   env:
     JEST_JUNIT_OUTPUT: test-results/jest/junit.xml
@@ -36,7 +36,7 @@ steps:
   inputs:
     testResultsFormat: 'JUnit' # Options: JUnit, NUnit, VSTest, xUnit, cTest
     testResultsFiles: 'test-results/jest/junit.xml' 
-    searchFolder: '$(build.sourcesDirectory)/TicketStore.MobileApp' # Optional
+    searchFolder: '$(build.sourcesDirectory)/Services/TicketStore.MobileApp' # Optional
     #mergeTestResults: false # Optional
     #failTaskOnFailedTests: false # Optional
     #testRunTitle: # Optional
