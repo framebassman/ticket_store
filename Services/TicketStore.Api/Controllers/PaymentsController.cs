@@ -60,7 +60,10 @@ namespace TicketStore.Api.Controllers
                 return new OkObjectResult("It's OK for yandex testing");
             }
             email = NormalizeEmail(email);
-            _log.LogInformation("Receive Yandex.Money request from {@0} to {@1} about {@2}", email, sender, label);
+            
+            // Hardcoded Cherdak account
+            var receiver = "410019797958519";
+            _log.LogInformation("Receive Yandex.Money request from {@0} about {@1}", email, label);
             if (!new Validator(
                     notification_type,
                     operation_id,
@@ -77,15 +80,14 @@ namespace TicketStore.Api.Controllers
                 return new BadRequestObjectResult("Secret is not matching");
             }
 
-            var merchant = _db.Merchants.FirstOrDefault(m => m.YandexMoneyAccount == sender);
-            if (merchant == null)
-            {
-                return new BadRequestObjectResult("Unknown merchant");
-            }
+//            var merchant = _db.Merchants.FirstOrDefault(m => m.YandexMoneyAccount == receiver);
+//            if (merchant == null)
+//            {
+//                return new BadRequestObjectResult("Unknown merchant");
+//            }
             
             var concert = _db.Events.FirstOrDefault(
-                e => e.MerchantId == merchant.Id && 
-                new LabelCalculator(e).Value() == label
+                e => new LabelCalculator(e).Value() == label
             );
             if (concert == null)
             {

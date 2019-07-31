@@ -7,17 +7,21 @@ namespace TicketStore.Data
     public class ApplicationSettings
     {
         private readonly String _environmentName;
+        private readonly Host _host;
         
         public ApplicationSettings()
         {
             _environmentName = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT",
                                    EnvironmentVariableTarget.Process)
                                ?? "Development";
+            _host = new Host();
         }
 
         public String ConnectionString()
         {
-            return BuildConfiguration().GetConnectionString("DefaultConnection");
+            return BuildConfiguration()
+                .GetConnectionString("DefaultConnection")
+                .Replace("$DOCKER_HOST", _host.Value());
         }
         
         private IConfiguration BuildConfiguration()

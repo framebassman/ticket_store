@@ -8,7 +8,8 @@ build-dev:
 		build ${ARGS}
 
 start-dev:
-	chmod 600 ./Services/Proxy/certs/acme.json
+	make grant-permissions-to-cert
+	make ngrok
 	docker-compose \
 		--project-directory=${PWD} \
 		--project-name=ticket_store \
@@ -26,7 +27,7 @@ stop-dev:
 
 # test
 start-test:
-	chmod 600 ./Services/Proxy/certs/acme.json
+	make grant-permissions-to-cert
 	docker-compose \
 		--project-directory=${PWD} \
 		--project-name=ticket_store \
@@ -40,6 +41,21 @@ stop-test:
 		--project-name=ticket_store \
 		-f Deploy/docker-compose.yml \
 		-f Deploy/docker-compose.test.yml \
+		down
+
+# db only
+start-db:
+	docker-compose \
+		--project-directory=${PWD} \
+		--project-name=ticket_store \
+		-f Deploy/docker-compose.db.yml \
+		up --build -d
+
+stop-db:
+	docker-compose \
+		--project-directory=${PWD} \
+		--project-name=ticket_store \
+		-f Deploy/docker-compose.db.yml \
 		down
 
 # prod
@@ -59,23 +75,8 @@ stop-prod:
 		-f Deploy/docker-compose.production.yml \
 		down
 
-# db only
-start-db:
-	docker-compose \
-		--project-directory=${PWD} \
-		--project-name=ticket_store \
-		-f Deploy/docker-compose.db.yml \
-		up --build -d
-
-stop-db:
-	docker-compose \
-		--project-directory=${PWD} \
-		--project-name=ticket_store \
-		-f Deploy/docker-compose.db.yml \
-		down
-
 start-prod:
-	chmod 600 ./Services/Proxy/certs/acme.json
+	make grant-permissions-to-cert
 	docker-compose \
 		--project-directory=${PWD} \
 		--project-name=ticket_store \
@@ -120,6 +121,9 @@ migrate-test:
 	export ASPNETCORE_ENVIRONMENT=TestMigrations; \
 	dotnet ef database update --project Services/TicketStore.Data/TicketStore.Data.csproj --verbose
 
-# dev
+# etc
+grant-permissions-to-cert:
+	chmod 600 ./Services/Proxy/certs/acme.json
+
 ngrok:
-	ngrok http 5000 --bind-tls true --region eu
+	sh ./Scripts/ngrok/launch.sh

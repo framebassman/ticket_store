@@ -6,7 +6,6 @@ RUN apt-get install -y nodejs
 COPY ./Services/TicketStore.Web/ /app
 COPY ./Services/TicketStore.Data/ /TicketStore.Data
 WORKDIR /app
-RUN dotnet clean
 RUN dotnet restore
 RUN dotnet build
 ENTRYPOINT dotnet run

@@ -20,6 +20,11 @@ services:
             - 4000:5000
         environment:
             - ASPNETCORE_ENVIRONMENT=Development
+        volumes:
+            - ./Services/TicketStore.Web/Client/src:/app/Client/src
+    store_proxy:
+        logging:
+            driver: none
     postgres:
         build:
             context: .
