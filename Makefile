@@ -28,7 +28,6 @@ stop-dev:
 # test
 start-test:
 	make grant-permissions-to-cert
-	make ngrok
 	docker-compose \
 		--project-directory=${PWD} \
 		--project-name=ticket_store \
