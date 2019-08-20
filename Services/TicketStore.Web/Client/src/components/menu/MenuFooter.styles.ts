@@ -1,12 +1,12 @@
 export const styles = {
   content: {
-    minHeight: 'calc(100vh - 270px)'
+    minHeight: 'calc(100vh - 170px)'
   },
   footer: {
-    margin: 16
-  },
-  footer_item: {
-    margin: 16
+    display: 'grid',
+    margin: 16,
+    fontSize: '0.75rem',
+    fontWeight: 600,
   },
   link: {
     color: 'rgba(0, 0, 0, 0.87)',

@@ -11,18 +11,10 @@ const MenuFooter = (props: any) => {
       <div className={classes.content}></div>
       <Divider />
       <div className={classes.footer}>
-        <div className={classes.footer_item}>
-          <a className={classes.link} href="https://vk.me/sudo_chertopolokh">Техподдержка</a>
-        </div>
-        <Divider />
-        <div className={classes.footer_item}>
-          <a className={classes.link} href="http://status.chertopolokh.ru">Статус</a>
-        </div>
-        <Divider />
-        <div className={classes.footer_item}>
-          <div>Сделано в компании</div>
-          <div>Kolenka Inc.</div>
-        </div>
+        <a className={classes.link} href="https://vk.me/sudo_chertopolokh">Техподдержка</a>
+        <a className={classes.link} href="http://status.chertopolokh.ru">Статус</a>
+        <span>Сделано в компании</span>
+        <span>Kolenka Inc.</span>
       </div>
     </Typography>
   )
