@@ -22,7 +22,6 @@ const AfishaWithMenu = () => {
         <Afisha/>
       </Menu>
     </MuiThemeProvider>
-
   )
 }
 

@@ -25,6 +25,7 @@ namespace TicketStore.Api.Controllers
         [HttpPost]
         public IActionResult Post([FromBody] Barcode barcode)
         {
+            _log.LogInformation("Search the following barcode: {@barcode}", barcode);
             if (!ModelState.IsValid)
             {
                 using (var input = HttpContext.Request.Body)

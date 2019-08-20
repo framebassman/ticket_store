@@ -12,14 +12,14 @@ async function transfersFromBack(barcode: string) {
       { headers: { Authorization: 'Bearer pkR9vfZ9QdER53mf'}}
     );
   }
-  catch {
-    return { data: {} };
+  catch (e) {
+    return e.response;
   }
 }
 
 export const actionCreators = {
-  verify: (code: string) => async (dispatch: any) => {
-    const response = await transfersFromBack(code);
+  verify: (barcode: string) => async (dispatch: any) => {
+    const response = await transfersFromBack(barcode);
     dispatch({
       type: verifyType,
       payload: response
@@ -31,3 +31,4 @@ export const actionCreators = {
     }, 2000);
   }
 };
+
