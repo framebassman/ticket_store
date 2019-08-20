@@ -4,6 +4,6 @@ namespace TicketStore.Api.Model.Validation
 {
     public class Barcode
     {
-        public String code;
+        public String code { get; set; }
     }
 }

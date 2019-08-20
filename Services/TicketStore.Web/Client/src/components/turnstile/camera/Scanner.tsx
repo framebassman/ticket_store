@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-const Quagga = require('quagga');
+import * as Quagga from 'quagga';
 
 export class Scanner extends Component<any, any> {
   constructor(props: any) {
