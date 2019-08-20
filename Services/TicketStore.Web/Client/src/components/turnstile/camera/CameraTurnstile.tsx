@@ -19,7 +19,11 @@ export class CameraTurnstile extends Component<any, TurnstileState> {
       result: new DetectedBarcode(),
       isRequested: false,
     }
-    this._onDetected = throttle(this._onDetected.bind(this), 5000);
+    this._onDetected = throttle(
+      this._onDetected.bind(this),
+      3000,
+      { 'trailing': false }
+    );
   }
 
   _onDetected(current: DetectedBarcode) {
