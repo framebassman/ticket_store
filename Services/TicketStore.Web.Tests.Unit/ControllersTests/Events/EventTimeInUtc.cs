@@ -1,6 +1,8 @@
 using System;
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using TicketStore.Data.Model;
 using Xunit;
 
@@ -32,6 +34,8 @@ namespace TicketStore.Web.Tests.Unit.ControllersTests.Events
         [Fact]
         public void ThereAreEvents_ControllerReturnsTimeInUtcAndIso()
         {
+            Console.WriteLine("Our events in database: ", JsonConvert.SerializeObject(Db.Events.ToList()));
+            
             // Act
             var result = Controller.Get(1);
             
