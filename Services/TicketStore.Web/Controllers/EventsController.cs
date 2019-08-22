@@ -31,7 +31,10 @@ namespace TicketStore.Web.Controllers
                 return new BadRequestObjectResult("Request should contains merchantId parameter");
             }
 
-            var result = _db.Events.Where(e => e.MerchantId == merchantId).ToList();
+            var result = _db.Events
+                .Where(e => e.MerchantId == merchantId)
+                .OrderBy(e => e.Time)
+                .ToList();
             _log.LogInformation("Return events: {@result} for merchantId: {@merchantId}", result, merchantId);
             return new OkObjectResult(result);
         }
