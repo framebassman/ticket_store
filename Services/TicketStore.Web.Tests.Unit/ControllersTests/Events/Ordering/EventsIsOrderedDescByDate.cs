@@ -14,7 +14,7 @@ namespace TicketStore.Web.Tests.Unit.ControllersTests.Events.Ordering
 
         public EventsIsOrderedDescByDate() : base("Ordered_By_Date")
         {
-            var merchant = Provider.Merchants().First();
+            var merchant = new Merchant{ YandexMoneyAccount = "123456789", Place = "Test merchant" };
             _closer = new DateTime(2018, 9, 4, 16, 00, 00, DateTimeKind.Utc);
             _farther = new DateTime(2019, 10, 4, 16, 00, 00, DateTimeKind.Utc);
             var oldConcert = Provider.Events(merchant).WithDate(_farther);
