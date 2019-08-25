@@ -105,8 +105,23 @@ docker-cleanup:
 	docker rmi $$(docker images -a --filter=dangling=true -q)
 	docker rm $$(docker ps --filter=status=exited --filter=status=created -q)
 
+# connect to db
 db-dev:
 	docker exec -it postgres psql postgresql://store_user:KqCQzyH2akGB9gQ4@localhost:5432/store_db
+
+db-init-dev:
+	docker exec -it postgres psql postgresql://store_user:KqCQzyH2akGB9gQ4@localhost:5432/store_db \
+	-c "INSERT INTO merchants (id, yandex_money_account, place) VALUES (2, 123456789, 'Cherdak')"
+
+	docker exec -it postgres psql postgresql://store_user:KqCQzyH2akGB9gQ4@localhost:5432/store_db \
+	-c "INSERT INTO events (id, artist, roubles, press_release, time, poster_url, merchant_id) VALUES (2, 'Muse', 100, 'Nice band', 'Tue, 9 Jul 2019 17:00:00Z', 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png', 2)"
+
+db-view-dev:
+	docker exec -it postgres psql postgresql://store_user:KqCQzyH2akGB9gQ4@localhost:5432/store_db \
+	-c "SELECT * FROM merchants;"
+
+	docker exec -it postgres psql postgresql://store_user:KqCQzyH2akGB9gQ4@localhost:5432/store_db \
+	-c "SELECT * FROM events;"
 
 db-test:
 	docker exec -it postgres psql postgresql://store_user:KqCQzyH2akGB9gQ4@localhost:5432/store_db
@@ -114,6 +129,7 @@ db-test:
 db-prod:
 	psql postgresql://store_user:GMQCruf5SzsCGR2xd3euUVZQG3c@188.68.210.162:5432/store_db
 
+# migrate db
 migrate-dev:
 	docker exec store_api dotnet ef database update --verbose
 
