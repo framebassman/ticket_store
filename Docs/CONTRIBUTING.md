@@ -35,10 +35,13 @@ After `ngrok` installation - it will check authentications. On this step just pa
 
 After startup project - navigate to http://localhost:4040 and copy `ngrok url`
 
-#### 7. Run migrations
-Just run
-```
+#### 7. Run migrations and seed initial values into DB
+Simply run:
+```bash
+# Migrate database
 make migrate-dev
+# Initialise DB with test values
+make db-init-dev
 ```
 
 #### 8. Finish!
