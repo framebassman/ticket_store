@@ -1,13 +1,20 @@
 FROM microsoft/dotnet:2.2-sdk AS build-env
 
+ARG REACT_APP_ENVIRONMENT=Production
+
 RUN curl -sL https://deb.nodesource.com/setup_10.x |  bash -
 RUN apt-get install -y nodejs
 
 COPY ./Services/TicketStore.Web/ /app
 COPY ./Services/TicketStore.Data/ /TicketStore.Data
+
+WORKDIR /app/Client
+RUN echo REACT_APP_ENVIRONMENT=$REACT_APP_ENVIRONMENT > .env && cat .env
+
 WORKDIR /app
 RUN dotnet restore
 RUN dotnet publish -c Release -o out
+
 
 FROM microsoft/dotnet:2.2.0-aspnetcore-runtime
 WORKDIR /app
