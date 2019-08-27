@@ -28,7 +28,7 @@ namespace TicketStore.Api.Tests.Tests.DevelopmentData
             var developmentData = new DevelopmentData();
             if (developmentData.IsExistIn(_db))
             {
-                _log.WriteLine("Development data has already exist");
+                _log.WriteLine("Development data has already existed");
             }
             else
             {
