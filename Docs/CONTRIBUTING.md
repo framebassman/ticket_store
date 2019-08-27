@@ -41,7 +41,7 @@ Simply run:
 # Migrate database
 make migrate-dev
 # Initialise DB with test values
-make db-init-dev
+make db-seed
 ```
 
 #### 8. Finish!

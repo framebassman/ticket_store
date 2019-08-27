@@ -109,20 +109,6 @@ docker-cleanup:
 db-dev:
 	docker exec -it postgres psql postgresql://store_user:KqCQzyH2akGB9gQ4@localhost:5432/store_db
 
-db-init-dev:
-	docker exec -it postgres psql postgresql://store_user:KqCQzyH2akGB9gQ4@localhost:5432/store_db \
-	-c "INSERT INTO merchants (id, yandex_money_account, place) VALUES (2, 123456789, 'Cherdak')"
-
-	docker exec -it postgres psql postgresql://store_user:KqCQzyH2akGB9gQ4@localhost:5432/store_db \
-	-c "INSERT INTO events (id, artist, roubles, press_release, time, poster_url, merchant_id) VALUES (2, 'Muse', 100, 'Nice band', 'Tue, 9 Jul 2019 17:00:00Z', 'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png', 2)"
-
-db-view-dev:
-	docker exec -it postgres psql postgresql://store_user:KqCQzyH2akGB9gQ4@localhost:5432/store_db \
-	-c "SELECT * FROM merchants;"
-
-	docker exec -it postgres psql postgresql://store_user:KqCQzyH2akGB9gQ4@localhost:5432/store_db \
-	-c "SELECT * FROM events;"
-
 db-test:
 	docker exec -it postgres psql postgresql://store_user:KqCQzyH2akGB9gQ4@localhost:5432/store_db
 
@@ -143,3 +129,7 @@ grant-permissions-to-cert:
 
 ngrok:
 	sh ./Scripts/ngrok/launch.sh
+
+db-seed:
+	dotnet test Services/TicketStore.Api.Tests \
+		--filter Category=DevelopmentData
