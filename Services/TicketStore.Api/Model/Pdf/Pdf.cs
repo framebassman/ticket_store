@@ -70,6 +70,7 @@ namespace TicketStore.Api.Model.Pdf
       {images}
       <div style=""max-width: 600px; margin-left: auto; margin-right: auto;"">
         <div style=""margin: 16px; font-weight: 500;"">РАСПЕЧАТАЙТЕ этот бланк и предъявите при проходе на мероприятие</div>
+        <div style=""margin: 16px; font-weight: 500;"">Билеты возврату и обмену не подлежат</div>
         <div style=""font-size: 10px"">
           <div>Внимание: Штрих-код, указанный на ЭБ, действителен только для однократного прохода на мероприятие. Не допускайте
           перепечатки и копирования Вашего ЭБ третьими лицами, так как они могут воспользоваться им раньше Вас! Настоящий
