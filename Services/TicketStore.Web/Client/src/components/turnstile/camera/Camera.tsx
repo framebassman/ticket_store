@@ -9,7 +9,7 @@ import { TurnstileState } from '../TurnstileState';
 import { beep } from './Beep';
 import { Status } from './Status';
 import { DetectedBarcode } from './DetectedBarcode';
-import './CameraTurnstile.css';
+import './Camera.css';
 
 export class CameraTurnstile extends Component<any, TurnstileState> {
   constructor(props: any, state: TurnstileState) {

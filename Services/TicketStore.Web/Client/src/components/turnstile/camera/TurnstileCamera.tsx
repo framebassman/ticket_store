@@ -3,7 +3,7 @@ import { TurnstileState } from '../TurnstileState';
 import { TurnstileOnHold } from './on-hold/TurnstileOnHold';
 import CameraTurnstile from './Camera';
 import { DetectedBarcode } from './DetectedBarcode';
-import './Turnstile.css';
+import './TurnstileCamera.css';
 
 export default class Turnstile extends Component<any, TurnstileState> {
   constructor(props: any, state: TurnstileState) {
