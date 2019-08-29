@@ -4,6 +4,7 @@ import yellow from '@material-ui/core/colors/yellow';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import { Farewell } from './components/farewell/Farewell';
 import Turnstile from './components/turnstile/Turnstile';
+import TurnstileManual from './components/turnstile/manual/TurnstileManual';
 import { Menu } from './components/menu/Menu';
 import Afisha from './components/afisha/Afisha';
 
@@ -33,7 +34,7 @@ class App extends Component {
           <Route path="/tickets/farewell" component={Farewell}/>
           <Redirect from="/tickets/turnstile" to="/turnstile/camera" />
           <Route path="/turnstile/camera" component={Turnstile}/>
-          <Route path="/turnstile/manual" component={Turnstile}/>
+          <Route path="/turnstile/manual" component={TurnstileManual}/>
           <Route path="" component={AfishaWithMenu}/>
         </Switch>
       </BrowserRouter>
