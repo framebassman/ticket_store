@@ -4,7 +4,7 @@ import yellow from '@material-ui/core/colors/yellow';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
 import { Farewell } from './components/farewell/Farewell';
-import { TurnstileMenu } from './components/turnstile/TurnstileMenu';
+import TurnstileMenu from './components/turnstile/TurnstileMenu';
 import { Menu } from './components/menu/Menu';
 import Afisha from './components/afisha/Afisha';
 
