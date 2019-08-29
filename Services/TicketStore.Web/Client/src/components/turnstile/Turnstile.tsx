@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { TurnstileState } from './TurnstileState';
-import { TurnstileOnHold } from './TurnstileOnHold';
+import { TurnstileOnHold } from './on-hold/TurnstileOnHold';
 import CameraTurnstile from './camera/CameraTurnstile';
 import { DetectedBarcode } from './camera/DetectedBarcode';
 import './Turnstile.css';

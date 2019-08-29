@@ -1,5 +1,5 @@
 ﻿import React, { Component } from 'react';
-import { BrowserRouter, Route, Switch} from 'react-router-dom';
+import { BrowserRouter, Route, Redirect, Switch} from 'react-router-dom';
 import yellow from '@material-ui/core/colors/yellow';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import { Farewell } from './components/farewell/Farewell';
@@ -31,7 +31,9 @@ class App extends Component {
       <BrowserRouter>
         <Switch>
           <Route path="/tickets/farewell" component={Farewell}/>
-          <Route path="/tickets/turnstile" component={Turnstile}/>
+          <Redirect from="/tickets/turnstile" to="/turnstile/camera" />
+          <Route path="/turnstile/camera" component={Turnstile}/>
+          <Route path="/turnstile/manual" component={Turnstile}/>
           <Route path="" component={AfishaWithMenu}/>
         </Switch>
       </BrowserRouter>
