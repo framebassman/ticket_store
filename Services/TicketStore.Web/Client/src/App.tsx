@@ -33,7 +33,7 @@ class App extends Component {
         <Switch>
           <Route path="/tickets/farewell" component={Farewell}/>
           <Redirect from="/tickets/turnstile" to="/turnstile/camera" />
-          <TurnstileMenu />
+          <Route path="/turnstile" component={TurnstileMenu} />
           <Route path="" component={AfishaWithMenu}/>
         </Switch>
       </BrowserRouter>

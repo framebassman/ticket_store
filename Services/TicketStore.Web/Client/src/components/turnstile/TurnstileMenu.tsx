@@ -1,12 +1,14 @@
-import React, { Fragment, useState } from 'react';
+import React, { useState } from 'react';
 import { Route, withRouter } from 'react-router-dom';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
+import Box from '@material-ui/core/Box';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import CameraIcon from '@material-ui/icons/Camera';
 import TouchAppIcon from '@material-ui/icons/TouchApp';
 
 import Turnstile from './camera/TurnstileCamera';
 import TurnstileManual from './manual/TurnstileManual';
+import './TurnstileMenu.css';
 
 const navigation = {
   camera: {
@@ -26,11 +28,14 @@ export const TurnstileMenu = ({ location, history }) => {
   const [value, setValue] = useState(index);
 
   return (
-    <Fragment>
-      <Route path={navigation.camera.path} component={Turnstile} />
-      <Route path={navigation.manual.path} component={TurnstileManual} />
+    <Box className="turnstile__parent">
+      <Box className="turnstile__child">
+        <Route path={navigation.camera.path} component={Turnstile} />
+        <Route path={navigation.manual.path} component={TurnstileManual} />
+      </Box>
 
       <BottomNavigation
+        className="turnstile__navbar"
         value={value}
         onChange={(_, newValue) => {
           const item = navigationList.find(navItem => newValue === navItem.index);
@@ -50,7 +55,7 @@ export const TurnstileMenu = ({ location, history }) => {
           icon={<TouchAppIcon />}
         />
       </BottomNavigation>
-    </Fragment>
+    </Box>
   )
 }
 
