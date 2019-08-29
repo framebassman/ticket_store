@@ -12,13 +12,13 @@ const TurnstileManual = ({ verify }) => {
   const [ticketNumber, setTicketNumber] = useState('');
 
   return (
-    <Container fixed>
+    <Container className="turnstile__manual" fixed>
       <Box>
         <TextField
           label="Номер Билета"
+          onChange={(e) => setTicketNumber(e.target.value)}
           margin="normal"
           variant="outlined"
-          onChange={(e) => setTicketNumber(e.target.value)}
           inputProps={{
             type: 'number'
           }}
@@ -28,6 +28,7 @@ const TurnstileManual = ({ verify }) => {
         <Button
           variant="contained"
           color="primary"
+          size="large"
           onClick={() => verify(ticketNumber)}
         >
           Проверить Билет
