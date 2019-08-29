@@ -1,5 +1,5 @@
 import { verifyType, resetType } from './actions';
-import { TurnstileState } from '../../components/turnstile/camera/TurnstileState';
+import { TurnstileState } from '../../components/turnstile/TurnstileState';
 import { DetectedBarcode } from '../../components/turnstile/camera/DetectedBarcode';
 
 const initialState: TurnstileState = {

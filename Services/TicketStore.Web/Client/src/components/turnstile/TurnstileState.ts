@@ -1,4 +1,4 @@
-import { DetectedBarcode } from './DetectedBarcode';
+import { DetectedBarcode } from './camera/DetectedBarcode';
 
 export interface TurnstileState {
   scanning: boolean,

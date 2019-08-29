@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 
 import { actionCreators } from '../../../store/Turnstile/actions';
 import { Scanner } from './Scanner';
-import { TurnstileState } from './TurnstileState';
+import { TurnstileState } from '../TurnstileState';
 import { beep } from './Beep';
 import { Status } from './Status';
 import { DetectedBarcode } from './DetectedBarcode';
