@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Redirect, Switch} from 'react-router-dom';
 import yellow from '@material-ui/core/colors/yellow';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import { Farewell } from './components/farewell/Farewell';
-import Turnstile from './components/turnstile/Turnstile';
+import Turnstile from './components/turnstile/camera/Turnstile';
 import TurnstileManual from './components/turnstile/manual/TurnstileManual';
 import { Menu } from './components/menu/Menu';
 import Afisha from './components/afisha/Afisha';

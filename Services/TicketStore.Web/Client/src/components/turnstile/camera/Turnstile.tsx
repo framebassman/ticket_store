@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { TurnstileState } from './TurnstileState';
 import { TurnstileOnHold } from './on-hold/TurnstileOnHold';
-import CameraTurnstile from './camera/CameraTurnstile';
-import { DetectedBarcode } from './camera/DetectedBarcode';
+import CameraTurnstile from './Camera';
+import { DetectedBarcode } from './DetectedBarcode';
 import './Turnstile.css';
 
 export default class Turnstile extends Component<any, TurnstileState> {

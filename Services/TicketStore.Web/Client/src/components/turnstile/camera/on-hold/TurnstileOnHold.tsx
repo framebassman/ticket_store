@@ -1,10 +1,14 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+
 import './TurnstileOnHold.css';
 
-export const TurnstileOnHold = (props: any) => {
-  const { onClick } = props;
+type Props = {
+  onClick: () => any
+}
+
+export const TurnstileOnHold = ({ onClick }: Props) => {
   return (
     <div className="turnstile__parent">
       <div className="turnstile__child">
