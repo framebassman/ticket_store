@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Route, withRouter } from 'react-router-dom';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
-import Box from '@material-ui/core/Box';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
+import Box from '@material-ui/core/Box';
 import CameraIcon from '@material-ui/icons/Camera';
 import TouchAppIcon from '@material-ui/icons/TouchApp';
 

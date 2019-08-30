@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
-import { TurnstileState } from '../TurnstileState';
 import { TurnstileOnHold } from './on-hold/TurnstileOnHold';
-import CameraTurnstile from './Camera';
-import { DetectedBarcode } from './DetectedBarcode';
+import Camera from './Camera';
 import './TurnstileCamera.css';
 
-export default class Turnstile extends Component<any, TurnstileState> {
-  constructor(props: any, state: TurnstileState) {
-    super(props, state);
+type State = { 
+  scanning: boolean;
+}
+
+export default class Turnstile extends Component<any, State> {
+  constructor(props: any) {
+    super(props);
     this.state = {
         scanning: false,
-        result: new DetectedBarcode(),
-        isRequested: false
     }
     this._toggle = this._toggle.bind(this);
   }
@@ -26,7 +26,7 @@ export default class Turnstile extends Component<any, TurnstileState> {
     if (scanning === false) {
       return <TurnstileOnHold onClick={this._toggle}/>
     } else {
-      return <CameraTurnstile />
+      return <Camera />
     }
   }
 }
