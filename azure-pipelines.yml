@@ -52,7 +52,7 @@ stages:
     steps:
     - task: DotNetCoreInstaller@0
       inputs:
-        version: '2.1.300'
+        version: '2.2.100'
       displayName: 'Install Dotnet Core'
     - script: |
         dotnet test --logger "trx;LogFileName=report.trx"
