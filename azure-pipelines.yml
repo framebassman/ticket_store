@@ -56,6 +56,7 @@ stages:
       displayName: 'Install Dotnet Core'
     - script: |
         dotnet test --logger "trx;LogFileName=report.trx"
+        ls -la
       workingDirectory: $(build.sourcesDirectory)/Services/TicketStore.Api.Tests.Unit
       displayName: 'dotnet test'
     - task: PublishTestResults@2
