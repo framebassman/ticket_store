@@ -54,6 +54,21 @@ stages:
       inputs:
         version: '2.1.300'
       displayName: 'Install Dotnet Core'
+    - script: |
+        dotnet test --logger "trx;LogFileName=report.trx"
+      workingDirectory: $(build.sourcesDirectory)/Services/TicketStore.Api.Tests.Unit
+      displayName: 'dotnet test'
+    - task: PublishTestResults@2
+      inputs:
+        testResultsFormat: 'xUnit' # Options: JUnit, NUnit, VSTest, xUnit, cTest
+        testResultsFiles: 'TestResults/report.trx' 
+        searchFolder: '$(build.sourcesDirectory)/Services/TicketStore.Api.Tests.Unit' # Optional
+        #mergeTestResults: false # Optional
+        #failTaskOnFailedTests: false # Optional
+        #testRunTitle: # Optional
+        #buildPlatform: # Optional
+        #buildConfiguration: # Optional
+        #publishRunAttachments: true # Optional
 
 # pool:
 #   vmImage: 'ubuntu-latest'
