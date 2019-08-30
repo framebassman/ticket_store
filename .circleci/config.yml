@@ -159,23 +159,23 @@ workflows:
   version: 2
   build-test-deploy:
     jobs:
-      - test-unit-client
-      - test-unit-web:
-          requires:
-            - test-unit-client
-      - test-unit-api
-      - test-integration:
-          requires:
-            - test-unit-api
-            - test-unit-web
+      # - test-unit-client
+      # - test-unit-web:
+      #     requires:
+      #       - test-unit-client
+      # - test-unit-api
+      # - test-integration:
+      #     requires:
+      #       - test-unit-api
+      #       - test-unit-web
       - deploy:
           filters:
             branches:
               only:
                 - master
           context: credentials
-          requires:
-            - test-unit-client
-            - test-unit-web
-            - test-unit-api
-            - test-integration
+          # requires:
+          #   - test-unit-client
+          #   - test-unit-web
+          #   - test-unit-api
+          #   - test-integration
