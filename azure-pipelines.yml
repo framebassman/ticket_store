@@ -31,6 +31,19 @@ stages:
         npm test
       workingDirectory: $(build.sourcesDirectory)/Services/TicketStore.Web/Client
       displayName: 'npm install and test'
+      env:
+        CI: true
+    - task: PublishTestResults@2
+      inputs:
+        testResultsFormat: 'JUnit' # Options: JUnit, NUnit, VSTest, xUnit, cTest
+        testResultsFiles: 'reports/junit.xml' 
+        searchFolder: '$(build.sourcesDirectory)/Services/TicketStore.Web/Client' # Optional
+        #mergeTestResults: false # Optional
+        #failTaskOnFailedTests: false # Optional
+        #testRunTitle: # Optional
+        #buildPlatform: # Optional
+        #buildConfiguration: # Optional
+        #publishRunAttachments: true # Optional
 
 # pool:
 #   vmImage: 'ubuntu-latest'
