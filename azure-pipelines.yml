@@ -15,7 +15,7 @@ pr:
     - README.md
 
 stages:
-- stage: TicketStore.Web.Client unit tests
+- stage: TicketStore.Web.Client_unit_tests
   jobs:
   - job: Build
     pool:
