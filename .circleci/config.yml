@@ -1,65 +1,6 @@
 version: 2.1
 
 jobs:
-  test-unit-client:
-    working_directory: ~/repo/Services/TicketStore.Web/Client
-    docker:
-      - image: node:10.16.0-stretch-slim 
-    steps:
-      - checkout:
-          path: ~/repo
-      - restore_cache:
-          key: npm-cache-v1-{{ checksum "package-lock.json" }}
-      - run: npm ci
-      - save_cache:
-          key: npm-cache-v1-{{ checksum "package-lock.json" }}
-          paths:
-            - /home/circleci/.npm
-      - run: npm run build
-      - run: npm test
-      - store_test_results:
-          path: reports
-      - store_artifacts:
-          path: reports
-          destination: TestResults/TicketStore.Web.Client.Unit
-  test-unit-web:
-    working_directory: ~/repo/Services/TicketStore.Web.Tests.Unit
-    docker:
-      - image: framebassman/dotnet-nodejs:2.2-sdk_10.x
-    steps:
-      - checkout:
-          path: ~/repo
-      - run: dotnet test --logger "trx;LogFileName=report.trx"
-      - run:
-          name: transform trx report to junit for CI
-          command: |
-            dotnet tool install -g trx2junit
-            ~/.dotnet/tools/trx2junit TestResults/report.trx
-          when: always
-      - store_test_results:
-          path: TestResults
-      - store_artifacts:
-          path: TestResults
-          destination: TestResults/TicketStore.Web.Tests.Unit
-  test-unit-api:
-    working_directory: ~/repo/Services/TicketStore.Api.Tests.Unit
-    docker:
-      - image: microsoft/dotnet:2.2-sdk
-    steps:
-      - checkout:
-          path: ~/repo
-      - run: dotnet test --logger "trx;LogFileName=report.trx"
-      - run:
-          name: transform trx report to junit for CI
-          command: |
-            dotnet tool install -g trx2junit
-            ~/.dotnet/tools/trx2junit TestResults/report.trx
-          when: always
-      - store_test_results:
-          path: TestResults
-      - store_artifacts:
-          path: TestResults
-          destination: TestResults/TicketStore.Api.Tests.Unit
   test-integration:
     working_directory: ~/repo/Services
     machine:
@@ -159,23 +100,12 @@ workflows:
   version: 2
   build-test-deploy:
     jobs:
-      # - test-unit-client
-      # - test-unit-web:
-      #     requires:
-      #       - test-unit-client
-      # - test-unit-api
-      # - test-integration:
-      #     requires:
-      #       - test-unit-api
-      #       - test-unit-web
+      - test-integration:
       - deploy:
           filters:
             branches:
               only:
                 - master
           context: credentials
-          # requires:
-          #   - test-unit-client
-          #   - test-unit-web
-          #   - test-unit-api
-          #   - test-integration
+          requires:
+            - test-integration
