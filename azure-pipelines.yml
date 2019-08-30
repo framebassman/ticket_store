@@ -15,9 +15,9 @@ pr:
     - README.md
 
 stages:
-- stage: client_unit_tests
+- stage: Unit_Tests
   jobs:
-  - job: Build
+  - job: Client
     pool:
       vmImage: 'ubuntu-latest'
     continueOnError: true
@@ -45,16 +45,14 @@ stages:
         #buildConfiguration: # Optional
         #publishRunAttachments: true # Optional
 
-- stage: api_unit_tests
-  jobs:
-  - job: Build
+  - job: Api
     pool:
       vmImage: 'ubuntu-latest'
     continueOnError: true
     steps:
     - task: DotNetCoreInstaller@0
       inputs:
-        version: '2.2'
+        version: '2.1.300'
       displayName: 'Install Dotnet Core'
 
 # pool:
