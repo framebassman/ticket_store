@@ -61,7 +61,7 @@ stages:
     - task: PublishTestResults@2
       inputs:
         testResultsFormat: 'xUnit' # Options: JUnit, NUnit, VSTest, xUnit, cTest
-        testResultsFiles: 'TestResults/report.trx' 
+        testResultsFiles: 'report.trx' 
         searchFolder: '$(build.sourcesDirectory)/Services/TicketStore.Api.Tests.Unit' # Optional
         #mergeTestResults: false # Optional
         #failTaskOnFailedTests: false # Optional
