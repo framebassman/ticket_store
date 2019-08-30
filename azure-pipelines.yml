@@ -56,15 +56,19 @@ stages:
       displayName: 'Install Dotnet Core'
     - script: |
         dotnet test --logger "trx;LogFileName=report.trx"
-        ls -la
       workingDirectory: $(build.sourcesDirectory)/Services/TicketStore.Api.Tests.Unit
       displayName: 'dotnet test'
       env:
         DOTNET_CLI_TELEMETRY_OPTOUT: true
+    - script: |
+        dotnet tool install -g trx2junit
+        ~/.dotnet/tools/trx2junit TestResults/report.trx
+      workingDirectory: $(build.sourcesDirectory)/Services/TicketStore.Api.Tests.Unit
+      displayName: 'prepare JUnit report'
     - task: PublishTestResults@2
       inputs:
-        testResultsFormat: 'xUnit' # Options: JUnit, NUnit, VSTest, xUnit, cTest
-        testResultsFiles: 'TestResults/report.trx' 
+        testResultsFormat: 'JUnit' # Options: JUnit, NUnit, VSTest, xUnit, cTest
+        testResultsFiles: 'TestResults/report.xml' 
         searchFolder: '$(build.sourcesDirectory)/Services/TicketStore.Api.Tests.Unit' # Optional
         #mergeTestResults: false # Optional
         #failTaskOnFailedTests: false # Optional
