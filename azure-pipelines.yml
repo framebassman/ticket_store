@@ -59,10 +59,12 @@ stages:
         ls -la
       workingDirectory: $(build.sourcesDirectory)/Services/TicketStore.Api.Tests.Unit
       displayName: 'dotnet test'
+      env:
+        DOTNET_CLI_TELEMETRY_OPTOUT: true
     - task: PublishTestResults@2
       inputs:
         testResultsFormat: 'xUnit' # Options: JUnit, NUnit, VSTest, xUnit, cTest
-        testResultsFiles: 'report.trx' 
+        testResultsFiles: 'TestResults/report.trx' 
         searchFolder: '$(build.sourcesDirectory)/Services/TicketStore.Api.Tests.Unit' # Optional
         #mergeTestResults: false # Optional
         #failTaskOnFailedTests: false # Optional
