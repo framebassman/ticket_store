@@ -45,6 +45,18 @@ stages:
         #buildConfiguration: # Optional
         #publishRunAttachments: true # Optional
 
+- stage: api_unit_tests
+  jobs:
+  - job: Build
+    pool:
+      vmImage: 'ubuntu-latest'
+    continueOnError: true
+    steps:
+    - task: DotNetCoreInstaller@0
+      inputs:
+        version: '2.2'
+      displayName: 'Install Dotnet Core'
+
 # pool:
 #   vmImage: 'ubuntu-latest'
 
