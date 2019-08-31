@@ -18,7 +18,7 @@ namespace TicketStore.Api.Tests.Unit.ControllersTests.Verify
         }
 
         [Fact]
-        public void TicketIsNotFoundInDatabase()
+        public void TicketIsNotFoundInDatabase_ReturnsBadRequest()
         {
             // Arrange
             var barcode = new Barcode {
@@ -35,7 +35,7 @@ namespace TicketStore.Api.Tests.Unit.ControllersTests.Verify
         }
 
         [Fact]
-        public void TicketHasExpired()
+        public void TicketHasExpired_ReturnsBadRequest()
         {
             // Arrange
             var barcode = new Barcode {
@@ -52,7 +52,7 @@ namespace TicketStore.Api.Tests.Unit.ControllersTests.Verify
         }
 
         [Fact]
-        public void TicketIs()
+        public void TicketDoesntMatchAnyConcert_ReturnsBadRequest()
         {
             // Arrange
             var barcode = new Barcode {
@@ -65,11 +65,11 @@ namespace TicketStore.Api.Tests.Unit.ControllersTests.Verify
             // Assert
             Assert.IsType<BadRequestObjectResult>(result);
             var json = JsonConvert.SerializeObject((result as BadRequestObjectResult).Value);
-            Assert.Equal("{\"message\":\"OK\"}", json);
+            Assert.Equal("{\"message\":\"no concert found for this ticket\"}", json);
         }
 
         [Fact]
-        public void TicketIsValid()
+        public void TicketIsValid_ReturnsOk()
         {
             // Arrange
             var barcode = new Barcode {

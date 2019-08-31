@@ -56,8 +56,8 @@ namespace TicketStore.Api.Controllers
             var concert = GetConcert(ticket);
             if (concert == null)
             {
-                _log.LogInformation("Concert has been already expired");
-                return new BadRequestObjectResult(new ConcertUpcomingAnswer());
+                _log.LogInformation("Ticket doesn't match any concert");
+                return new BadRequestObjectResult(new NoConcertFoundAnswer());
             }
 
             _log.LogDebug("Prepare to updating ticket to expired");
@@ -68,11 +68,11 @@ namespace TicketStore.Api.Controllers
             return new OkObjectResult(new Answer("OK"));
         }
 
-        public Event GetConcert(Ticket ticket)
+        private Event GetConcert(Ticket ticket)
         {
             var concert = _db.Events
                 .Where(e => e.Id == ticket.EventId)
-                .ToList().FirstOrDefault();
+                .FirstOrDefault();
 
             return concert;
         }
