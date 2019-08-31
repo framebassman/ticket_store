@@ -1,8 +1,14 @@
-#interactive > video {
-  /* margin-left: auto;
-  margin-right: auto;
-  display: block; */
-  width:100%;
-  max-width:300px;
-  height:auto;
+#interactive.viewport {
+  position: relative;
+}
+
+#interactive.viewport > canvas, #interactive.viewport > video {
+  max-width: 100%;
+  width: 100%;
+}
+
+canvas.drawing, canvas.drawingBuffer {
+  position: absolute;
+  left: 0;
+  top: 0;
 }

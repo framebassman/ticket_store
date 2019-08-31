@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import * as Quagga from 'quagga';
+import './Scanner.css';
 
 export class Scanner extends Component<any, any> {
   constructor(props: any) {
@@ -13,7 +14,7 @@ export class Scanner extends Component<any, any> {
         type : "LiveStream",
         constraints: {
           width: 640,
-          height: 480,
+          height: 640,
           facingMode: "environment", // or user
         }
       },

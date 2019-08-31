@@ -9,7 +9,7 @@ namespace TicketStore.Api.Tests.Tests.DevelopmentData
     public class DevelopmentData
     {
         private readonly Merchant _merchant;
-        private readonly Event _concert;
+        private readonly List<Event> _concerts;
         private readonly List<Ticket> _tickets;
         private readonly Payment _payment;
         private Boolean _areMerchantsExist;
@@ -24,14 +24,20 @@ namespace TicketStore.Api.Tests.Tests.DevelopmentData
                 YandexMoneyAccount = "987654321",
                 Place = "Cherdak",
             };
-            _concert = new Event
-            {
-                Artist = "Muse",
-                Roubles = 100,
-                PressRelease = "Nice band",
-                Time = new DateTime(2019, 7, 9, 17, 0, 0, DateTimeKind.Utc),
-                PosterUrl = "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png",
-                Merchant = _merchant
+            _concerts = new List<Event> {
+                CreateEvent("Muse"),
+                CreateEvent("Blur"),
+                CreateEvent("The Queen"),
+                CreateEvent("The Beatles"),
+                CreateEvent("The Cellophane Heads"),
+                CreateEvent("Rasmus"),
+                CreateEvent("KS"),
+                CreateEvent("O2"),
+                CreateEvent("Hoobstank"),
+                CreateEvent("Gorillazz"),
+                CreateEvent("Safe"),
+                CreateEvent("Weezer"),
+                CreateEvent("NRKTK"),
             };
             _tickets = new List<Ticket>
             {
@@ -41,7 +47,7 @@ namespace TicketStore.Api.Tests.Tests.DevelopmentData
                     Number = "1111122222",
                     Expired = false,
                     Roubles = 100,
-                    Event = _concert
+                    Event = _concerts[0]
                 },
                 new Ticket
                 {
@@ -49,7 +55,7 @@ namespace TicketStore.Api.Tests.Tests.DevelopmentData
                     Number = "3333344444",
                     Expired = true,
                     Roubles = 100,
-                    Event = _concert
+                    Event = _concerts[0]
                 }
             };
             _payment = new Payment
@@ -75,10 +81,24 @@ namespace TicketStore.Api.Tests.Tests.DevelopmentData
         public void InsertTo(ApplicationContext db)
         {
             db.Merchants.Add(_merchant);
-            db.Events.Add(_concert);
+            db.Events.AddRange(_concerts);
             db.Tickets.AddRange(_tickets);
             db.Payments.Add(_payment);
             db.SaveChanges();
+        }
+
+        private Event CreateEvent(string artist)
+        {
+            var newEvent = new Event
+            {
+                Artist = artist,
+                Roubles = 200,
+                PressRelease = "Not Bad",
+                Time = new DateTime(2019, 7, 9, 17, 0, 0, DateTimeKind.Utc),
+                PosterUrl = "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png",
+                Merchant = _merchant
+            };
+            return newEvent;
         }
 
         private Boolean MerchantsAreExist(ApplicationContext db)
@@ -91,7 +111,7 @@ namespace TicketStore.Api.Tests.Tests.DevelopmentData
         private Boolean EventsAreExist(ApplicationContext db)
         {
             return db.Events.Any(e =>
-                e.Artist == _concert.Artist
+                e.Artist == _concerts[0].Artist
             );
         }
 
