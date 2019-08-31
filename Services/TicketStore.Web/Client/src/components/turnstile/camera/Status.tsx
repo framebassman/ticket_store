@@ -7,6 +7,7 @@ import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import green from '@material-ui/core/colors/green';
 import red from '@material-ui/core/colors/red';
 import yellow from '@material-ui/core/colors/yellow';
+
 import './Status.css';
 
 const waitableTheme = createMuiTheme({
@@ -21,18 +22,22 @@ const nonWaitableTheme = createMuiTheme({
   }
 });
 
-const Description = (props: any) => {
+const Description = ({ message }: { message: string }) => {
   return (
-    <span className="description">{props.message}</span>
+    <span className="description">{message}</span>
   )
 }
 
-export const Status = (props: any) => {
-  const { className, pass, wait } = props;
+type Props = {
+  pass: boolean,
+  wait: boolean
+};
+
+export const Status = ({ pass, wait }: Props) => {
   if (wait) {
     return (
       <MuiThemeProvider theme={waitableTheme}>
-        <div className={className}>
+        <div>
           {pass
             ? (
               <div>
@@ -53,7 +58,7 @@ export const Status = (props: any) => {
   } else {
     return (
       <MuiThemeProvider theme={nonWaitableTheme}>
-        <div className={className}>
+        <div>
           <Fab color="primary"><ScannerIcon /></Fab>
           <Description message="Готов сканировать!"/>
         </div>

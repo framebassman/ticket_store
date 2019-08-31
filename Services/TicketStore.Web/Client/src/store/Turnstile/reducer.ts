@@ -10,9 +10,8 @@ const initialState: TurnstileState = {
     isRequested: false
 };
 
-export const reducer = (state: any, action: any): TurnstileState => {
-    state = state || initialState;
-    switch(action.type) {
+export const reducer = (state: TurnstileState = initialState, action: any): TurnstileState => {
+    switch (action.type) {
         case verifyType : {
             console.log('before verifyType in reducer');
             const message = action.payload.data.message;
