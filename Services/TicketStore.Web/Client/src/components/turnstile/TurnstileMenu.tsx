@@ -34,27 +34,28 @@ export const TurnstileMenu = ({ location, history }) => {
         <Route path={navigation.manual.path} component={TurnstileManual} />
       </Box>
 
-      <BottomNavigation
-        className="turnstile__navbar"
-        value={value}
-        onChange={(_, newValue) => {
-          const item = navigationList.find(navItem => newValue === navItem.index);
-          if (item && item.path) {
-            history.push(item.path);
-            setValue(newValue);
-          }
-        }}
-        showLabels
-      >
-        <BottomNavigationAction
-          label="Скан Билета"
-          icon={<CameraIcon />}
-        />
-        <BottomNavigationAction
-          label="Ручной Ввод"
-          icon={<TouchAppIcon />}
-        />
-      </BottomNavigation>
+      <Box className="turnstile__navbar">
+        <BottomNavigation
+          value={value}
+          onChange={(_, newValue) => {
+            const item = navigationList.find(navItem => newValue === navItem.index);
+            if (item && item.path) {
+              history.push(item.path);
+              setValue(newValue);
+            }
+          }}
+          showLabels
+        >
+          <BottomNavigationAction
+            label="Скан Билета"
+            icon={<CameraIcon />}
+          />
+          <BottomNavigationAction
+            label="Ручной Ввод"
+            icon={<TouchAppIcon />}
+          />
+        </BottomNavigation>
+      </Box>
     </Box>
   )
 }

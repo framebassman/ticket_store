@@ -1,14 +1,18 @@
 .turnstile__parent {
-  height: 100vh;
+  height: 100%;
   width: 100vw;
+  display: flex;
+  flex-direction: column;
 }
  
 .turnstile__child {
-  height: calc(100vh - 56px);
+  flex: 1;
   display: flex;
   justify-content: center;
 }
 
 .turnstile__navbar {
-  height: 56px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
 }

@@ -28,7 +28,7 @@ export class CameraTurnstile extends Component<any> {
   render() {
     const { pass, wait } = this.props;
     return (
-      <div className="turnstile">
+      <div className="camera-container">
         <Status pass={pass} wait={wait}/>
         <Scanner onDetected={this._onDetected}/>
       </div>

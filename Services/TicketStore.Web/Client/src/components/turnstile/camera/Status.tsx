@@ -37,7 +37,7 @@ export const Status = ({ pass, wait }: Props) => {
   if (wait) {
     return (
       <MuiThemeProvider theme={waitableTheme}>
-        <div>
+        <div className="status-container">
           {pass
             ? (
               <div>
@@ -58,7 +58,7 @@ export const Status = ({ pass, wait }: Props) => {
   } else {
     return (
       <MuiThemeProvider theme={nonWaitableTheme}>
-        <div>
+        <div className="status-container">
           <Fab color="primary"><ScannerIcon /></Fab>
           <Description message="Готов сканировать!"/>
         </div>
