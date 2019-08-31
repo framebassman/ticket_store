@@ -5,6 +5,7 @@ using Microsoft.Extensions.Logging;
 using TicketStore.Api.Model.Http;
 using TicketStore.Api.Model.Validation;
 using TicketStore.Data;
+using TicketStore.Data.Model;
 
 namespace TicketStore.Api.Controllers
 {
@@ -52,12 +53,28 @@ namespace TicketStore.Api.Controllers
                 return new BadRequestObjectResult(new AlreadyVerifiedAnswer());
             }
 
+            var concert = GetConcert(ticket);
+            if (concert == null)
+            {
+                _log.LogInformation("Concert has been already expired");
+                return new BadRequestObjectResult(new ConcertUpcomingAnswer());
+            }
+
             _log.LogDebug("Prepare to updating ticket to expired");
             ticket.Expired = true;
             _db.Tickets.Update(ticket);
             _db.SaveChanges();
             _log.LogDebug("Update ticket to expired");
             return new OkObjectResult(new Answer("OK"));
+        }
+
+        public Event GetConcert(Ticket ticket)
+        {
+            var concert = _db.Events
+                .Where(e => e.Id == ticket.EventId)
+                .ToList().FirstOrDefault();
+
+            return concert;
         }
     }
 }

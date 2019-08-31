@@ -7,8 +7,6 @@ namespace TicketStore.Api.Tests.Unit.ControllersTests.Payments
 {
     public class DateTimeTests : PaymentsControllerBaseTest
     {
-        private Merchant _merchant;
-        private Event _concert;
         private Char _longDash;
         private String _dateInString;
         public DateTimeTests() : base("date_time")
@@ -48,16 +46,6 @@ namespace TicketStore.Api.Tests.Unit.ControllersTests.Payments
             Assert.True(EmailService.IsExist("test@test.test"));
             var pdf = EmailService.Pdf("test@test.test");
             Assert.Equal("Пятница, 4 октября 2019 г. 19:00", pdf.Time());
-        }
-
-        private void SeedTestData(DateTime date)
-        {
-            var merchant = Provider.Merchants().First();
-            var concert = Provider.Events(merchant).WithDate(date);
-            _merchant = Db.Merchants.Add(merchant).Entity;
-            concert.Merchant = _merchant;
-            _concert = Db.Events.Add(concert).Entity;
-            Db.SaveChanges();
         }
     }
 }

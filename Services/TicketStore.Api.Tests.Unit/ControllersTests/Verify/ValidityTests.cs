@@ -1,19 +1,13 @@
 using System;
-using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using TicketStore.Api.Model.Validation;
-using TicketStore.Data.Model;
 using Xunit;
 
 namespace TicketStore.Api.Tests.Unit.ControllersTests.Verify
 {
     public class ValidityTests : VerifyControllerBaseTest
     {
-        private Merchant _merchant;
-        private Event _concert;
-        private List<Ticket> _tickets;
-        private Payment _payment;
         private String _dateInString;
         public ValidityTests() : base("validity")
         {
@@ -58,6 +52,23 @@ namespace TicketStore.Api.Tests.Unit.ControllersTests.Verify
         }
 
         [Fact]
+        public void TicketIs()
+        {
+            // Arrange
+            var barcode = new Barcode {
+                code = "5555566666"
+            };
+            
+            // Act
+            var result = Controller.Post(barcode);
+            
+            // Assert
+            Assert.IsType<BadRequestObjectResult>(result);
+            var json = JsonConvert.SerializeObject((result as BadRequestObjectResult).Value);
+            Assert.Equal("{\"message\":\"OK\"}", json);
+        }
+
+        [Fact]
         public void TicketIsValid()
         {
             // Arrange
@@ -72,17 +83,6 @@ namespace TicketStore.Api.Tests.Unit.ControllersTests.Verify
             Assert.IsType<OkObjectResult>(result);
             var json = JsonConvert.SerializeObject((result as OkObjectResult).Value);
             Assert.Equal("{\"message\":\"OK\"}", json);
-        }
-
-        private void SeedTestData(DateTime date)
-        {
-            _tickets = Provider.Tickets().List();
-            _payment = Provider.Payments(_tickets).First();
-
-            Db.Tickets.AddRange(_tickets);
-            Db.Payments.Add(_payment);
-
-            Db.SaveChanges();
         }
     }
 }

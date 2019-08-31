@@ -21,7 +21,8 @@ namespace TicketStore.Api.Tests.Unit.TestData
                 PressRelease = "Test press release",
                 Time = date,
                 PosterUrl = "https://ya.ru/logo.png",
-                MerchantId = _merchant.Id
+                MerchantId = _merchant.Id,
+                Merchant = _merchant
             };
         }
     }
