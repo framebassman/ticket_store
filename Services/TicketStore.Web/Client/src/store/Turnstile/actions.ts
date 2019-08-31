@@ -1,8 +1,9 @@
 import axios from 'axios';
 import { verifyUrl } from './urls/prod';
 
-export const verifyType = 'VERIFY';
-export const resetType = 'RESET';
+export const waitingType = 'TURNSTILE_WAITING';
+export const verifyType = 'TURNSTILE_VERIFY';
+export const resetType = 'TURNSTILE_RESET';
 
 async function transfersFromBack(barcode: string) {
   try {
@@ -19,15 +20,15 @@ async function transfersFromBack(barcode: string) {
 
 export const actionCreators = {
   verify: (barcode: string) => async (dispatch: any) => {
+    dispatch({ type: waitingType });
+  
     const response = await transfersFromBack(barcode);
     dispatch({
       type: verifyType,
       payload: response
     });
     setTimeout(() => {
-      dispatch({
-        type: resetType
-      })
+      dispatch({ type: resetType })
     }, 2000);
   }
 };
