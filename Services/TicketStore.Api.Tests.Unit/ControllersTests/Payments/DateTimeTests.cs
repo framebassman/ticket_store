@@ -1,12 +1,5 @@
 using System;
-using System.Linq;
-using System.Text;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using TicketStore.Api.Controllers;
-using TicketStore.Api.Model.Email;
-using TicketStore.Api.Tests.Unit.Stubs;
-using TicketStore.Data;
 using TicketStore.Data.Model;
 using Xunit;
 
