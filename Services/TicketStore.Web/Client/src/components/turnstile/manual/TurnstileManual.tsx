@@ -17,6 +17,7 @@ const TurnstileManual = ({ verify, pass, wait }) => {
       <Status pass={pass} wait={wait}/>
       <Box>
         <TextField
+          id="ticket_number"
           label="Номер Билета"
           onChange={(e) => setTicketNumber(e.target.value)}
           margin="normal"
@@ -28,6 +29,7 @@ const TurnstileManual = ({ verify, pass, wait }) => {
       </Box>
       <Box>
         <Button
+          id="verify"
           variant="contained"
           color="primary"
           size="large"
