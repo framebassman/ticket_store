@@ -15,29 +15,32 @@ const TurnstileManual = ({ verify, pass, wait }) => {
   return (
     <Container className="turnstile__manual" fixed>
       <Status pass={pass} wait={wait}/>
-      <Box>
-        <TextField
-          id="ticket_number"
-          label="Номер Билета"
-          onChange={(e) => setTicketNumber(e.target.value)}
-          margin="normal"
-          variant="outlined"
-          inputProps={{
-            type: 'number'
-          }}
-        />
-      </Box>
-      <Box>
-        <Button
-          id="verify"
-          variant="contained"
-          color="primary"
-          size="large"
-          onClick={() => verify(ticketNumber)}
-        >
-          Проверить Билет
-        </Button>
-      </Box>
+      <form action="javascript:void(0);">
+        <Box>
+          <TextField
+            id="ticket_number"
+            label="Номер Билета"
+            onChange={(e) => setTicketNumber(e.target.value)}
+            margin="normal"
+            variant="outlined"
+            inputProps={{
+              type: 'number'
+            }}
+          />
+        </Box>
+        <Box>
+          <Button
+            id="verify"
+            variant="contained"
+            color="primary"
+            size="large"
+            type="submit"
+            onClick={() => verify(ticketNumber)}
+          >
+            Проверить Билет
+          </Button>
+        </Box>
+      </form>
     </Container>
   )
 };

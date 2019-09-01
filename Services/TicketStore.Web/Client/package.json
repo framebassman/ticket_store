@@ -10,7 +10,10 @@
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": "react-app",
+    "rules": {
+      "no-script-url": 0
+    }
   },
   "browserslist": [
     ">0.2%",
