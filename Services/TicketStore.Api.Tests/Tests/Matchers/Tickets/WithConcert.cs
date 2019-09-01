@@ -1,8 +1,6 @@
 using System;
-using System.Globalization;
 using Newtonsoft.Json;
-using TicketStore.Api.Model.Http;
-using TicketStore.Api.Tests.Model.Db;
+using TicketStore.Api.Tests.Model.Services.Verify.Answers;
 
 namespace TicketStore.Api.Tests.Tests.Matchers.Tickets
 {

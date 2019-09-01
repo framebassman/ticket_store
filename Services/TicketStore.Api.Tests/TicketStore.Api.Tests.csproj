@@ -18,12 +18,4 @@
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Model\Services\Payment" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\TicketStore.Api\TicketStore.Api.csproj" />
-  </ItemGroup>
-
 </Project>

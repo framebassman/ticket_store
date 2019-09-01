@@ -1,5 +1,4 @@
 using System;
-using TicketStore.Api.Model.Http;
 
 namespace TicketStore.Api.Tests.Tests.Matchers.Tickets
 {

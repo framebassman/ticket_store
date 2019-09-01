@@ -1,7 +1,7 @@
 using System;
 using Newtonsoft.Json;
 using NHamcrest.Core;
-using TicketStore.Api.Model.Http;
+using TicketStore.Api.Tests.Model.Services.Verify.Answers;
 
 namespace TicketStore.Api.Tests.Tests.Matchers.Tickets
 {
