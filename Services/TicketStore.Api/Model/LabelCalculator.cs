@@ -18,7 +18,7 @@ namespace TicketStore.Api.Model
         {
             var artist = _concert.Artist;
             var time = _concert.Time;
-            return $"{artist} ${_longDash} {time.ToString("d MMMM yyyy", CultureInfo.CreateSpecificCulture("ru-RU"))}";
+            return $"{artist} {_longDash} {time.ToString("d MMMM yyyy", CultureInfo.CreateSpecificCulture("ru-RU"))}";
         }
     }
 }
