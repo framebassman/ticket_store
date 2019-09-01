@@ -39,7 +39,7 @@ namespace TicketStore.Api.Tests.Tests.Verification
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
             NHamcrest.XUnit.Assert.That(
                 response.Content, 
-                new Used(
+                new NotUsed(
                     new WithConcert("First Test Artist — 9 июля 2019")
                 )
             );

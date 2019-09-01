@@ -20,7 +20,7 @@ namespace TicketStore.Api.Tests.Tests.Matchers.Tickets
             try
             {
                 Actual = JsonConvert.DeserializeObject<VerifiedAnswer>(json);
-                return Actual.message == "OK";
+                return Actual.message == "OK" && TicketMatcher.Matches(json);
             }
             catch (JsonReaderException e)
             {
