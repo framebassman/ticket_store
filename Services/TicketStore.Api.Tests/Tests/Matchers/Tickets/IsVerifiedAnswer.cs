@@ -5,14 +5,16 @@ using TicketStore.Api.Model.Http;
 
 namespace TicketStore.Api.Tests.Tests.Matchers.Tickets
 {
-    public class IsTicketStatus : Matcher<String>
+    public abstract class IsVerifiedAnswer : Matcher<String>
     {
+        protected VerifiedAnswer Actual;
+        
         public override bool Matches(String json)
         {
             try
             {
-                JsonConvert.DeserializeObject<VerifiedAnswer>(json);
-                return true;
+                Actual = JsonConvert.DeserializeObject<VerifiedAnswer>(json);
+                return Actual.message == "OK";
             }
             catch (JsonReaderException e)
             {

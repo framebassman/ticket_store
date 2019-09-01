@@ -37,7 +37,7 @@ namespace TicketStore.Api.Tests.Tests.Verification
 
             // Assert
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
-            NHamcrest.XUnit.Assert.That(response.Content, new IsTicketStatus());
+            NHamcrest.XUnit.Assert.That(response.Content, new Used());
 
             AssertWithTimeout.That("Ticket should be expired",
                 () => {
