@@ -50,7 +50,7 @@ export const Status = ({ isTicketScanned, isTicketFound, scannedTicket }: Props)
   if (!isTicketScanned) {
     return (
       <Container>
-        <Fab><ScannerIcon /></Fab>
+        <Fab size="small"><ScannerIcon /></Fab>
         <Description message="Готов к проверке!"/>
         <TicketInfo label="" />
       </Container>
@@ -62,7 +62,7 @@ export const Status = ({ isTicketScanned, isTicketFound, scannedTicket }: Props)
     if (!used) {
       return (
         <Container>
-          <Fab color="primary"><CheckIcon /></Fab>
+          <Fab color="primary" size="small"><CheckIcon /></Fab>
           <Description message="Билет Действителен" />
           <TicketInfo label={concertLabel}/>
         </Container>
@@ -72,7 +72,7 @@ export const Status = ({ isTicketScanned, isTicketFound, scannedTicket }: Props)
     if (used) {
       return (
         <Container>
-          <Fab color="secondary"><CancelIcon /></Fab>
+          <Fab color="secondary" size="small"><CancelIcon /></Fab>
           <Description message="Билет Использован"/>
           <TicketInfo label={concertLabel} />
         </Container>
@@ -82,7 +82,7 @@ export const Status = ({ isTicketScanned, isTicketFound, scannedTicket }: Props)
 
   return (
     <Container>
-      <Fab color="secondary"><CancelIcon /></Fab>
+      <Fab color="secondary" size="small"><CancelIcon /></Fab>
       <Description message="Билет не найден"/>
       <TicketInfo label="" />
     </Container>
