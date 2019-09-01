@@ -23,18 +23,10 @@ const Description = ({ message }: { message: string }) => {
   )
 }
 
-const ConcertLabel = ({ label }: { label: string }) => {
+const TicketInfo = ({ label }: { label: string, status?: string }) => {
   return (
-    <div className="concert-label">
-        <b>Событие:</b> {label}
-    </div>
-  )
-}
-
-const TicketStatus = ({ status }: { status: string }) => {
-  return (
-    <div className="ticket-status">
-        <b>Статус билета:</b> {status}
+    <div className="ticket-info">
+        <span><b>Событие:</b> {label}</span>
     </div>
   )
 }
@@ -54,14 +46,12 @@ type Props = {
 };
 
 export const Status = ({ pass, wait, scannedTicket }: Props) => {
-  console.log(scannedTicket);
-
   if (!wait) {
     return (
       <Container>
         <Fab><ScannerIcon /></Fab>
-        <Description message="Готов сканировать!"/>
-        <ConcertLabel label={"asd"}/>
+        <Description message="Готов к проверке!"/>
+        <TicketInfo label="" />
       </Container>
     )
   }
@@ -72,9 +62,8 @@ export const Status = ({ pass, wait, scannedTicket }: Props) => {
       return (
         <Container>
           <Fab color="primary"><CheckIcon /></Fab>
-          <Description message="Успешно!" />
-          <ConcertLabel label={concertLabel}/>
-          <TicketStatus status="Действителен" />
+          <Description message="Билет Действителен" />
+          <TicketInfo label={concertLabel}/>
         </Container>
       )
     }
@@ -83,9 +72,8 @@ export const Status = ({ pass, wait, scannedTicket }: Props) => {
       return (
         <Container>
           <Fab color="secondary"><CancelIcon /></Fab>
-          <Description message="Ошибочка вышла!"/>
-          <ConcertLabel label={concertLabel}/>
-          <TicketStatus status="Использован" />
+          <Description message="Билет Использован"/>
+          <TicketInfo label={concertLabel} />
         </Container>
       )
     }
@@ -94,7 +82,8 @@ export const Status = ({ pass, wait, scannedTicket }: Props) => {
   return (
     <Container>
       <Fab color="secondary"><CancelIcon /></Fab>
-      <Description message="Ошибочка вышла!"/>
+      <Description message="Билет не найден"/>
+      <TicketInfo label="" />
     </Container>
   )
 }
