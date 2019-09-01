@@ -26,7 +26,7 @@ const Description = ({ message }: { message: string }) => {
   return (
     <span className="description">{message}</span>
   )
-}
+};
 
 type Props = {
   pass: boolean,
@@ -65,4 +65,4 @@ export const Status = ({ pass, wait }: Props) => {
       </MuiThemeProvider>
     )
   }
-}
+};

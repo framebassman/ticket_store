@@ -38,7 +38,7 @@ const TurnstileManual = ({ verify, pass, wait }) => {
       </Box>
     </Container>
   )
-}
+};
 
 export default connect(
   (state: any) => state.turnstile,
