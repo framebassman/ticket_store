@@ -7,13 +7,17 @@ export const resetType = 'TURNSTILE_RESET';
 
 async function transfersFromBack(barcode: string) {
   try {
-    return await axios.post(
+    const result = await axios.post(
       verifyUrl,
       { code: barcode },
       { headers: { Authorization: 'Bearer pkR9vfZ9QdER53mf'}}
     );
+
+    console.log(result);
+    return result;
   }
   catch (e) {
+    console.log(e.response);
     return e.response;
   }
 }
@@ -22,10 +26,11 @@ export const actionCreators = {
   verify: (barcode: string) => async (dispatch: any) => {
     dispatch({ type: waitingType });
   
-    const response = await transfersFromBack(barcode);
+    const { data } = await transfersFromBack(barcode);
+
     dispatch({
       type: verifyType,
-      payload: response
+      payload: data
     });
     setTimeout(() => {
       dispatch({ type: resetType })

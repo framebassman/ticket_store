@@ -9,12 +9,12 @@ import { actionCreators } from '../../../store/Turnstile/actions';
 import { Status } from '../camera/Status';
 import './TurnstileManual.css';
 
-const TurnstileManual = ({ verify, pass, wait }) => {
+const TurnstileManual = ({ verify, pass, wait, scannedTicket }) => {
   const [ticketNumber, setTicketNumber] = useState('');
 
   return (
     <Container className="turnstile__manual" fixed>
-      <Status pass={pass} wait={wait}/>
+      <Status pass={pass} wait={wait} scannedTicket={scannedTicket} />
       <Box>
         <TextField
           label="Номер Билета"

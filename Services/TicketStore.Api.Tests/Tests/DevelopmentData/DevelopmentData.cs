@@ -41,26 +41,21 @@ namespace TicketStore.Api.Tests.Tests.DevelopmentData
             };
             _tickets = new List<Ticket>
             {
-                new Ticket
-                {
-                    CreatedAt = new DateTime(2019, 7, 9, 16, 0, 0, DateTimeKind.Utc),
-                    Number = "1111122222",
-                    Expired = false,
-                    Roubles = 100,
-                    Event = _concerts[0]
-                },
-                new Ticket
-                {
-                    CreatedAt = new DateTime(2019, 7, 9, 16, 10, 0, DateTimeKind.Utc),
-                    Number = "3333344444",
-                    Expired = true,
-                    Roubles = 100,
-                    Event = _concerts[0]
-                }
+                CreateTicket("000", false),
+                CreateTicket("111", false),
+                CreateTicket("222", false),
+                CreateTicket("333", false),
+                CreateTicket("444", false),
+                CreateTicket("555", false),
+                CreateTicket("666", false),
+                CreateTicket("666", false),
+                CreateTicket("777", false),
+                CreateTicket("888", false),
+                CreateTicket("999", false),
             };
             _payment = new Payment
             {
-                Amount = 200,
+                Amount = 1000,
                 Email = "test@test.test",
                 Tickets = _tickets
             };
@@ -99,6 +94,19 @@ namespace TicketStore.Api.Tests.Tests.DevelopmentData
                 Merchant = _merchant
             };
             return newEvent;
+        }
+
+        private Ticket CreateTicket(String number, Boolean expired)
+        {
+            var newTicket = new Ticket
+            {
+                CreatedAt = new DateTime(2019, 7, 9, 16, 10, 0, DateTimeKind.Utc),
+                Number = number,
+                Expired = expired,
+                Roubles = 100,
+                Event = _concerts[0]
+            };
+            return newTicket;
         }
 
         private Boolean MerchantsAreExist(ApplicationContext db)

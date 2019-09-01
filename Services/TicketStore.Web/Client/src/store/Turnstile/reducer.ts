@@ -11,19 +11,31 @@ const initialState: TurnstileState = {
 };
 
 export const reducer = (state: TurnstileState = initialState, action: any): TurnstileState => {
-    switch (action.type) {
+    const { type, payload } = action;
+
+    switch (type) {
         case verifyType : {
             console.log('before verifyType in reducer');
-            const message = action.payload.data.message;
+            const { message } = payload;
 
             console.log("message from backend: ", message);
             const pass = message === 'OK';
 
-            return { ...state, pass, wait: true };
+            if (pass) {
+                const { concertLabel, used } = payload;
+                return {
+                    ...state,
+                    pass,
+                    scannedTicket: { concertLabel, used },
+                    wait: true
+                };
+            } else {
+                return { ...state, pass, scannedTicket: undefined, wait: true };
+            }
         }
         case resetType: {
             console.log('before resetType in reducer');
-            return { ...state, wait: false };
+            return { ...state, scannedTicket: undefined, wait: false };
         }
     }
 

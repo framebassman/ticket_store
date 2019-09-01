@@ -35,23 +35,6 @@ namespace TicketStore.Api.Tests.Unit.ControllersTests.Verify
         }
 
         [Fact]
-        public void TicketHasExpired_ReturnsBadRequest()
-        {
-            // Arrange
-            var barcode = new Barcode {
-                code = "3333344444"
-            };
-            
-            // Act
-            var result = Controller.Post(barcode);
-            
-            // Assert
-            Assert.IsType<BadRequestObjectResult>(result);
-            var json = JsonConvert.SerializeObject((result as BadRequestObjectResult).Value);
-            Assert.Equal("{\"message\":\"ticket has already verified\"}", json);
-        }
-
-        [Fact]
         public void TicketDoesntMatchAnyConcert_ReturnsBadRequest()
         {
             // Arrange
@@ -69,6 +52,23 @@ namespace TicketStore.Api.Tests.Unit.ControllersTests.Verify
         }
 
         [Fact]
+        public void TicketHasExpired_ReturnsOk()
+        {
+            // Arrange
+            var barcode = new Barcode {
+                code = "3333344444"
+            };
+            
+            // Act
+            var result = Controller.Post(barcode);
+            
+            // Assert
+            Assert.IsType<OkObjectResult>(result);
+            var json = JsonConvert.SerializeObject((result as OkObjectResult).Value);
+            Assert.Equal("{\"message\":\"OK\",\"concertLabel\":\"Test artist — 4 октября 2019\",\"used\":true}", json);
+        }
+
+        [Fact]
         public void TicketIsValid_ReturnsOk()
         {
             // Arrange
@@ -82,7 +82,7 @@ namespace TicketStore.Api.Tests.Unit.ControllersTests.Verify
             // Assert
             Assert.IsType<OkObjectResult>(result);
             var json = JsonConvert.SerializeObject((result as OkObjectResult).Value);
-            Assert.Equal("{\"message\":\"OK\"}", json);
+            Assert.Equal("{\"message\":\"OK\",\"concertLabel\":\"Test artist — 4 октября 2019\",\"used\":false}", json);
         }
     }
 }
