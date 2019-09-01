@@ -8,6 +8,12 @@ namespace TicketStore.Api.Tests.Tests.Matchers.Tickets
     public abstract class IsVerifiedAnswer : Matcher<String>
     {
         protected VerifiedAnswer Actual;
+        protected TicketMatcher TicketMatcher;
+
+        public IsVerifiedAnswer(TicketMatcher ticketMatcher)
+        {
+            TicketMatcher = ticketMatcher;
+        }
         
         public override bool Matches(String json)
         {
