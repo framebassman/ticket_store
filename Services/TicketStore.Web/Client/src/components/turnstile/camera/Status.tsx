@@ -41,13 +41,13 @@ const Container = ({ children }) => (
 )
 
 type Props = {
-  ticketFound?: boolean,
-  wait?: boolean,
+  isTicketFound?: boolean,
+  isTicketScanned?: boolean,
   scannedTicket?: ScannedTicket,
 };
 
-export const Status = ({ ticketFound, wait, scannedTicket }: Props) => {
-  if (!wait) {
+export const Status = ({ isTicketScanned, isTicketFound, scannedTicket }: Props) => {
+  if (!isTicketScanned) {
     return (
       <Container>
         <Fab><ScannerIcon /></Fab>
@@ -57,9 +57,9 @@ export const Status = ({ ticketFound, wait, scannedTicket }: Props) => {
     )
   }
 
-  if (scannedTicket) {
+  if (isTicketFound && scannedTicket) {
     const { used, concertLabel } = scannedTicket;
-    if (ticketFound && !used) {
+    if (!used) {
       return (
         <Container>
           <Fab color="primary"><CheckIcon /></Fab>
@@ -69,7 +69,7 @@ export const Status = ({ ticketFound, wait, scannedTicket }: Props) => {
       )
     }
   
-    if (ticketFound && used) {
+    if (used) {
       return (
         <Container>
           <Fab color="secondary"><CancelIcon /></Fab>

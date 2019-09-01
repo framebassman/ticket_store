@@ -7,6 +7,6 @@ export interface ScannedTicket {
 
 export interface TurnstileState {
   scannedTicket?: ScannedTicket,
-  ticketFound?: boolean,
-  wait?: boolean,
+  isTicketScanned?: boolean,
+  isTicketFound?: boolean,
 }
