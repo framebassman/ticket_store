@@ -34,7 +34,7 @@ export const actionCreators = {
     });
     setTimeout(() => {
       dispatch({ type: resetType })
-    }, 2000);
+    }, 5000);
   }
 };
 

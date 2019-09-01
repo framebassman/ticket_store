@@ -23,6 +23,30 @@ const Description = ({ message }: { message: string }) => {
   )
 }
 
+const ConcertLabel = ({ label }: { label: string }) => {
+  return (
+    <div className="concert-label">
+        <b>Событие:</b> {label}
+    </div>
+  )
+}
+
+const TicketStatus = ({ status }: { status: string }) => {
+  return (
+    <div className="ticket-status">
+        <b>Статус билета:</b> {status}
+    </div>
+  )
+}
+
+const Container = ({ children }) => (
+  <MuiThemeProvider theme={theme}>
+    <div className="status-container">
+      {children}
+    </div>
+  </MuiThemeProvider>
+)
+
 type Props = {
   pass: boolean,
   wait: boolean,
@@ -31,41 +55,46 @@ type Props = {
 
 export const Status = ({ pass, wait, scannedTicket }: Props) => {
   console.log(scannedTicket);
-  // const { used, concertLabel } = scannedTicket;
-
-  const Container = ({ children }) => (
-    <MuiThemeProvider theme={theme}>
-      <div className="status-container">
-        {children}
-      </div>
-    </MuiThemeProvider>
-  )
 
   if (!wait) {
     return (
       <Container>
         <Fab><ScannerIcon /></Fab>
         <Description message="Готов сканировать!"/>
+        <ConcertLabel label={"asd"}/>
       </Container>
     )
   }
 
+  if (scannedTicket) {
+    const { used, concertLabel } = scannedTicket;
+    if (pass && !used) {
+      return (
+        <Container>
+          <Fab color="primary"><CheckIcon /></Fab>
+          <Description message="Успешно!" />
+          <ConcertLabel label={concertLabel}/>
+          <TicketStatus status="Действителен" />
+        </Container>
+      )
+    }
+  
+    if (pass && used) {
+      return (
+        <Container>
+          <Fab color="secondary"><CancelIcon /></Fab>
+          <Description message="Ошибочка вышла!"/>
+          <ConcertLabel label={concertLabel}/>
+          <TicketStatus status="Использован" />
+        </Container>
+      )
+    }
+  }  
+
   return (
     <Container>
-      {pass
-        ? (
-          <div>
-            <Fab color="primary"><CheckIcon /></Fab>
-            <Description message="Успешно!"/>
-          </div>
-        )
-        : (
-          <div>
-            <Fab color="secondary"><CancelIcon /></Fab>
-            <Description message="Ошибочка вышла!"/>
-          </div>
-        )
-      }
+      <Fab color="secondary"><CancelIcon /></Fab>
+      <Description message="Ошибочка вышла!"/>
     </Container>
   )
 }
