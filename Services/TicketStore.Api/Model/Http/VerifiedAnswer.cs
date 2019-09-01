@@ -2,7 +2,7 @@ using System;
 
 namespace TicketStore.Api.Model.Http
 {
-    public class VerifyAnswer
+    public class VerifiedAnswer
     {
         public String message;
         public String concertLabel;
