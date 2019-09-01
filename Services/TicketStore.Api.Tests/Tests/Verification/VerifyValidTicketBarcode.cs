@@ -40,7 +40,7 @@ namespace TicketStore.Api.Tests.Tests.Verification
             NHamcrest.XUnit.Assert.That(
                 response.Content, 
                 new Used(
-                    new WithConcert(testEvent)
+                    new WithConcert("First Test Artist — 9 июля 2019")
                 )
             );
 

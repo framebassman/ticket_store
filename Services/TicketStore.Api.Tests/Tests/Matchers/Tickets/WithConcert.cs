@@ -8,25 +8,17 @@ namespace TicketStore.Api.Tests.Tests.Matchers.Tickets
 {
     public class WithConcert : TicketMatcher
     {
-        private Event _concert;
+        private String _concertLabel;
         
-        public WithConcert(Event concert)
+        public WithConcert(String concertLabel)
         {
-            _concert = concert;
+            _concertLabel = concertLabel;
         }
 
         public override bool Matches(String json)
         {
             var actual = JsonConvert.DeserializeObject<VerifiedAnswer>(json);
-            return actual.concertLabel == CalculateLabel();
-        }
-
-        private String CalculateLabel()
-        {
-            var longDash = "—";
-            var artist = _concert.Artist;
-            var time = _concert.Time;
-            return $"{artist} ${longDash} {time.ToString("d MMMM yyyy", CultureInfo.CreateSpecificCulture("ru-RU"))}";
+            return actual.concertLabel == _concertLabel;
         }
     }
 }
