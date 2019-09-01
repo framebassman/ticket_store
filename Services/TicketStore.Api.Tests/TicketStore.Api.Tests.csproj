@@ -22,4 +22,8 @@
     <Folder Include="Model\Services\Payment" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\TicketStore.Api\TicketStore.Api.csproj" />
+  </ItemGroup>
+
 </Project>

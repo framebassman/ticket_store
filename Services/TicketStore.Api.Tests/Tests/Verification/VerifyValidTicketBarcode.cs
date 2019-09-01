@@ -8,6 +8,7 @@ using TicketStore.Api.Tests.Model.Db;
 using TicketStore.Api.Tests.Model.Services.Verify.Answers;
 using TicketStore.Api.Tests.Tests.Fixtures;
 using TicketStore.Api.Tests.Tests.Matchers;
+using TicketStore.Api.Tests.Tests.Matchers.Tickets;
 using Xunit;
 
 namespace TicketStore.Api.Tests.Tests.Verification
@@ -36,7 +37,7 @@ namespace TicketStore.Api.Tests.Tests.Verification
 
             // Assert
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
-            Assert.Equal(new OkAnswer().ToString(), response.Content);
+            NHamcrest.XUnit.Assert.That(response.Content, new IsTicketStatus());
 
             AssertWithTimeout.That("Ticket should be expired",
                 () => {
