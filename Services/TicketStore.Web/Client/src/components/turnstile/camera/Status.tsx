@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import Fab from '@material-ui/core/Fab';
 import CheckIcon from '@material-ui/icons/Check';
 import CancelIcon from '@material-ui/icons/Cancel';
@@ -40,12 +41,12 @@ const Container = ({ children }) => (
 )
 
 type Props = {
-  pass: boolean,
-  wait: boolean,
-  scannedTicket: ScannedTicket,
+  ticketFound?: boolean,
+  wait?: boolean,
+  scannedTicket?: ScannedTicket,
 };
 
-export const Status = ({ pass, wait, scannedTicket }: Props) => {
+export const Status = ({ ticketFound, wait, scannedTicket }: Props) => {
   if (!wait) {
     return (
       <Container>
@@ -58,7 +59,7 @@ export const Status = ({ pass, wait, scannedTicket }: Props) => {
 
   if (scannedTicket) {
     const { used, concertLabel } = scannedTicket;
-    if (pass && !used) {
+    if (ticketFound && !used) {
       return (
         <Container>
           <Fab color="primary"><CheckIcon /></Fab>
@@ -68,7 +69,7 @@ export const Status = ({ pass, wait, scannedTicket }: Props) => {
       )
     }
   
-    if (pass && used) {
+    if (ticketFound && used) {
       return (
         <Container>
           <Fab color="secondary"><CancelIcon /></Fab>
@@ -87,3 +88,7 @@ export const Status = ({ pass, wait, scannedTicket }: Props) => {
     </Container>
   )
 }
+
+export default connect(
+  (state: any) => state.turnstile,
+)(Status);

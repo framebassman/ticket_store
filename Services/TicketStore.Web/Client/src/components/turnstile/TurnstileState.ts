@@ -6,10 +6,7 @@ export interface ScannedTicket {
 }
 
 export interface TurnstileState {
-  scanning: boolean,
-  result: DetectedBarcode,
   scannedTicket?: ScannedTicket,
-  pass?: boolean,
+  ticketFound?: boolean,
   wait?: boolean,
-  isRequested: boolean
 }

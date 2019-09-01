@@ -1,13 +1,9 @@
 import { verifyType, resetType } from './actions';
 import { TurnstileState } from '../../components/turnstile/TurnstileState';
-import { DetectedBarcode } from '../../components/turnstile/camera/DetectedBarcode';
 
 const initialState: TurnstileState = {
-    scanning: false,
-    result: new DetectedBarcode(),
-    pass: false,
+    ticketFound: false,
     wait: false,
-    isRequested: false
 };
 
 export const reducer = (state: TurnstileState = initialState, action: any): TurnstileState => {
@@ -19,18 +15,18 @@ export const reducer = (state: TurnstileState = initialState, action: any): Turn
             const { message } = payload;
 
             console.log("message from backend: ", message);
-            const pass = message === 'OK';
+            const ticketFound = message === 'OK';
 
-            if (pass) {
+            if (ticketFound) {
                 const { concertLabel, used } = payload;
                 return {
                     ...state,
-                    pass,
+                    ticketFound,
                     scannedTicket: { concertLabel, used },
                     wait: true
                 };
             } else {
-                return { ...state, pass, scannedTicket: undefined, wait: true };
+                return { ...state, ticketFound, scannedTicket: undefined, wait: true };
             }
         }
         case resetType: {

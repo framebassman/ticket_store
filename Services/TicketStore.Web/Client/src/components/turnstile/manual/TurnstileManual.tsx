@@ -6,15 +6,15 @@ import Container from '@material-ui/core/Container';
 import Box from '@material-ui/core/Box';
 
 import { actionCreators } from '../../../store/Turnstile/actions';
-import { Status } from '../camera/Status';
+import Status from '../camera/Status';
 import './TurnstileManual.css';
 
-const TurnstileManual = ({ verify, pass, wait, scannedTicket }) => {
+const TurnstileManual = ({ verify }) => {
   const [ticketNumber, setTicketNumber] = useState('');
 
   return (
     <Container className="turnstile__manual" fixed>
-      <Status pass={pass} wait={wait} scannedTicket={scannedTicket} />
+      <Status />
       <Box>
         <TextField
           label="Номер Билета"
@@ -41,6 +41,6 @@ const TurnstileManual = ({ verify, pass, wait, scannedTicket }) => {
 }
 
 export default connect(
-  (state: any) => state.turnstile,
+  () => ({}),
   actionCreators
 )(TurnstileManual);
