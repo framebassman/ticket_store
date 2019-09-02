@@ -65,6 +65,7 @@ stages:
       workingDirectory: $(build.sourcesDirectory)/Services/TicketStore.Api.Tests.Unit
       displayName: 'prepare JUnit report'
     - task: PublishTestResults@2
+      condition: always()
       inputs:
         testResultsFormat: 'JUnit' # Options: JUnit, NUnit, VSTest, xUnit, cTest
         testResultsFiles: 'TestResults/report.xml' 
@@ -91,6 +92,7 @@ stages:
       workingDirectory: $(build.sourcesDirectory)/Services/TicketStore.Web.Tests.Unit
       displayName: 'prepare JUnit report'
     - task: PublishTestResults@2
+      condition: always()
       inputs:
         testResultsFormat: 'JUnit' # Options: JUnit, NUnit, VSTest, xUnit, cTest
         testResultsFiles: 'TestResults/report.xml' 
