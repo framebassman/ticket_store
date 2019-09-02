@@ -9,19 +9,30 @@ import TurnstileManual from '../../../components/turnstile/manual/TurnstileManua
 const initialState = (window as any).initialReduxState;
 const store = configureStore(initialState);
 
+async function nextFrame(): Promise<void> {
+  return new Promise((res, rej) => {
+    setTimeout(
+      () => { res(); },
+      0
+    );
+  });
+}
+
 describe('Status of <TurnstileManual />', () => {
   let turnstileManual: ReactWrapper;
-  
+
   beforeEach(() => {
+    moxios.install();
     turnstileManual = mount(
       <Provider store={store}>
         <TurnstileManual pass={false} wait={false} verify={false}/>
       </Provider>
     );
-    moxios.install();
+
   });
   
   afterEach(() => {
+    moxios.uninstall();
     turnstileManual.unmount();
   });
   
@@ -45,6 +56,7 @@ describe('Status of <TurnstileManual />', () => {
 
     // Act
     button.simulate('click');
+    await nextFrame();
     turnstileManual.update();
     
     // Assert
@@ -64,6 +76,7 @@ describe('Status of <TurnstileManual />', () => {
   
     // Act
     button.simulate('click');
+    await nextFrame();
     turnstileManual.update();
   
     // Assert
