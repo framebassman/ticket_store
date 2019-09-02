@@ -5,18 +5,10 @@ import { mount, ReactWrapper } from 'enzyme';
 import moxios from 'moxios';
 import { verifyUrl } from '../../../store/Turnstile/urls/prod';
 import TurnstileManual from '../../../components/turnstile/manual/TurnstileManual';
+import {nextFrame} from "../../waitComponentUpdate";
 
 const initialState = (window as any).initialReduxState;
 const store = configureStore(initialState);
-
-async function nextFrame(): Promise<void> {
-  return new Promise((res, rej) => {
-    setTimeout(
-      () => { res(); },
-      0
-    );
-  });
-}
 
 describe('Status of <TurnstileManual />', () => {
   let turnstileManual: ReactWrapper;
