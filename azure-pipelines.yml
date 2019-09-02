@@ -21,13 +21,14 @@ stages:
     pool:
       vmImage: 'ubuntu-latest'
     continueOnError: true
+    variables:
+      CI: true
     steps:
     - task: NodeTool@0
       inputs:
         versionSpec: '10.x'
       displayName: 'Install Node.js'
     - script: |
-        echo $CI
         npm install
         npm run build
       workingDirectory: $(build.sourcesDirectory)/Services/TicketStore.Web/Client
