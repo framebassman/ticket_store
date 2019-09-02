@@ -27,13 +27,15 @@ stages:
         versionSpec: '10.x'
       displayName: 'Install Node.js'
     - script: |
+        echo $CI
         npm install
         npm run build
+      workingDirectory: $(build.sourcesDirectory)/Services/TicketStore.Web/Client
+      displayName: 'npm install and build'
+    - script: |
         npm test
       workingDirectory: $(build.sourcesDirectory)/Services/TicketStore.Web/Client
-      displayName: 'npm install, build and test'
-      env:
-        CI: true
+      displayName: 'npm test'
     - task: PublishTestResults@2
       inputs:
         testResultsFormat: 'JUnit' # Options: JUnit, NUnit, VSTest, xUnit, cTest
