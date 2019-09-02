@@ -8,12 +8,10 @@ namespace TicketStore.Api.Tests.Unit.ControllersTests.Verify
 {
     public class ValidityTests : VerifyControllerBaseTest
     {
-        private String _dateInString;
         public ValidityTests() : base("validity")
         {
             // UTC should be stored in Database
             var dbTime = new DateTime(2019, 10, 4, 16, 00, 00, DateTimeKind.Utc);
-            _dateInString = "4 октября 2019";
             SeedTestData(dbTime);
         }
 

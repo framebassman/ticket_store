@@ -59,12 +59,7 @@ namespace TicketStore.Api.Controllers
             {
                 _log.LogInformation("Ticket has already expired");
                 return new OkObjectResult(
-                    new VerifiedAnswer
-                    {
-                        message = "OK",
-                        concertLabel = labelCalc.Value(),
-                        used = true
-                    }
+                    new UsedTicketAnswer(labelCalc.Value())
                 );
             }
 
@@ -75,12 +70,7 @@ namespace TicketStore.Api.Controllers
             _log.LogDebug("Update ticket to expired");
             _log.LogInformation("Ticket is valid");
             return new OkObjectResult(
-                new VerifiedAnswer
-                {
-                    message = "OK",
-                    concertLabel = labelCalc.Value(),
-                    used = false
-                }
+                new ValidTicketAnswer(labelCalc.Value())
             );
         }
     }
