@@ -15,7 +15,7 @@ const TurnstileManual = ({ verify, pass, wait }) => {
   return (
     <Container className="turnstile__manual" fixed>
       <Status pass={pass} wait={wait}/>
-      <form action="javascript:void(0);">
+      <form onSubmit={() => verify(ticketNumber)}>
         <Box>
           <TextField
             id="ticket_number"
@@ -35,7 +35,6 @@ const TurnstileManual = ({ verify, pass, wait }) => {
             color="primary"
             size="large"
             type="submit"
-            onClick={() => verify(ticketNumber)}
           >
             Проверить Билет
           </Button>
