@@ -38,6 +38,7 @@ stages:
       workingDirectory: $(build.sourcesDirectory)/Services/TicketStore.Web/Client
       displayName: 'npm test'
     - task: PublishTestResults@2
+      condition: always()
       inputs:
         testResultsFormat: 'JUnit' # Options: JUnit, NUnit, VSTest, xUnit, cTest
         testResultsFiles: 'reports/junit.xml' 
