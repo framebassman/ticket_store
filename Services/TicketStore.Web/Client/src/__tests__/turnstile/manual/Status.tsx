@@ -40,13 +40,11 @@ describe('Status of <TurnstileManual />', () => {
     const button = turnstileManual.find('#verify').hostNodes();
     moxios.stubRequest(verifyUrl, {
       status: 200,
-      response: [
-        { message: 'OK'}
-      ]
+      response: { message: 'OK'}
     });
 
     // Act
-    button.simulate('click');
+    button.simulate('submit');
     moxios.wait(() => {
       turnstileManual.update();
     
@@ -62,19 +60,17 @@ describe('Status of <TurnstileManual />', () => {
     const button = turnstileManual.find('#verify').hostNodes();
     moxios.stubRequest(verifyUrl, {
       status: 200,
-      response: [
-        { message: 'cannot find code in database'}
-      ]
+      response: { message: 'cannot find code in database'}
     });
   
     // Act
-    button.simulate('click');
+    button.simulate('submit');
     moxios.wait(() => {
       turnstileManual.update();
   
       // Assert
       const description = turnstileManual.find('#description');
-      expect(description.text()).toEqual('Ошибочка вышла1!');
+      expect(description.text()).toEqual('Ошибочка вышла!');
       done();
     }, 1000);
   });
