@@ -2,6 +2,7 @@ using System.IO;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using TicketStore.Api.Model;
 using TicketStore.Api.Model.Http;
 using TicketStore.Api.Model.Validation;
 using TicketStore.Data;
@@ -38,18 +39,28 @@ namespace TicketStore.Api.Controllers
                 return new BadRequestObjectResult(new BadRequestAnswer());
             }
 
-            var tickets = _db.Tickets.Where(t => t.Number == barcode.code).ToList();
-            if (tickets.Count == 0)
+            var ticket = _db.Tickets.FirstOrDefault(t => t.Number == barcode.code);
+            if (ticket == null)
             {
                 _log.LogInformation("There is no ticket with this ticket number");
                 return new BadRequestObjectResult(new InvalidCodeAnswer());
             }
 
-            var ticket = tickets.FirstOrDefault(t => t.Expired == false);
-            if (ticket == null)
+            var concert = _db.Events.FirstOrDefault(e => e.Id == ticket.EventId);
+            if (concert == null)
             {
-                _log.LogInformation("Ticket has been already expired");
-                return new BadRequestObjectResult(new AlreadyVerifiedAnswer());
+                _log.LogInformation("Ticket doesn't match any concert");
+                return new BadRequestObjectResult(new NoConcertFoundAnswer());
+            }
+
+            var labelCalc = new LabelCalculator(concert);
+
+            if (ticket.Expired == true)
+            {
+                _log.LogInformation("Ticket has already expired");
+                return new OkObjectResult(
+                    new UsedTicketAnswer(labelCalc.Value())
+                );
             }
 
             _log.LogDebug("Prepare to updating ticket to expired");
@@ -57,7 +68,10 @@ namespace TicketStore.Api.Controllers
             _db.Tickets.Update(ticket);
             _db.SaveChanges();
             _log.LogDebug("Update ticket to expired");
-            return new OkObjectResult(new Answer("OK"));
+            _log.LogInformation("Ticket is valid");
+            return new OkObjectResult(
+                new ValidTicketAnswer(labelCalc.Value())
+            );
         }
     }
 }

@@ -1,9 +1,12 @@
 import { DetectedBarcode } from './camera/DetectedBarcode';
 
+export interface ScannedTicket {
+  concertLabel: string,
+  used: boolean,
+}
+
 export interface TurnstileState {
-  scanning: boolean,
-  result: DetectedBarcode,
-  pass?: boolean,
-  wait?: boolean,
-  isRequested: boolean
+  scannedTicket?: ScannedTicket,
+  isTicketScanned?: boolean,
+  isTicketFound?: boolean,
 }

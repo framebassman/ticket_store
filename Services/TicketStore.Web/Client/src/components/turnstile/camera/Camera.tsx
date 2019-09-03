@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { actionCreators } from '../../../store/Turnstile/actions';
 import { Scanner } from './Scanner';
 import { beep } from './Beep';
-import { Status } from './Status';
+import Status from './../status/Status';
 import { DetectedBarcode } from './DetectedBarcode';
 import './Camera.css';
 
@@ -26,10 +26,9 @@ export class CameraTurnstile extends Component<any> {
   }
 
   render() {
-    const { pass, wait } = this.props;
     return (
       <div className="camera-container">
-        <Status pass={pass} wait={wait}/>
+        <Status />
         <Scanner onDetected={this._onDetected}/>
       </div>
     );
@@ -37,6 +36,6 @@ export class CameraTurnstile extends Component<any> {
 }
 
 export default connect(
-  (state: any) => state.turnstile,
+  () => ({}),
   actionCreators
 )(CameraTurnstile);
