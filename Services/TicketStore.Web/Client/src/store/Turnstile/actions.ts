@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { verifyUrl } from './urls/prod';
+import { cooldown } from './timeouts'; 
 
 export const waitingType = 'TURNSTILE_WAITING';
 export const verifyType = 'TURNSTILE_VERIFY';
@@ -29,6 +30,6 @@ export const actionCreators = {
     });
     setTimeout(() => {
       dispatch({ type: resetType })
-    }, 2000);
+    }, cooldown);
   }
 };
