@@ -19,7 +19,6 @@ describe('Status of <TurnstileManual />', () => {
         <TurnstileManual pass={false} wait={false} verify={false}/>
       </Provider>
     );
-
   });
   
   afterEach(() => {
