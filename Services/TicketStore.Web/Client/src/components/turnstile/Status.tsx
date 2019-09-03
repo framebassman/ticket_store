@@ -9,7 +9,7 @@ import green from '@material-ui/core/colors/green';
 import red from '@material-ui/core/colors/red';
 
 import './Status.css';
-import { ScannedTicket } from '../TurnstileState';
+import { ScannedTicket } from './TurnstileState';
 
 const theme = createMuiTheme({
   palette: {
@@ -26,7 +26,7 @@ const Description = ({ message }: { message: string }) => {
 
 const TicketInfo = ({ label }: { label: string, status?: string }) => {
   return (
-    <div className="ticket-info">
+    <div id="ticket-info" className="info">
         <span><b>Событие:</b> {label}</span>
     </div>
   )
