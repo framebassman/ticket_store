@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount, ReactWrapper } from 'enzyme';
-import {EventTime} from "../../../components/core/time/EventTime";
+import {EventTime} from "../../../../components/core/time/EventTime";
 
 function setTimezoneToMinsk(): void {
     Date.prototype.getTimezoneOffset = function() {
