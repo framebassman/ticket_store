@@ -27,7 +27,7 @@ describe('Status of <TurnstileManual />', () => {
     turnstileManual.unmount();
   });
   
-  it('Yellow status', () => {
+  it('should be yellow by default', () => {
     // Act
     const description = turnstileManual.find('#status-description');
     
@@ -35,7 +35,7 @@ describe('Status of <TurnstileManual />', () => {
     expect(description.text()).toEqual('Готов сканировать!');
   });
   
-  it('Green status', done => {
+  it('should be green if backend returns OK', done => {
     // Arrange
     const button = turnstileManual.find('#verify').hostNodes();
     moxios.stubRequest(verifyUrl, {
@@ -55,7 +55,7 @@ describe('Status of <TurnstileManual />', () => {
     }, 100);
   });
   
-  it('Red status', done => {
+  it('should be red if backend returns error', done => {
     // Arrange
     const button = turnstileManual.find('#verify').hostNodes();
     moxios.stubRequest(verifyUrl, {
