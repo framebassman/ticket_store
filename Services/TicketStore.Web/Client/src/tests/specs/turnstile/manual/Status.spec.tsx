@@ -31,17 +31,24 @@ describe('Status of <TurnstileManual />', () => {
   it('should be in ready state by default', () => {
     // Act
     const description = turnstileManual.find('#status-description');
+    const info = turnstileManual.find('#ticket-info');
     
     // Assert
     expect(description.text()).toEqual('Готов к проверке!');
+    expect(info.text()).toEqual(`Событие: `);
   });
   
-  it('should declare ticket valid if backend returns OK', done => {
+  it('should declare ticket valid if backend returns OK and ticket not used', done => {
     // Arrange
+    const concertLabel = 'test';
     const button = turnstileManual.find('#verify').hostNodes();
     moxios.stubRequest(verifyUrl, {
       status: 200,
-      response: { message: 'OK'}
+      response: {
+        message: 'OK',
+        used: false,
+        concertLabel: concertLabel
+      }
     });
 
     // Act
@@ -52,16 +59,23 @@ describe('Status of <TurnstileManual />', () => {
       // Assert
       const description = turnstileManual.find('#status-description');
       expect(description.text()).toEqual('Билет Действителен');
+      const info = turnstileManual.find('#ticket-info');
+      expect(info.text()).toEqual(`Событие: ${concertLabel}`);
       done();
     }, 100);
   });
 
-  it('should declare ticket used if backend returns OK and used ticket ', done => {
+  it('should declare ticket used if backend returns OK and used ticket', done => {
     // Arrange
+    const concertLabel = 'test';
     const button = turnstileManual.find('#verify').hostNodes();
     moxios.stubRequest(verifyUrl, {
       status: 200,
-      response: { message: 'OK', used: true }
+      response: {
+        message: 'OK',
+        used: true,
+        concertLabel: concertLabel
+      }
     });
 
     // Act
@@ -72,6 +86,8 @@ describe('Status of <TurnstileManual />', () => {
       // Assert
       const description = turnstileManual.find('#status-description');
       expect(description.text()).toEqual('Билет Использован');
+      const info = turnstileManual.find('#ticket-info');
+      expect(info.text()).toEqual(`Событие: ${concertLabel}`);
       done();
     }, 100);
   });
@@ -92,6 +108,8 @@ describe('Status of <TurnstileManual />', () => {
       // Assert
       const description = turnstileManual.find('#status-description');
       expect(description.text()).toEqual('Билет не найден');
+      const info = turnstileManual.find('#ticket-info');
+      expect(info.text()).toEqual(`Событие: `);
       done();
     }, 100);
   });
