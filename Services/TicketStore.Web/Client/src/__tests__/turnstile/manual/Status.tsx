@@ -5,7 +5,6 @@ import { mount, ReactWrapper } from 'enzyme';
 import moxios from 'moxios';
 import { verifyUrl } from '../../../store/Turnstile/urls/prod';
 import TurnstileManual from '../../../components/turnstile/manual/TurnstileManual';
-import {nextFrame} from "../../waitComponentUpdate";
 
 const initialState = (window as any).initialReduxState;
 const store = configureStore(initialState);
@@ -48,12 +47,13 @@ describe('Status of <TurnstileManual />', () => {
 
     // Act
     button.simulate('click');
-    await nextFrame();
-    turnstileManual.update();
+    moxios.wait(() => {
+      turnstileManual.update();
     
-    // Assert
-    const description = turnstileManual.find('#description');
-    expect(description.text()).toEqual('Успешно!');
+      // Assert
+      const description = turnstileManual.find('#description');
+      expect(description.text()).toEqual('Успешно!');
+    });
   });
   
   it('Red status', async () => {
@@ -68,11 +68,12 @@ describe('Status of <TurnstileManual />', () => {
   
     // Act
     button.simulate('click');
-    await nextFrame();
-    turnstileManual.update();
+    moxios.wait(() => {
+      turnstileManual.update();
   
-    // Assert
-    const description = turnstileManual.find('#description');
-    expect(description.text()).toEqual('Ошибочка вышла!');
+      // Assert
+      const description = turnstileManual.find('#description');
+      expect(description.text()).toEqual('Ошибочка вышла!');
+    });
   });
 });
