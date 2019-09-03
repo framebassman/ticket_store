@@ -35,7 +35,7 @@ describe('Status of <TurnstileManual />', () => {
     expect(description.text()).toEqual('Готов сканировать!');
   });
   
-  it('Green status', async () => {
+  it('Green status', done => {
     // Arrange
     const button = turnstileManual.find('#verify').hostNodes();
     moxios.stubRequest(verifyUrl, {
@@ -53,10 +53,11 @@ describe('Status of <TurnstileManual />', () => {
       // Assert
       const description = turnstileManual.find('#description');
       expect(description.text()).toEqual('Успешно!');
-    });
+      done();
+    }, 1000);
   });
   
-  it('Red status', async () => {
+  it('Red status', done => {
     // Arrange
     const button = turnstileManual.find('#verify').hostNodes();
     moxios.stubRequest(verifyUrl, {
@@ -73,7 +74,8 @@ describe('Status of <TurnstileManual />', () => {
   
       // Assert
       const description = turnstileManual.find('#description');
-      expect(description.text()).toEqual('Ошибочка вышла!');
-    });
+      expect(description.text()).toEqual('Ошибочка вышла1!');
+      done();
+    }, 1000);
   });
 });
