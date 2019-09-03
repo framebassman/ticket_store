@@ -20,9 +20,9 @@ const theme = createMuiTheme({
 
 const Description = ({ message }: { message: string }) => {
   return (
-    <span className="description">{message}</span>
+    <span id="status-description" className="description">{message}</span>
   )
-}
+};
 
 const TicketInfo = ({ label }: { label: string, status?: string }) => {
   return (
@@ -87,7 +87,7 @@ export const Status = ({ isTicketScanned, isTicketFound, scannedTicket }: Props)
       <TicketInfo label="" />
     </Container>
   )
-}
+};
 
 export default connect(
   (state: any) => state.turnstile,

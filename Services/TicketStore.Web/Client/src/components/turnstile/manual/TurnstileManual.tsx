@@ -15,30 +15,34 @@ const TurnstileManual = ({ verify }) => {
   return (
     <Container className="turnstile__manual" fixed>
       <Status />
-      <Box>
-        <TextField
-          label="Номер Билета"
-          onChange={(e) => setTicketNumber(e.target.value)}
-          margin="normal"
-          variant="outlined"
-          inputProps={{
-            type: 'number'
-          }}
-        />
-      </Box>
-      <Box>
-        <Button
-          variant="contained"
-          color="primary"
-          size="large"
-          onClick={() => verify(ticketNumber)}
-        >
-          Проверить Билет
-        </Button>
-      </Box>
+      <form onSubmit={() => verify(ticketNumber)}>
+        <Box>
+          <TextField
+            id="ticket_number"
+            label="Номер Билета"
+            onChange={(e) => setTicketNumber(e.target.value)}
+            margin="normal"
+            variant="outlined"
+            inputProps={{
+              type: 'number'
+            }}
+          />
+        </Box>
+        <Box>
+          <Button
+            id="verify"
+            variant="contained"
+            color="primary"
+            size="large"
+            type="submit"
+          >
+            Проверить Билет
+          </Button>
+        </Box>
+      </form>
     </Container>
   )
-}
+};
 
 export default connect(
   () => ({}),
