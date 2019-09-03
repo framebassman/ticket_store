@@ -6,7 +6,7 @@ import Container from '@material-ui/core/Container';
 import Box from '@material-ui/core/Box';
 
 import { actionCreators } from '../../../store/Turnstile/actions';
-import Status from '../Status';
+import Status from '../status/Status';
 import './TurnstileManual.css';
 
 const TurnstileManual = ({ verify }) => {
