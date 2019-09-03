@@ -74,4 +74,32 @@ describe('Status of <TurnstileManual />', () => {
       done();
     }, 100);
   });
+
+  it('should stay yellow after cooldown', done => {
+    // Arrange
+    const button = turnstileManual.find('#verify').hostNodes();
+    moxios.stubRequest(verifyUrl, {
+      status: 200,
+      response: { message: 'OK'}
+    });
+
+    // Act
+    button.simulate(SUBMIT);
+    moxios.wait(() => {
+      turnstileManual.update();
+
+      const description = turnstileManual.find('#status-description');
+      expect(description.text()).toEqual('Успешно!');
+    }, 100);
+
+      // Assert
+      button.simulate(SUBMIT);
+      moxios.wait(() => {
+        turnstileManual.update();
+  
+        const description = turnstileManual.find('#status-description');
+        expect(description.text()).toEqual('Готов сканировать!');
+        done();
+      }, 2000);
+  });
 });
