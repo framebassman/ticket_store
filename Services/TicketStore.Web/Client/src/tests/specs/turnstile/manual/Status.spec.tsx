@@ -18,7 +18,7 @@ describe('Status of <TurnstileManual />', () => {
     moxios.install();
     turnstileManual = mount(
       <Provider store={store}>
-        <TurnstileManual pass={false} wait={false} verify={false}/>
+        <TurnstileManual />
       </Provider>
     );
   });
@@ -28,15 +28,15 @@ describe('Status of <TurnstileManual />', () => {
     turnstileManual.unmount();
   });
   
-  it('should be yellow by default', () => {
+  it('should be in ready state by default', () => {
     // Act
     const description = turnstileManual.find('#status-description');
     
     // Assert
-    expect(description.text()).toEqual('Готов сканировать!');
+    expect(description.text()).toEqual('Готов к проверке!');
   });
   
-  it('should be green if backend returns OK', done => {
+  it('should declare ticket valid if backend returns OK', done => {
     // Arrange
     const button = turnstileManual.find('#verify').hostNodes();
     moxios.stubRequest(verifyUrl, {
@@ -51,12 +51,32 @@ describe('Status of <TurnstileManual />', () => {
     
       // Assert
       const description = turnstileManual.find('#status-description');
-      expect(description.text()).toEqual('Успешно!');
+      expect(description.text()).toEqual('Билет Действителен');
+      done();
+    }, 100);
+  });
+
+  it('should declare ticket used if backend returns OK and used ticket ', done => {
+    // Arrange
+    const button = turnstileManual.find('#verify').hostNodes();
+    moxios.stubRequest(verifyUrl, {
+      status: 200,
+      response: { message: 'OK', used: true }
+    });
+
+    // Act
+    button.simulate(SUBMIT);
+    moxios.wait(() => {
+      turnstileManual.update();
+    
+      // Assert
+      const description = turnstileManual.find('#status-description');
+      expect(description.text()).toEqual('Билет Использован');
       done();
     }, 100);
   });
   
-  it('should be red if backend returns error', done => {
+  it('should declare ticket not found if backend returns error', done => {
     // Arrange
     const button = turnstileManual.find('#verify').hostNodes();
     moxios.stubRequest(verifyUrl, {
@@ -71,12 +91,12 @@ describe('Status of <TurnstileManual />', () => {
   
       // Assert
       const description = turnstileManual.find('#status-description');
-      expect(description.text()).toEqual('Ошибочка вышла!');
+      expect(description.text()).toEqual('Билет не найден');
       done();
     }, 100);
   });
 
-  it(`should stay yellow after cooldown (${cooldown} ms)`, done => {
+  it(`should stay ready state after cooldown (${cooldown} ms)`, done => {
     // Arrange
     const button = turnstileManual.find('#verify').hostNodes();
     moxios.stubRequest(verifyUrl, {
@@ -90,7 +110,7 @@ describe('Status of <TurnstileManual />', () => {
       turnstileManual.update();
 
       const description = turnstileManual.find('#status-description');
-      expect(description.text()).toEqual('Успешно!');
+      expect(description.text()).toEqual('Билет Действителен');
     }, 100);
 
       // Assert
@@ -99,7 +119,7 @@ describe('Status of <TurnstileManual />', () => {
         turnstileManual.update();
   
         const description = turnstileManual.find('#status-description');
-        expect(description.text()).toEqual('Готов сканировать!');
+        expect(description.text()).toEqual('Готов к проверке!');
         done();
       }, cooldown);
   });
