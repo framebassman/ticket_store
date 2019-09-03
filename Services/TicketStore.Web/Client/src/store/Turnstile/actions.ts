@@ -13,8 +13,6 @@ async function transfersFromBack(barcode: string) {
       { code: barcode },
       { headers: { Authorization: 'Bearer pkR9vfZ9QdER53mf'}}
     );
-
-    console.log(result);
     return result;
   }
   catch (e) {

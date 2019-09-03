@@ -11,10 +11,7 @@ export const reducer = (state: TurnstileState = initialState, action: any): Turn
 
     switch (type) {
         case verifyType : {
-            console.log('before verifyType in reducer');
             const { message } = payload;
-
-            console.log("message from backend: ", message);
             const isTicketFound = message === 'OK';
 
             if (isTicketFound) {
@@ -35,7 +32,6 @@ export const reducer = (state: TurnstileState = initialState, action: any): Turn
             }
         }
         case resetType: {
-            console.log('before resetType in reducer');
             return {
                 ...state,
                 isTicketScanned: false,
