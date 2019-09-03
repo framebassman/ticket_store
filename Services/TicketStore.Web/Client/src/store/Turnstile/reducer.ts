@@ -28,4 +28,4 @@ export const reducer = (state: TurnstileState = initialState, action: any): Turn
     }
 
     return state;
-}
+};

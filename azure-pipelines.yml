@@ -21,6 +21,8 @@ stages:
     pool:
       vmImage: 'ubuntu-latest'
     continueOnError: true
+    variables:
+      CI: true
     steps:
     - task: NodeTool@0
       inputs:
@@ -28,12 +30,15 @@ stages:
       displayName: 'Install Node.js'
     - script: |
         npm install
+        npm run build
+      workingDirectory: $(build.sourcesDirectory)/Services/TicketStore.Web/Client
+      displayName: 'npm install and build'
+    - script: |
         npm test
       workingDirectory: $(build.sourcesDirectory)/Services/TicketStore.Web/Client
-      displayName: 'npm install and test'
-      env:
-        CI: true
+      displayName: 'npm test'
     - task: PublishTestResults@2
+      condition: always()
       inputs:
         testResultsFormat: 'JUnit' # Options: JUnit, NUnit, VSTest, xUnit, cTest
         testResultsFiles: 'reports/junit.xml' 
@@ -60,6 +65,7 @@ stages:
       workingDirectory: $(build.sourcesDirectory)/Services/TicketStore.Api.Tests.Unit
       displayName: 'prepare JUnit report'
     - task: PublishTestResults@2
+      condition: always()
       inputs:
         testResultsFormat: 'JUnit' # Options: JUnit, NUnit, VSTest, xUnit, cTest
         testResultsFiles: 'TestResults/report.xml' 
@@ -86,6 +92,7 @@ stages:
       workingDirectory: $(build.sourcesDirectory)/Services/TicketStore.Web.Tests.Unit
       displayName: 'prepare JUnit report'
     - task: PublishTestResults@2
+      condition: always()
       inputs:
         testResultsFormat: 'JUnit' # Options: JUnit, NUnit, VSTest, xUnit, cTest
         testResultsFiles: 'TestResults/report.xml' 
