@@ -14,4 +14,4 @@ export const TurnstileOnHold = ({ onClick }: Props) => {
       <Typography variant="h4">Начать сканировать</Typography>
     </Button>
   )
-}
+};
