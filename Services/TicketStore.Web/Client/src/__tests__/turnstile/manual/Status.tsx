@@ -52,7 +52,7 @@ describe('Status of <TurnstileManual />', () => {
       const description = turnstileManual.find('#status-description');
       expect(description.text()).toEqual('Успешно!');
       done();
-    }, 1000);
+    }, 100);
   });
   
   it('Red status', done => {
@@ -72,6 +72,6 @@ describe('Status of <TurnstileManual />', () => {
       const description = turnstileManual.find('#status-description');
       expect(description.text()).toEqual('Ошибочка вышла!');
       done();
-    }, 1000);
+    }, 100);
   });
 });
