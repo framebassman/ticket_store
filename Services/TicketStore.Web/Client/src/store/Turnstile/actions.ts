@@ -32,4 +32,3 @@ export const actionCreators = {
     }, 2000);
   }
 };
-
