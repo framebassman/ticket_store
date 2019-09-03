@@ -24,7 +24,7 @@ const nonWaitableTheme = createMuiTheme({
 
 const Description = ({ message }: { message: string }) => {
   return (
-    <span id="description" className="description">{message}</span>
+    <span id="status-description" className="description">{message}</span>
   )
 };
 

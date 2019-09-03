@@ -29,7 +29,7 @@ describe('Status of <TurnstileManual />', () => {
   
   it('Yellow status', () => {
     // Act
-    const description = turnstileManual.find('#description');
+    const description = turnstileManual.find('#status-description');
     
     // Assert
     expect(description.text()).toEqual('Готов сканировать!');
@@ -49,7 +49,7 @@ describe('Status of <TurnstileManual />', () => {
       turnstileManual.update();
     
       // Assert
-      const description = turnstileManual.find('#description');
+      const description = turnstileManual.find('#status-description');
       expect(description.text()).toEqual('Успешно!');
       done();
     }, 1000);
@@ -69,7 +69,7 @@ describe('Status of <TurnstileManual />', () => {
       turnstileManual.update();
   
       // Assert
-      const description = turnstileManual.find('#description');
+      const description = turnstileManual.find('#status-description');
       expect(description.text()).toEqual('Ошибочка вышла!');
       done();
     }, 1000);
