@@ -100,12 +100,12 @@ workflows:
   version: 2
   build-test-deploy:
     jobs:
-      # - test-integration
+      - test-integration
       - deploy:
           filters:
             branches:
               only:
                 - master
           context: credentials
-          # requires:
-          #   - test-integration
+          requires:
+            - test-integration
