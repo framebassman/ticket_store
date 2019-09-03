@@ -15,7 +15,12 @@ const TurnstileManual = ({ verify }) => {
   return (
     <Container className="turnstile__manual" fixed>
       <Status />
-      <form onSubmit={() => verify(ticketNumber)}>
+      <form 
+        onSubmit={e => {
+          e.preventDefault();
+          verify(ticketNumber);
+        }}
+      >
         <Box>
           <TextField
             id="ticket_number"
