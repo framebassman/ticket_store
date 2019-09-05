@@ -5,6 +5,8 @@ import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
 import { Farewell } from './components/farewell/Farewell';
 import TurnstileMenu from './components/turnstile/TurnstileMenu';
+import Turnstile from './components/turnstile/camera/TurnstileCamera';
+import CameraTurnstile from './components/turnstile/camera/Camera';
 import { Menu } from './components/menu/Menu';
 import Afisha from './components/afisha/Afisha';
 
@@ -31,9 +33,9 @@ class App extends Component {
     return (
       <BrowserRouter>
         <Switch>
-          <Route path="/tickets/farewell" component={Farewell}/>
-          <Redirect from="/tickets/turnstile" to="/turnstile/camera" />
-          <Route path="/turnstile" component={TurnstileMenu} />
+          {/* <Route path="/tickets/farewell" component={Farewell}/> */}
+          {/* <Redirect from="/tickets/turnstile" to="/turnstile/camera" /> */}
+          <Route path="/turnstile" component={CameraTurnstile} />
           <Route path="" component={AfishaWithMenu}/>
         </Switch>
       </BrowserRouter>
