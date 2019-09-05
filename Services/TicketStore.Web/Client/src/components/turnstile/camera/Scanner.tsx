@@ -14,7 +14,7 @@ export class Scanner extends Component<any, any> {
         type : "LiveStream",
         constraints: {
           width: 640,
-          height: 640,
+          height: 480,
           facingMode: "environment", // or user
         }
       },
@@ -36,7 +36,7 @@ export class Scanner extends Component<any, any> {
       frequency: 10,
     }, function(err: any) {
         if (err) {
-            return console.log(err);
+            return console.log("The following error occurs on Quagga initialization: ", err);
         }
         Quagga.start();
     });
