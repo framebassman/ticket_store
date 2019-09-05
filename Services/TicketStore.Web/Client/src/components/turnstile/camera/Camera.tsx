@@ -7,7 +7,7 @@ import { Scanner } from './Scanner';
 import { beep } from './Beep';
 import Status from './../status/Status';
 import { DetectedBarcode } from './DetectedBarcode';
-// import './Camera.css';
+import './Camera.css';
 
 export class CameraTurnstile extends Component<any> {
   constructor(props: any) {
@@ -27,7 +27,7 @@ export class CameraTurnstile extends Component<any> {
 
   render() {
     return (
-      <div>
+      <div className="camera-container">
         <Status />
         <Scanner onDetected={this._onDetected}/>
       </div>
