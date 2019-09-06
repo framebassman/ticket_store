@@ -19,7 +19,7 @@ If you are using `mac` and `docker for mac` - you should configure your docker v
 ![Pic1](mac-docker-configuration-shared-folders.png)
 
 #### 4. Ngrok
-For frontend developing and scanner developing - you need to open your project via valid `https`. We use ngrok for that. For proxying `443` port - you should be authenticated to https://ngrok.com. Registrate to https://dashboard.ngrok.com/login and copy-paste your ngrok authtoken
+For frontend developing and scanner developing - you need to open your project via valid `https`. We use ngrok for that.
 
 #### 5. Make
 Just install make to your machine: instructions here: [mac](https://stackoverflow.com/a/38903785/2777349) / [linux](https://askubuntu.com/a/272020/811404)
@@ -30,8 +30,6 @@ To run the project, run the following command:
 make start-dev
 ```
 When it's running - script will check `ngrok`. If `ngrok` is not installed - script will install it for you (just type admin password - unfortunately it require sudo).
-
-After `ngrok` installation - it will check authentications. On this step just paste authtoken from 4 step of this guide.
 
 After startup project - navigate to http://localhost:4040 and copy `ngrok url`
 

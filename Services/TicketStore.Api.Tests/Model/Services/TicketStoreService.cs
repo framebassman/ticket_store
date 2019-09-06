@@ -18,8 +18,6 @@ namespace TicketStore.Api.Tests.Model.Services
                     this.Port()
                 ).Uri
             );
-            Client.RemoteCertificateValidationCallback = 
-                (sender, certificate, chain, sslPolicyErrors) => true;
         }
     }
 }

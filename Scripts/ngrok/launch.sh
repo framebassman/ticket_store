@@ -27,7 +27,7 @@ if [ "$(cat ~/.ngrok2/ngrok.yml | grep authtoken)" = '' ]; then
 fi
 
 echo "Starting ngrok..."
-ngrok http $(docker_host):443 --bind-tls true --region eu -log=stdout > /dev/null &
+ngrok http $(docker_host):80 --bind-tls true --region eu -log=stdout > /dev/null &
 
 echo "Waiting server to connect..."
 res=$(curl -s -o /dev/null -w "%{http_code}" localhost:4040/api/tunnels)

@@ -24,6 +24,9 @@ services:
         volumes:
             - ./Services/TicketStore.Web/Client/src:/app/Client/src
     store_proxy:
+        build:
+            context: .
+            dockerfile: ./Services/Proxy/Dockerfile.Development
         logging:
             driver: none
     postgres:
