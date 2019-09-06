@@ -38,13 +38,13 @@ namespace TicketStore.Api
         {
             services.AddRouting(opt => opt.LowercaseUrls = true);
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddTransient<ITicketFinder, TicketFinder>();
             services
                 .AddDbContext<ApplicationContext>()
                 .BuildServiceProvider();
             services.AddSingleton(Configuration);
             services.AddSingleton<IConverter>(new SynchronizedConverter(new PdfTools()));
             services.AddSingleton(new EmailStrategy(Environment, Configuration, _log).Service());
-            services.AddSingleton<ITicketFinder, TicketFinder>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
