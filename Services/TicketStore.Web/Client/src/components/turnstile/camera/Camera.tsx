@@ -20,9 +20,9 @@ class Camera extends Component<TurnstileActions> {
     );
   }
 
-  _onDetected(current: DetectedBarcode) {
+  _onDetected(detectedBarcode: DetectedBarcode) {
     beep();
-    const { code } = current.codeResult;
+    const { code } = detectedBarcode.codeResult;
     this.props.verify(code, VerificationMethod.Barcode);
   }
 

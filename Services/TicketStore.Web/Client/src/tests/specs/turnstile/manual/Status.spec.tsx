@@ -8,8 +8,7 @@ import TurnstileManual from '../../../../components/turnstile/manual/TurnstileMa
 import { SUBMIT } from '../../../model/enzyme/events';
 import { cooldown } from '../../../../store/Turnstile/timeouts';
 
-const initialState = (window as any).initialReduxState;
-const store = configureStore(initialState);
+const store = configureStore();
 
 describe('Status of <TurnstileManual />', () => {
   let turnstileManual: ReactWrapper;

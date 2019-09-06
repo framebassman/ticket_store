@@ -8,8 +8,7 @@ import './index.css';
 import App from './App';
 import { YandexMetrica } from './YandexMetrica';
 
-const initialState = (window as any).initialReduxState;
-const store = configureStore(initialState);
+const store = configureStore();
 
 ReactDOM.render(
   <Provider store={store}>

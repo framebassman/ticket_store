@@ -7,8 +7,7 @@ import { verifyUrl } from '../../../../store/Turnstile/urls/prod';
 import TurnstileManual from '../../../../components/turnstile/manual/TurnstileManual';
 import { SUBMIT } from '../../../model/enzyme/events';
 
-const initialState = (window as any).initialReduxState;
-const store = configureStore(initialState);
+const store = configureStore();
 
 describe('<TurnstileManual />', () => {
   let turnstileManual: ReactWrapper;
