@@ -80,7 +80,6 @@ jobs:
           name: create release in sentry and associate commits with a release
           command: |
             sentry-cli releases new -p $SENTRY_PROJECT_NAME $VERSION
-            sentry-cli releases set-commits --auto $VERSION
       - run: bash ./Scripts/publish-to-docker-hub.sh
       - run:
           name: Deploy Over SSH
