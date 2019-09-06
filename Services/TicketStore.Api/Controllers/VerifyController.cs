@@ -15,12 +15,14 @@ namespace TicketStore.Api.Controllers
     {
         private readonly ApplicationContext _db;
         private readonly ILogger<VerifyController> _log;
+        private readonly TicketFinder _finder;
         private const string _token = "Bearer pkR9vfZ9QdER53mf";
 
-        public VerifyController(ApplicationContext context, ILogger<VerifyController> log)
+        public VerifyController(ApplicationContext context, ILogger<VerifyController> log, TicketFinder finder)
         {
             _db = context;
             _log = log;
+            _finder = finder;
         }
 
         [HttpPost]
@@ -39,10 +41,10 @@ namespace TicketStore.Api.Controllers
                 return new BadRequestObjectResult(new BadRequestAnswer());
             }
 
-            var ticket = _db.Tickets.FirstOrDefault(t => t.Number == barcode.code);
+            var ticket = _finder.Find(barcode);
             if (ticket == null)
             {
-                _log.LogInformation("There is no ticket with this ticket number");
+                _log.LogInformation("There is no ticket found");
                 return new BadRequestObjectResult(new InvalidCodeAnswer());
             }
 

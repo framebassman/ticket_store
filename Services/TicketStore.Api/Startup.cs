@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -11,6 +10,7 @@ using DinkToPdf.Contracts;
 using TicketStore.Api.Middlewares;
 using TicketStore.Api.Model.Email;
 using TicketStore.Data;
+using TicketStore.Api.Model.Validation;
 
 namespace TicketStore.Api
 {
@@ -44,6 +44,7 @@ namespace TicketStore.Api
             services.AddSingleton(Configuration);
             services.AddSingleton<IConverter>(new SynchronizedConverter(new PdfTools()));
             services.AddSingleton(new EmailStrategy(Environment, Configuration, _log).Service());
+            services.AddSingleton<ITicketFinder, TicketFinder>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
