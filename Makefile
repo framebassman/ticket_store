@@ -92,11 +92,21 @@ start-prod:
 
 push:
 	docker login
-	docker-compose -f Deploy/docker-compose.production.yml push
+	docker-compose \
+		--project-directory=${PWD} \
+		--project-name=ticket_store \
+		-f Deploy/docker-compose.yml \
+		-f Deploy/docker-compose.production.yml \
+		push
 
 pull:
 	docker login
-	docker-compose -f Deploy/docker-compose.production.yml pull
+	docker-compose \
+		--project-directory=${PWD} \
+		--project-name=ticket_store \
+		-f Deploy/docker-compose.yml \
+		-f Deploy/docker-compose.production.yml \
+		pull
 
 # clean dungling images/volumes
 docker-cleanup:
