@@ -10,7 +10,7 @@ import Status from './../status/Status';
 import { DetectedBarcode } from './DetectedBarcode';
 import './Camera.css';
 
-class CameraTurnstile extends Component<TurnstileActions> {
+class Camera extends Component<TurnstileActions> {
   constructor(props: TurnstileActions) {
     super(props);
     this._onDetected = throttle(
@@ -39,4 +39,4 @@ class CameraTurnstile extends Component<TurnstileActions> {
 export default connect(
   () => ({}),
   actionCreators
-)(CameraTurnstile);
+)(Camera);
