@@ -1,5 +1,8 @@
 using System;
+using Microsoft.Extensions.Logging;
+using Moq;
 using TicketStore.Api.Controllers;
+using TicketStore.Api.Model.Validation;
 
 namespace TicketStore.Api.Tests.Unit.ControllersTests.Verify
 {
@@ -8,7 +11,8 @@ namespace TicketStore.Api.Tests.Unit.ControllersTests.Verify
         protected readonly VerifyController Controller;
         protected VerifyControllerBaseTest(string databaseName) : base(databaseName)
         {
-            Controller = new VerifyController(Db, Logger);
+            var finder = new TicketFinder(Db, new Mock<ILogger<TicketFinder>>().Object);
+            Controller = new VerifyController(Db, Logger, finder);
         }
     }
 }

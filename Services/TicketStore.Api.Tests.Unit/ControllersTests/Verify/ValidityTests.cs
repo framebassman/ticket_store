@@ -20,7 +20,8 @@ namespace TicketStore.Api.Tests.Unit.ControllersTests.Verify
         {
             // Arrange
             var barcode = new Barcode {
-                code = "123"
+                code = "123",
+                method = "Manual"
             };
             
             // Act
@@ -37,7 +38,8 @@ namespace TicketStore.Api.Tests.Unit.ControllersTests.Verify
         {
             // Arrange
             var barcode = new Barcode {
-                code = "5555566666"
+                code = "5555566666",
+                method = "Manual"
             };
             
             // Act
@@ -54,7 +56,8 @@ namespace TicketStore.Api.Tests.Unit.ControllersTests.Verify
         {
             // Arrange
             var barcode = new Barcode {
-                code = "3333344444"
+                code = "3333344444",
+                method = "Manual"
             };
             
             // Act
@@ -71,7 +74,8 @@ namespace TicketStore.Api.Tests.Unit.ControllersTests.Verify
         {
             // Arrange
             var barcode = new Barcode {
-                code = "1111122222"
+                code = "1111122222",
+                method = "Manual"
             };
             
             // Act
