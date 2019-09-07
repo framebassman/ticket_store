@@ -6,22 +6,6 @@ using TicketStore.Data.Model;
 
 namespace TicketStore.Api.Model.Validation
 {
-    public interface IDateTimeProvider
-    {
-        DateTime Now { get; }
-    }
-
-    public class DateTimeProvider : IDateTimeProvider
-    {
-        public DateTime Now => DateTime.Now;
-    }
-
-
-    public interface ITicketFinder
-    {
-        Ticket Find(Barcode barcode);
-    }
-
     public class TicketFinder : ITicketFinder
     {
         private readonly ApplicationContext _db;

@@ -11,6 +11,7 @@ using TicketStore.Api.Middlewares;
 using TicketStore.Api.Model.Email;
 using TicketStore.Data;
 using TicketStore.Api.Model.Validation;
+using TicketStore.Api.Model;
 
 namespace TicketStore.Api
 {

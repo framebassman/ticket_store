@@ -1,5 +1,6 @@
 using System;
 using Moq;
+using TicketStore.Api.Model;
 using TicketStore.Api.Model.Validation;
 using TicketStore.Api.Tests.Unit.BaseTest;
 using Xunit;

@@ -1,6 +1,7 @@
 using Microsoft.Extensions.Logging;
 using Moq;
 using TicketStore.Api.Controllers;
+using TicketStore.Api.Model;
 using TicketStore.Api.Model.Validation;
 
 namespace TicketStore.Api.Tests.Unit.ControllersTests.Verify
