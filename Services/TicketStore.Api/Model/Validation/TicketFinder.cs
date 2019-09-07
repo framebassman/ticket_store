@@ -47,11 +47,15 @@ namespace TicketStore.Api.Model.Validation
             }
 
             if (barcode.method == VerificationMethod.Manual) {
-                return _db.Tickets.FirstOrDefault(t => t.Number == barcode.code);
+                var ticket = _db.Tickets.FirstOrDefault(t => t.Number == barcode.code);
+                if (ticket == null)
+                {
+                    throw new Exception($"Ticket not found in Database");
+                };
+                return ticket;
             }
 
-            _log.LogInformation("Verification method doesn't exist: {0}", barcode.method);
-            return null;
+            throw new Exception($"Verification method doesn't exist: {barcode.method}");
         }
     }
 }

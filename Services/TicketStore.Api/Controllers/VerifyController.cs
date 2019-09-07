@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
@@ -6,6 +7,7 @@ using TicketStore.Api.Model;
 using TicketStore.Api.Model.Http;
 using TicketStore.Api.Model.Validation;
 using TicketStore.Data;
+using TicketStore.Data.Model;
 
 namespace TicketStore.Api.Controllers
 {
@@ -41,10 +43,15 @@ namespace TicketStore.Api.Controllers
                 return new BadRequestObjectResult(new BadRequestAnswer());
             }
 
-            var ticket = _finder.Find(barcode);
+            Ticket ticket = null;
+            try {
+                ticket = _finder.Find(barcode);
+            } catch (Exception ex)
+            {
+                _log.LogInformation(ex.Message);
+            }
             if (ticket == null)
             {
-                _log.LogInformation("There is no ticket found");
                 return new BadRequestObjectResult(new InvalidCodeAnswer());
             }
 
