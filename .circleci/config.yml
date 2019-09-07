@@ -107,5 +107,5 @@ workflows:
               only:
                 - master
           context: credentials
-          requires:
-            - test-integration
+          # requires:
+          #   - test-integration
