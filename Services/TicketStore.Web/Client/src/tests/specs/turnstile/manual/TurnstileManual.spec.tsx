@@ -5,7 +5,7 @@ import moxios from 'moxios';
 import configureStore from '../../../../store/configureStore';
 import { verifyUrl } from '../../../../store/Turnstile/urls/prod';
 import TurnstileManual from '../../../../components/turnstile/manual/TurnstileManual';
-import { SUBMIT } from '../../../model/enzyme/events';
+import { SUBMIT, CHANGE } from '../../../model/enzyme/events';
 
 const store = configureStore();
 
@@ -26,8 +26,10 @@ describe('<TurnstileManual />', () => {
     turnstileManual.unmount();
   });
   
-  it('should send "Manual" verification method', done => {
+  it('should send "Manual" verification method and barcode', done => {
     // Arrange
+    const barcode = '1234';
+    const textArea = turnstileManual.find('#ticket_number').hostNodes();
     const button = turnstileManual.find('#verify').hostNodes();
     moxios.stubRequest(verifyUrl, {
       status: 200,
@@ -35,6 +37,8 @@ describe('<TurnstileManual />', () => {
     });
 
     // Act
+    textArea.instance().value = barcode;
+    textArea.simulate(CHANGE);
     button.simulate(SUBMIT);
 
     // Assert
@@ -42,7 +46,7 @@ describe('<TurnstileManual />', () => {
       const request = moxios.requests.mostRecent();
       const sentData = JSON.parse(request.config.data);
       expect(sentData).toEqual({
-        code: '',
+        code: barcode,
         method: 'Manual'
       });
       done();
