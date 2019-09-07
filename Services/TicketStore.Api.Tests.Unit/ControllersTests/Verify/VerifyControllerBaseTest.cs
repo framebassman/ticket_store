@@ -1,4 +1,3 @@
-using System;
 using Microsoft.Extensions.Logging;
 using Moq;
 using TicketStore.Api.Controllers;
@@ -6,7 +5,7 @@ using TicketStore.Api.Model.Validation;
 
 namespace TicketStore.Api.Tests.Unit.ControllersTests.Verify
 {
-    public abstract class VerifyControllerBaseTest : ControllersBaseTest<VerifyController>, IDisposable
+    public abstract class VerifyControllerBaseTest : ControllersBaseTest<VerifyController>
     {
         protected readonly VerifyController Controller;
         protected VerifyControllerBaseTest(string databaseName) : base(databaseName)

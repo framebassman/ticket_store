@@ -14,9 +14,9 @@ namespace TicketStore.Api.Model.Validation
     public class TicketFinder : ITicketFinder
     {
         private readonly ApplicationContext _db;
-        private readonly ILogger<TicketFinder> _log;
+        private readonly ILogger<ITicketFinder> _log;
 
-        public TicketFinder(ApplicationContext context, ILogger<TicketFinder> log)
+        public TicketFinder(ApplicationContext context, ILogger<ITicketFinder> log)
         {
             _db = context;
             _log = log;
