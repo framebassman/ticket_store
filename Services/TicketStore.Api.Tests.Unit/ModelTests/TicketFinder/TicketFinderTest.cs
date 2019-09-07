@@ -1,4 +1,5 @@
 using System;
+using Moq;
 using TicketStore.Api.Model.Validation;
 using TicketStore.Api.Tests.Unit.BaseTest;
 using Xunit;
@@ -10,9 +11,9 @@ namespace TicketStore.Api.Tests.Unit.ModelTests
         protected TicketFinder Finder;
         public TicketFinderTest() : base("ticket_finder") {
             // UTC should be stored in Database
-            var dbTime = new DateTime(2019, 10, 4, 16, 00, 00, DateTimeKind.Utc);
+            var dbTime = new DateTime(2019, 10, 7, 16, 00, 00, DateTimeKind.Utc);
             SeedTestData(dbTime);
-            Finder = new TicketFinder(Db, Logger);
+            SetupFinder(dbTime);
         }
 
         [Fact]
@@ -39,11 +40,11 @@ namespace TicketStore.Api.Tests.Unit.ModelTests
 
             var ex = Assert.Throws<Exception>(() => Finder.Find(barcode));
 
-            Assert.Equal("Ticket not found in Database", ex.Message);
+            Assert.Equal("Verification Method: Manual. Ticket not found in Database", ex.Message);
         }
 
         [Fact]
-        public void ManualVerificationMethod_TicketExist_ThrowsException()
+        public void ManualVerificationMethod_TicketExist()
         {
             var barcode = new Barcode
             {
@@ -54,6 +55,28 @@ namespace TicketStore.Api.Tests.Unit.ModelTests
             var ticket = Finder.Find(barcode);
 
             Assert.Equal("1111122222", ticket.Number);
+        }
+
+        [Fact]
+        public void BarcodeVerificationMethod_TicketExist()
+        {
+            var barcode = new Barcode
+            {
+                code = "11111",
+                method = "Barcode"
+            };
+
+            var ticket = Finder.Find(barcode);
+
+            Assert.Equal("1111122222", ticket.Number);
+        }
+
+        protected void SetupFinder(DateTime date)
+        {
+            var dateTimeProviderMock = new Mock<IDateTimeProvider>();
+            dateTimeProviderMock.Setup(mock => mock.Now).Returns(date);
+
+            Finder = new TicketFinder(Db, Logger, dateTimeProviderMock.Object);
         }
     }
 }

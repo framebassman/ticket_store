@@ -39,6 +39,7 @@ namespace TicketStore.Api
             services.AddRouting(opt => opt.LowercaseUrls = true);
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddTransient<ITicketFinder, TicketFinder>();
+            services.AddTransient<IDateTimeProvider, DateTimeProvider>();
             services
                 .AddDbContext<ApplicationContext>()
                 .BuildServiceProvider();
