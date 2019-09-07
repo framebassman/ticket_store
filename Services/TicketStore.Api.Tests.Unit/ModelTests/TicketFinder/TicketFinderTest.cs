@@ -3,6 +3,7 @@ using Moq;
 using TicketStore.Api.Model;
 using TicketStore.Api.Model.Validation;
 using TicketStore.Api.Tests.Unit.BaseTest;
+using TicketStore.Api.Tests.Unit.Model;
 using Xunit;
 
 namespace TicketStore.Api.Tests.Unit.ModelTests
@@ -21,24 +22,17 @@ namespace TicketStore.Api.Tests.Unit.ModelTests
         [Fact]
         public void InvalidVeificationMethod()
         {
-            var barcode = new Barcode
-            {
-                code = "123",
-            };
+            var barcode = new UnknownBarcode("123");
 
             var ex = Assert.Throws<Exception>(() => Finder.Find(barcode));
 
-            Assert.Equal("Verification method doesn't exist: ", ex.Message);
+            Assert.Equal("Verification method doesn't exist: Unknown", ex.Message);
         }
 
         [Fact]
         public void ManualVerificationMethod_TicketNotFound()
         {
-            var barcode = new Barcode
-            {
-                code = "123",
-                method = "Manual"
-            };
+            var barcode = new ManualBarcode("123");
 
             var ex = Assert.Throws<Exception>(() => Finder.Find(barcode));
 
@@ -48,11 +42,7 @@ namespace TicketStore.Api.Tests.Unit.ModelTests
         [Fact]
         public void ManualVerificationMethod_TicketExist()
         {
-            var barcode = new Barcode
-            {
-                code = "1111122222",
-                method = "Manual"
-            };
+            var barcode = new ManualBarcode("1111122222");
 
             var ticket = Finder.Find(barcode);
 
@@ -62,11 +52,7 @@ namespace TicketStore.Api.Tests.Unit.ModelTests
         [Fact]
         public void BarcodeVerificationMethod_TicketExist()
         {
-            var barcode = new Barcode
-            {
-                code = "11111",
-                method = "Barcode"
-            };
+            var barcode = new BarcodeBarcode("11111");
 
             var ticket = Finder.Find(barcode);
 
@@ -76,11 +62,7 @@ namespace TicketStore.Api.Tests.Unit.ModelTests
         [Fact]
         public void BarcodeVerificationMethod_ConcertNotFound()
         {
-            var barcode = new Barcode
-            {
-                code = "55555",
-                method = "Barcode"
-            };
+            var barcode = new BarcodeBarcode("55555");
 
             var ex = Assert.Throws<Exception>(() => Finder.Find(barcode));
 
@@ -90,11 +72,7 @@ namespace TicketStore.Api.Tests.Unit.ModelTests
         [Fact]
         public void BarcodeVerificationMethod_TicketNotFound()
         {
-            var barcode = new Barcode
-            {
-                code = "123",
-                method = "Barcode"
-            };
+            var barcode = new BarcodeBarcode("123");
 
             var ex = Assert.Throws<Exception>(() => Finder.Find(barcode));
 
@@ -106,12 +84,7 @@ namespace TicketStore.Api.Tests.Unit.ModelTests
         {
             var now = _dbTime.AddHours(15);
             SetupFinder(now);
-
-            var barcode = new Barcode
-            {
-                code = "11111",
-                method = "Barcode"
-            };
+            var barcode = new BarcodeBarcode("11111");
 
             var ex = Assert.Throws<Exception>(() => Finder.Find(barcode));
 
@@ -123,12 +96,7 @@ namespace TicketStore.Api.Tests.Unit.ModelTests
         {
             var now = _dbTime.AddHours(-15);
             SetupFinder(now);
-
-            var barcode = new Barcode
-            {
-                code = "11111",
-                method = "Barcode"
-            };
+            var barcode = new BarcodeBarcode("11111");;
 
             var ex = Assert.Throws<Exception>(() => Finder.Find(barcode));
 
