@@ -49,9 +49,6 @@ namespace TicketStore.Api.Controllers
             } catch (Exception ex)
             {
                 _log.LogInformation(ex.Message);
-            }
-            if (ticket == null)
-            {
                 return new BadRequestObjectResult(new InvalidCodeAnswer());
             }
 

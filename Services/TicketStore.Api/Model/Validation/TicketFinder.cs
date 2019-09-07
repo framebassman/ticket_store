@@ -1,5 +1,4 @@
 using System;
-using System.Linq;
 using Microsoft.Extensions.Logging;
 using TicketStore.Data;
 using TicketStore.Data.Model;
@@ -10,50 +9,25 @@ namespace TicketStore.Api.Model.Validation
     {
         private readonly ApplicationContext _db;
         private readonly ILogger<ITicketFinder> _log;
-        private readonly IDateTimeProvider _dateTimeProvider;
+        private readonly ITicketFinder _manualTicketFinder;
+        private readonly ITicketFinder _barcodeTicketFinder;
 
         public TicketFinder(ApplicationContext context, ILogger<ITicketFinder> log, IDateTimeProvider dateTimeProvider)
         {
             _db = context;
             _log = log;
-            _dateTimeProvider = dateTimeProvider;
+            _manualTicketFinder = new ManualTicketFinder(context);
+            _barcodeTicketFinder = new BarcodeTicketFinder(context, dateTimeProvider);
         }
         public Ticket Find(TurnstileScan barcode)
         {
             _log.LogInformation("Find ticket using verification method: {0}", barcode.method);
             if (barcode.method == VerificationMethod.Barcode) {
-                var ticket = _db.Tickets.FirstOrDefault(t => t.Number.StartsWith(barcode.code));
-                if (ticket == null)
-                {
-                    throw new Exception($"Method: Barcode. Ticket not found in Database");
-                };
-
-                var concert = _db.Events.FirstOrDefault(e => e.Id == ticket.EventId);
-                if (concert == null)
-                {
-                    throw new Exception($"Method: Barcode. Concert is not found for ticket");
-                };
-
-                TimeSpan dateDiff = _dateTimeProvider.Now - concert.Time;
-                var hoursDiff = Math.Abs(dateDiff.TotalHours);
-                if (dateDiff.TotalHours <= -12) {
-                    throw new Exception($"Method: Barcode. Too early for concert, it will happen in {hoursDiff} hours");
-                }
-
-                if (dateDiff.TotalHours >= 12) {
-                    throw new Exception($"Method: Barcode. Too late for concert, it's happend {hoursDiff} hours ago");
-                }
-
-                return ticket;
+                return _barcodeTicketFinder.Find(barcode);
             }
 
             if (barcode.method == VerificationMethod.Manual) {
-                var ticket = _db.Tickets.FirstOrDefault(t => t.Number == barcode.code);
-                if (ticket == null)
-                {
-                    throw new Exception($"Method: Manual. Ticket not found in Database");
-                };
-                return ticket;
+                return _manualTicketFinder.Find(barcode);
             }
 
             throw new Exception($"Verification method doesn't exist: {barcode.method}");

@@ -30,16 +30,6 @@ namespace TicketStore.Api.Tests.Unit.ModelTests
         }
 
         [Fact]
-        public void ManualVerificationMethod_TicketNotFound()
-        {
-            var turnstileScan = new ManualTurnstileScan("123");
-
-            var ex = Assert.Throws<Exception>(() => Finder.Find(turnstileScan));
-
-            Assert.Equal("Method: Manual. Ticket not found in Database", ex.Message);
-        }
-
-        [Fact]
         public void ManualVerificationMethod_TicketExist()
         {
             var turnstileScan = new ManualTurnstileScan("1111122222");
@@ -57,50 +47,6 @@ namespace TicketStore.Api.Tests.Unit.ModelTests
             var ticket = Finder.Find(turnstileScan);
 
             Assert.Equal("1111122222", ticket.Number);
-        }
-
-        [Fact]
-        public void BarcodeVerificationMethod_ConcertNotFound()
-        {
-            var turnstileScan = new BarcodeTurnstileScan("55555");
-
-            var ex = Assert.Throws<Exception>(() => Finder.Find(turnstileScan));
-
-            Assert.Equal("Method: Barcode. Concert is not found for ticket", ex.Message);
-        }
-
-        [Fact]
-        public void BarcodeVerificationMethod_TicketNotFound()
-        {
-            var turnstileScan = new BarcodeTurnstileScan("123");
-
-            var ex = Assert.Throws<Exception>(() => Finder.Find(turnstileScan));
-
-            Assert.Equal("Method: Barcode. Ticket not found in Database", ex.Message);
-        }
-
-        [Fact]
-        public void BarcodeVerificationMethod_TooLateForConcert()
-        {
-            var now = _dbTime.AddHours(15);
-            SetupFinder(now);
-            var turnstileScan = new BarcodeTurnstileScan("11111");
-
-            var ex = Assert.Throws<Exception>(() => Finder.Find(turnstileScan));
-
-            Assert.Equal("Method: Barcode. Too late for concert, it's happend 15 hours ago", ex.Message);
-        }
-
-        [Fact]
-        public void BarcodeVerificationMethod__TooEarlyForConcert()
-        {
-            var now = _dbTime.AddHours(-15);
-            SetupFinder(now);
-            var turnstileScan = new BarcodeTurnstileScan("11111");;
-
-            var ex = Assert.Throws<Exception>(() => Finder.Find(turnstileScan));
-
-            Assert.Equal("Method: Barcode. Too early for concert, it will happen in 15 hours", ex.Message);
         }
 
         protected void SetupFinder(DateTime date)
