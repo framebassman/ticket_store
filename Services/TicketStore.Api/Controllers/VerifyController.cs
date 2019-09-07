@@ -28,7 +28,7 @@ namespace TicketStore.Api.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post([FromBody] Barcode barcode)
+        public IActionResult Post([FromBody] TurnstileScan barcode)
         {
             _log.LogInformation("Search the following barcode: {@barcode}", barcode);
             if (!ModelState.IsValid)

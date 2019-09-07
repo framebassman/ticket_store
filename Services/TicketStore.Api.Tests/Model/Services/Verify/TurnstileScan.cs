@@ -2,11 +2,12 @@ using System;
 
 namespace TicketStore.Api.Tests.Model.Services.Verify
 {
-    public class Barcode
+    public class TurnstileScan
     {
         public String code;
+        public String method;
 
-        public Barcode(String barcode)
+        public TurnstileScan(String barcode)
         {
             code = barcode;
         }

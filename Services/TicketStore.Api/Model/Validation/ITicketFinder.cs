@@ -4,6 +4,6 @@ namespace TicketStore.Api.Model.Validation
 {
     public interface ITicketFinder
     {
-        Ticket Find(Barcode barcode);
+        Ticket Find(TurnstileScan barcode);
     }
 }

@@ -22,9 +22,9 @@ namespace TicketStore.Api.Tests.Unit.ModelTests
         [Fact]
         public void InvalidVeificationMethod()
         {
-            var barcode = new UnknownBarcode("123");
+            var turnstileScan = new UnknownTurnstileScan("123");
 
-            var ex = Assert.Throws<Exception>(() => Finder.Find(barcode));
+            var ex = Assert.Throws<Exception>(() => Finder.Find(turnstileScan));
 
             Assert.Equal("Verification method doesn't exist: Unknown", ex.Message);
         }
@@ -32,9 +32,9 @@ namespace TicketStore.Api.Tests.Unit.ModelTests
         [Fact]
         public void ManualVerificationMethod_TicketNotFound()
         {
-            var barcode = new ManualBarcode("123");
+            var turnstileScan = new ManualTurnstileScan("123");
 
-            var ex = Assert.Throws<Exception>(() => Finder.Find(barcode));
+            var ex = Assert.Throws<Exception>(() => Finder.Find(turnstileScan));
 
             Assert.Equal("Method: Manual. Ticket not found in Database", ex.Message);
         }
@@ -42,9 +42,9 @@ namespace TicketStore.Api.Tests.Unit.ModelTests
         [Fact]
         public void ManualVerificationMethod_TicketExist()
         {
-            var barcode = new ManualBarcode("1111122222");
+            var turnstileScan = new ManualTurnstileScan("1111122222");
 
-            var ticket = Finder.Find(barcode);
+            var ticket = Finder.Find(turnstileScan);
 
             Assert.Equal("1111122222", ticket.Number);
         }
@@ -52,9 +52,9 @@ namespace TicketStore.Api.Tests.Unit.ModelTests
         [Fact]
         public void BarcodeVerificationMethod_TicketExist()
         {
-            var barcode = new BarcodeBarcode("11111");
+            var turnstileScan = new BarcodeTurnstileScan("11111");
 
-            var ticket = Finder.Find(barcode);
+            var ticket = Finder.Find(turnstileScan);
 
             Assert.Equal("1111122222", ticket.Number);
         }
@@ -62,9 +62,9 @@ namespace TicketStore.Api.Tests.Unit.ModelTests
         [Fact]
         public void BarcodeVerificationMethod_ConcertNotFound()
         {
-            var barcode = new BarcodeBarcode("55555");
+            var turnstileScan = new BarcodeTurnstileScan("55555");
 
-            var ex = Assert.Throws<Exception>(() => Finder.Find(barcode));
+            var ex = Assert.Throws<Exception>(() => Finder.Find(turnstileScan));
 
             Assert.Equal("Method: Barcode. Concert is not found for ticket", ex.Message);
         }
@@ -72,9 +72,9 @@ namespace TicketStore.Api.Tests.Unit.ModelTests
         [Fact]
         public void BarcodeVerificationMethod_TicketNotFound()
         {
-            var barcode = new BarcodeBarcode("123");
+            var turnstileScan = new BarcodeTurnstileScan("123");
 
-            var ex = Assert.Throws<Exception>(() => Finder.Find(barcode));
+            var ex = Assert.Throws<Exception>(() => Finder.Find(turnstileScan));
 
             Assert.Equal("Method: Barcode. Ticket not found in Database", ex.Message);
         }
@@ -84,9 +84,9 @@ namespace TicketStore.Api.Tests.Unit.ModelTests
         {
             var now = _dbTime.AddHours(15);
             SetupFinder(now);
-            var barcode = new BarcodeBarcode("11111");
+            var turnstileScan = new BarcodeTurnstileScan("11111");
 
-            var ex = Assert.Throws<Exception>(() => Finder.Find(barcode));
+            var ex = Assert.Throws<Exception>(() => Finder.Find(turnstileScan));
 
             Assert.Equal("Method: Barcode. Too late for concert, it's happend 15 hours ago", ex.Message);
         }
@@ -96,9 +96,9 @@ namespace TicketStore.Api.Tests.Unit.ModelTests
         {
             var now = _dbTime.AddHours(-15);
             SetupFinder(now);
-            var barcode = new BarcodeBarcode("11111");;
+            var turnstileScan = new BarcodeTurnstileScan("11111");;
 
-            var ex = Assert.Throws<Exception>(() => Finder.Find(barcode));
+            var ex = Assert.Throws<Exception>(() => Finder.Find(turnstileScan));
 
             Assert.Equal("Method: Barcode. Too early for concert, it will happen in 15 hours", ex.Message);
         }

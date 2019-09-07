@@ -49,7 +49,7 @@ namespace TicketStore.Api.Tests.Model.Services
         {
             var request = new RestRequest("api/verify", Method.POST);
             request.AddHeader("Content-Type", "application/json");
-            request.AddJsonBody(new Barcode(ticketNumber));
+            request.AddJsonBody(new TurnstileScan(ticketNumber));
             return request;
         }
     }

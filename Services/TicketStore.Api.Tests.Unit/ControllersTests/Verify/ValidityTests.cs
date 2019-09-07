@@ -19,13 +19,13 @@ namespace TicketStore.Api.Tests.Unit.ControllersTests.Verify
         public void TicketIsNotFoundInDatabase_ReturnsBadRequest()
         {
             // Arrange
-            var barcode = new Barcode {
+            var turnstileScan = new TurnstileScan {
                 code = "123",
                 method = "Manual"
             };
             
             // Act
-            var result = Controller.Post(barcode);
+            var result = Controller.Post(turnstileScan);
             
             // Assert
             Assert.IsType<BadRequestObjectResult>(result);
@@ -37,13 +37,13 @@ namespace TicketStore.Api.Tests.Unit.ControllersTests.Verify
         public void TicketDoesntMatchAnyConcert_ReturnsBadRequest()
         {
             // Arrange
-            var barcode = new Barcode {
+            var turnstileScan = new TurnstileScan {
                 code = "5555566666",
                 method = "Manual"
             };
             
             // Act
-            var result = Controller.Post(barcode);
+            var result = Controller.Post(turnstileScan);
             
             // Assert
             Assert.IsType<BadRequestObjectResult>(result);
@@ -55,13 +55,13 @@ namespace TicketStore.Api.Tests.Unit.ControllersTests.Verify
         public void TicketHasExpired_ReturnsOk()
         {
             // Arrange
-            var barcode = new Barcode {
+            var turnstileScan = new TurnstileScan {
                 code = "3333344444",
                 method = "Manual"
             };
             
             // Act
-            var result = Controller.Post(barcode);
+            var result = Controller.Post(turnstileScan);
             
             // Assert
             Assert.IsType<OkObjectResult>(result);
@@ -73,13 +73,13 @@ namespace TicketStore.Api.Tests.Unit.ControllersTests.Verify
         public void TicketIsValid_ReturnsOk()
         {
             // Arrange
-            var barcode = new Barcode {
+            var turnstileScan = new TurnstileScan {
                 code = "1111122222",
                 method = "Manual"
             };
             
             // Act
-            var result = Controller.Post(barcode);
+            var result = Controller.Post(turnstileScan);
             
             // Assert
             Assert.IsType<OkObjectResult>(result);

@@ -3,12 +3,12 @@ using TicketStore.Api.Model.Validation;
 
 namespace TicketStore.Api.Tests.Unit.Model
 {
-    public class BarcodeBarcode : Barcode
+    public class BarcodeTurnstileScan : TurnstileScan
     {
-        public BarcodeBarcode(String co)
+        public BarcodeTurnstileScan(String barcode)
         {
             method = "Barcode";
-            code = co;
+            code = barcode;
         }
     }
 }

@@ -18,7 +18,7 @@ namespace TicketStore.Api.Model.Validation
             _log = log;
             _dateTimeProvider = dateTimeProvider;
         }
-        public Ticket Find(Barcode barcode)
+        public Ticket Find(TurnstileScan barcode)
         {
             _log.LogInformation("Find ticket using verification method: {0}", barcode.method);
             if (barcode.method == VerificationMethod.Barcode) {
