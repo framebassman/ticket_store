@@ -1,7 +1,7 @@
 using System;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using TicketStore.Api.Model.Validation;
+using TicketStore.Api.Tests.Unit.Model;
 using Xunit;
 
 namespace TicketStore.Api.Tests.Unit.ControllersTests.Verify
@@ -19,10 +19,7 @@ namespace TicketStore.Api.Tests.Unit.ControllersTests.Verify
         public void TicketIsNotFoundInDatabase_ReturnsBadRequest()
         {
             // Arrange
-            var turnstileScan = new TurnstileScan {
-                code = "123",
-                method = "Manual"
-            };
+            var turnstileScan = new ManualTurnstileScan("123");
             
             // Act
             var result = Controller.Post(turnstileScan);
@@ -37,10 +34,7 @@ namespace TicketStore.Api.Tests.Unit.ControllersTests.Verify
         public void TicketDoesntMatchAnyConcert_ReturnsBadRequest()
         {
             // Arrange
-            var turnstileScan = new TurnstileScan {
-                code = "5555566666",
-                method = "Manual"
-            };
+            var turnstileScan = new ManualTurnstileScan("5555566666");
             
             // Act
             var result = Controller.Post(turnstileScan);
@@ -55,10 +49,7 @@ namespace TicketStore.Api.Tests.Unit.ControllersTests.Verify
         public void TicketHasExpired_ReturnsOk()
         {
             // Arrange
-            var turnstileScan = new TurnstileScan {
-                code = "3333344444",
-                method = "Manual"
-            };
+            var turnstileScan = new ManualTurnstileScan("3333344444");
             
             // Act
             var result = Controller.Post(turnstileScan);
@@ -73,10 +64,7 @@ namespace TicketStore.Api.Tests.Unit.ControllersTests.Verify
         public void TicketIsValid_ReturnsOk()
         {
             // Arrange
-            var turnstileScan = new TurnstileScan {
-                code = "1111122222",
-                method = "Manual"
-            };
+            var turnstileScan = new ManualTurnstileScan("1111122222");
             
             // Act
             var result = Controller.Post(turnstileScan);
