@@ -43,8 +43,9 @@ namespace TicketStore.Api.Controllers
                 return new BadRequestObjectResult(new BadRequestAnswer());
             }
 
-            Ticket ticket = null;
-            try {
+            Ticket ticket;
+            try
+            {
                 ticket = _finder.Find(barcode);
             } catch (Exception ex)
             {

@@ -1,5 +1,6 @@
 using System;
 using TicketStore.Api.Model.Validation;
+using TicketStore.Api.Model.Validation.Exceptions;
 using TicketStore.Api.Tests.Unit.BaseTest;
 using TicketStore.Api.Tests.Unit.Model;
 using Xunit;
@@ -21,7 +22,7 @@ namespace TicketStore.Api.Tests.Unit.ModelTests
         {
             var turnstileScan = new ManualTurnstileScan("123");
 
-            var ex = Assert.Throws<Exception>(() => Finder.Find(turnstileScan));
+            var ex = Assert.Throws<TicketNotFound>(() => Finder.Find(turnstileScan));
 
             Assert.Equal("Method: Manual. Ticket not found in Database", ex.Message);
         }

@@ -2,6 +2,7 @@ using System;
 using Moq;
 using TicketStore.Api.Model;
 using TicketStore.Api.Model.Validation;
+using TicketStore.Api.Model.Validation.Exceptions;
 using TicketStore.Api.Tests.Unit.BaseTest;
 using TicketStore.Api.Tests.Unit.Model;
 using Xunit;
@@ -54,7 +55,7 @@ namespace TicketStore.Api.Tests.Unit.ModelTests
         {
             var turnstileScan = new BarcodeTurnstileScan("11111");
 
-            var ex = Assert.Throws<Exception>(() => Finder.Find(turnstileScan));
+            var ex = Assert.Throws<ConcertNotFound>(() => Finder.Find(turnstileScan));
 
             Assert.Equal("Method: Barcode. Code is too short", ex.Message);
         }
@@ -74,7 +75,7 @@ namespace TicketStore.Api.Tests.Unit.ModelTests
         {
             var turnstileScan = new BarcodeTurnstileScan("123456");
 
-            var ex = Assert.Throws<Exception>(() => Finder.Find(turnstileScan));
+            var ex = Assert.Throws<TicketNotFound>(() => Finder.Find(turnstileScan));
 
             Assert.Equal("Method: Barcode. Ticket not found in Database", ex.Message);
         }
@@ -96,7 +97,7 @@ namespace TicketStore.Api.Tests.Unit.ModelTests
             SetupFinder(now);
             var turnstileScan = new BarcodeTurnstileScan("1111122222");
 
-            var ex = Assert.Throws<Exception>(() => Finder.Find(turnstileScan));
+            var ex = Assert.Throws<TooLate>(() => Finder.Find(turnstileScan));
 
             Assert.Equal("Method: Barcode. Too late for concert, it's happend 15 hours ago", ex.Message);
         }
@@ -108,7 +109,7 @@ namespace TicketStore.Api.Tests.Unit.ModelTests
             SetupFinder(now);
             var turnstileScan = new BarcodeTurnstileScan("1111122222");;
 
-            var ex = Assert.Throws<Exception>(() => Finder.Find(turnstileScan));
+            var ex = Assert.Throws<TooEarly>(() => Finder.Find(turnstileScan));
 
             Assert.Equal("Method: Barcode. Too early for concert, it will happen in 15 hours", ex.Message);
         }

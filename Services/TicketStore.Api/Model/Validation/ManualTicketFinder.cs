@@ -1,5 +1,5 @@
-using System;
 using System.Linq;
+using TicketStore.Api.Model.Validation.Exceptions;
 using TicketStore.Data;
 using TicketStore.Data.Model;
 
@@ -18,7 +18,7 @@ namespace TicketStore.Api.Model.Validation
             var ticket = _db.Tickets.FirstOrDefault(t => t.Number == barcode.code);
             if (ticket == null)
             {
-                throw new Exception($"Method: Manual. Ticket not found in Database");
+                throw new TicketNotFound(VerificationMethod.Manual);
             };
             return ticket;
         }
