@@ -38,7 +38,11 @@ class Afisha extends Component<any, AfishaState> {
     }
 
     if (merchantsIsLoading || eventsIsLoading) {
-      return <CenteredProgress />
+      return (
+        <CenteredProgress>
+          Загружаем концерты...
+        </CenteredProgress>
+      )
     }
 
     return (
