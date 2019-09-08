@@ -19,15 +19,16 @@ namespace TicketStore.Api.Model.Validation
         public Ticket Find(TurnstileScan barcode)
         {
             var code = barcode.code.Substring(0, barcode.code.Length - 2);
-            if (code.Length <= 3)
+            var minCodeLength = 4;
+            if (code.Length < minCodeLength)
             {
-                throw new Exception($"Method: Barcode. Code is too short");
+                throw new CodeToShort(VerificationMethod.Barcode, minCodeLength);
             };
 
             var tickets = _db.Tickets.Where(t => t.Number.StartsWith(code));
             if (tickets.Count() > 1)
             {
-                throw new Exception($"Method: Barcode. Multiple tickets found: {tickets.Count()} tickets");
+                throw new MultipleTicketsFound(VerificationMethod.Barcode, tickets.Count());
             };
 
             var ticket = tickets.FirstOrDefault();

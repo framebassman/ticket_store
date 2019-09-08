@@ -53,11 +53,11 @@ namespace TicketStore.Api.Tests.Unit.ModelTests
         [Fact]
         public void BarcodeVerificationMethod_FailsIfCodeShorterThan5()
         {
-            var turnstileScan = new BarcodeTurnstileScan("11111");
+            var turnstileScan = new BarcodeTurnstileScan("11123");
 
-            var ex = Assert.Throws<ConcertNotFound>(() => Finder.Find(turnstileScan));
+            var ex = Assert.Throws<CodeToShort>(() => Finder.Find(turnstileScan));
 
-            Assert.Equal("Method: Barcode. Code is too short", ex.Message);
+            Assert.Equal("Method: Barcode. Searchable part of code is shorter than 4 characters", ex.Message);
         }
 
         [Fact]
@@ -65,7 +65,7 @@ namespace TicketStore.Api.Tests.Unit.ModelTests
         {
             var turnstileScan = new BarcodeTurnstileScan("77777889");
 
-            var ex = Assert.Throws<Exception>(() => Finder.Find(turnstileScan));
+            var ex = Assert.Throws<MultipleTicketsFound>(() => Finder.Find(turnstileScan));
 
             Assert.Equal("Method: Barcode. Multiple tickets found: 2 tickets", ex.Message);
         }
@@ -85,7 +85,7 @@ namespace TicketStore.Api.Tests.Unit.ModelTests
         {
             var turnstileScan = new BarcodeTurnstileScan("5555566666");
 
-            var ex = Assert.Throws<Exception>(() => Finder.Find(turnstileScan));
+            var ex = Assert.Throws<ConcertNotFound>(() => Finder.Find(turnstileScan));
 
             Assert.Equal("Method: Barcode. Concert is not found for ticket", ex.Message);
         }
