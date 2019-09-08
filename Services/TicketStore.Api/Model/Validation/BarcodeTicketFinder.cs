@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using TicketStore.Api.Model.Validation.Exceptions;
 using TicketStore.Data;
@@ -10,38 +11,50 @@ namespace TicketStore.Api.Model.Validation
     {
         private readonly ApplicationContext _db;
         private readonly IDateTimeProvider _dateTimeProvider;
-
+        private readonly List<ITicketFinder> _barcodeFinders;
+        
         public BarcodeTicketFinder(ApplicationContext context, IDateTimeProvider dateTimeProvider)
         {
             _db = context;
             _dateTimeProvider = dateTimeProvider;
+            _barcodeFinders = new List<ITicketFinder>
+            {
+                new ManualTicketFinder(context),
+                new BarcodeNetFinder(context)
+            };
         }
         public Ticket Find(TurnstileScan barcode)
         {
-            var code = barcode.code.Substring(0, barcode.code.Length - 2);
-            var minCodeLength = 4;
-            if (code.Length < minCodeLength)
+            Ticket ticket = null;
+            foreach (var finder in _barcodeFinders)
             {
-                throw new CodeToShort(VerificationMethod.Barcode, minCodeLength);
-            };
+                try
+                {
+                    ticket = finder.Find(barcode);
+                }
+                catch (FindException e)
+                {
+                    if (finder.Equals(_barcodeFinders.Last()))
+                    {
+                        throw e;
+                    }
+                }
+            }
 
-            var tickets = _db.Tickets.Where(t => t.Number.StartsWith(code));
-            if (tickets.Count() > 1)
-            {
-                throw new MultipleTicketsFound(VerificationMethod.Barcode, tickets.Count());
-            };
-
-            var ticket = tickets.FirstOrDefault();
             if (ticket == null)
             {
                 throw new TicketNotFound(VerificationMethod.Barcode);
-            };
-
-            var concert = _db.Events.FirstOrDefault(e => e.Id == ticket.EventId);
-            if (concert == null)
+            }
+            else
             {
-                throw new ConcertNotFound(VerificationMethod.Barcode);
-            };
+                return ticket;
+            }
+
+//            var concert = _db.Events.FirstOrDefault(e => e.Id == ticket.EventId);
+//            if (concert == null)
+//            {
+//                throw new ConcertNotFound(VerificationMethod.Barcode);
+//            };
 
             // TimeSpan dateDiff = _dateTimeProvider.Now - concert.Time;
             // var hoursDiff = Math.Abs(dateDiff.TotalHours);
@@ -52,8 +65,6 @@ namespace TicketStore.Api.Model.Validation
             // if (dateDiff.TotalHours >= 12) {
             //     throw new TooLate(VerificationMethod.Barcode, hoursDiff);
             // }
-
-            return ticket;
         }
     }
 }

@@ -131,7 +131,7 @@ namespace TicketStore.Api.Model.Pdf
                         <div style=""font-size: 14px; margin: 4px; text-align: left"">{FormatTime(_originTime)}</div>
                         <div style=""font-size: 14px; margin: 4px; text-align: right"">Стоимость: {_price} ₽</div>
                       </div>
-                      <img src='https://barcode.tec-it.com/barcode.ashx?data={ticket.Number}&code=&multiplebarcodes=false&translate-esc=false&unit=Fit&dpi=96&imagetype=Gif&rotation=0&color=%23000000&bgcolor=%23ffffff&qunit=Mm&quiet=0' />
+                      <img src='http://barcode.tec-it.com/barcode.ashx?data={ticket.Number}&code=&multiplebarcodes=false&translate-esc=false&unit=Fit&dpi=96&imagetype=Gif&rotation=0&color=%23000000&bgcolor=%23ffffff&qunit=Mm&quiet=0' />
                       <br />
                       <br />
                     </div>
