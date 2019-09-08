@@ -43,15 +43,15 @@ namespace TicketStore.Api.Model.Validation
                 throw new ConcertNotFound(VerificationMethod.Barcode);
             };
 
-            TimeSpan dateDiff = _dateTimeProvider.Now - concert.Time;
-            var hoursDiff = Math.Abs(dateDiff.TotalHours);
-            if (dateDiff.TotalHours <= -12) {
-                throw new TooEarly(VerificationMethod.Barcode, hoursDiff);
-            }
+            // TimeSpan dateDiff = _dateTimeProvider.Now - concert.Time;
+            // var hoursDiff = Math.Abs(dateDiff.TotalHours);
+            // if (dateDiff.TotalHours <= -12) {
+            //     throw new TooEarly(VerificationMethod.Barcode, hoursDiff);
+            // }
 
-            if (dateDiff.TotalHours >= 12) {
-                throw new TooLate(VerificationMethod.Barcode, hoursDiff);
-            }
+            // if (dateDiff.TotalHours >= 12) {
+            //     throw new TooLate(VerificationMethod.Barcode, hoursDiff);
+            // }
 
             return ticket;
         }
