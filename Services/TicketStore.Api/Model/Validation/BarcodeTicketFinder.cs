@@ -18,7 +18,9 @@ namespace TicketStore.Api.Model.Validation
         }
         public Ticket Find(TurnstileScan barcode)
         {
-            var ticket = _db.Tickets.FirstOrDefault(t => t.Number.StartsWith(barcode.code));
+            // fix for invalid barcode generation
+            String withoutLastNumber = barcode.code.Substring(0, barcode.code.Length - 1);
+            var ticket = _db.Tickets.FirstOrDefault(t => t.Number.StartsWith(withoutLastNumber));
             if (ticket == null)
             {
                 throw new TicketNotFound(VerificationMethod.Barcode);
