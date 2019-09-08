@@ -60,13 +60,13 @@ namespace TicketStore.Api.Tests.Unit.ModelTests
         }
 
         [Fact]
-        public void BarcodeVerificationMethod_ConcertNotFound()
+        public void BarcodeVerificationMethod_MultipleTicketsFound()
         {
-            var turnstileScan = new BarcodeTurnstileScan("5555566666");
+            var turnstileScan = new BarcodeTurnstileScan("77777889");
 
             var ex = Assert.Throws<Exception>(() => Finder.Find(turnstileScan));
 
-            Assert.Equal("Method: Barcode. Concert is not found for ticket", ex.Message);
+            Assert.Equal("Method: Barcode. Multiple tickets found: 2 tickets", ex.Message);
         }
 
         [Fact]
@@ -77,6 +77,16 @@ namespace TicketStore.Api.Tests.Unit.ModelTests
             var ex = Assert.Throws<Exception>(() => Finder.Find(turnstileScan));
 
             Assert.Equal("Method: Barcode. Ticket not found in Database", ex.Message);
+        }
+
+        [Fact]
+        public void BarcodeVerificationMethod_ConcertNotFound()
+        {
+            var turnstileScan = new BarcodeTurnstileScan("5555566666");
+
+            var ex = Assert.Throws<Exception>(() => Finder.Find(turnstileScan));
+
+            Assert.Equal("Method: Barcode. Concert is not found for ticket", ex.Message);
         }
 
         [Fact]

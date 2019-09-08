@@ -34,6 +34,8 @@ namespace TicketStore.Api.Tests.Unit.BaseTest
 
         protected void SeedTestData(DateTime date)
         {
+            CleanUpDatabase();
+
             var merchant = Provider.Merchants().First();
             _merchant = Db.Merchants.Add(merchant).Entity;
 
@@ -48,6 +50,14 @@ namespace TicketStore.Api.Tests.Unit.BaseTest
             Db.Payments.Add(_payment);
 
             Db.SaveChanges();
+        }
+
+        protected void CleanUpDatabase()
+        {
+            Db.Merchants.RemoveRange(Db.Merchants);
+            Db.Events.RemoveRange(Db.Events);
+            Db.Tickets.RemoveRange(Db.Tickets);
+            Db.Payments.RemoveRange(Db.Payments);
         }
 
         public void Dispose()

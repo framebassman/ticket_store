@@ -23,7 +23,13 @@ namespace TicketStore.Api.Model.Validation
                 throw new Exception($"Method: Barcode. Code is too short");
             };
 
-            var ticket = _db.Tickets.FirstOrDefault(t => t.Number.StartsWith(code));
+            var tickets = _db.Tickets.Where(t => t.Number.StartsWith(code));
+            if (tickets.Count() > 1)
+            {
+                throw new Exception($"Method: Barcode. Multiple tickets found: {tickets.Count()} tickets");
+            };
+
+            var ticket = tickets.FirstOrDefault();
             if (ticket == null)
             {
                 throw new Exception($"Method: Barcode. Ticket not found in Database");
