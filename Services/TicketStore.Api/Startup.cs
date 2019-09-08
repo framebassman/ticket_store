@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -11,6 +10,8 @@ using DinkToPdf.Contracts;
 using TicketStore.Api.Middlewares;
 using TicketStore.Api.Model.Email;
 using TicketStore.Data;
+using TicketStore.Api.Model.Validation;
+using TicketStore.Api.Model;
 
 namespace TicketStore.Api
 {
@@ -38,6 +39,8 @@ namespace TicketStore.Api
         {
             services.AddRouting(opt => opt.LowercaseUrls = true);
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddTransient<ITicketFinder, TicketFinder>();
+            services.AddTransient<IDateTimeProvider, DateTimeProvider>();
             services
                 .AddDbContext<ApplicationContext>()
                 .BuildServiceProvider();

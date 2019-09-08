@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
 import * as Quagga from 'quagga';
 import './Scanner.css';
+import { DetectedBarcode } from './DetectedBarcode';
 
-export class Scanner extends Component<any, any> {
-  constructor(props: any) {
+type Props = {
+  onDetected: (detectedBarcode: DetectedBarcode) => any
+};
+
+export class Scanner extends Component<Props> {
+  constructor(props: Props) {
     super(props);
     this._onDetected = this._onDetected.bind(this);
   }

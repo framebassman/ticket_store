@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
@@ -6,6 +7,7 @@ using TicketStore.Api.Model;
 using TicketStore.Api.Model.Http;
 using TicketStore.Api.Model.Validation;
 using TicketStore.Data;
+using TicketStore.Data.Model;
 
 namespace TicketStore.Api.Controllers
 {
@@ -15,16 +17,18 @@ namespace TicketStore.Api.Controllers
     {
         private readonly ApplicationContext _db;
         private readonly ILogger<VerifyController> _log;
+        private readonly ITicketFinder _finder;
         private const string _token = "Bearer pkR9vfZ9QdER53mf";
 
-        public VerifyController(ApplicationContext context, ILogger<VerifyController> log)
+        public VerifyController(ApplicationContext context, ILogger<VerifyController> log, ITicketFinder finder)
         {
             _db = context;
             _log = log;
+            _finder = finder;
         }
 
         [HttpPost]
-        public IActionResult Post([FromBody] Barcode barcode)
+        public IActionResult Post([FromBody] TurnstileScan barcode)
         {
             _log.LogInformation("Search the following barcode: {@barcode}", barcode);
             if (!ModelState.IsValid)
@@ -39,10 +43,13 @@ namespace TicketStore.Api.Controllers
                 return new BadRequestObjectResult(new BadRequestAnswer());
             }
 
-            var ticket = _db.Tickets.FirstOrDefault(t => t.Number == barcode.code);
-            if (ticket == null)
+            Ticket ticket;
+            try
             {
-                _log.LogInformation("There is no ticket with this ticket number");
+                ticket = _finder.Find(barcode);
+            } catch (Exception ex)
+            {
+                _log.LogInformation(ex.Message);
                 return new BadRequestObjectResult(new InvalidCodeAnswer());
             }
 

@@ -6,6 +6,7 @@ using TicketStore.Api.Tests.Data;
 using TicketStore.Api.Tests.Model;
 using TicketStore.Api.Tests.Model.Db;
 using TicketStore.Api.Tests.Model.Services.Verify.Answers;
+using TicketStore.Api.Tests.Model.Services.Verify.Requests;
 using TicketStore.Api.Tests.Tests.Fixtures;
 using TicketStore.Api.Tests.Tests.Matchers;
 using TicketStore.Api.Tests.Tests.Matchers.Tickets;
@@ -31,9 +32,10 @@ namespace TicketStore.Api.Tests.Tests.Verification
             var email = Generator.Email();
             _fixture.Api.SendPayment(sender, new YandexPaymentLabel(testEvent), email, testEvent.Roubles, testEvent.Roubles);
             var ticket = _fixture.Db.Tickets.First(t => t.Payment.Email == email);
+            var scan = new BarcodeScan(ticket.Number);
 
             // Act
-            var response = _fixture.Api.VerifyBarcode(ticket.Number);
+            var response = _fixture.Api.VerifyBarcode(scan);
 
             // Assert
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
@@ -51,8 +53,11 @@ namespace TicketStore.Api.Tests.Tests.Verification
         [Fact]
         public void SendNotExistBarcode_ReturnsNotFound()
         {
+            // Arrange
+            var scan = new BarcodeScan("-1");
+            
             // Act
-            var response = _fixture.Api.VerifyBarcode("-1");
+            var response = _fixture.Api.VerifyBarcode(scan);
 
             // Assert
             Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);

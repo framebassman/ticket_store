@@ -2,6 +2,7 @@ using System;
 using RestSharp;
 using TicketStore.Api.Tests.Environment;
 using TicketStore.Api.Tests.Model.Services.Verify;
+using TicketStore.Api.Tests.Model.Services.Verify.Requests;
 
 namespace TicketStore.Api.Tests.Model.Services
 {
@@ -32,24 +33,24 @@ namespace TicketStore.Api.Tests.Model.Services
             return Client.Execute(request);
         }
 
-        public IRestResponse VerifyBarcode(string ticketNumber)
+        public IRestResponse VerifyBarcode(TurnstileScan scan)
         {
-            var request = CreateVerifyRequest(ticketNumber);
+            var request = CreateVerifyRequest(scan);
             request.AddHeader("Authorization", "Bearer pkR9vfZ9QdER53mf");
             return Client.Execute(request);
         }
 
-        public IRestResponse VerifyBarcodeWithoutAuth(string ticketNumber)
+        public IRestResponse VerifyBarcodeWithoutAuth(TurnstileScan scan)
         {
-            var request = CreateVerifyRequest(ticketNumber);
+            var request = CreateVerifyRequest(scan);
             return Client.Execute(request);
         }
 
-        private RestRequest CreateVerifyRequest(string ticketNumber)
+        private RestRequest CreateVerifyRequest(TurnstileScan scan)
         {
             var request = new RestRequest("api/verify", Method.POST);
             request.AddHeader("Content-Type", "application/json");
-            request.AddJsonBody(new Barcode(ticketNumber));
+            request.AddJsonBody(scan);
             return request;
         }
     }

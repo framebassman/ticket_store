@@ -4,7 +4,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import { reducer as turnstileReducer } from './Turnstile/reducer';
 import { reducer as afishaReducer } from './Afisha/reducer';
 
-export default function configureStore (initialState: any) {
+export default function configureStore (initialState: any = undefined) {
   const reducers = {
     turnstile: turnstileReducer,
     afisha: afishaReducer,

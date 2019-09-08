@@ -5,11 +5,12 @@ import TextField from '@material-ui/core/TextField';
 import Container from '@material-ui/core/Container';
 import Box from '@material-ui/core/Box';
 
-import { actionCreators } from '../../../store/Turnstile/actions';
+import { actionCreators, TurnstileActions } from '../../../store/Turnstile/actions';
+import { VerificationMethod } from '../../../store/Turnstile/verificationMethods';
 import Status from '../status/Status';
 import './TurnstileManual.css';
 
-const TurnstileManual = ({ verify }) => {
+const TurnstileManual = ({ verify }: TurnstileActions) => {
   const [ticketNumber, setTicketNumber] = useState('');
 
   return (
@@ -18,7 +19,7 @@ const TurnstileManual = ({ verify }) => {
       <form 
         onSubmit={e => {
           e.preventDefault();
-          verify(ticketNumber);
+          verify(ticketNumber, VerificationMethod.Manual);
         }}
       >
         <Box>

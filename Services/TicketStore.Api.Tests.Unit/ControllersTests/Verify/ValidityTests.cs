@@ -1,7 +1,7 @@
 using System;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using TicketStore.Api.Model.Validation;
+using TicketStore.Api.Tests.Unit.Model;
 using Xunit;
 
 namespace TicketStore.Api.Tests.Unit.ControllersTests.Verify
@@ -19,12 +19,10 @@ namespace TicketStore.Api.Tests.Unit.ControllersTests.Verify
         public void TicketIsNotFoundInDatabase_ReturnsBadRequest()
         {
             // Arrange
-            var barcode = new Barcode {
-                code = "123"
-            };
+            var turnstileScan = new ManualTurnstileScan("123");
             
             // Act
-            var result = Controller.Post(barcode);
+            var result = Controller.Post(turnstileScan);
             
             // Assert
             Assert.IsType<BadRequestObjectResult>(result);
@@ -36,12 +34,10 @@ namespace TicketStore.Api.Tests.Unit.ControllersTests.Verify
         public void TicketDoesntMatchAnyConcert_ReturnsBadRequest()
         {
             // Arrange
-            var barcode = new Barcode {
-                code = "5555566666"
-            };
+            var turnstileScan = new ManualTurnstileScan("5555566666");
             
             // Act
-            var result = Controller.Post(barcode);
+            var result = Controller.Post(turnstileScan);
             
             // Assert
             Assert.IsType<BadRequestObjectResult>(result);
@@ -53,12 +49,10 @@ namespace TicketStore.Api.Tests.Unit.ControllersTests.Verify
         public void TicketHasExpired_ReturnsOk()
         {
             // Arrange
-            var barcode = new Barcode {
-                code = "3333344444"
-            };
+            var turnstileScan = new ManualTurnstileScan("3333344444");
             
             // Act
-            var result = Controller.Post(barcode);
+            var result = Controller.Post(turnstileScan);
             
             // Assert
             Assert.IsType<OkObjectResult>(result);
@@ -70,12 +64,10 @@ namespace TicketStore.Api.Tests.Unit.ControllersTests.Verify
         public void TicketIsValid_ReturnsOk()
         {
             // Arrange
-            var barcode = new Barcode {
-                code = "1111122222"
-            };
+            var turnstileScan = new ManualTurnstileScan("1111122222");
             
             // Act
-            var result = Controller.Post(barcode);
+            var result = Controller.Post(turnstileScan);
             
             // Assert
             Assert.IsType<OkObjectResult>(result);
