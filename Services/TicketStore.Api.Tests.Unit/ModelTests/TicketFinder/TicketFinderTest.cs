@@ -42,7 +42,7 @@ namespace TicketStore.Api.Tests.Unit.ModelTests
         [Fact]
         public void BarcodeVerificationMethod_TicketExist()
         {
-            var turnstileScan = new BarcodeTurnstileScan("11111");
+            var turnstileScan = new BarcodeTurnstileScan("1111122222");
 
             var ticket = Finder.Find(turnstileScan);
 

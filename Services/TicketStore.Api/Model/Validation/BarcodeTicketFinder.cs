@@ -17,7 +17,13 @@ namespace TicketStore.Api.Model.Validation
         }
         public Ticket Find(TurnstileScan barcode)
         {
-            var ticket = _db.Tickets.FirstOrDefault(t => t.Number.StartsWith(barcode.code));
+            var code = barcode.code.Substring(0, barcode.code.Length - 2);
+            if (code.Length <= 3)
+            {
+                throw new Exception($"Method: Barcode. Code is too short");
+            };
+
+            var ticket = _db.Tickets.FirstOrDefault(t => t.Number.StartsWith(code));
             if (ticket == null)
             {
                 throw new Exception($"Method: Barcode. Ticket not found in Database");

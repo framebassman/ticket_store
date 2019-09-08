@@ -20,9 +20,9 @@ namespace TicketStore.Api.Tests.Unit.ModelTests
         }
 
         [Fact]
-        public void BarcodeVerificationMethod_TicketExist()
+        public void BarcodeVerificationMethod_CanFindExactTicket()
         {
-            var turnstileScan = new BarcodeTurnstileScan("11111");
+            var turnstileScan = new BarcodeTurnstileScan("1111122222");
 
             var ticket = Finder.Find(turnstileScan);
 
@@ -30,9 +30,39 @@ namespace TicketStore.Api.Tests.Unit.ModelTests
         }
 
         [Fact]
+        public void BarcodeVerificationMethod_CanFindBrokenTicket()
+        {
+            var turnstileScan = new BarcodeTurnstileScan("11111222254");
+
+            var ticket = Finder.Find(turnstileScan);
+
+            Assert.Equal("1111122222", ticket.Number);
+        }
+
+        [Fact]
+        public void BarcodeVerificationMethod_WorksIfCodeLongerThan5()
+        {
+            var turnstileScan = new BarcodeTurnstileScan("111112");
+
+            var ticket = Finder.Find(turnstileScan);
+
+            Assert.Equal("1111122222", ticket.Number);
+        }
+
+        [Fact]
+        public void BarcodeVerificationMethod_FailsIfCodeShorterThan5()
+        {
+            var turnstileScan = new BarcodeTurnstileScan("11111");
+
+            var ex = Assert.Throws<Exception>(() => Finder.Find(turnstileScan));
+
+            Assert.Equal("Method: Barcode. Code is too short", ex.Message);
+        }
+
+        [Fact]
         public void BarcodeVerificationMethod_ConcertNotFound()
         {
-            var turnstileScan = new BarcodeTurnstileScan("55555");
+            var turnstileScan = new BarcodeTurnstileScan("5555566666");
 
             var ex = Assert.Throws<Exception>(() => Finder.Find(turnstileScan));
 
@@ -42,7 +72,7 @@ namespace TicketStore.Api.Tests.Unit.ModelTests
         [Fact]
         public void BarcodeVerificationMethod_TicketNotFound()
         {
-            var turnstileScan = new BarcodeTurnstileScan("123");
+            var turnstileScan = new BarcodeTurnstileScan("123456");
 
             var ex = Assert.Throws<Exception>(() => Finder.Find(turnstileScan));
 
@@ -54,7 +84,7 @@ namespace TicketStore.Api.Tests.Unit.ModelTests
         {
             var now = _dbTime.AddHours(15);
             SetupFinder(now);
-            var turnstileScan = new BarcodeTurnstileScan("11111");
+            var turnstileScan = new BarcodeTurnstileScan("1111122222");
 
             var ex = Assert.Throws<Exception>(() => Finder.Find(turnstileScan));
 
@@ -66,7 +96,7 @@ namespace TicketStore.Api.Tests.Unit.ModelTests
         {
             var now = _dbTime.AddHours(-15);
             SetupFinder(now);
-            var turnstileScan = new BarcodeTurnstileScan("11111");;
+            var turnstileScan = new BarcodeTurnstileScan("1111122222");;
 
             var ex = Assert.Throws<Exception>(() => Finder.Find(turnstileScan));
 
