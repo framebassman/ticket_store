@@ -1,8 +1,8 @@
 using System;
 
-namespace TicketStore.Api.Tests.Model.Services.Verify
+namespace TicketStore.Api.Tests.Model.Services.Verify.Requests
 {
-    public class TurnstileScan
+    public abstract class TurnstileScan
     {
         public String code;
         public String method;
