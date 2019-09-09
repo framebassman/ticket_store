@@ -38,7 +38,11 @@ class Afisha extends Component<any, AfishaState> {
     }
 
     if (merchantsIsLoading || eventsIsLoading) {
-      return <CenteredProgress />
+      return (
+        <CenteredProgress>
+          Загружаем концерты...
+        </CenteredProgress>
+      )
     }
 
     return (
@@ -71,12 +75,10 @@ const mapStateToProps = (state) => {
     merchantsIsLoading: state.afisha.merchants.merchantsIsLoading,
   };
 };
-const mapDispatchToProps = (dispatch) => {
-  return {
-    fetchMerchants: () => dispatch(merchantsFetchData()),
-    fetchEvents: (merchantId: number) => dispatch(eventsFetchData(merchantId)),
-    fetchAllEvents: () => dispatch(allEventsFetch())
-  };
+const mapDispatchToProps = {
+  fetchMerchants: merchantsFetchData,
+  fetchEvents: eventsFetchData,
+  fetchAllEvents: allEventsFetch
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Afisha));

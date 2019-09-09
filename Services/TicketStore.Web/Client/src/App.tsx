@@ -7,6 +7,7 @@ import { Farewell } from './components/farewell/Farewell';
 import TurnstileMenu from './components/turnstile/TurnstileMenu';
 import { Menu } from './components/menu/Menu';
 import Afisha from './components/afisha/Afisha';
+import { FirstLoaderRemover } from './components/core/FirstLoaderRemover/FirstLoaderRemover';
 
 const AfishaWithMenu = () => {
   const theme = createMuiTheme({
@@ -30,6 +31,7 @@ class App extends Component {
   render() {
     return (
       <BrowserRouter>
+        <FirstLoaderRemover />
         <Switch>
           <Route path="/tickets/farewell" component={Farewell}/>
           <Redirect from="/tickets/turnstile" to="/turnstile/camera" />
