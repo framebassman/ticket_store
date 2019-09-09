@@ -18,7 +18,7 @@
         font-family: arial, sans-serif;
       }
 
-      .loader {
+      .first-loader {
         position: fixed;
         top: 0;
         right: 0;
@@ -26,7 +26,7 @@
         left: 0;
       }
 
-      .loader__spinner {
+      .first-loader__spinner {
         position: relative;
         margin-top: -50px;
         margin-left: -25px;
@@ -34,7 +34,7 @@
         left: 50%;
       }
 
-      .loader__spinner:before {
+      .first-loader__spinner:before {
         content: '';
         box-sizing: border-box;
         position: absolute;
@@ -46,7 +46,7 @@
         animation: spinner 800ms linear infinite;
       }
 
-      .loader__text {
+      .first-loader__text {
         font-size: 21px;
         line-height: 24.3px;
         font-weight: 700;
@@ -75,9 +75,9 @@
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
-    <div id="first-loader" class="loader">
-      <div class="loader__spinner">
-        <p class="loader__text">Загружаем Чертополох...</p>
+    <div id="first-loader" class="first-loader">
+      <div class="first-loader__spinner">
+        <p class="first-loader__text">Загружаем Чертополох...</p>
       </div>
     </div>
   </body>
