@@ -1,11 +1,16 @@
 using System;
 using System.Text;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.Globalization;
+using System.Net;
+using System.IO;
 using DinkToPdf;
 using DinkToPdf.Contracts;
 using NetBarcode;
 using TicketStore.Data.Model;
+using ColorMode = DinkToPdf.ColorMode;
 
 namespace TicketStore.Api.Model.Pdf
 {
@@ -131,7 +136,7 @@ namespace TicketStore.Api.Model.Pdf
                         <div style=""font-size: 14px; margin: 4px; text-align: left"">{FormatTime(_originTime)}</div>
                         <div style=""font-size: 14px; margin: 4px; text-align: right"">Стоимость: {_price} ₽</div>
                       </div>
-                      <img src='http://barcode.tec-it.com/barcode.ashx?data={ticket.Number}&code=&multiplebarcodes=false&translate-esc=false&unit=Fit&dpi=96&imagetype=Gif&rotation=0&color=%23000000&bgcolor=%23ffffff&qunit=Mm&quiet=0' />
+                      <img src='data:image/png;base64, {Barcode(ticket)}'/>
                       <br />
                       <br />
                     </div>
@@ -142,10 +147,22 @@ namespace TicketStore.Api.Model.Pdf
             return sb.ToString();
         }
 
-        // private String Barcode(Ticket ticket)
-        // {
-        //     var barcode = new Barcode(ticket.Number, NetBarcode.Type.Code128, true);
-        //     return barcode.GetBase64Image();
-        // }
+        private String Barcode(Ticket ticket)
+        {
+            var imageUrl = $"http://barcode.tec-it.com/barcode.ashx?data={ticket.Number}&code=&multiplebarcodes=false&translate-esc=false&unit=Fit&dpi=96&imagetype=Gif&rotation=0&color=%23000000&bgcolor=%23ffffff&qunit=Mm&quiet=0";
+            using (var webClient = new WebClient())
+            {
+                using (var inputStream = webClient.OpenRead(imageUrl))
+                {
+                    using (var memoryStream = new MemoryStream())
+                    {
+                        var bitmap = new Bitmap(inputStream);
+                        bitmap.Save(memoryStream, ImageFormat.Png);
+                        byte[] byteImage = memoryStream.ToArray();
+                        return Convert.ToBase64String(byteImage);
+                    }
+                }
+            }
+        }
     }
 }
