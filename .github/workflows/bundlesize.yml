@@ -1,6 +1,14 @@
 name: Bundlesize CI
 
-on: [push]
+on:
+  push:
+    paths:
+      # '*' matches any character except '/'
+      - 'Services/TicketStore.Web/Client/*'
+      - 'Services/TicketStore.Web/Client/*/*'
+      - 'Services/TicketStore.Web/Client/*/*/*'
+      - 'Services/TicketStore.Web/Client/*/*/*/*'
+      - 'Services/TicketStore.Web/Client/*/*/*/*/*'
 
 jobs:
   build:
@@ -18,6 +26,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - name: npm install, check-bundlesize
+      working-directory: Services/TicketStore.Web/Client
       run: |
         npm install
         npm run check-bundlesize
