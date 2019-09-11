@@ -7,7 +7,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom --reporters=default --reporters=jest-junit",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "bundlesize": "bundlesize",
+    "check-bundlesize": "react-scripts build && bundlesize"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -58,6 +60,7 @@
     "@types/react": "16.9.2",
     "@types/react-dom": "16.9.0",
     "@types/webpack-env": "1.14.0",
+    "bundlesize": "^0.18.0",
     "enzyme-adapter-react-16": "1.14.0",
     "jest-junit": "7.0.0",
     "moxios": "0.4.0",
