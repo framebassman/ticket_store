@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using TicketStore.Api.Model.Validation.Exceptions;
 using TicketStore.Data;
@@ -9,26 +10,22 @@ namespace TicketStore.Api.Model.Validation
     {
         private readonly ApplicationContext _db;
         private readonly IDateTimeProvider _dateTimeProvider;
-        private readonly StrictFinder _strictFinder;
-        private readonly InaccurateFinder _inaccurateFinder;
 
         public BarcodeTicketFinder(ApplicationContext context, IDateTimeProvider dateTimeProvider)
         {
             _db = context;
             _dateTimeProvider = dateTimeProvider;
-            _strictFinder = new StrictFinder(context, VerificationMethod.Barcode);
-            _inaccurateFinder = new InaccurateFinder(context, VerificationMethod.Barcode);
         }
         public Ticket Find(TurnstileScan barcode)
         {
             Ticket ticket;
             try
             {
-                ticket = _strictFinder.Find(barcode);
+                ticket = StrictEquals(barcode);
             }
             catch (TicketNotFound)
             {
-                ticket = _inaccurateFinder.Find(barcode);
+                ticket = InaccurateEquals(barcode);
             }
 
             var concert = _db.Events.FirstOrDefault(e => e.Id == ticket.EventId);
@@ -46,6 +43,47 @@ namespace TicketStore.Api.Model.Validation
             // if (dateDiff.TotalHours >= 12) {
             //     throw new TooLate(VerificationMethod.Barcode, hoursDiff);
             // }
+
+            return ticket;
+        }
+
+        private Ticket StrictEquals(TurnstileScan scan)
+        {
+            var tickets = _db.Tickets.Where(t => t.Number == scan.code);
+            if (tickets.Count() > 1)
+            {
+                throw new MultipleTicketsFound(VerificationMethod.Barcode, tickets.Count());
+            }
+
+            var ticket = tickets.FirstOrDefault();
+            if (ticket == null)
+            {
+                throw new TicketNotFound(VerificationMethod.Barcode);
+            }
+
+            return ticket;
+        }
+
+        private Ticket InaccurateEquals(TurnstileScan scan)
+        {
+            var code = scan.code.Substring(0, scan.code.Length - 2);
+            var minCodeLength = 4;
+            if (code.Length < minCodeLength)
+            {
+                throw new CodeToShort(VerificationMethod.Barcode, minCodeLength);
+            }
+
+            var tickets = _db.Tickets.Where(t => t.Number.StartsWith(code));
+            if (tickets.Count() > 1)
+            {
+                throw new MultipleTicketsFound(VerificationMethod.Barcode, tickets.Count());
+            }
+
+            var ticket = tickets.FirstOrDefault();
+            if (ticket == null)
+            {
+                throw new TicketNotFound(VerificationMethod.Barcode);
+            }
 
             return ticket;
         }
