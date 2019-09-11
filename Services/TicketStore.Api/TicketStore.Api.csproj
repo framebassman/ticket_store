@@ -10,7 +10,6 @@
     <PackageReference Include="MailKit" Version="2.1.5.1" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
-    <PackageReference Include="NetBarcode" Version="1.0.7" />
     <PackageReference Include="Serilog.AspNetCore" Version="2.1.2-dev-00028" />
     <PackageReference Include="Serilog.Enrichers.Thread" Version="3.1.0" />
     <PackageReference Include="Serilog.Formatting.Compact" Version="1.0.1-dev-00925" />
@@ -23,6 +22,7 @@
     <PackageReference Include="Serilog.Sinks.Console" Version="3.1.2-dev-00792" />
     <PackageReference Include="Serilog.Sinks.ElasticSearch" Version="8.0.0" />
     <PackageReference Include="Serilog.Sinks.RollingFile" Version="3.3.1-dev-00771" />
+    <PackageReference Include="System.Drawing.Common" Version="4.5.1" />
   </ItemGroup>
 
   <ItemGroup>

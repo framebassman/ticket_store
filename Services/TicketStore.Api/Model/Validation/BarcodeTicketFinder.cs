@@ -18,24 +18,15 @@ namespace TicketStore.Api.Model.Validation
         }
         public Ticket Find(TurnstileScan barcode)
         {
-            var code = barcode.code.Substring(0, barcode.code.Length - 2);
-            var minCodeLength = 4;
-            if (code.Length < minCodeLength)
+            Ticket ticket;
+            try
             {
-                throw new CodeToShort(VerificationMethod.Barcode, minCodeLength);
-            };
-
-            var tickets = _db.Tickets.Where(t => t.Number.StartsWith(code));
-            if (tickets.Count() > 1)
+                ticket = StrictEquals(barcode);
+            }
+            catch (TicketNotFound)
             {
-                throw new MultipleTicketsFound(VerificationMethod.Barcode, tickets.Count());
-            };
-
-            var ticket = tickets.FirstOrDefault();
-            if (ticket == null)
-            {
-                throw new TicketNotFound(VerificationMethod.Barcode);
-            };
+                ticket = InaccurateEquals(barcode);
+            }
 
             var concert = _db.Events.FirstOrDefault(e => e.Id == ticket.EventId);
             if (concert == null)
@@ -52,6 +43,47 @@ namespace TicketStore.Api.Model.Validation
             // if (dateDiff.TotalHours >= 12) {
             //     throw new TooLate(VerificationMethod.Barcode, hoursDiff);
             // }
+
+            return ticket;
+        }
+
+        private Ticket StrictEquals(TurnstileScan scan)
+        {
+            var tickets = _db.Tickets.Where(t => t.Number == scan.code);
+            if (tickets.Count() > 1)
+            {
+                throw new MultipleTicketsFound(VerificationMethod.Barcode, tickets.Count());
+            }
+
+            var ticket = tickets.FirstOrDefault();
+            if (ticket == null)
+            {
+                throw new TicketNotFound(VerificationMethod.Barcode);
+            }
+
+            return ticket;
+        }
+
+        private Ticket InaccurateEquals(TurnstileScan scan)
+        {
+            var code = scan.code.Substring(0, scan.code.Length - 2);
+            var minCodeLength = 4;
+            if (code.Length < minCodeLength)
+            {
+                throw new CodeToShort(VerificationMethod.Barcode, minCodeLength);
+            }
+
+            var tickets = _db.Tickets.Where(t => t.Number.StartsWith(code));
+            if (tickets.Count() > 1)
+            {
+                throw new MultipleTicketsFound(VerificationMethod.Barcode, tickets.Count());
+            }
+
+            var ticket = tickets.FirstOrDefault();
+            if (ticket == null)
+            {
+                throw new TicketNotFound(VerificationMethod.Barcode);
+            }
 
             return ticket;
         }
