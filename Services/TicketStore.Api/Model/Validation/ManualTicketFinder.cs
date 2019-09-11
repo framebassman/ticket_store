@@ -7,20 +7,15 @@ namespace TicketStore.Api.Model.Validation
 {
     public class ManualTicketFinder : ITicketFinder
     {
-        private readonly ApplicationContext _db;
+        private readonly StrictFinder _strictFinder;
 
         public ManualTicketFinder(ApplicationContext context)
         {
-            _db = context;
+            _strictFinder = new StrictFinder(context, VerificationMethod.Manual);
         }
-        public Ticket Find(TurnstileScan barcode)
+        public Ticket Find(TurnstileScan scan)
         {
-            var ticket = _db.Tickets.FirstOrDefault(t => t.Number == barcode.code);
-            if (ticket == null)
-            {
-                throw new TicketNotFound(VerificationMethod.Manual);
-            };
-            return ticket;
+            return _strictFinder.Find(scan);
         }
     }
 }

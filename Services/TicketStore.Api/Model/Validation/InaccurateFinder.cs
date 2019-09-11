@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using TicketStore.Api.Model.Validation.Exceptions;
 using TicketStore.Data;
@@ -5,35 +6,37 @@ using TicketStore.Data.Model;
 
 namespace TicketStore.Api.Model.Validation
 {
-    public class BarcodeNetFinder : ITicketFinder
+    public class InaccurateFinder : ITicketFinder
     {
         private readonly ApplicationContext _db;
+        private readonly String _verificationMethod;
 
-        public BarcodeNetFinder(ApplicationContext context)
+        public InaccurateFinder(ApplicationContext context, String method)
         {
             _db = context;
+            _verificationMethod = method;
         }
-        
-        public Ticket Find(TurnstileScan barcode)
+
+        public Ticket Find(TurnstileScan scan)
         {
-            var code = barcode.code.Substring(0, barcode.code.Length - 2);
+            var code = scan.code.Substring(0, scan.code.Length - 2);
             var minCodeLength = 4;
             if (code.Length < minCodeLength)
             {
-                throw new CodeToShort(VerificationMethod.Barcode, minCodeLength);
-            }
+                throw new CodeToShort(_verificationMethod, minCodeLength);
+            };
 
             var tickets = _db.Tickets.Where(t => t.Number.StartsWith(code));
             if (tickets.Count() > 1)
             {
-                throw new MultipleTicketsFound(VerificationMethod.Barcode, tickets.Count());
-            }
+                throw new MultipleTicketsFound(_verificationMethod, tickets.Count());
+            };
 
             var ticket = tickets.FirstOrDefault();
             if (ticket == null)
             {
-                throw new TicketNotFound(VerificationMethod.Barcode);
-            }
+                throw new TicketNotFound(_verificationMethod);
+            };
 
             return ticket;
         }
