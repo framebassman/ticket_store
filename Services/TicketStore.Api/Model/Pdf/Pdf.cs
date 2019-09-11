@@ -124,41 +124,41 @@ namespace TicketStore.Api.Model.Pdf
         private String Barcodes()
         {
             var sb = new StringBuilder();
-            foreach (var ticket in _tickets)
+            using (var webClient = new WebClient())
             {
-                var template = $@"
-                  <div style=""border: 4px solid yellow;max-width: 500px; margin-left: auto; margin-right: auto"">
-                    <div style=""text-align: left; margin: 4px"">{_eventName}</div>
-                    <div style=""border: 1px solid black; margin: 4px"">
-                      <div style=""display: flex; justify-content: space-between;"">
-                        <div style=""font-size: 14px; margin: 4px; text-align: left"">{FormatTime(_originTime)}</div>
-                        <div style=""font-size: 14px; margin: 4px; text-align: right"">Стоимость: {_price} ₽</div>
+                foreach (var ticket in _tickets)
+                {
+                    var template = $@"
+                      <div style=""border: 4px solid yellow;max-width: 500px; margin-left: auto; margin-right: auto"">
+                        <div style=""text-align: left; margin: 4px"">{_eventName}</div>
+                        <div style=""border: 1px solid black; margin: 4px"">
+                          <div style=""display: flex; justify-content: space-between;"">
+                            <div style=""font-size: 14px; margin: 4px; text-align: left"">{FormatTime(_originTime)}</div>
+                            <div style=""font-size: 14px; margin: 4px; text-align: right"">Стоимость: {_price} ₽</div>
+                          </div>
+                          <img src='data:image/png;base64, {Barcode(ticket, webClient)}'/>
+                          <br />
+                          <br />
+                        </div>
                       </div>
-                      <img src='data:image/png;base64, {Barcode(ticket)}'/>
-                      <br />
-                      <br />
-                    </div>
-                  </div>
-                ";
-                sb.Append(template);
+                    ";
+                    sb.Append(template);
+                }
             }
             return sb.ToString();
         }
 
-        private String Barcode(Ticket ticket)
+        private String Barcode(Ticket ticket, WebClient webClient)
         {
             var imageUrl = $"http://barcode.tec-it.com/barcode.ashx?data={ticket.Number}&code=&multiplebarcodes=false&translate-esc=false&unit=Fit&dpi=96&imagetype=Gif&rotation=0&color=%23000000&bgcolor=%23ffffff&qunit=Mm&quiet=0";
-            using (var webClient = new WebClient())
+            using (var inputStream = webClient.OpenRead(imageUrl))
             {
-                using (var inputStream = webClient.OpenRead(imageUrl))
+                using (var memoryStream = new MemoryStream())
                 {
-                    using (var memoryStream = new MemoryStream())
-                    {
-                        var bitmap = new Bitmap(inputStream);
-                        bitmap.Save(memoryStream, ImageFormat.Png);
-                        byte[] byteImage = memoryStream.ToArray();
-                        return Convert.ToBase64String(byteImage);
-                    }
+                    var bitmap = new Bitmap(inputStream);
+                    bitmap.Save(memoryStream, ImageFormat.Png);
+                    byte[] byteImage = memoryStream.ToArray();
+                    return Convert.ToBase64String(byteImage);
                 }
             }
         }
