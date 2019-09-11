@@ -8,9 +8,7 @@ using System.Net;
 using System.IO;
 using DinkToPdf;
 using DinkToPdf.Contracts;
-using NetBarcode;
 using TicketStore.Data.Model;
-using ColorMode = DinkToPdf.ColorMode;
 
 namespace TicketStore.Api.Model.Pdf
 {
@@ -62,7 +60,7 @@ namespace TicketStore.Api.Model.Pdf
             return new HtmlToPdfDocument()
             {
                 GlobalSettings = {
-                    ColorMode = ColorMode.Color,
+                    ColorMode = DinkToPdf.ColorMode.Color,
                     Orientation = Orientation.Portrait,
                     PaperSize = PaperKind.A4,
                 },
