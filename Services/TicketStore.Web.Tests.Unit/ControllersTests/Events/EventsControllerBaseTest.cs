@@ -1,11 +1,11 @@
-using System;
 using TicketStore.Data;
 using TicketStore.Web.Controllers;
+using TicketStore.Web.Model;
 using TicketStore.Web.Tests.Unit.TestData;
 
 namespace TicketStore.Web.Tests.Unit.ControllersTests.Events
 {
-    public abstract class EventsControllerBaseTest : ControllersBaseTest<EventsController>, IDisposable
+    public abstract class EventsControllerBaseTest : ControllersBaseTest<EventsController>
     {
         protected readonly ApplicationContext Db;
         protected readonly EventsController Controller;
@@ -14,11 +14,11 @@ namespace TicketStore.Web.Tests.Unit.ControllersTests.Events
         protected EventsControllerBaseTest(string databaseName) : base(databaseName)
         {
             Db = new ApplicationContext(Options);
-            Controller = new EventsController(Logger, Db);
+            Controller = new EventsController(Logger, Db, new DateTimeProvider());
             Provider = new Provider();
         }
         
-        public void Dispose()
+        public override void Dispose()
         {
             Db.Dispose();
         }
