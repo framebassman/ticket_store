@@ -3,22 +3,33 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 using TicketStore.Data.Model;
+using TicketStore.Web.Model;
+using TicketStore.Web.Controllers;
 using Xunit;
+using Moq;
 
 namespace TicketStore.Web.Tests.Unit.ControllersTests.Events
 {
     public class EventTimeInUtc : EventsControllerBaseTest
     {
+        private readonly EventsController _controller;
         private Merchant _merchant;
         private Event _concert;
+        private DateTime _closer;
+        private DateTime _farther;
         private String _dateTimeInString;
         
         public EventTimeInUtc() : base("EventTimeInUtc")
         {
-            var dbTime = new DateTime(2019, 10, 4, 16, 00, 00, DateTimeKind.Utc);
-            _dateTimeInString = "2019-10-04T16:00:00Z";
+            var now = new DateTime(2018, 9, 3, 16, 00, 00, DateTimeKind.Utc);
+            _closer = now + TimeSpan.FromDays(1);
+            _farther = now + TimeSpan.FromDays(2);
+            var dbTime = new DateTime(2018, 9, 5, 16, 00, 00, DateTimeKind.Utc);
+            _dateTimeInString = "2018-09-05T16:00:00Z";
+            var dateTimeMock = new Mock<IDateTimeProvider>();
+            dateTimeMock.Setup(mock => mock.Now).Returns(now);
+            _controller = new EventsController(Logger, Db, dateTimeMock.Object);
             SeedTestData(dbTime);
         }
         
@@ -41,7 +52,7 @@ namespace TicketStore.Web.Tests.Unit.ControllersTests.Events
                 .Id;
             
             // Act
-            var result = Controller.Get(merchantId);
+            var result = _controller.Get(merchantId);
             
             // Assert
             Assert.IsType<OkObjectResult>(result);
@@ -54,16 +65,14 @@ namespace TicketStore.Web.Tests.Unit.ControllersTests.Events
         {
             // Arrange
             var merchant = new Merchant{ YandexMoneyAccount = "123456789", Place = "Test merchant" };
-            var closer = new DateTime(2018, 9, 4, 16, 00, 00, DateTimeKind.Utc);
-            var farther = new DateTime(2019, 10, 4, 16, 00, 00, DateTimeKind.Utc);
-            var concertsToInsert = ArrangeEventsOrderingTest(merchant, closer, farther);
+            var concertsToInsert = ArrangeEventsOrderingTest(merchant, _closer, _farther);
 
             var merchantId = Db.Merchants
                 .First(m => m.YandexMoneyAccount == merchant.YandexMoneyAccount)
                 .Id;
             
             // Act
-            var result = Controller.Get(merchantId);
+            var result = _controller.Get(merchantId);
             
             // Assert
             Assert.IsType<OkObjectResult>(result);
@@ -73,8 +82,8 @@ namespace TicketStore.Web.Tests.Unit.ControllersTests.Events
             Assert.Equal(concertsToInsert.Count, events.Count);
             var closerConcert = events[0];
             var fartherConcert = events[1];
-            Assert.Equal(closer, closerConcert.Time);
-            Assert.Equal(farther, fartherConcert.Time);
+            Assert.Equal(_closer, closerConcert.Time);
+            Assert.Equal(_farther, fartherConcert.Time);
         }
 
         private List<Event> ArrangeEventsOrderingTest(Merchant merchant, DateTime closer, DateTime farther)

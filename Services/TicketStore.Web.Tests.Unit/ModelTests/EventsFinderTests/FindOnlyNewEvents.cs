@@ -30,10 +30,10 @@ namespace TicketStore.Web.Tests.Unit.ModelTests.EventsFinderTests
         }
 
         [Fact]
-        public void TimeDiffMoreThan3Hours_ReturnsBothEvents()
+        public void TimeDiffMoreThan6Hours_ReturnsBothEvents()
         {
             // Arrange
-            var diff = 4;
+            var diff = 7;
             var startHours = 16;
             SetupTestData(diff, startHours);
             
@@ -47,10 +47,10 @@ namespace TicketStore.Web.Tests.Unit.ModelTests.EventsFinderTests
         }
         
         [Fact]
-        public void TimeDiffEqualTo3Hours_ReturnsBothEvents()
+        public void TimeDiffEqualTo6Hours_ReturnsBothEvents()
         {
             // Arrange
-            var diff = 3;
+            var diff = 6;
             var startHours = 16;
             SetupTestData(diff, startHours);
             
@@ -64,10 +64,10 @@ namespace TicketStore.Web.Tests.Unit.ModelTests.EventsFinderTests
         }
 
         [Fact]
-        public void TimeDiffLessThan3Hours_ReturnsOnlyNewEvent()
+        public void TimeDiffLessThan6Hours_ReturnsOnlyNewEvent()
         {
             // Arrange
-            var diff = 1;
+            var diff = 5;
             var startHours = 16;
             SetupTestData(diff, startHours);
             

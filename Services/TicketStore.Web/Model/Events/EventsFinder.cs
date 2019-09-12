@@ -24,8 +24,9 @@ namespace TicketStore.Web.Model.Events
             return _db.Events
                 .Where(e =>
                     e.MerchantId == _merchantId
-                    && e.Time - _dateTime.Now >= TimeSpan.FromHours(3) 
+                    && e.Time - _dateTime.Now >= TimeSpan.FromHours(6) 
                 )
+                .OrderBy(e => e.Time)
                 .ToList();
         }
     }
