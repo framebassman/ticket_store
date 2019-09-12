@@ -23,11 +23,17 @@ stages:
     continueOnError: true
     variables:
       CI: true
+      npm_config_cache: $(Pipeline.Workspace)/.npm
     steps:
     - task: NodeTool@0
       inputs:
         versionSpec: '10.x'
       displayName: 'Install Node.js'
+    - task: CacheBeta@0
+      inputs:
+        key: npm | $(Agent.OS) | package-lock.json
+        path: $(npm_config_cache)
+      displayName: Cache npm
     - script: |
         npm install
         npm run build
