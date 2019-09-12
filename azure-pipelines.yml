@@ -23,8 +23,8 @@ stages:
     continueOnError: true
     variables:
       CI: true
-      npm_config_cache: $(build.sourcesDirectory)/Services/TicketStore.Web/Client/.npm
-      modules_path: $(build.sourcesDirectory)/Services/TicketStore.Web/Client
+      npm_config_cache: $(Pipeline.Workspace)/.npm
+      modules_path: $(Pipeline.Workspace)
     steps:
     - task: NodeTool@0
       inputs:
