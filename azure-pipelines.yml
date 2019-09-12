@@ -32,7 +32,7 @@ stages:
     - task: CacheBeta@0
       inputs:
         key: npm | $(Agent.OS) | package-lock.json
-        path: $(npm_config_cache)
+        path: '**/package-lock.json'
       displayName: Cache npm
     - script: |
         npm install
