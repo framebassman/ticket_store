@@ -15,14 +15,12 @@ namespace TicketStore.Web.Controllers
     {
         private readonly ILogger<EventsController> _log;
         private readonly ApplicationContext _db;
-        private readonly Random _random;
         private readonly IDateTimeProvider _dateTime;
 
         public EventsController(ILogger<EventsController> log, ApplicationContext db, IDateTimeProvider dateTime)
         {
             _log = log;
             _db = db;
-            _random = new Random();
             _dateTime = dateTime;
         }
 
