@@ -29,15 +29,15 @@ stages:
       inputs:
         versionSpec: '10.x'
       displayName: 'Install Node.js'
+    - script: |
+        npm install
+      workingDirectory: $(build.sourcesDirectory)/Services/TicketStore.Web/Client
+      displayName: Install Dependencies
     - task: CacheBeta@0
       inputs:
         key: npm | $(Agent.OS) | package-lock.json
         path: $(build.sourcesDirectory)/Services/TicketStore.Web/Client/package-lock.json
       displayName: Cache npm
-    - script: |
-        npm install
-      workingDirectory: $(build.sourcesDirectory)/Services/TicketStore.Web/Client
-      displayName: Install Dependencies
     - script: |
         npm run build
       workingDirectory: $(build.sourcesDirectory)/Services/TicketStore.Web/Client
