@@ -32,7 +32,7 @@ stages:
     - task: CacheBeta@0
       inputs:
         key: npm | $(Agent.OS) | package-lock.json
-        path: '**/package-lock.json'
+        path: $(build.sourcesDirectory)/Services/TicketStore.Web/Client/package-lock.json
       displayName: Cache npm
     - script: |
         npm install
