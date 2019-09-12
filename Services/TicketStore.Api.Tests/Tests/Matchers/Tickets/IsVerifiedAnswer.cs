@@ -18,7 +18,7 @@ namespace TicketStore.Api.Tests.Tests.Matchers.Tickets
                 Actual = Deserialize(json);
                 return Actual.message == ExpectedMessage;
             }
-            catch (JsonReaderException e)
+            catch (JsonReaderException)
             {
                 return false;
             }
