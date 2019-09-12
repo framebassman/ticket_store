@@ -36,7 +36,7 @@ stages:
     - task: CacheBeta@0
       inputs:
         key: npm | $(Agent.OS) | package-lock.json
-        path: $(build.sourcesDirectory)/Services/TicketStore.Web/Client/package-lock.json
+        path: $(npm_config_cache)
       displayName: Cache npm
     - script: |
         npm run build
