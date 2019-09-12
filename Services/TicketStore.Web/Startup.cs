@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Robotify.AspNetCore;
 using TicketStore.Data;
 using TicketStore.Web.Middlewares;
+using TicketStore.Web.Model;
 
 namespace TicketStore.Web
 {
@@ -27,6 +28,7 @@ namespace TicketStore.Web
             services.AddResponseCompression();
             services.AddRobotify(c => c.AddRobotGroupsFromAppSettings());
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddTransient<IDateTimeProvider, DateTimeProvider>();
             services
                 .AddDbContext<ApplicationContext>()
                 .BuildServiceProvider();
