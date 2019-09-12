@@ -21,7 +21,6 @@ stages:
     pool:
       vmImage: 'ubuntu-latest'
     continueOnError: true
-    workingDirectory: $(build.sourcesDirectory)/Services/TicketStore.Web/Client
     variables:
       CI: true
       npm_config_cache: $(Pipeline.Workspace)/.npm
@@ -37,19 +36,22 @@ stages:
       displayName: Cache npm
     - script: |
         npm install
+      workingDirectory: $(build.sourcesDirectory)/Services/TicketStore.Web/Client
       displayName: Install Dependencies
     - script: |
         npm run build
+      workingDirectory: $(build.sourcesDirectory)/Services/TicketStore.Web/Client
       displayName: 'npm build'
     - script: |
         npm test
+      workingDirectory: $(build.sourcesDirectory)/Services/TicketStore.Web/Client
       displayName: 'npm test'
     - task: PublishTestResults@2
       condition: always()
       inputs:
         testResultsFormat: 'JUnit' # Options: JUnit, NUnit, VSTest, xUnit, cTest
         testResultsFiles: 'reports/junit.xml' 
-        # searchFolder: '$(build.sourcesDirectory)/Services/TicketStore.Web/Client' # Optional
+        searchFolder: '$(build.sourcesDirectory)/Services/TicketStore.Web/Client' # Optional
 
   # - job: Api
   #   pool:
