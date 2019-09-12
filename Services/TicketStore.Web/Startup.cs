@@ -24,6 +24,7 @@ namespace TicketStore.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddResponseCompression();
             services.AddRobotify(c => c.AddRobotGroupsFromAppSettings());
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services
@@ -49,6 +50,7 @@ namespace TicketStore.Web
                 app.UseExceptionHandler("/Error");
             }
 
+            app.UseResponseCompression();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
             app.UseMiddleware<HealthCheckMiddleware>();
