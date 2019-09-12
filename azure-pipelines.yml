@@ -21,48 +21,35 @@ stages:
     pool:
       vmImage: 'ubuntu-latest'
     continueOnError: true
+    workingDirectory: $(build.sourcesDirectory)/Services/TicketStore.Web/Client
     variables:
       CI: true
       npm_config_cache: $(Pipeline.Workspace)/.npm
-      modules_path: $(Pipeline.Workspace)
     steps:
     - task: NodeTool@0
       inputs:
         versionSpec: '10.x'
       displayName: 'Install Node.js'
-
-
-    - task: 1ESLighthouseEng.PipelineArtifactCaching.RestoreCacheV1.RestoreCache@1
+    - task: CacheBeta@0
       inputs:
-        keyfile: "**/package-lock.json, !**/node_modules/**/package-lock.json, !**/.*/**/package-lock.json"
-        targetfolder: "**/node_modules, !**/node_modules/**/node_modules"
-        vstsFeed: "$(ArtifactFeed)"
-
+        key: npm | $(Agent.OS) | package-lock.json
+        path: $(npm_config_cache)
+      displayName: Cache npm
     - script: |
         npm install
-      workingDirectory: $(build.sourcesDirectory)/Services/TicketStore.Web/Client
       displayName: Install Dependencies
-
-    - task: 1ESLighthouseEng.PipelineArtifactCaching.SaveCacheV1.SaveCache@1
-      inputs:
-        keyfile: "**/package-lock.json, !**/node_modules/**/package-lock.json, !**/.*/**/package-lock.json"
-        targetfolder: "**/node_modules, !**/node_modules/**/node_modules"
-        vstsFeed: "$(ArtifactFeed)"
-
     - script: |
         npm run build
-      workingDirectory: $(build.sourcesDirectory)/Services/TicketStore.Web/Client
-      displayName: 'npm install and build'
+      displayName: 'npm build'
     - script: |
         npm test
-      workingDirectory: $(build.sourcesDirectory)/Services/TicketStore.Web/Client
       displayName: 'npm test'
     - task: PublishTestResults@2
       condition: always()
       inputs:
         testResultsFormat: 'JUnit' # Options: JUnit, NUnit, VSTest, xUnit, cTest
         testResultsFiles: 'reports/junit.xml' 
-        searchFolder: '$(build.sourcesDirectory)/Services/TicketStore.Web/Client' # Optional
+        # searchFolder: '$(build.sourcesDirectory)/Services/TicketStore.Web/Client' # Optional
 
   # - job: Api
   #   pool:
