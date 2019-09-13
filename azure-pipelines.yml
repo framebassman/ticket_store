@@ -29,29 +29,29 @@ stages:
       inputs:
         versionSpec: '10.x'
       displayName: 'Install Node.js'
-    - script: |
-        mv $(build.sourcesDirectory)/Services/TicketStore.Web/Client .
-      displayName: Move src to root
     - task: CacheBeta@0
       inputs:
-        key: npm | $(Agent.OS) | package-lock.json
+        key: npm | $(Agent.OS) | $(build.sourcesDirectory)/Services/TicketStore.Web/Client/package-lock.json
         path: $(npm_config_cache)
       displayName: Cache npm
     - script: |
         npm ci
       displayName: Install Dependencies
+      workingDirectory: $(build.sourcesDirectory)/Services/TicketStore.Web/Client
     - script: |
         npm run build
       displayName: 'npm build'
+      workingDirectory: $(build.sourcesDirectory)/Services/TicketStore.Web/Client
     - script: |
         npm test
+      workingDirectory: $(build.sourcesDirectory)/Services/TicketStore.Web/Client
       displayName: 'npm test'
     - task: PublishTestResults@2
       condition: always()
       inputs:
         testResultsFormat: 'JUnit' # Options: JUnit, NUnit, VSTest, xUnit, cTest
         testResultsFiles: 'reports/junit.xml' 
-        # searchFolder: '$(build.sourcesDirectory)/Services/TicketStore.Web/Client' # Optional
+        searchFolder: '$(build.sourcesDirectory)/Services/TicketStore.Web/Client' # Optional
 
   # - job: Api
   #   pool:
