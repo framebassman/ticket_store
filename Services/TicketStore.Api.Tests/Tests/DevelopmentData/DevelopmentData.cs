@@ -63,22 +63,21 @@ namespace TicketStore.Api.Tests.Tests.DevelopmentData
 
         public Boolean IsExistIn(ApplicationContext db)
         {
-            _areMerchantsExist = MerchantsAreExist(db);
-            _areEventsExist = EventsAreExist(db);
-            _areTicketsExist = TicketsAreExist(db);
-            _arePaymentsExist = PaymentsAreExist(db);
-            return _areMerchantsExist
-                   || _areEventsExist
-                   || _areTicketsExist
-                   || _arePaymentsExist;
+            return false;
         }
 
         public void InsertTo(ApplicationContext db)
         {
+            db.Merchants.RemoveRange(db.Merchants);
+            db.Events.RemoveRange(db.Events);
+            db.Tickets.RemoveRange(db.Tickets);
+            db.Payments.RemoveRange(db.Payments);
+
             db.Merchants.Add(_merchant);
             db.Events.AddRange(_concerts);
             db.Tickets.AddRange(_tickets);
             db.Payments.Add(_payment);
+
             db.SaveChanges();
         }
 
@@ -89,7 +88,7 @@ namespace TicketStore.Api.Tests.Tests.DevelopmentData
                 Artist = artist,
                 Roubles = 200,
                 PressRelease = "Not Bad",
-                Time = new DateTime(2019, 7, 9, 17, 0, 0, DateTimeKind.Utc),
+                Time = new DateTime(2019, 10, 10, 17, 0, 0, DateTimeKind.Utc),
                 PosterUrl = "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png",
                 Merchant = _merchant
             };
@@ -107,35 +106,6 @@ namespace TicketStore.Api.Tests.Tests.DevelopmentData
                 Event = _concerts[0]
             };
             return newTicket;
-        }
-
-        private Boolean MerchantsAreExist(ApplicationContext db)
-        {
-            return db.Merchants.Any(m =>
-                m.YandexMoneyAccount == _merchant.YandexMoneyAccount
-            );
-        }
-
-        private Boolean EventsAreExist(ApplicationContext db)
-        {
-            return db.Events.Any(e =>
-                e.Artist == _concerts[0].Artist
-            );
-        }
-
-        private Boolean TicketsAreExist(ApplicationContext db)
-        {
-            return db.Tickets.Any(t =>
-                t.Number == _tickets[0].Number
-                || t.Number == _tickets[1].Number
-            );
-        }
-
-        private Boolean PaymentsAreExist(ApplicationContext db)
-        {
-            return db.Payments.Any(p =>
-                p.Email == _payment.Email
-            );
         }
     }
 }
