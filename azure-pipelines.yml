@@ -4,6 +4,14 @@ trigger:
     - '*' 
   paths:
     exclude:
+    - .circleci/**
+    - .github/**
+    - Deploy/**
+    - Docs/**
+    - Scripts/**
+    - Services/Postgres
+    - Services/Proxy
+    - .gitignore
     - README.md
 
 pr:
@@ -12,6 +20,14 @@ pr:
     - '*' 
   paths:
     exclude:
+    - .circleci/**
+    - .github/**
+    - Deploy/**
+    - Docs/**
+    - Scripts/**
+    - Services/Postgres
+    - Services/Proxy
+    - .gitignore
     - README.md
 
 stages:
