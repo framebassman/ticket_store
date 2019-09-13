@@ -30,30 +30,28 @@ stages:
         versionSpec: '10.x'
       displayName: 'Install Node.js'
     - script: |
-        npm install
-        ls -la $(npm_config_cache)
-        ls -la $(Pipeline.Workspace)
-      workingDirectory: $(build.sourcesDirectory)/Services/TicketStore.Web/Client
-      displayName: Install Dependencies
+        mv $(build.sourcesDirectory)/Services/TicketStore.Web/Client .
+      displayName: Move src to root
     - task: CacheBeta@0
       inputs:
         key: npm | $(Agent.OS) | package-lock.json
         path: $(npm_config_cache)
       displayName: Cache npm
     - script: |
+        npm ci
+      displayName: Install Dependencies
+    - script: |
         npm run build
-      workingDirectory: $(build.sourcesDirectory)/Services/TicketStore.Web/Client
       displayName: 'npm build'
     - script: |
         npm test
-      workingDirectory: $(build.sourcesDirectory)/Services/TicketStore.Web/Client
       displayName: 'npm test'
     - task: PublishTestResults@2
       condition: always()
       inputs:
         testResultsFormat: 'JUnit' # Options: JUnit, NUnit, VSTest, xUnit, cTest
         testResultsFiles: 'reports/junit.xml' 
-        searchFolder: '$(build.sourcesDirectory)/Services/TicketStore.Web/Client' # Optional
+        # searchFolder: '$(build.sourcesDirectory)/Services/TicketStore.Web/Client' # Optional
 
   # - job: Api
   #   pool:
