@@ -1,3 +1,5 @@
+using System;
+using System.IO;
 using System.Linq;
 using System.Net;
 using ImageMagick;
@@ -19,7 +21,6 @@ namespace TicketStore.Api.Controllers
         {
             _db = context;
             _log = log;
-            MagickNET.SetTempDirectory(@"/Users/igorgolopolosov/Documents/learning/ticket_store");
         }
 
         [HttpPost]
@@ -27,6 +28,13 @@ namespace TicketStore.Api.Controllers
         {
             var concert = _db.Events.FirstOrDefault(e => e.Id == poster.eventId);
 
+            var outputImage = GetImage(poster);
+
+            return new OkObjectResult($"{outputImage}");
+        }
+
+        private String GetImage(Poster poster)
+        {
             var imageUrl = poster.imageUrl;
             using (var webClient = new WebClient())
             {
@@ -37,7 +45,16 @@ namespace TicketStore.Api.Controllers
                         outputImage.Format = MagickFormat.Jpeg;
                         MagickGeometry size = new MagickGeometry(1000, 1000);
                         outputImage.Resize(size);
-                        return new OkObjectResult($"{outputImage.ToBase64()}");
+
+                        var byteArray = outputImage.ToByteArray();
+                        var stream = new MemoryStream(byteArray);
+                        ImageOptimizer optimizer = new ImageOptimizer();
+                        optimizer.Compress(stream);
+
+                        using (MagickImage compressedImage = new MagickImage(stream))
+                        {
+                            return compressedImage.ToBase64();
+                        }
                     }
                 }
             }
