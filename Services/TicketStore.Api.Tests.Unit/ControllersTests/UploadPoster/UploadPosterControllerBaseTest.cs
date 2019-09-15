@@ -13,7 +13,7 @@ namespace TicketStore.Api.Tests.Unit.ControllersTests.UploadPoster
         protected UploadPosterControllerBaseTest(string databaseName) : base(databaseName)
         {
             var updater = GetUpdater();
-            Controller = new UploadPosterController(Db, Logger, updater);
+            Controller = new UploadPosterController(Logger, updater);
         }
 
         private PosterUpdater GetUpdater()
@@ -32,7 +32,8 @@ namespace TicketStore.Api.Tests.Unit.ControllersTests.UploadPoster
             var reader = new PosterReader();
             var guidProvider = new Mock<IGuidProvider>();
             guidProvider.Setup(mock => mock.NewGuid()).Returns("g-u-i-d");
-            return new PosterUpdater(storage, reader, guidProvider.Object);
+            var dbUpdater = new PosterDbUpdater(Db);
+            return new PosterUpdater(storage, reader, dbUpdater, guidProvider.Object);
         }
     }
 }

@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using TicketStore.Api.Model.Poster;
 using Xunit;
@@ -23,7 +24,7 @@ namespace TicketStore.Api.Tests.Unit.ControllersTests.UploadPoster
                 eventId = 1,
                 imageUrl = "https://sun9-32.userapi.com/c852236/v852236322/17cdae/uHreFWeE3Sw.jpg"
             };
-            
+
             // Act
             var result = await Controller.Post(poster);
             
@@ -31,6 +32,9 @@ namespace TicketStore.Api.Tests.Unit.ControllersTests.UploadPoster
             Assert.IsType<OkObjectResult>(result);
             var value = (result as OkObjectResult).Value;
             Assert.Equal("https://storage.yandexcloud.net/igor-test/g-u-i-d.jpg", value);
+
+            var concert = Db.Events.FirstOrDefault(venue => venue.Id == poster.eventId);
+            Assert.Equal("https://storage.yandexcloud.net/igor-test/g-u-i-d.jpg", concert.PosterUrl);
         }
     }
 }
