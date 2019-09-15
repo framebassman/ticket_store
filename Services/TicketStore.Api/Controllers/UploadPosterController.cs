@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -21,9 +22,16 @@ namespace TicketStore.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] Poster poster)
         {
-            var imageNameUrl = await _updater.Update(poster);
-
-            return new OkObjectResult(imageNameUrl);
+            try
+            {
+                var imageNameUrl = await _updater.Update(poster);
+                return new OkObjectResult(imageNameUrl);
+            } 
+            catch (Exception ex)
+            {
+                _log.LogInformation(ex.Message);
+                return new BadRequestObjectResult("Failed to update poster");
+            }
         }
     }
 }

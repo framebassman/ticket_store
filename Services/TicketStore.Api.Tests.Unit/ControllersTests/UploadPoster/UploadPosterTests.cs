@@ -16,7 +16,7 @@ namespace TicketStore.Api.Tests.Unit.ControllersTests.UploadPoster
         }
 
         [Fact]
-        public async void CanUploadPoster()
+        public async void UpdatePoster()
         {
             // Arrange
             var poster = new Poster
@@ -35,6 +35,25 @@ namespace TicketStore.Api.Tests.Unit.ControllersTests.UploadPoster
 
             var concert = Db.Events.FirstOrDefault(venue => venue.Id == poster.eventId);
             Assert.Equal("https://storage.yandexcloud.net/igor-test/g-u-i-d.jpg", concert.PosterUrl);
+        }
+
+        [Fact]
+        public async void FailToUpdatePoster()
+        {
+            // Arrange
+            var poster = new Poster
+            {
+                eventId = 0,
+                imageUrl = "https://sun9-32.userapi.com/c852236/v852236322/17cdae/uHreFWeE3Sw.jpg"
+            };
+
+            // Act
+            var result = await Controller.Post(poster);
+            
+            // Assert
+            Assert.IsType<BadRequestObjectResult>(result);
+            var value = (result as BadRequestObjectResult).Value;
+            Assert.Equal("Failed to update poster", value);
         }
     }
 }
