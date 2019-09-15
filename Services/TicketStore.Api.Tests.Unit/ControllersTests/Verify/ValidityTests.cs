@@ -57,7 +57,7 @@ namespace TicketStore.Api.Tests.Unit.ControllersTests.Verify
             // Assert
             Assert.IsType<OkObjectResult>(result);
             var json = JsonConvert.SerializeObject((result as OkObjectResult).Value);
-            Assert.Equal("{\"message\":\"OK\",\"concertLabel\":\"Test artist — 4 октября 2019\",\"used\":true}", json);
+            Assert.Equal("{\"concertLabel\":\"Test artist — 4 октября 2019\",\"used\":true,\"message\":\"OK\"}", json);
         }
 
         [Fact]
@@ -72,7 +72,7 @@ namespace TicketStore.Api.Tests.Unit.ControllersTests.Verify
             // Assert
             Assert.IsType<OkObjectResult>(result);
             var json = JsonConvert.SerializeObject((result as OkObjectResult).Value);
-            Assert.Equal("{\"message\":\"OK\",\"concertLabel\":\"Test artist — 4 октября 2019\",\"used\":false}", json);
+            Assert.Equal("{\"concertLabel\":\"Test artist — 4 октября 2019\",\"used\":false,\"message\":\"OK\"}", json);
         }
     }
 }

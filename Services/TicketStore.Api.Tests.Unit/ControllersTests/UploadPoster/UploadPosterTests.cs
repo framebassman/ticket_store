@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using TicketStore.Api.Model.Poster;
 using Xunit;
 
@@ -30,8 +31,8 @@ namespace TicketStore.Api.Tests.Unit.ControllersTests.UploadPoster
             
             // Assert
             Assert.IsType<OkObjectResult>(result);
-            var value = (result as OkObjectResult).Value;
-            Assert.Equal("https://storage.yandexcloud.net/igor-test/g-u-i-d.jpg", value);
+            var json = JsonConvert.SerializeObject((result as OkObjectResult).Value);
+            Assert.Equal("{\"imageUrl\":\"https://storage.yandexcloud.net/igor-test/g-u-i-d.jpg\",\"message\":\"OK\"}", json);
 
             var concert = Db.Events.FirstOrDefault(venue => venue.Id == poster.eventId);
             Assert.Equal("https://storage.yandexcloud.net/igor-test/g-u-i-d.jpg", concert.PosterUrl);
@@ -52,8 +53,8 @@ namespace TicketStore.Api.Tests.Unit.ControllersTests.UploadPoster
             
             // Assert
             Assert.IsType<BadRequestObjectResult>(result);
-            var value = (result as BadRequestObjectResult).Value;
-            Assert.Equal("Failed to update poster", value);
+            var json = JsonConvert.SerializeObject((result as BadRequestObjectResult).Value);
+            Assert.Equal("{\"message\":\"Failed to update poster\"}", json);
         }
     }
 }

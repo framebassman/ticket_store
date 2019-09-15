@@ -37,13 +37,13 @@ namespace TicketStore.Api.Model.Poster
             await _storage.PutObjectAsync(image, imageName);
             _log.LogInformation($"Image uploaded to Yandex Object Storage");
 
-            var imageUri = GetImageUri(imageName);
-            _log.LogInformation("Image URI: {@imageUri}", imageUri);
-            _dbUpdater.Update(poster, imageUri);
-            return imageUri;
+            var imageUrl = GetImageUrl(imageName);
+            _log.LogInformation("Image URL: {@imageUrl}", imageUrl);
+            _dbUpdater.Update(poster, imageUrl);
+            return imageUrl;
         }
 
-        private String GetImageUri(String imageName)
+        private String GetImageUrl(String imageName)
         {
             var protocol = ApiConfiguration.YandexOsProtocol;
             var host = ApiConfiguration.YandexOsEndpoint;

@@ -2,6 +2,7 @@ using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using TicketStore.Api.Model.Http;
 using TicketStore.Api.Model.Poster;
 
 namespace TicketStore.Api.Controllers
@@ -24,14 +25,14 @@ namespace TicketStore.Api.Controllers
         {
             try
             {
-                _log.LogInformation($"Update event ID: {poster.eventId}, Image URI {poster.imageUrl}");
-                var imageNameUrl = await _updater.Update(poster);
-                return new OkObjectResult(imageNameUrl);
+                _log.LogInformation($"Update event ID: {poster.eventId}, Image URL {poster.imageUrl}");
+                var imageUrl = await _updater.Update(poster);
+                return new OkObjectResult(new SuccessUploadPosterAnswer(imageUrl));
             } 
             catch (Exception ex)
             {
                 _log.LogError(ex.Message);
-                return new BadRequestObjectResult("Failed to update poster");
+                return new BadRequestObjectResult(new FailedUploadPosterAnswer());
             }
         }
     }
