@@ -33,7 +33,7 @@ jobs:
       - run: make migrate-test
       - run:
           name: integration tests
-          command: dotnet test TicketStore.Api.Tests --logger "trx;LogFileName=report.trx"
+          command: dotnet test TicketStore.Api.Tests --logger "trx;LogFileName=report.trx" --filter Category!=DevelopmentData
           working_directory: Services
       - run:
           name: transform trx report to junit for CI
