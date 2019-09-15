@@ -1,6 +1,8 @@
 using AspNetCore.Yandex.ObjectStorage;
 using Microsoft.Extensions.Options;
+using Moq;
 using TicketStore.Api.Controllers;
+using TicketStore.Api.Model;
 using TicketStore.Api.Model.Poster;
 
 namespace TicketStore.Api.Tests.Unit.ControllersTests.UploadPoster
@@ -28,9 +30,9 @@ namespace TicketStore.Api.Tests.Unit.ControllersTests.UploadPoster
             var options = Options.Create<YandexStorageOptions>(yandexStorageOptions);
             var storage = new YandexStorageService(options);
             var reader = new PosterReader();
-
-            var updater = new PosterUpdater(storage, reader);
-            return updater;
+            var guidProvider = new Mock<IGuidProvider>();
+            guidProvider.Setup(mock => mock.NewGuid()).Returns("g-u-i-d");
+            return new PosterUpdater(storage, reader, guidProvider.Object);
         }
     }
 }

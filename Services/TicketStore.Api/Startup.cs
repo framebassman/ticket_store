@@ -43,16 +43,17 @@ namespace TicketStore.Api
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddTransient<ITicketFinder, TicketFinder>();
             services.AddTransient<IDateTimeProvider, DateTimeProvider>();
+            services.AddTransient<IGuidProvider, GuidProvider>();
             services.AddTransient<PosterUpdater, PosterUpdater>();
             services.AddTransient<PosterReader, PosterReader>();
             services.AddYandexObjectStorage(options =>
             {
-                options.Protocol = "https";
-                options.BucketName = "igor-test";
-                options.Location = "ru-central1";
-                options.Endpoint = "storage.yandexcloud.net";
-                options.AccessKey = "grkCpJmlPZxBpysw-D5H";
-                options.SecretKey = "ar50IbK41nNvW4_QaCsyh_8Fd9AZsO2nvKWf6Fp9";
+                options.Protocol = ApiConfiguration.YandexOsProtocol;
+                options.Endpoint = ApiConfiguration.YandexOsEndpoint;
+                options.Location = ApiConfiguration.YandexOsLocation;
+                options.BucketName = ApiConfiguration.YandexOsPostersBucketName;
+                options.AccessKey = ApiConfiguration.YandexOsPostersAccessKey;
+                options.SecretKey = ApiConfiguration.YandexOsPostersSecretKey;
             });
             services
                 .AddDbContext<ApplicationContext>()

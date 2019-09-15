@@ -29,7 +29,7 @@ namespace TicketStore.Api.Controllers
 
             var imageNameUrl = await _updater.Update(poster);
 
-            return new OkObjectResult($"{imageNameUrl}");
+            return new OkObjectResult(imageNameUrl);
         }
     }
 }

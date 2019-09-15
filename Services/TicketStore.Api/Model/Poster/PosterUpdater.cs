@@ -8,18 +8,32 @@ namespace TicketStore.Api.Model.Poster
     {
         private PosterReader _reader;
         private YandexStorageService _storage;
-        public PosterUpdater(YandexStorageService storage, PosterReader reader)
+        private IGuidProvider _guidProvider;
+        public PosterUpdater(YandexStorageService storage, PosterReader reader, IGuidProvider guidProvider)
         {
             _reader = reader;
             _storage = storage;
+            _guidProvider = guidProvider;
         }
 
         public async Task<String> Update(Poster poster)
         {
+            var guid = _guidProvider.NewGuid();
+            var imageName = $"{guid}.jpg";
+
             var image = _reader.GetImage(poster);
-            var imageName = $"{Guid.NewGuid()}.jpg";
             await _storage.PutObjectAsync(image, imageName);
-            return imageName;
+
+            var imageUri = GetImageUri(imageName);
+            return imageUri;
+        }
+
+        private String GetImageUri(String imageName)
+        {
+            var protocol = ApiConfiguration.YandexOsProtocol;
+            var host = ApiConfiguration.YandexOsEndpoint;
+            var bucket = ApiConfiguration.YandexOsPostersBucketName;
+            return $"{protocol}://{host}/{bucket}/{imageName}";
         }
     }
 }

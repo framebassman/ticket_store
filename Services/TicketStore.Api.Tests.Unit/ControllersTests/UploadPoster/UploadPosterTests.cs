@@ -1,6 +1,5 @@
 using System;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 using TicketStore.Api.Model.Poster;
 using Xunit;
 
@@ -16,7 +15,7 @@ namespace TicketStore.Api.Tests.Unit.ControllersTests.UploadPoster
         }
 
         [Fact]
-        public async void TicketIsNotFoundInDatabase_ReturnsBadRequest()
+        public async void CanUploadPoster()
         {
             // Arrange
             var poster = new Poster
@@ -30,8 +29,8 @@ namespace TicketStore.Api.Tests.Unit.ControllersTests.UploadPoster
             
             // Assert
             Assert.IsType<OkObjectResult>(result);
-            var json = JsonConvert.SerializeObject((result as OkObjectResult).Value);
-            Assert.StartsWith("\"/9j/4AAQSkZJRgABAQEBLAEsAAD/2w", json);
+            var value = (result as OkObjectResult).Value;
+            Assert.Equal("https://storage.yandexcloud.net/igor-test/g-u-i-d.jpg", value);
         }
     }
 }
