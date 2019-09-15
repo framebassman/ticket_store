@@ -13,6 +13,7 @@ using TicketStore.Data;
 using TicketStore.Api.Model.Validation;
 using TicketStore.Api.Model;
 using AspNetCore.Yandex.ObjectStorage;
+using TicketStore.Api.Model.Poster;
 
 namespace TicketStore.Api
 {
@@ -42,6 +43,8 @@ namespace TicketStore.Api
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddTransient<ITicketFinder, TicketFinder>();
             services.AddTransient<IDateTimeProvider, DateTimeProvider>();
+            services.AddTransient<PosterUpdater, PosterUpdater>();
+            services.AddTransient<PosterReader, PosterReader>();
             services.AddYandexObjectStorage(options =>
             {
                 options.Protocol = "https";

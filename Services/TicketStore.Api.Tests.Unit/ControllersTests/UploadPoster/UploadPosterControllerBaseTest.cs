@@ -1,6 +1,7 @@
 using AspNetCore.Yandex.ObjectStorage;
 using Microsoft.Extensions.Options;
 using TicketStore.Api.Controllers;
+using TicketStore.Api.Model.Poster;
 
 namespace TicketStore.Api.Tests.Unit.ControllersTests.UploadPoster
 {
@@ -8,6 +9,12 @@ namespace TicketStore.Api.Tests.Unit.ControllersTests.UploadPoster
     {
         protected readonly UploadPosterController Controller;
         protected UploadPosterControllerBaseTest(string databaseName) : base(databaseName)
+        {
+            var updater = GetUpdater();
+            Controller = new UploadPosterController(Db, Logger, updater);
+        }
+
+        private PosterUpdater GetUpdater()
         {
             var yandexStorageOptions = new YandexStorageOptions
             {
@@ -20,7 +27,10 @@ namespace TicketStore.Api.Tests.Unit.ControllersTests.UploadPoster
             };
             var options = Options.Create<YandexStorageOptions>(yandexStorageOptions);
             var storage = new YandexStorageService(options);
-            Controller = new UploadPosterController(Db, Logger, storage);
+            var reader = new PosterReader();
+
+            var updater = new PosterUpdater(storage, reader);
+            return updater;
         }
     }
 }
