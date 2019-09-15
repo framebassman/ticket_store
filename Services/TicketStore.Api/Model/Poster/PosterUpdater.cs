@@ -4,13 +4,13 @@ using AspNetCore.Yandex.ObjectStorage;
 
 namespace TicketStore.Api.Model.Poster
 {
-    public class PosterUpdater
+    public class PosterUpdater : IPosterUpdater
     {
         private YandexStorageService _storage;
-        private PosterReader _reader;
+        private IPosterReader _reader;
         private PosterDbUpdater _dbUpdater;
         private IGuidProvider _guidProvider;
-        public PosterUpdater(YandexStorageService storage, PosterReader reader, PosterDbUpdater dbUpdater, IGuidProvider guidProvider)
+        public PosterUpdater(YandexStorageService storage, IPosterReader reader, PosterDbUpdater dbUpdater, IGuidProvider guidProvider)
         {
             _storage = storage;
             _reader = reader;

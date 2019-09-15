@@ -44,9 +44,9 @@ namespace TicketStore.Api
             services.AddTransient<ITicketFinder, TicketFinder>();
             services.AddTransient<IDateTimeProvider, DateTimeProvider>();
             services.AddTransient<IGuidProvider, GuidProvider>();
-            services.AddTransient<PosterUpdater, PosterUpdater>();
-            services.AddTransient<PosterDbUpdater, PosterDbUpdater>();
-            services.AddTransient<PosterReader, PosterReader>();
+            services.AddTransient<IPosterUpdater, PosterUpdater>();
+            services.AddTransient<IPosterDbUpdater, PosterDbUpdater>();
+            services.AddTransient<IPosterReader, PosterReader>();
             services.AddYandexObjectStorage(options =>
             {
                 options.Protocol = ApiConfiguration.YandexOsProtocol;

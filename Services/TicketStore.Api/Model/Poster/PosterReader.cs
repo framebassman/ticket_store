@@ -4,7 +4,7 @@ using ImageMagick;
 
 namespace TicketStore.Api.Model.Poster
 {
-    public class PosterReader
+    public class PosterReader : IPosterReader
     {
 
         public PosterReader()
