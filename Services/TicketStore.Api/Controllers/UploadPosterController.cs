@@ -11,9 +11,9 @@ namespace TicketStore.Api.Controllers
     public class UploadPosterController : ControllerBase
     {
         private readonly ILogger<VerifyController> _log;
-        private PosterUpdater _updater;
+        private readonly IPosterUpdater _updater;
 
-        public UploadPosterController(ILogger<VerifyController> log, PosterUpdater updater)
+        public UploadPosterController(ILogger<VerifyController> log, IPosterUpdater updater)
         {
             _log = log;
             _updater = updater;
@@ -24,12 +24,13 @@ namespace TicketStore.Api.Controllers
         {
             try
             {
+                _log.LogInformation($"Update event ID: {poster.eventId}, Image URI {poster.imageUrl}");
                 var imageNameUrl = await _updater.Update(poster);
                 return new OkObjectResult(imageNameUrl);
             } 
             catch (Exception ex)
             {
-                _log.LogInformation(ex.Message);
+                _log.LogError(ex.Message);
                 return new BadRequestObjectResult("Failed to update poster");
             }
         }

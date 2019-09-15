@@ -1,32 +1,44 @@
 using System;
 using System.Threading.Tasks;
 using AspNetCore.Yandex.ObjectStorage;
+using Microsoft.Extensions.Logging;
 
 namespace TicketStore.Api.Model.Poster
 {
     public class PosterUpdater : IPosterUpdater
     {
+        private readonly ILogger<PosterUpdater> _log;
         private YandexStorageService _storage;
         private IPosterReader _reader;
-        private PosterDbUpdater _dbUpdater;
+        private IPosterDbUpdater _dbUpdater;
         private IGuidProvider _guidProvider;
-        public PosterUpdater(YandexStorageService storage, IPosterReader reader, PosterDbUpdater dbUpdater, IGuidProvider guidProvider)
+        public PosterUpdater(ILogger<PosterUpdater> log, YandexStorageService storage, IPosterReader reader, IPosterDbUpdater dbUpdater, IGuidProvider guidProvider)
         {
             _storage = storage;
             _reader = reader;
             _dbUpdater = dbUpdater;
             _guidProvider = guidProvider;
+            _log = log;
         }
 
         public async Task<String> Update(Poster poster)
         {
+            if (!_dbUpdater.CanUpdate(poster)) {
+                throw new Exception($"Can't update concert with ID: {poster.eventId}");
+            }
+            
+            var image = _reader.GetImage(poster);
+            _log.LogInformation($"Image compressed from {poster.imageUrl}");
+
             var guid = _guidProvider.NewGuid();
             var imageName = $"{guid}.jpg";
-
-            var image = _reader.GetImage(poster);
+            _log.LogInformation("Image name: {@imageName}", imageName);
+            
             await _storage.PutObjectAsync(image, imageName);
+            _log.LogInformation($"Image uploaded to Yandex Object Storage");
 
             var imageUri = GetImageUri(imageName);
+            _log.LogInformation("Image URI: {@imageUri}", imageUri);
             _dbUpdater.Update(poster, imageUri);
             return imageUri;
         }
