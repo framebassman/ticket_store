@@ -125,6 +125,17 @@ db-test:
 db-prod:
 	psql postgresql://store_user:GMQCruf5SzsCGR2xd3euUVZQG3c@188.68.210.162:5432/store_db
 
+# run tests
+test-api-integration:
+	dotnet test Services/TicketStore.Api.Tests \
+		--filter Category!=DevelopmentData
+
+test-api-unit:
+	dotnet test Services/TicketStore.Api.Tests.Unit
+
+test-web-unit:
+	dotnet test Services/TicketStore.Web.Tests.Unit
+
 # migrate db
 migrate-dev:
 	docker exec store_api dotnet ef database update --verbose
