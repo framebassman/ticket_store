@@ -2,6 +2,8 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
+using AspNetCore.Yandex.ObjectStorage;
 using ImageMagick;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -16,24 +18,28 @@ namespace TicketStore.Api.Controllers
     {
         private readonly ApplicationContext _db;
         private readonly ILogger<VerifyController> _log;
+        private YandexStorageService _storage;
 
-        public UploadPosterController(ApplicationContext context, ILogger<VerifyController> log)
+        public UploadPosterController(ApplicationContext context, ILogger<VerifyController> log, YandexStorageService storage)
         {
             _db = context;
             _log = log;
+            _storage = storage;
         }
 
         [HttpPost]
-        public IActionResult Post([FromBody] Poster poster)
+        public async Task<IActionResult> Post([FromBody] Poster poster)
         {
             var concert = _db.Events.FirstOrDefault(e => e.Id == poster.eventId);
 
             var outputImage = GetImage(poster);
 
+            // await _storage.PutObjectAsync(outputImage, "next-obj.png");
+
             return new OkObjectResult($"{outputImage}");
         }
 
-        private String GetImage(Poster poster)
+        private byte[] GetImage(Poster poster)
         {
             var imageUrl = poster.imageUrl;
             using (var webClient = new WebClient())
@@ -47,13 +53,13 @@ namespace TicketStore.Api.Controllers
                         outputImage.Resize(size);
 
                         var byteArray = outputImage.ToByteArray();
-                        var stream = new MemoryStream(byteArray);
+                        var compressedStream = new MemoryStream(byteArray);
                         ImageOptimizer optimizer = new ImageOptimizer();
-                        optimizer.Compress(stream);
+                        optimizer.Compress(compressedStream);
 
-                        using (MagickImage compressedImage = new MagickImage(stream))
+                        using (MagickImage compressedImage = new MagickImage(compressedStream))
                         {
-                            return compressedImage.ToBase64();
+                            return compressedImage.ToByteArray();
                         }
                     }
                 }

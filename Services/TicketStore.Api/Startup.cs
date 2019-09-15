@@ -12,6 +12,7 @@ using TicketStore.Api.Model.Email;
 using TicketStore.Data;
 using TicketStore.Api.Model.Validation;
 using TicketStore.Api.Model;
+using AspNetCore.Yandex.ObjectStorage;
 
 namespace TicketStore.Api
 {
@@ -41,6 +42,15 @@ namespace TicketStore.Api
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddTransient<ITicketFinder, TicketFinder>();
             services.AddTransient<IDateTimeProvider, DateTimeProvider>();
+            services.AddYandexObjectStorage(options =>
+            {
+                options.Protocol = "https";
+                options.BucketName = "igor-test";
+                options.Location = "ru-central1";
+                options.Endpoint = "storage.yandexcloud.net";
+                options.AccessKey = "grkCpJmlPZxBpysw-D5H";
+                options.SecretKey = "ar50IbK41nNvW4_QaCsyh_8Fd9AZsO2nvKWf6Fp9";
+            });
             services
                 .AddDbContext<ApplicationContext>()
                 .BuildServiceProvider();

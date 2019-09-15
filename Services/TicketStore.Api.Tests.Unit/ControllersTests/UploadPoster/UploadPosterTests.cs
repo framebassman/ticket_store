@@ -16,7 +16,7 @@ namespace TicketStore.Api.Tests.Unit.ControllersTests.UploadPoster
         }
 
         [Fact]
-        public void TicketIsNotFoundInDatabase_ReturnsBadRequest()
+        public async void TicketIsNotFoundInDatabase_ReturnsBadRequest()
         {
             // Arrange
             var poster = new Poster
@@ -26,7 +26,7 @@ namespace TicketStore.Api.Tests.Unit.ControllersTests.UploadPoster
             };
             
             // Act
-            var result = Controller.Post(poster);
+            var result = await Controller.Post(poster);
             
             // Assert
             Assert.IsType<OkObjectResult>(result);
