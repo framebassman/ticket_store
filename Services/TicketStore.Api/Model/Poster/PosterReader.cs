@@ -6,7 +6,6 @@ namespace TicketStore.Api.Model.Poster
 {
     public class PosterReader : IPosterReader
     {
-
         public PosterReader()
         {
         }
