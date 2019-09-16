@@ -22,6 +22,7 @@ namespace TicketStore.Api.Tests.Tests.Fixtures
             FakeSender = new FakeSenderService();
             Db = new ApplicationContext();
             CleanUpDatabase();
+            Db.SaveChanges();
             SeedTestData();
             Db.SaveChanges();
         }

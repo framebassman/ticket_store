@@ -50,5 +50,23 @@ namespace TicketStore.Api.Tests.Tests.Verification
             Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
             Assert.Equal(new FailedUploadAnswer().ToString(), response.Content);
         }
+
+        [Fact]
+        public void Sucess()
+        {
+            // Arrange
+            var scan = new Poster
+            {
+                eventId = 1,
+                imageUrl = "https://sun9-32.userapi.com/c852236/v852236322/17cdae/uHreFWeE3Sw.jpg"
+            };
+            
+            // Act
+            var response = _fixture.Api.UploadPoster(scan);
+
+            // Assert
+            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+            // Assert.Equal(new FailedUploadAnswer().ToString(), response.Content);
+        }
     }
 }
