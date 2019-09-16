@@ -7,8 +7,8 @@ namespace TicketStore.Api
         public static String YandexOsProtocol = "https";
         public static String YandexOsEndpoint = "storage.yandexcloud.net";
         public static String YandexOsLocation = "ru-central1";
-        public static String YandexOsPostersBucketName = "igor-test";
-        public static String YandexOsPostersAccessKey = "grkCpJmlPZxBpysw-D5H";
-        public static String YandexOsPostersSecretKey = "ar50IbK41nNvW4_QaCsyh_8Fd9AZsO2nvKWf6Fp9";
+        public static String YandexOsPostersBucketName = "chertopolokh";
+        public static String YandexOsPostersAccessKey = "3F3iUUXPPPW4y5Myyqr6";
+        public static String YandexOsPostersSecretKey = "VCaubpruAAznfyRIeNz30ioSuOg5QH9gWHtH4iax";
     }
 }
