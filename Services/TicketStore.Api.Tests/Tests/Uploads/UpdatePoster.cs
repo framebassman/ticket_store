@@ -4,7 +4,7 @@ using TicketStore.Api.Tests.Model.Services.Verify.Answers;
 using TicketStore.Api.Tests.Tests.Fixtures;
 using Xunit;
 
-namespace TicketStore.Api.Tests.Tests.Verification
+namespace TicketStore.Api.Tests.Tests.Uploads
 {
     [Collection("Api collection")]
     public class UploadPoster
