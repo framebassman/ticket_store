@@ -21,7 +21,7 @@ namespace TicketStore.Api.Controllers
         }
 
         [HttpPost("poster")]
-        public async Task<IActionResult> Poster([FromBody] Poster poster)
+        public async Task<IActionResult> UpdatePoster([FromBody] Poster poster)
         {
             try
             {

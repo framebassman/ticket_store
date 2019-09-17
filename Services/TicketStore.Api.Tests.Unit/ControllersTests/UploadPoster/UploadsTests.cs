@@ -7,9 +7,9 @@ using Xunit;
 
 namespace TicketStore.Api.Tests.Unit.ControllersTests.UploadPoster
 {
-    public class UploadPosterTests : UploadPosterControllerBaseTest
+    public class UploadsTests : UploadsControllerBaseTest
     {
-        public UploadPosterTests() : base("poster")
+        public UploadsTests() : base("poster")
         {
             // UTC should be stored in Database
             var dbTime = new DateTime(2019, 10, 4, 16, 00, 00, DateTimeKind.Utc);
@@ -27,7 +27,7 @@ namespace TicketStore.Api.Tests.Unit.ControllersTests.UploadPoster
             };
 
             // Act
-            var result = await Controller.Post(poster);
+            var result = await Controller.UpdatePoster(poster);
             
             // Assert
             Assert.IsType<OkObjectResult>(result);
@@ -49,7 +49,7 @@ namespace TicketStore.Api.Tests.Unit.ControllersTests.UploadPoster
             };
 
             // Act
-            var result = await Controller.Post(poster);
+            var result = await Controller.UpdatePoster(poster);
             
             // Assert
             Assert.IsType<BadRequestObjectResult>(result);

@@ -8,10 +8,10 @@ using TicketStore.Api.Model.Poster;
 
 namespace TicketStore.Api.Tests.Unit.ControllersTests.UploadPoster
 {
-    public abstract class UploadPosterControllerBaseTest : ControllersBaseTest<VerifyController>
+    public abstract class UploadsControllerBaseTest : ControllersBaseTest<VerifyController>
     {
         protected readonly UploadsController Controller;
-        protected UploadPosterControllerBaseTest(string databaseName) : base(databaseName)
+        protected UploadsControllerBaseTest(string databaseName) : base(databaseName)
         {
             var updater = GetUpdater();
             Controller = new UploadsController(Logger, updater);
