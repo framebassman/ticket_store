@@ -6,7 +6,7 @@ using TicketStore.Api.Controllers;
 using TicketStore.Api.Model;
 using TicketStore.Api.Model.Poster;
 
-namespace TicketStore.Api.Tests.Unit.ControllersTests.UploadPoster
+namespace TicketStore.Api.Tests.Unit.ControllersTests.Uploads
 {
     public abstract class UploadsControllerBaseTest : ControllersBaseTest<VerifyController>
     {

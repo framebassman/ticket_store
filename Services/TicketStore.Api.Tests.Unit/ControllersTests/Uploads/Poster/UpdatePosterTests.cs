@@ -2,10 +2,9 @@ using System;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using TicketStore.Api.Model.Poster;
 using Xunit;
 
-namespace TicketStore.Api.Tests.Unit.ControllersTests.UploadPoster
+namespace TicketStore.Api.Tests.Unit.ControllersTests.Uploads.Poster
 {
     public class UploadsTests : UploadsControllerBaseTest
     {
@@ -20,7 +19,7 @@ namespace TicketStore.Api.Tests.Unit.ControllersTests.UploadPoster
         public async void UpdatePoster()
         {
             // Arrange
-            var poster = new Poster
+            var poster = new Api.Model.Poster.Poster
             {
                 eventId = 1,
                 imageUrl = "https://sun9-32.userapi.com/c852236/v852236322/17cdae/uHreFWeE3Sw.jpg"
@@ -42,7 +41,7 @@ namespace TicketStore.Api.Tests.Unit.ControllersTests.UploadPoster
         public async void FailToUpdatePoster()
         {
             // Arrange
-            var poster = new Poster
+            var poster = new Api.Model.Poster.Poster
             {
                 eventId = 0,
                 imageUrl = "https://sun9-32.userapi.com/c852236/v852236322/17cdae/uHreFWeE3Sw.jpg"
