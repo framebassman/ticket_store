@@ -10,11 +10,11 @@ namespace TicketStore.Api.Tests.Unit.ControllersTests.UploadPoster
 {
     public abstract class UploadPosterControllerBaseTest : ControllersBaseTest<VerifyController>
     {
-        protected readonly UploadPosterController Controller;
+        protected readonly UploadsController Controller;
         protected UploadPosterControllerBaseTest(string databaseName) : base(databaseName)
         {
             var updater = GetUpdater();
-            Controller = new UploadPosterController(Logger, updater);
+            Controller = new UploadsController(Logger, updater);
         }
 
         private PosterUpdater GetUpdater()

@@ -9,19 +9,19 @@ namespace TicketStore.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UploadPosterController : ControllerBase
+    public class UploadsController : ControllerBase
     {
         private readonly ILogger<VerifyController> _log;
         private readonly IPosterUpdater _updater;
 
-        public UploadPosterController(ILogger<VerifyController> log, IPosterUpdater updater)
+        public UploadsController(ILogger<VerifyController> log, IPosterUpdater updater)
         {
             _log = log;
             _updater = updater;
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Post([FromBody] Poster poster)
+        [HttpPost("poster")]
+        public async Task<IActionResult> Poster([FromBody] Poster poster)
         {
             try
             {
