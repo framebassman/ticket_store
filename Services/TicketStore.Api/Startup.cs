@@ -14,6 +14,7 @@ using TicketStore.Api.Model.Validation;
 using TicketStore.Api.Model;
 using AspNetCore.Yandex.ObjectStorage;
 using TicketStore.Api.Model.Poster;
+using TicketStore.Api.Model.Poster.Storage;
 
 namespace TicketStore.Api
 {
@@ -47,15 +48,9 @@ namespace TicketStore.Api
             services.AddTransient<IPosterUpdater, PosterUpdater>();
             services.AddTransient<IPosterDbUpdater, PosterDbUpdater>();
             services.AddTransient<IPosterReader, PosterReader>();
-            services.AddYandexObjectStorage(options =>
-            {
-                options.Protocol = ApiConfiguration.YandexOsProtocol;
-                options.Endpoint = ApiConfiguration.YandexOsEndpoint;
-                options.Location = ApiConfiguration.YandexOsLocation;
-                options.BucketName = ApiConfiguration.YandexOsPostersBucketName;
-                options.AccessKey = ApiConfiguration.YandexOsPostersAccessKey;
-                options.SecretKey = ApiConfiguration.YandexOsPostersSecretKey;
-            });
+            services.AddYandexObjectStorage(options => 
+                new ObjectStorage(Configuration.GetSection("YandexObjectStorage")).Options()
+            );
             services
                 .AddDbContext<ApplicationContext>()
                 .BuildServiceProvider();

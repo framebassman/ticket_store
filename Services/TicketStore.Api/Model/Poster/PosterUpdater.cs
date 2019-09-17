@@ -33,22 +33,13 @@ namespace TicketStore.Api.Model.Poster
             var guid = _guidProvider.NewGuid();
             var imageName = $"{guid}.jpg";
             _log.LogInformation("Image name: {@imageName}", imageName);
-            
-            await _storage.PutObjectAsync(image, imageName);
-            _log.LogInformation($"Image uploaded to Yandex Object Storage");
 
-            var imageUrl = GetImageUrl(imageName);
+            var imageUrl = await _storage.PutObjectAsync(image, imageName);
+            _log.LogInformation("Image uploaded to Yandex Object Storage");
+        
             _log.LogInformation("Image URL: {@imageUrl}", imageUrl);
             _dbUpdater.Update(poster, imageUrl);
             return imageUrl;
-        }
-
-        private String GetImageUrl(String imageName)
-        {
-            var protocol = ApiConfiguration.YandexOsProtocol;
-            var host = ApiConfiguration.YandexOsEndpoint;
-            var bucket = ApiConfiguration.YandexOsPostersBucketName;
-            return $"{protocol}://{host}/{bucket}/{imageName}";
         }
     }
 }
