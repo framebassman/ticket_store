@@ -55,7 +55,7 @@ namespace TicketStore.Api.Tests.Model.Services
 
         public IRestResponse UploadPoster(Poster poster)
         {
-            var request = new RestRequest("api/uploadposter", Method.POST);
+            var request = new RestRequest("api/uploads/poster", Method.POST);
             request.AddHeader("Content-Type", "application/json");
             request.AddJsonBody(poster);
             return Client.Execute(request);
