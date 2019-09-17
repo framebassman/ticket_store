@@ -16,7 +16,7 @@ namespace TicketStore.Api.Tests.Unit.ControllersTests.Uploads.Poster
         }
 
         [Fact]
-        public async void UpdatePoster()
+        public async void UpdatePosterSuccessfully()
         {
             // Arrange
             var poster = new Api.Model.Poster.Poster
