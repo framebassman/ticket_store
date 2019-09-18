@@ -48,17 +48,7 @@ namespace TicketStore.Api
             services.AddTransient<IPosterUpdater, PosterUpdater>();
             services.AddTransient<IPosterDbUpdater, PosterDbUpdater>();
             services.AddTransient<IPosterReader, PosterReader>();
-            // Temporary solution until https://github.com/DubZero/AspNetCore.Yandex.ObjectStorage/issues/3 is fixed
-            var storageConfig = Configuration.GetSection("YandexObjectStorage");
-            services.AddYandexObjectStorage(options =>
-            {
-                options.Protocol = storageConfig.GetValue<String>("Protocol");
-                options.Endpoint = storageConfig.GetValue<String>("Endpoint");
-                options.Location = storageConfig.GetValue<String>("Location");
-                options.BucketName = storageConfig.GetValue<String>("BucketName");
-                options.AccessKey = storageConfig.GetValue<String>("AccessKey");
-                options.SecretKey = storageConfig.GetValue<String>("SecretKey");
-            });
+            services.AddYandexObjectStorage(Configuration);
             services
                 .AddDbContext<ApplicationContext>()
                 .BuildServiceProvider();
