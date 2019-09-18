@@ -43,6 +43,13 @@ stop-test:
 		-f Deploy/docker-compose.test.yml \
 		down
 
+start-yandex:
+	docker-compose \
+		--project-directory=${PWD} \
+		--project-name=ticket_store \
+		-f Deploy/docker-compose.yandex.yml \
+		up --build
+
 # db only
 start-db:
 	docker-compose \

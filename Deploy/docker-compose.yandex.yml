@@ -1,0 +1,15 @@
+version: '3.6'
+
+services:
+    fake_yandex_storage:
+        build:
+            context: .
+            dockerfile: ./Services/FakeYandexStorage/Dockerfile
+        container_name: fake_yandex_storage
+        volumes:
+            - ./Services/FakeYandexStorage/stubs:/home/wiremock
+        ports:
+            - 5000:8080
+
+volumes:
+    pgsdata:
