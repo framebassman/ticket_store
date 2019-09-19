@@ -4,6 +4,9 @@ COPY ./Services/TicketStore.Data/ /TicketStore.Data
 WORKDIR /app
 RUN dotnet restore
 RUN dotnet publish -c Release -o out
+RUN rm ./out/AspNetCore.Yandex.ObjectStorage.dll
+COPY ./Services/TicketStore.Api/experiment/with_logs/AspNetCore.Yandex.ObjectStorage.dll /app/out/
+COPY ./Services/TicketStore.Api/experiment/with_logs/TestFile.txt /app/out/
 
 FROM microsoft/dotnet:2.2.0-aspnetcore-runtime
 RUN apt-get update \
