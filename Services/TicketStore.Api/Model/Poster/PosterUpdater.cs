@@ -34,7 +34,16 @@ namespace TicketStore.Api.Model.Poster
             var imageName = $"{guid}.jpg";
             _log.LogInformation("Image name: {@imageName}", imageName);
 
-            var imageUrl = await _storage.PutObjectAsync(image, imageName);
+            var imageUrl = "testImage";
+            try
+            {
+                imageUrl = await _storage.PutObjectAsync(image, imageName);
+            }
+            catch (Exception e)
+            {
+                _log.LogError("Exception when updating poster: {@e}", e);
+            }
+            
             _log.LogInformation("Image uploaded to Yandex Object Storage");
         
             _log.LogInformation("Image URL: {@imageUrl}", imageUrl);

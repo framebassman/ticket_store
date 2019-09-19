@@ -15,7 +15,7 @@ namespace TicketStore.Api.Tests.Unit.ControllersTests.Uploads.Poster
             SeedTestData(dbTime);
         }
 
-        [Fact]
+        [Fact(Skip = "Suggest to remove this test, because it push picture to real yandex storage")]
         public async void UpdatePosterSuccessfully()
         {
             // Arrange
@@ -37,7 +37,7 @@ namespace TicketStore.Api.Tests.Unit.ControllersTests.Uploads.Poster
             Assert.Equal("https://storage.yandexcloud.net/igor-test/g-u-i-d.jpg", concert.PosterUrl);
         }
 
-        [Fact]
+        [Fact(Skip = "Suggest to remove this test, because it push picture to real yandex storage")]
         public async void FailToUpdatePoster()
         {
             // Arrange
