@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Net;
 using NHamcrest;
@@ -5,6 +6,7 @@ using TicketStore.Api.Tests.Model.Services.UploadPoster;
 using TicketStore.Api.Tests.Model.Services.Verify.Answers;
 using TicketStore.Api.Tests.Tests.Fixtures;
 using TicketStore.Api.Tests.Tests.Matchers;
+using TicketStore.Api.Tests.Tests.Matchers.Strings;
 using Xunit;
 
 namespace TicketStore.Api.Tests.Tests.Uploads
@@ -83,7 +85,7 @@ namespace TicketStore.Api.Tests.Tests.Uploads
                         return concert.PosterUrl;                    
                     }                    
                 },
-                Is.NotNull());
+                Is.Not<String>(new IsEmptyString()));
         }
     }
 }
