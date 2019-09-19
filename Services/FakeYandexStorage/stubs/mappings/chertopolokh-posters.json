@@ -5,6 +5,7 @@
   },
   "response": {
     "status": 200,
-    "bodyFileName": "hello.json"
+    "body":"$(!RandomInteger)",
+    "transformers": ["body-transformer"]
   }
 }

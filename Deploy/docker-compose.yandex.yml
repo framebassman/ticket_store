@@ -6,10 +6,5 @@ services:
             context: .
             dockerfile: ./Services/FakeYandexStorage/Dockerfile
         container_name: fake_yandex_storage
-        volumes:
-            - ./Services/FakeYandexStorage/stubs:/home/wiremock
         ports:
-            - 5000:8080
-
-volumes:
-    pgsdata:
+            - 5001:8080
