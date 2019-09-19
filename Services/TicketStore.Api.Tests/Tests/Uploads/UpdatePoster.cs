@@ -73,19 +73,25 @@ namespace TicketStore.Api.Tests.Tests.Uploads
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
             AssertWithTimeout.That(
                 "Poster should be updated to not null value",
-                () =>
-                {
-                    var concert = _fixture.Db.Events.FirstOrDefault(e => e.Id == scan.eventId);
-                    if (concert == null)
-                    {
-                        return null;
-                    }
-                    else
-                    {
-                        return concert.PosterUrl;                    
-                    }                    
-                },
+                () => ActualPosterUrl(scan),
+                Is.NotNull());
+            AssertWithTimeout.That(
+                "Poster should be updated to not empty string",
+                () => ActualPosterUrl(scan),
                 Is.Not<String>(new IsEmptyString()));
+        }
+
+        private String ActualPosterUrl(Poster scan)
+        {
+            var concert = _fixture.Db.Events.FirstOrDefault(e => e.Id == scan.eventId);
+            if (concert == null)
+            {
+                return null;
+            }
+            else
+            {
+                return concert.PosterUrl;                    
+            }
         }
     }
 }
