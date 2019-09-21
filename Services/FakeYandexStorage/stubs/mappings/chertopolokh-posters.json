@@ -1,11 +1,31 @@
 {
-  "request": {
-    "method": "PUT",
-    "urlPathPattern": "/chertopolokh-posters/(\\{){0,1}[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}\\.[a-z]*(\\}){0,1}"
-  },
-  "response": {
-    "status": 200,
-    "body":"$(!RandomInteger)",
-    "transformers": ["body-transformer"]
-  }
+  "mappings": [
+    {
+      "request": {
+        "method": "GET",
+        "urlPathPattern": "/chertopolokh-posters"
+      },
+      "response": {
+        "status": 200,
+        "bodyFileName": "index.xml",
+        "headers": {
+          "Content-Type": "text/plain"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "PUT",
+        "urlPathPattern": "/chertopolokh-posters/(\\{){0,1}[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}\\.[a-z]*(\\}){0,1}"
+      },
+      "response": {
+        "status": 200,
+        "body":"$(!RandomInteger)",
+        "transformers": ["body-transformer"],
+        "headers": {
+          "Content-Type": "application/xml; charset=UTF-8"
+        }
+      }
+    }    
+  ]
 }

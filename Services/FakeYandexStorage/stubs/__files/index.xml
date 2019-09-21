@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListBucketResult xmlns="http://s3.amazonaws.com/doc/2006-03-01/">
+   <Name>chertopolokh-posters</Name>
+   <Prefix />
+   <Marker />
+   <MaxKeys>1000</MaxKeys>
+   <IsTruncated>false</IsTruncated>
+   <Contents>
+      <Key>745cf032-9f42-4546-904b-8a91bb50f466.jpg</Key>
+      <LastModified>2019-09-18T19:44:13.000Z</LastModified>
+      <ETag>"f4584e540b4b0c960e383245edc71e86"</ETag>
+      <Size>348198</Size>
+      <StorageClass>STANDARD</StorageClass>
+      <Owner>
+         <ID>ajeojpnhmpct7vq5gv46</ID>
+         <DisplayName>ajeojpnhmpct7vq5gv46</DisplayName>
+      </Owner>
+   </Contents>
+</ListBucketResult>
