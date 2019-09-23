@@ -15,7 +15,8 @@ namespace TicketStore.Api.Tests.Unit.ControllersTests.Uploads.Poster
             SeedTestData(dbTime);
         }
 
-        [Fact(Skip = "Suggest to remove this test, because it push picture to real yandex storage")]
+       [Fact(Skip = "Suggest to remove this test, because it push picture to real yandex storage")]
+        // [Fact]
         public async void UpdatePosterSuccessfully()
         {
             // Arrange
