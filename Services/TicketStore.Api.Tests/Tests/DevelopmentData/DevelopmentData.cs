@@ -88,7 +88,7 @@ namespace TicketStore.Api.Tests.Tests.DevelopmentData
                 Artist = artist,
                 Roubles = 200,
                 PressRelease = "Not Bad",
-                Time = new DateTime(2019, 10, 10, 17, 0, 0, DateTimeKind.Utc),
+                Time = DateTime.UtcNow + TimeSpan.FromHours(12),
                 PosterUrl = "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png",
                 Merchant = _merchant
             };
