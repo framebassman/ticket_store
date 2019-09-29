@@ -44,13 +44,6 @@ services:
             - 5000:5050
         volumes:
             - /var/log/fake_sender:/var/log
-    fake_yandex_storage:
-        build:
-            context: .
-            dockerfile: ./Services/FakeYandexStorage/Dockerfile
-        container_name: fake_yandex_storage
-        ports:
-            - 5001:8080
 
 volumes:
     pgsdata:

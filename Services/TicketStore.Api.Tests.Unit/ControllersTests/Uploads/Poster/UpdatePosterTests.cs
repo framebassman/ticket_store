@@ -15,13 +15,13 @@ namespace TicketStore.Api.Tests.Unit.ControllersTests.Uploads.Poster
             SeedTestData(dbTime);
         }
 
-        [Fact(Skip = "Suggest to remove this test, because it push picture to real yandex storage")]
-        public async void UpdatePosterSuccessfully()
+        [Fact]
+        public async void EventNotExist_ShouldReturnsError()
         {
             // Arrange
             var poster = new Api.Model.Poster.Poster
             {
-                eventId = 1,
+                eventId = 0,
                 imageUrl = "https://sun9-32.userapi.com/c852236/v852236322/17cdae/uHreFWeE3Sw.jpg"
             };
 
@@ -29,22 +29,19 @@ namespace TicketStore.Api.Tests.Unit.ControllersTests.Uploads.Poster
             var result = await Controller.UpdatePoster(poster);
             
             // Assert
-            Assert.IsType<OkObjectResult>(result);
-            var json = JsonConvert.SerializeObject((result as OkObjectResult).Value);
-            Assert.Equal("{\"imageUrl\":\"https://storage.yandexcloud.net/igor-test/g-u-i-d.jpg\",\"message\":\"OK\"}", json);
-
-            var concert = Db.Events.FirstOrDefault(venue => venue.Id == poster.eventId);
-            Assert.Equal("https://storage.yandexcloud.net/igor-test/g-u-i-d.jpg", concert.PosterUrl);
+            Assert.IsType<BadRequestObjectResult>(result);
+            var json = JsonConvert.SerializeObject((result as BadRequestObjectResult).Value);
+            Assert.Equal("{\"message\":\"Failed to update poster\"}", json);
         }
 
-        [Fact(Skip = "Suggest to remove this test, because it push picture to real yandex storage")]
-        public async void FailToUpdatePoster()
+        [Fact]
+        public async void WrongImageProvided_ShouldReturnsError()
         {
             // Arrange
             var poster = new Api.Model.Poster.Poster
             {
-                eventId = 0,
-                imageUrl = "https://sun9-32.userapi.com/c852236/v852236322/17cdae/uHreFWeE3Sw.jpg"
+                eventId = 1,
+                imageUrl = "asd"
             };
 
             // Act
