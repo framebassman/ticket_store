@@ -41,10 +41,10 @@ services:
             - "traefik.frontend.redirect.replacement=$$1/kabinet/"
             - "traefik.frontend.rule=PathPrefix:/kabinet;ReplacePathRegex: ^/kabinet/(.*) /$$1"
             - "traefik.docker.network=ticket_store_default"
-        # environment:
-        #     - MB_DB_TYPE=postgres
-        #     - MB_DB_DBNAME=metabase
-        #     - MB_DB_PORT=5432
-        #     - MB_DB_USER=<username>
-        #     - MB_DB_PASS=<password>
-        #     - MB_DB_HOST=my-database-host
+        environment:
+            - MB_DB_TYPE=postgres
+            - MB_DB_DBNAME=metabase_db
+            - MB_DB_PORT=5432
+            - MB_DB_USER=metabase_user
+            - MB_DB_PASS=WPjpNg73ppJVpCF9
+            - MB_DB_HOST=188.68.210.162
