@@ -1,7 +1,7 @@
 using System;
 using Newtonsoft.Json;
 
-namespace TicketStore.Api.Tests.Model.Services.Verify.Answers
+namespace TicketStore.Api.Tests.Model.Services
 {
     public abstract class Answer
     {

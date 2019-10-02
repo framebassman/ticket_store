@@ -22,6 +22,7 @@ namespace TicketStore.Api.Tests.Tests.Fixtures
             FakeSender = new FakeSenderService();
             Db = new ApplicationContext();
             CleanUpDatabase();
+            Db.SaveChanges();
             SeedTestData();
             Db.SaveChanges();
         }
@@ -54,6 +55,7 @@ namespace TicketStore.Api.Tests.Tests.Fixtures
             {
                 new Event
                 {
+                    Id = 1,
                     Artist = "First Test Artist",
                     Merchant = Merchant,
                     PosterUrl = "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png",
@@ -63,6 +65,7 @@ namespace TicketStore.Api.Tests.Tests.Fixtures
                 },
                 new Event
                 {
+                    Id = 2,
                     Artist = "Second Test Artist",
                     Merchant = Merchant,
                     PosterUrl = "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png",

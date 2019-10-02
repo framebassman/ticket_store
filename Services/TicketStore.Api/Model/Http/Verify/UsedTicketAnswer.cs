@@ -4,7 +4,7 @@ namespace TicketStore.Api.Model.Http
 {
     public class UsedTicketAnswer : VerifiedAnswer
     {
-        public UsedTicketAnswer(string concLabel) : base(concLabel)
+        public UsedTicketAnswer(String concLabel) : base(concLabel)
         {
             used = true;
         }

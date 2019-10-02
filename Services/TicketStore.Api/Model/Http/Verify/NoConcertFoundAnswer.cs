@@ -1,5 +1,3 @@
-using System;
-
 namespace TicketStore.Api.Model.Http
 {
     public class NoConcertFoundAnswer : Answer

@@ -1,7 +1,6 @@
 using System;
 using RestSharp;
-using TicketStore.Api.Tests.Environment;
-using TicketStore.Api.Tests.Model.Services.Verify;
+using TicketStore.Api.Tests.Model.Services.UploadPoster;
 using TicketStore.Api.Tests.Model.Services.Verify.Requests;
 
 namespace TicketStore.Api.Tests.Model.Services
@@ -52,6 +51,14 @@ namespace TicketStore.Api.Tests.Model.Services
             request.AddHeader("Content-Type", "application/json");
             request.AddJsonBody(scan);
             return request;
+        }
+
+        public IRestResponse UploadPoster(Poster poster)
+        {
+            var request = new RestRequest("api/uploads/poster", Method.POST);
+            request.AddHeader("Content-Type", "application/json");
+            request.AddJsonBody(poster);
+            return Client.Execute(request);
         }
     }
 }

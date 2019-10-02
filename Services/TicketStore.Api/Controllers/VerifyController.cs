@@ -18,7 +18,6 @@ namespace TicketStore.Api.Controllers
         private readonly ApplicationContext _db;
         private readonly ILogger<VerifyController> _log;
         private readonly ITicketFinder _finder;
-        private const string _token = "Bearer pkR9vfZ9QdER53mf";
 
         public VerifyController(ApplicationContext context, ILogger<VerifyController> log, ITicketFinder finder)
         {

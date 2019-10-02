@@ -12,7 +12,7 @@ namespace TicketStore.Api.Tests.Unit.BaseTest
     public abstract class DbBaseTest<T> : IDisposable
     {
         protected readonly ApplicationContext Db;
-        protected readonly DbContextOptions<ApplicationContext> Options;
+        protected readonly DbContextOptions<ApplicationContext> DbOptions;
         
         protected readonly ILogger<T> Logger;
         protected readonly Provider Provider;
@@ -24,12 +24,12 @@ namespace TicketStore.Api.Tests.Unit.BaseTest
 
         public DbBaseTest(String databaseName)
         {
-            Options = new DbContextOptionsBuilder<ApplicationContext>()
+            DbOptions = new DbContextOptionsBuilder<ApplicationContext>()
                 .UseInMemoryDatabase(databaseName: databaseName)
                 .Options;
             Logger = new Mock<ILogger<T>>().Object;
             Provider = new Provider();
-            Db = new ApplicationContext(Options);
+            Db = new ApplicationContext(DbOptions);
         }
 
         protected void SeedTestData(DateTime date)

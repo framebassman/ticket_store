@@ -2,15 +2,13 @@ using System;
 
 namespace TicketStore.Api.Model.Http
 {
-    public class VerifiedAnswer
+    public class VerifiedAnswer : Answer
     {
-        public String message;
         public String concertLabel;
         public Boolean used;
 
-        public VerifiedAnswer(string concLabel)
+        public VerifiedAnswer(string concLabel) : base("OK")
         {
-            message = "OK";
             concertLabel = concLabel;
         }
     }

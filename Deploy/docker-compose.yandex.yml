@@ -1,0 +1,10 @@
+version: '3.6'
+
+services:
+    fake_yandex_storage:
+        build:
+            context: .
+            dockerfile: ./Services/FakeYandexStorage/Dockerfile
+        container_name: fake_yandex_storage
+        ports:
+            - 5001:8080

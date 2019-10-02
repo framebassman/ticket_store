@@ -12,6 +12,9 @@ using TicketStore.Api.Model.Email;
 using TicketStore.Data;
 using TicketStore.Api.Model.Validation;
 using TicketStore.Api.Model;
+using AspNetCore.Yandex.ObjectStorage;
+using TicketStore.Api.Model.Poster;
+using TicketStore.Api.Model.Poster.Storage;
 
 namespace TicketStore.Api
 {
@@ -41,6 +44,11 @@ namespace TicketStore.Api
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddTransient<ITicketFinder, TicketFinder>();
             services.AddTransient<IDateTimeProvider, DateTimeProvider>();
+            services.AddTransient<IGuidProvider, GuidProvider>();
+            services.AddTransient<IPosterUpdater, PosterUpdater>();
+            services.AddTransient<IPosterDbUpdater, PosterDbUpdater>();
+            services.AddTransient<IPosterReader, PosterReader>();
+            services.AddYandexObjectStorage(Configuration);
             services
                 .AddDbContext<ApplicationContext>()
                 .BuildServiceProvider();
