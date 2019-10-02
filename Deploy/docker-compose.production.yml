@@ -30,3 +30,21 @@ services:
         volumes:
             - /var/run/docker.sock:/var/run/docker.sock
             - ./Services/Proxy/certs/acme.json:/acme.json
+    kabinet:
+        image: metabase/metabase:v0.33.3
+        container_name: kabinet
+        labels:
+            - "traefik.enable=true"
+            - "traefik.port=3000"
+            - "traefik.backend=kabinet"
+            - "traefik.frontend.redirect.regex=^(.*)/kabinet$$"
+            - "traefik.frontend.redirect.replacement=$$1/kabinet/"
+            - "traefik.frontend.rule=PathPrefix:/kabinet;ReplacePathRegex: ^/kabinet/(.*) /$$1"
+            - "traefik.docker.network=ticket_store_default"
+        # environment:
+        #     - MB_DB_TYPE=postgres
+        #     - MB_DB_DBNAME=metabase
+        #     - MB_DB_PORT=5432
+        #     - MB_DB_USER=<username>
+        #     - MB_DB_PASS=<password>
+        #     - MB_DB_HOST=my-database-host
