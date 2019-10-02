@@ -90,7 +90,10 @@ jobs:
             ssh root@chertopolokh.ru 'docker image prune --all --force'
       - run:
           name: Deploy check
-          command: bash ./Scripts/check-deployment.sh https://chertopolokh.ru
+          command: |
+            bash ./Scripts/check-deployment.sh https://chertopolokh.ru/healthcheck
+            bash ./Scripts/check-deployment.sh https://chertopolokh.ru/store_api/healthcheck
+            bash ./Scripts/check-deployment.sh https://chertopolokh.ru/kabinet/api/health
       - run:
           name: finish sentry release
           command: |
