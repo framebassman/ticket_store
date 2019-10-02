@@ -1,5 +1,4 @@
 using System;
-using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Xunit;
@@ -23,25 +22,6 @@ namespace TicketStore.Api.Tests.Unit.ControllersTests.Uploads.Poster
             {
                 eventId = 0,
                 imageUrl = "https://sun9-32.userapi.com/c852236/v852236322/17cdae/uHreFWeE3Sw.jpg"
-            };
-
-            // Act
-            var result = await Controller.UpdatePoster(poster);
-            
-            // Assert
-            Assert.IsType<BadRequestObjectResult>(result);
-            var json = JsonConvert.SerializeObject((result as BadRequestObjectResult).Value);
-            Assert.Equal("{\"message\":\"Failed to update poster\"}", json);
-        }
-
-        [Fact]
-        public async void WrongImageProvided_ShouldReturnsError()
-        {
-            // Arrange
-            var poster = new Api.Model.Poster.Poster
-            {
-                eventId = 1,
-                imageUrl = "asd"
             };
 
             // Act
