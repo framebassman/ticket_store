@@ -11,7 +11,9 @@ services:
             - 3000:5000
         environment:
             - ASPNETCORE_ENVIRONMENT=Development
-        tty: true
+        volumes:
+            - ./Services/TicketStore.Api:/app
+            - ./Services/TicketStore.Data:/TicketStore.Data
     store_web:
         build:
             context: .
@@ -22,7 +24,8 @@ services:
             - ASPNETCORE_ENVIRONMENT=Development
             - REACT_APP_ENVIRONMENT=Development
         volumes:
-            - ./Services/TicketStore.Web/Client/src:/app/Client/src
+            - ./Services/TicketStore.Web:/app
+            - ./Services/TicketStore.Data:/TicketStore.Data
     store_proxy:
         build:
             context: .
