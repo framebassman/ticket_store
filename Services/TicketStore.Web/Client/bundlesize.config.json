@@ -7,7 +7,7 @@
         },
         {
             "path": "./build/static/js/**.js",
-            "maxSize": "450 kB",
+            "maxSize": "460 kB",
             "compression": "none"
         },
         {
