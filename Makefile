@@ -8,7 +8,6 @@ build-dev:
 		build ${ARGS}
 
 start-dev:
-	make grant-permissions-to-cert
 	make ngrok
 	docker-compose \
 		--project-directory=${PWD} \
