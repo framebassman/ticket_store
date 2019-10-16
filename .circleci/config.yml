@@ -3,7 +3,7 @@ version: 2.1
 jobs:
   install-dotnet:
     machine:
-      docker_layer_caching: true
+      docker_layer_caching: false
     steps:
       - run:
           name: install dotnet core
@@ -19,7 +19,7 @@ jobs:
   test-integration:
     working_directory: ~/repo/Services
     machine:
-      docker_layer_caching: true
+      docker_layer_caching: false
     steps:
       - checkout
       - run:
