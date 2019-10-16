@@ -56,7 +56,7 @@ namespace TicketStore.Web.Tests.Unit.ControllersTests.Events
             
             // Assert
             Assert.IsType<OkObjectResult>(result);
-            var json = JsonConvert.SerializeObject((result as OkObjectResult).Value);
+            var json = System.Text.Json.JsonSerializer.Serialize((result as OkObjectResult).Value);
             Assert.Contains($"\"Time\":\"{_dateTimeInString}\"", json);
         }
         

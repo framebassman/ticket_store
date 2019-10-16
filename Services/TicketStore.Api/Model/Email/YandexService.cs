@@ -13,7 +13,7 @@ namespace TicketStore.Api.Model.Email
         private readonly String _smtpUsername;
         private readonly String _smtpPassword;
 
-        public YandexService(IHostingEnvironment env, IConfiguration conf, ILogger log)
+        public YandexService(IConfiguration conf, ILogger log)
         {
             _log = log;
             _smtpUsername = "no-reply@romashov.tech";

@@ -26,8 +26,9 @@ namespace TicketStore.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddResponseCompression();
-            services.AddRobotify(c => c.AddRobotGroupsFromAppSettings());
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+//            services.AddRobotify(c => c.AddRobotGroupsFromAppSettings());
+            services.AddHealthChecks();
+            services.AddControllers();
             services.AddTransient<IDateTimeProvider, DateTimeProvider>();
             services
                 .AddDbContext<ApplicationContext>()
@@ -41,7 +42,7 @@ namespace TicketStore.Web
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -55,19 +56,19 @@ namespace TicketStore.Web
             app.UseResponseCompression();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
-            app.UseMiddleware<HealthCheckMiddleware>();
             app.UseRewriter(new RewriteOptions()
                 .AddRedirect("index.html", "/"));
-            app.UseRobotify(c => c
-                .WithSitemap(new Uri("https://chertopolokh.ru/sitemap"))
-                .WithCrawlDelay(10)
-            );
-
-            app.UseMvc(routes =>
+//            app.UseRobotify(c => c
+//                .WithSitemap(new Uri("https://chertopolokh.ru/sitemap"))
+//                .WithCrawlDelay(10)
+//            );
+            app.UseRouting();
+            app.UseEndpoints(endpoints =>
             {
-                routes.MapRoute(
+                endpoints.MapControllerRoute(
                     name: "default",
-                    template: "{controller}/{action=Index}/{id?}");
+                    pattern: "{controller}/{action=Index}/{id?}");
+                endpoints.MapHealthChecks("/healthcheck");
             });
 
             app.UseSpa(spa =>
