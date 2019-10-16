@@ -1,0 +1,181 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
+    <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
+    <IsPackable>false</IsPackable>
+    <SpaRoot>Client\</SpaRoot>
+    <DefaultItemExcludes>$(DefaultItemExcludes);$(SpaRoot)node_modules\**</DefaultItemExcludes>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="3.0.0" />
+    <PackageReference Include="Robotify.AspNetCore" Version="1.0.0" />
+    <PackageReference Include="Sentry" Version="1.2.0" />
+    <PackageReference Include="Sentry.AspNetCore" Version="1.2.0" />
+    <PackageReference Include="Sentry.Serilog" Version="1.2.0" />
+    <PackageReference Include="Serilog.AspNetCore" Version="2.1.2-dev-00028" />
+    <PackageReference Include="Serilog.Enrichers.Environment" Version="2.1.3" />
+    <PackageReference Include="Serilog.Enrichers.Thread" Version="3.1.0" />
+    <PackageReference Include="Serilog.Formatting.Compact" Version="1.0.1-dev-00925" />
+    <PackageReference Include="Serilog.Formatting.Elasticsearch" Version="8.0.0" />
+    <PackageReference Include="Serilog.Settings.Configuration" Version="3.1.0" />
+    <PackageReference Include="Serilog.Sinks.Async" Version="1.3.1-dev-00063" />
+    <PackageReference Include="Serilog.Sinks.Console" Version="3.1.2-dev-00792" />
+    <PackageReference Include="Serilog.Sinks.ElasticSearch" Version="8.0.0" />
+    <PackageReference Include="Serilog.Sinks.RollingFile" Version="3.3.1-dev-00771" />
+    <PackageReference Include="SimpleMvcSitemap" Version="3.1.0" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <!-- File with mtime of last successful npm install -->
+    <NpmInstallStampFile>$(SpaRoot)node_modules\.install-stamp</NpmInstallStampFile>
+  </PropertyGroup>
+  <Target Name="NpmInstall" BeforeTargets="BeforeBuild" Inputs="$(SpaRoot)package.json" Outputs="$(NpmInstallStampFile)">
+    <Exec WorkingDirectory="$(SpaRoot)" Command="npm install" />
+    <Touch Files="$(NpmInstallStampFile)" AlwaysCreate="true" />
+  </Target>
+
+  <ItemGroup>
+    <!-- Don't publish the SPA source files, but do show them in the project files list -->
+    <Content Remove="$(SpaRoot)**" />
+    <Content Include="Client\.gitignore" />
+    <Content Include="Client\bundlesize.config.json" />
+    <Content Include="Client\config-overrides.js" />
+    <Content Include="Client\package-lock.json" />
+    <Content Include="Client\package.json" />
+    <Content Include="Client\public\apple-touch-icon.png" />
+    <Content Include="Client\public\favicon-16x16.png" />
+    <Content Include="Client\public\favicon-32x32.png" />
+    <Content Include="Client\public\favicon.ico" />
+    <Content Include="Client\public\index.html" />
+    <Content Include="Client\public\manifest.json" />
+    <Content Include="Client\README.md" />
+    <Content Include="Client\src\assets\img\flower_detailed.svg" />
+    <Content Include="Client\src\assets\img\flower_schema.svg" />
+    <Content Include="Client\src\assets\img\logo.png" />
+    <Content Include="Client\src\assets\img\sparkler.jpg" />
+    <Content Include="Client\src\assets\img\stock_logo.png" />
+    <Content Include="Client\src\components\afisha\Event.css" />
+    <Content Include="Client\src\components\afisha\EventDialog.css" />
+    <Content Include="Client\src\components\core\progress\CenteredProgress.css" />
+    <Content Include="Client\src\components\farewell\Farewell.css" />
+    <Content Include="Client\src\components\greetings\Description.css" />
+    <Content Include="Client\src\components\greetings\Greetings.css" />
+    <Content Include="Client\src\components\greetings\Title.css" />
+    <Content Include="Client\src\components\turnstile\camera\Camera.css" />
+    <Content Include="Client\src\components\turnstile\camera\on-hold\TurnstileOnHold.css" />
+    <Content Include="Client\src\components\turnstile\camera\Scanner.css" />
+    <Content Include="Client\src\components\turnstile\camera\TurnstileCamera.css" />
+    <Content Include="Client\src\components\turnstile\manual\TurnstileManual.css" />
+    <Content Include="Client\src\components\turnstile\status\Status.css" />
+    <Content Include="Client\src\components\turnstile\TurnstileMenu.css" />
+    <Content Include="Client\src\index.css" />
+    <Content Include="Client\src\logo.svg" />
+    <Content Include="Client\tsconfig.json" />
+    <None Remove="$(SpaRoot)**" />
+    <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="ClientApp\.eslintrc.json" />
+    <_ContentIncludedByDefault Remove="ClientApp\package-lock.json" />
+    <_ContentIncludedByDefault Remove="ClientApp\package.json" />
+    <_ContentIncludedByDefault Remove="ClientApp\public\manifest.json" />
+    <_ContentIncludedByDefault Remove="ClientApp\tsconfig.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <TypeScriptCompile Include="Client\src\App.tsx" />
+    <TypeScriptCompile Include="Client\src\components\afisha\Afisha.styles.ts" />
+    <TypeScriptCompile Include="Client\src\components\afisha\Afisha.tsx" />
+    <TypeScriptCompile Include="Client\src\components\afisha\Event.tsx" />
+    <TypeScriptCompile Include="Client\src\components\afisha\EventDialog.tsx" />
+    <TypeScriptCompile Include="Client\src\components\core\FirstLoaderRemover\FirstLoaderRemover.tsx" />
+    <TypeScriptCompile Include="Client\src\components\core\progress\CenteredProgress.tsx" />
+    <TypeScriptCompile Include="Client\src\components\core\time\EventTime.tsx" />
+    <TypeScriptCompile Include="Client\src\components\core\time\StringDate.ts" />
+    <TypeScriptCompile Include="Client\src\components\farewell\Farewell.tsx" />
+    <TypeScriptCompile Include="Client\src\components\greetings\Description.tsx" />
+    <TypeScriptCompile Include="Client\src\components\greetings\Greetings.tsx" />
+    <TypeScriptCompile Include="Client\src\components\greetings\PayButton.tsx" />
+    <TypeScriptCompile Include="Client\src\components\greetings\Title.tsx" />
+    <TypeScriptCompile Include="Client\src\components\menu\Logo.styles.ts" />
+    <TypeScriptCompile Include="Client\src\components\menu\Logo.tsx" />
+    <TypeScriptCompile Include="Client\src\components\menu\Menu.styles.ts" />
+    <TypeScriptCompile Include="Client\src\components\menu\Menu.tsx" />
+    <TypeScriptCompile Include="Client\src\components\menu\MenuFooter.styles.ts" />
+    <TypeScriptCompile Include="Client\src\components\menu\MenuFooter.tsx" />
+    <TypeScriptCompile Include="Client\src\components\turnstile\camera\Beep.ts" />
+    <TypeScriptCompile Include="Client\src\components\turnstile\camera\Camera.tsx" />
+    <TypeScriptCompile Include="Client\src\components\turnstile\camera\DetectedBarcode.ts" />
+    <TypeScriptCompile Include="Client\src\components\turnstile\camera\on-hold\TurnstileOnHold.tsx" />
+    <TypeScriptCompile Include="Client\src\components\turnstile\camera\Result.tsx" />
+    <TypeScriptCompile Include="Client\src\components\turnstile\camera\Scanner.tsx" />
+    <TypeScriptCompile Include="Client\src\components\turnstile\camera\TurnstileCamera.tsx" />
+    <TypeScriptCompile Include="Client\src\components\turnstile\manual\TurnstileManual.tsx" />
+    <TypeScriptCompile Include="Client\src\components\turnstile\status\Description.tsx" />
+    <TypeScriptCompile Include="Client\src\components\turnstile\status\Status.tsx" />
+    <TypeScriptCompile Include="Client\src\components\turnstile\status\TicketInfo.tsx" />
+    <TypeScriptCompile Include="Client\src\components\turnstile\TurnstileMenu.tsx" />
+    <TypeScriptCompile Include="Client\src\components\turnstile\TurnstileState.ts" />
+    <TypeScriptCompile Include="Client\src\index.tsx" />
+    <TypeScriptCompile Include="Client\src\react-app-env.d.ts" />
+    <TypeScriptCompile Include="Client\src\serviceWorker.ts" />
+    <TypeScriptCompile Include="Client\src\setupTests.ts" />
+    <TypeScriptCompile Include="Client\src\store\Afisha\events\actions.ts" />
+    <TypeScriptCompile Include="Client\src\store\Afisha\events\reducer.ts" />
+    <TypeScriptCompile Include="Client\src\store\Afisha\events\types.ts" />
+    <TypeScriptCompile Include="Client\src\store\Afisha\merchants\actions.ts" />
+    <TypeScriptCompile Include="Client\src\store\Afisha\merchants\reducer.ts" />
+    <TypeScriptCompile Include="Client\src\store\Afisha\merchants\types.ts" />
+    <TypeScriptCompile Include="Client\src\store\Afisha\reducer.ts" />
+    <TypeScriptCompile Include="Client\src\store\Afisha\state.ts" />
+    <TypeScriptCompile Include="Client\src\store\Afisha\urls.ts" />
+    <TypeScriptCompile Include="Client\src\store\configureStore.ts" />
+    <TypeScriptCompile Include="Client\src\store\Turnstile\actions.ts" />
+    <TypeScriptCompile Include="Client\src\store\Turnstile\reducer.ts" />
+    <TypeScriptCompile Include="Client\src\store\Turnstile\timeouts.ts" />
+    <TypeScriptCompile Include="Client\src\store\Turnstile\urls\dev.ts" />
+    <TypeScriptCompile Include="Client\src\store\Turnstile\urls\prod.ts" />
+    <TypeScriptCompile Include="Client\src\store\Turnstile\verificationMethods.ts" />
+    <TypeScriptCompile Include="Client\src\tests\model\enzyme\events.ts" />
+    <TypeScriptCompile Include="Client\src\tests\specs\afisha\time\DateTimeInUserLocale.spec.tsx" />
+    <TypeScriptCompile Include="Client\src\tests\specs\turnstile\manual\Status.spec.tsx" />
+    <TypeScriptCompile Include="Client\src\tests\specs\turnstile\manual\TurnstileManual.spec.tsx" />
+    <TypeScriptCompile Include="Client\src\webpack-env.d.ts" />
+    <TypeScriptCompile Include="Client\src\YandexMetrica.tsx" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TicketStore.Data\TicketStore.Data.csproj" />
+  </ItemGroup>
+
+  <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
+    <!-- Ensure Node.js is installed -->
+    <Exec Command="node --version" ContinueOnError="true">
+      <Output TaskParameter="ExitCode" PropertyName="ErrorCode" />
+    </Exec>
+    <Error Condition="'$(ErrorCode)' != '0'" Text="Node.js is required to build and run this project. To continue, please install Node.js from https://nodejs.org/, and then restart your command prompt or IDE." />
+    <Message Importance="high" Text="Restoring dependencies using 'npm'. This may take several minutes..." />
+    <Exec WorkingDirectory="$(SpaRoot)" Command="npm install" />
+  </Target>
+
+  <Target Name="PublishRunWebpack" AfterTargets="ComputeFilesToPublish">
+    <!-- As part of publishing, ensure the JS resources are freshly built in production mode -->
+    <Exec WorkingDirectory="$(SpaRoot)" Command="npm install" />
+    <Exec WorkingDirectory="$(SpaRoot)" Command="npm run build" />
+
+    <!-- Include the newly-built files in the publish output -->
+    <ItemGroup>
+      <DistFiles Include="$(SpaRoot)build\**; $(SpaRoot)build-ssr\**" />
+      <ResolvedFileToPublish Include="@(DistFiles->'%(FullPath)')" Exclude="@(ResolvedFileToPublish)">
+        <RelativePath>%(DistFiles.Identity)</RelativePath>
+        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+        <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      </ResolvedFileToPublish>
+    </ItemGroup>
+  </Target>
+
+</Project>

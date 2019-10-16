@@ -1,0 +1,11 @@
+FROM mcr.microsoft.com/dotnet/core/sdk:2.2.402 AS build-env
+
+RUN curl -sL https://deb.nodesource.com/setup_10.x |  bash -
+RUN apt-get install -y nodejs
+
+COPY ./Services/TicketStore.Web/ /app
+COPY ./Services/TicketStore.Data/ /TicketStore.Data
+WORKDIR /app
+RUN dotnet restore
+RUN dotnet build
+ENTRYPOINT dotnet watch run
