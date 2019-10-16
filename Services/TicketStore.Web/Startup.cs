@@ -1,14 +1,11 @@
-using System;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Rewrite;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Robotify.AspNetCore;
+using Microsoft.Extensions.Hosting;
 using TicketStore.Data;
-using TicketStore.Web.Middlewares;
 using TicketStore.Web.Model;
 
 namespace TicketStore.Web
