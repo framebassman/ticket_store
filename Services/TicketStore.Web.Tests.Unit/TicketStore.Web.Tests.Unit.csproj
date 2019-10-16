@@ -16,8 +16,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\TicketStore.Api\TicketStore.Api.csproj" />
-      <ProjectReference Include="..\TicketStore.Data\TicketStore.Data.csproj" />
+      <ProjectReference Include="..\TicketStore.Web\TicketStore.Web.csproj" />
     </ItemGroup>
 
 </Project>
