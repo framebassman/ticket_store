@@ -1,21 +1,6 @@
 version: 2.1
 
 jobs:
-  install-dotnet:
-    machine:
-      docker_layer_caching: false
-    steps:
-      - run:
-          name: install dotnet core
-          command: |
-            echo export DOTNET_SKIP_FIRST_TIME_EXPERIENCE=1 >> "$BASH_ENV"
-            echo export DOTNET_CLI_TELEMETRY_OPTOUT=1 >> "$BASH_ENV"
-            wget -q https://packages.microsoft.com/config/ubuntu/16.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
-            sudo dpkg -i packages-microsoft-prod.deb
-            sudo apt-get update
-            sudo apt-get install apt-transport-https
-            sudo apt-get update
-            sudo apt-get install dotnet-sdk-3.0
   test-integration:
     working_directory: ~/repo/Services
     machine:
@@ -30,16 +15,15 @@ jobs:
       - run:
           name: install dotnet core
           command: |
+            echo export DOTNET_SKIP_FIRST_TIME_EXPERIENCE=1 >> "$BASH_ENV"
+            echo export DOTNET_CLI_TELEMETRY_OPTOUT=1 >> "$BASH_ENV"
+            wget -q https://packages.microsoft.com/config/ubuntu/16.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
+            sudo dpkg -i packages-microsoft-prod.deb
+            sudo apt-get install apt-transport-https
             sudo apt-get clean
             sudo apt-get update
             sudo apt-get install dpkg
-            wget -q https://packages.microsoft.com/config/ubuntu/14.04/packages-microsoft-prod.deb
-            sudo dpkg -i packages-microsoft-prod.deb
-            sudo apt-get install apt-transport-https
-            sudo apt-get update
-            echo export DOTNET_SKIP_FIRST_TIME_EXPERIENCE=1 >> "$BASH_ENV"
-            echo export DOTNET_CLI_TELEMETRY_OPTOUT=1 >> "$BASH_ENV"
-            sudo apt-get install dotnet-sdk-2.2
+            sudo apt-get install dotnet-sdk-3.0
       - run:
           name: clear data in database
           command: docker volume prune -f
@@ -74,7 +58,7 @@ jobs:
           when: always
   deploy:
     machine:
-      docker_layer_caching: true
+      docker_layer_caching: false
     steps:
       - checkout
       - run:
@@ -118,13 +102,12 @@ workflows:
   version: 2
   build-test-deploy:
     jobs:
-      - install-dotnet
-      # - test-integration
-      # - deploy:
-      #     filters:
-      #       branches:
-      #         only:
-      #           - master
-      #     context: credentials
-      #     requires:
-      #       - test-integration
+      - test-integration
+      - deploy:
+          filters:
+            branches:
+              only:
+                - master
+          context: credentials
+          requires:
+            - test-integration
