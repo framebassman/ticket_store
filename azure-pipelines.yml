@@ -31,102 +31,102 @@ pr:
     - README.md
 
 stages:
-# - stage: Unit_Tests
-#   jobs:
-#   - job: Client
-#     pool:
-#       vmImage: 'ubuntu-latest'
-#     continueOnError: true
-#     variables:
-#       CI: true
-#       npm_config_cache: $(Pipeline.Workspace)/.npm
-#     steps:
-#     - task: NodeTool@0
-#       inputs:
-#         versionSpec: '10.x'
-#       displayName: 'Install Node.js'
-#     - task: CacheBeta@0
-#       inputs:
-#         key: npm | $(Agent.OS) | $(build.sourcesDirectory)/Services/TicketStore.Web/Client/package-lock.json
-#         path: $(npm_config_cache)
-#       displayName: Cache npm
-#     - script: |
-#         npm ci
-#       displayName: Install Dependencies
-#       workingDirectory: $(build.sourcesDirectory)/Services/TicketStore.Web/Client
-#     - script: |
-#         npm run build
-#       displayName: 'npm build'
-#       workingDirectory: $(build.sourcesDirectory)/Services/TicketStore.Web/Client
-#     - script: |
-#         npm test
-#       workingDirectory: $(build.sourcesDirectory)/Services/TicketStore.Web/Client
-#       displayName: 'npm test'
-#     - task: PublishTestResults@2
-#       condition: always()
-#       inputs:
-#         testResultsFormat: 'JUnit' # Options: JUnit, NUnit, VSTest, xUnit, cTest
-#         testResultsFiles: 'reports/junit.xml' 
-#         searchFolder: '$(build.sourcesDirectory)/Services/TicketStore.Web/Client' # Optional
+- stage: Unit_Tests
+  jobs:
+  - job: Client
+    pool:
+      vmImage: 'ubuntu-latest'
+    continueOnError: true
+    variables:
+      CI: true
+      npm_config_cache: $(Pipeline.Workspace)/.npm
+    steps:
+    - task: NodeTool@0
+      inputs:
+        versionSpec: '10.x'
+      displayName: 'Install Node.js'
+    - task: CacheBeta@0
+      inputs:
+        key: npm | $(Agent.OS) | $(build.sourcesDirectory)/Services/TicketStore.Web/Client/package-lock.json
+        path: $(npm_config_cache)
+      displayName: Cache npm
+    - script: |
+        npm ci
+      displayName: Install Dependencies
+      workingDirectory: $(build.sourcesDirectory)/Services/TicketStore.Web/Client
+    - script: |
+        npm run build
+      displayName: 'npm build'
+      workingDirectory: $(build.sourcesDirectory)/Services/TicketStore.Web/Client
+    - script: |
+        npm test
+      workingDirectory: $(build.sourcesDirectory)/Services/TicketStore.Web/Client
+      displayName: 'npm test'
+    - task: PublishTestResults@2
+      condition: always()
+      inputs:
+        testResultsFormat: 'JUnit' # Options: JUnit, NUnit, VSTest, xUnit, cTest
+        testResultsFiles: 'reports/junit.xml' 
+        searchFolder: '$(build.sourcesDirectory)/Services/TicketStore.Web/Client' # Optional
 
-#   - job: Api
-#     pool:
-#       vmImage: 'ubuntu-latest'
-#     continueOnError: true
-#     steps:
-#     - task: UseDotNet@2
-#       displayName: 'Install Dotnet Core'
-#       inputs:
-#         packageType: sdk
-#         version: 2.2.402
-#     - script: |
-#         dotnet test --logger "trx;LogFileName=report.trx"
-#       workingDirectory: $(build.sourcesDirectory)/Services/TicketStore.Api.Tests.Unit
-#       displayName: 'dotnet test'
-#       env:
-#         DOTNET_CLI_TELEMETRY_OPTOUT: true
-#     - script: |
-#         dotnet tool install -g trx2junit
-#         ~/.dotnet/tools/trx2junit TestResults/report.trx
-#       workingDirectory: $(build.sourcesDirectory)/Services/TicketStore.Api.Tests.Unit
-#       displayName: 'prepare JUnit report'
-#     - task: PublishTestResults@2
-#       condition: always()
-#       inputs:
-#         testResultsFormat: 'JUnit' # Options: JUnit, NUnit, VSTest, xUnit, cTest
-#         testResultsFiles: 'TestResults/report.xml' 
-#         searchFolder: '$(build.sourcesDirectory)/Services/TicketStore.Api.Tests.Unit' # Optional
+  - job: Api
+    pool:
+      vmImage: 'ubuntu-latest'
+    continueOnError: true
+    steps:
+    - task: UseDotNet@2
+      displayName: 'Install Dotnet Core'
+      inputs:
+        packageType: sdk
+        version: 3.0.100
+    - script: |
+        dotnet test --logger "trx;LogFileName=report.trx"
+      workingDirectory: $(build.sourcesDirectory)/Services/TicketStore.Api.Tests.Unit
+      displayName: 'dotnet test'
+      env:
+        DOTNET_CLI_TELEMETRY_OPTOUT: true
+    - script: |
+        dotnet tool install -g trx2junit
+        ~/.dotnet/tools/trx2junit TestResults/report.trx
+      workingDirectory: $(build.sourcesDirectory)/Services/TicketStore.Api.Tests.Unit
+      displayName: 'prepare JUnit report'
+    - task: PublishTestResults@2
+      condition: always()
+      inputs:
+        testResultsFormat: 'JUnit' # Options: JUnit, NUnit, VSTest, xUnit, cTest
+        testResultsFiles: 'TestResults/report.xml' 
+        searchFolder: '$(build.sourcesDirectory)/Services/TicketStore.Api.Tests.Unit' # Optional
 
-#   - job: Web
-#     pool:
-#       vmImage: 'ubuntu-latest'
-#     continueOnError: true
-#     steps:
-#     - task: UseDotNet@2
-#       displayName: 'Install Dotnet Core'
-#       inputs:
-#         packageType: sdk
-#         version: 2.2.402
-#     - script: |
-#         dotnet test --logger "trx;LogFileName=report.trx"
-#       workingDirectory: $(build.sourcesDirectory)/Services/TicketStore.Web.Tests.Unit
-#       displayName: 'dotnet test'
-#       env:
-#         DOTNET_CLI_TELEMETRY_OPTOUT: true
-#     - script: |
-#         dotnet tool install -g trx2junit
-#         ~/.dotnet/tools/trx2junit TestResults/report.trx
-#       workingDirectory: $(build.sourcesDirectory)/Services/TicketStore.Web.Tests.Unit
-#       displayName: 'prepare JUnit report'
-#     - task: PublishTestResults@2
-#       condition: always()
-#       inputs:
-#         testResultsFormat: 'JUnit' # Options: JUnit, NUnit, VSTest, xUnit, cTest
-#         testResultsFiles: 'TestResults/report.xml' 
-#         searchFolder: '$(build.sourcesDirectory)/Services/TicketStore.Web.Tests.Unit' # Optional
-#         #mergeTestResults: false # Optional
-#         #failTaskOnFailedTests: false # Optional
-#         #testRunTitle: # Optional
-#         #buildPlatform: # Optional
-#         #buildConfiguration: # Optional
-#         #publishRunAttachments: true # Optional
+  - job: Web
+    pool:
+      vmImage: 'ubuntu-latest'
+    continueOnError: true
+    steps:
+    - task: UseDotNet@2
+      displayName: 'Install Dotnet Core'
+      inputs:
+        packageType: sdk
+        version: 3.0.100
+    - script: |
+        dotnet test --logger "trx;LogFileName=report.trx"
+      workingDirectory: $(build.sourcesDirectory)/Services/TicketStore.Web.Tests.Unit
+      displayName: 'dotnet test'
+      env:
+        DOTNET_CLI_TELEMETRY_OPTOUT: true
+    - script: |
+        dotnet tool install -g trx2junit
+        ~/.dotnet/tools/trx2junit TestResults/report.trx
+      workingDirectory: $(build.sourcesDirectory)/Services/TicketStore.Web.Tests.Unit
+      displayName: 'prepare JUnit report'
+    - task: PublishTestResults@2
+      condition: always()
+      inputs:
+        testResultsFormat: 'JUnit' # Options: JUnit, NUnit, VSTest, xUnit, cTest
+        testResultsFiles: 'TestResults/report.xml' 
+        searchFolder: '$(build.sourcesDirectory)/Services/TicketStore.Web.Tests.Unit' # Optional
+        #mergeTestResults: false # Optional
+        #failTaskOnFailedTests: false # Optional
+        #testRunTitle: # Optional
+        #buildPlatform: # Optional
+        #buildConfiguration: # Optional
+        #publishRunAttachments: true # Optional
