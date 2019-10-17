@@ -25,6 +25,9 @@ jobs:
             sudo apt-get install dpkg
             sudo apt-get install dotnet-sdk-3.0
       - run:
+          name: install dotnet entity framework tool (for db migration)
+          command: dotnet tool install --global dotnet-ef
+      - run:
           name: clear data in database
           command: docker volume prune -f
       - run: make start-test
