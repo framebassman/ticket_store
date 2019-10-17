@@ -36,8 +36,6 @@ namespace TicketStore.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRouting(opt => opt.LowercaseUrls = true);
-            services.AddControllers();
-            services.AddHealthChecks();
             services.AddTransient<ITicketFinder, TicketFinder>();
             services.AddTransient<IDateTimeProvider, DateTimeProvider>();
             services.AddTransient<IGuidProvider, GuidProvider>();
@@ -49,7 +47,9 @@ namespace TicketStore.Api
                 .AddDbContext<ApplicationContext>()
                 .BuildServiceProvider();
             services.AddSingleton<IConverter>(new SynchronizedConverter(new PdfTools()));
-            services.AddSingleton<EmailService, FakeSenderService>();
+            services.AddSingleton<EmailService>(new FakeSenderService(Environment, Configuration));
+            services.AddHealthChecks();
+            services.AddControllers();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
