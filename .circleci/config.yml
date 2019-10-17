@@ -28,7 +28,8 @@ jobs:
           name: migrate test db 
           command: |
             dotnet tool install --global dotnet-ef
-            make migrate-test
+            export ASPNETCORE_ENVIRONMENT=TestMigrations; \
+	          ~/.dotnet/tools/dotnet-ef database update --project Services/TicketStore.Data/TicketStore.Data.csproj --verbose
       - run: make start-test
       - run: bash ./Scripts/wait-until-app-is-deployed.sh
       - run:
