@@ -150,7 +150,7 @@ namespace TicketStore.Api.Model.Pdf
 
         private String Barcode(Ticket ticket, WebClient webClient)
         {
-            var imageUrl = $"http://barcode.tec-it.com/barcode.ashx?data={ticket.Number}&code=&multiplebarcodes=false&translate-esc=false&unit=Fit&dpi=96&imagetype=Gif&rotation=0&color=%23000000&bgcolor=%23ffffff&qunit=Mm&quiet=0";
+            var imageUrl = $"https://barcode.tec-it.com/barcode.ashx?data={ticket.Number}&code=&multiplebarcodes=false&translate-esc=false&unit=Fit&dpi=96&imagetype=Gif&rotation=0&color=%23000000&bgcolor=%23ffffff&qunit=Mm&quiet=0";
             using (var inputStream = webClient.OpenRead(imageUrl))
             {
                 using (var memoryStream = new MemoryStream())

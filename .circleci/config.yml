@@ -4,7 +4,7 @@ jobs:
   test-integration:
     working_directory: ~/repo/Services
     machine:
-      docker_layer_caching: true
+      docker_layer_caching: false
     steps:
       - checkout
       - run:
@@ -59,7 +59,7 @@ jobs:
           when: always
   deploy:
     machine:
-      docker_layer_caching: true
+      docker_layer_caching: false
     steps:
       - checkout
       - run:
