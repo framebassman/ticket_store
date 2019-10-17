@@ -32,7 +32,11 @@ jobs:
           command: docker volume prune -f
       - run: make start-test
       - run: bash ./Scripts/wait-until-app-is-deployed.sh
-      - run: make migrate-test
+      - run:
+          name: migrate test db 
+          command: |
+            dotnet tool install --global dotnet-ef
+            make migrate-test
       - run:
           name: integration tests
           command: dotnet test TicketStore.Api.Tests --logger "trx;LogFileName=report.trx" --filter Category!=DevelopmentData
