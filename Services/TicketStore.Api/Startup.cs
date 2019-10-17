@@ -48,7 +48,6 @@ namespace TicketStore.Api
             services
                 .AddDbContext<ApplicationContext>()
                 .BuildServiceProvider();
-            services.AddSingleton(Configuration);
             services.AddSingleton<IConverter>(new SynchronizedConverter(new PdfTools()));
             services.AddSingleton<EmailService, FakeSenderService>();
         }
