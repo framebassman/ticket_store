@@ -24,6 +24,11 @@ jobs:
             sudo apt-get update
             sudo apt-get install dpkg
             sudo apt-get install dotnet-sdk-3.0
+      - run:
+          name: migrate test db 
+          command: |
+            dotnet tool install --global dotnet-ef
+            make migrate-test
       - run: make start-test
       - run: bash ./Scripts/wait-until-app-is-deployed.sh
       - run:
