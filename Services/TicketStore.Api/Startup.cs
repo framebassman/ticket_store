@@ -47,9 +47,17 @@ namespace TicketStore.Api
                 .AddDbContext<ApplicationContext>()
                 .BuildServiceProvider();
             services.AddSingleton<IConverter>(new SynchronizedConverter(new PdfTools()));
-            services.AddSingleton<EmailService>(new FakeSenderService(Environment, Configuration));
             services.AddHealthChecks();
             services.AddControllers();
+            if (Environment.IsEnvironment("Test"))
+            {
+                services.AddHttpClient();
+                services.AddSingleton<EmailService, FakeSenderService>();
+            }
+            else
+            {
+                services.AddSingleton<EmailService, YandexService>();
+            }
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
