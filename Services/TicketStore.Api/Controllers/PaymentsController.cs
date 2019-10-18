@@ -79,9 +79,9 @@ namespace TicketStore.Api.Controllers
                 return new BadRequestObjectResult("Secret is not matching");
             }
 
-            var concert = _db.Events.FirstOrDefault(
-                e => new LabelCalculator(e).Value() == label
-            );
+            var concert = _db.Events
+                .AsEnumerable()
+                .FirstOrDefault(e => new LabelCalculator(e).Value() == label);
             if (concert == null)
             {
                 return new BadRequestObjectResult("There is no event for merchant");
