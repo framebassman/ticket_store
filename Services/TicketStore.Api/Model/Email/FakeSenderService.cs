@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
@@ -14,6 +15,7 @@ namespace TicketStore.Api.Model.Email
         private readonly HttpClient _client;
         private readonly ILogger<FakeSenderService> _log;
         private readonly Uri _uri;
+        private readonly JsonSerializerOptions _options;
         
         public FakeSenderService(ILogger<FakeSenderService> log, IConfiguration conf, IHttpClientFactory clientFactory)
         {
@@ -30,6 +32,10 @@ namespace TicketStore.Api.Model.Email
             _client.DefaultRequestHeaders.Accept.Clear();
             _client.DefaultRequestHeaders.Accept.Add(
                 new MediaTypeWithQualityHeaderValue("application/json"));
+            _options = new JsonSerializerOptions
+            {
+                Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping
+            };
         }
 
         public override void SendTicket(String to, Pdf.Pdf ticket)
@@ -50,7 +56,9 @@ namespace TicketStore.Api.Model.Email
                 .Run(() => _client.PostAsync(
                     "api/emails",
                     new StringContent(
-                        JsonSerializer.Serialize(emails)
+                        JsonSerializer.Serialize(emails, _options),
+                        Encoding.UTF8,
+                        "application/json"
                     )))
                 .Wait();
             _log.LogInformation("[FakeSender] Successfully send ticket to {0}", to);
