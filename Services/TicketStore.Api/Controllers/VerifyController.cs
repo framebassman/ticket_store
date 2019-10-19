@@ -46,7 +46,8 @@ namespace TicketStore.Api.Controllers
             try
             {
                 ticket = _finder.Find(barcode);
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 _log.LogInformation(ex.Message);
                 return new BadRequestObjectResult(new InvalidCodeAnswer());

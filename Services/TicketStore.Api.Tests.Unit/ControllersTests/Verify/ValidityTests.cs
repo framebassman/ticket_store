@@ -8,8 +8,12 @@ namespace TicketStore.Api.Tests.Unit.ControllersTests.Verify
 {
     public class ValidityTests : VerifyControllerBaseTest
     {
+        private JsonSerializerOptions serializerOptions;
+
         public ValidityTests() : base("validity")
         {
+            serializerOptions = new JsonSerializerOptions();
+            serializerOptions.Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping;
             // UTC should be stored in Database
             var dbTime = new DateTime(2019, 10, 4, 16, 00, 00, DateTimeKind.Utc);
             SeedTestData(dbTime);
@@ -26,7 +30,7 @@ namespace TicketStore.Api.Tests.Unit.ControllersTests.Verify
             
             // Assert
             Assert.IsType<BadRequestObjectResult>(result);
-            var json = JsonSerializer.Serialize((result as BadRequestObjectResult).Value);
+            var json = JsonSerializer.Serialize((result as BadRequestObjectResult).Value, serializerOptions);
             Assert.Equal("{\"message\":\"cannot find code in database\"}", json);
         }
 
@@ -41,7 +45,7 @@ namespace TicketStore.Api.Tests.Unit.ControllersTests.Verify
             
             // Assert
             Assert.IsType<BadRequestObjectResult>(result);
-            var json = JsonSerializer.Serialize((result as BadRequestObjectResult).Value);
+            var json = JsonSerializer.Serialize((result as BadRequestObjectResult).Value, serializerOptions);
             Assert.Equal("{\"message\":\"no concert found for this ticket\"}", json);
         }
 
@@ -56,7 +60,7 @@ namespace TicketStore.Api.Tests.Unit.ControllersTests.Verify
             
             // Assert
             Assert.IsType<OkObjectResult>(result);
-            var json = JsonSerializer.Serialize((result as OkObjectResult).Value);
+            var json = JsonSerializer.Serialize((result as OkObjectResult).Value, serializerOptions);
             Assert.Equal("{\"concertLabel\":\"Test artist — 4 октября 2019\",\"used\":true,\"message\":\"OK\"}", json);
         }
 
@@ -71,7 +75,7 @@ namespace TicketStore.Api.Tests.Unit.ControllersTests.Verify
             
             // Assert
             Assert.IsType<OkObjectResult>(result);
-            var json = JsonSerializer.Serialize((result as OkObjectResult).Value);
+            var json = JsonSerializer.Serialize((result as OkObjectResult).Value, serializerOptions);
             Assert.Equal("{\"concertLabel\":\"Test artist — 4 октября 2019\",\"used\":false,\"message\":\"OK\"}", json);
         }
     }

@@ -4,8 +4,8 @@ namespace TicketStore.Api.Model.Http
 {
     public class VerifiedAnswer : Answer
     {
-        public String concertLabel;
-        public Boolean used;
+        public String concertLabel { get; set; }
+        public Boolean used { get; set; }
 
         public VerifiedAnswer(string concLabel) : base("OK")
         {

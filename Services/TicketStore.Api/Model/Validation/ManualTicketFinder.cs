@@ -16,6 +16,9 @@ namespace TicketStore.Api.Model.Validation
         public Ticket Find(TurnstileScan barcode)
         {
             var ticket = _db.Tickets.FirstOrDefault(t => t.Number == barcode.code);
+            var anotherTicket = _db.Tickets
+                .AsEnumerable()
+                .FirstOrDefault(t => t.Number == barcode.code);
             if (ticket == null)
             {
                 throw new TicketNotFound(VerificationMethod.Manual);
