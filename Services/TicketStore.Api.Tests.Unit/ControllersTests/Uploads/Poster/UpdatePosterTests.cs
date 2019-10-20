@@ -1,6 +1,6 @@
 using System;
 using Microsoft.AspNetCore.Mvc;
-using System.Text.Json;
+using TicketStore.Api.Tests.Unit.Model;
 using Xunit;
 
 namespace TicketStore.Api.Tests.Unit.ControllersTests.Uploads.Poster
@@ -29,7 +29,7 @@ namespace TicketStore.Api.Tests.Unit.ControllersTests.Uploads.Poster
             
             // Assert
             Assert.IsType<BadRequestObjectResult>(result);
-            var json = JsonSerializer.Serialize((result as BadRequestObjectResult).Value);
+            var json = Serializer.ToJson((result as BadRequestObjectResult).Value);
             Assert.Equal("{\"message\":\"Failed to update poster\"}", json);
         }
     }
