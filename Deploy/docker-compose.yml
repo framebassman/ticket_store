@@ -20,7 +20,7 @@ services:
             - "traefik.enable=true"
             - "traefik.port=5000"
             - "traefik.backend=store_web"
-            - "traefik.frontend.rule=PathPrefixStrip:/"
+            - "traefik.frontend.rule=PathPrefixStrip:/;ReplacePathRegex: ^/index(.html)? /"
             - "traefik.docker.network=ticket_store_default"
         volumes:
             - /var/log/store_web:/app/logs
