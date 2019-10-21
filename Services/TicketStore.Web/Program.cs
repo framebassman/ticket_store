@@ -1,9 +1,9 @@
 using System;
 using System.IO;
 using System.Net;
-using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Hosting;
 using Sentry;
 using Sentry.Extensibility;
 using Serilog;
@@ -21,7 +21,7 @@ namespace TicketStore.Web
             try
             {
                 Log.Logger.Information("Getting started...");
-                CreateWebHostBuilder(args).Build().Run();
+                CreateHostBuilder(args).Build().Run();
             }
             catch (Exception ex)
             {
@@ -33,22 +33,25 @@ namespace TicketStore.Web
             }
         }
 
-        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
-                .UseUrls("http://0.0.0.0:5000")
-                .UseStartup<Startup>()
-                .UseSerilog()
-                .UseSentry(options =>
-                    {
-                        options.Environment = CurrentEnv();
-                        options.MaxQueueItems = 100;
-                        options.ShutdownTimeout = TimeSpan.FromSeconds(5);
-                        options.DecompressionMethods = DecompressionMethods.None;
-                        options.MaxRequestBodySize = RequestSize.Always;
-                        options.Release = Environment.GetEnvironmentVariable("SENTRY_RELEASE");
-                    }
-                )
-        ;
+        public static IHostBuilder CreateHostBuilder(string[] args) =>
+            Host.CreateDefaultBuilder(args)
+                .ConfigureWebHostDefaults(webBuilder =>
+                {
+                    webBuilder
+                        .UseUrls("http://0.0.0.0:5000")
+                        .UseStartup<Startup>()
+                        .UseSerilog()
+                        .UseSentry(options =>
+                            {
+                                options.Environment = CurrentEnv();
+                                options.MaxQueueItems = 100;
+                                options.ShutdownTimeout = TimeSpan.FromSeconds(5);
+                                options.DecompressionMethods = DecompressionMethods.None;
+                                options.MaxRequestBodySize = RequestSize.Always;
+                                options.Release = Environment.GetEnvironmentVariable("SENTRY_RELEASE");
+                            }
+                        );
+                });
         
         private static IConfiguration BuildConfiguration()
         {

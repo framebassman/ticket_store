@@ -15,22 +15,23 @@ jobs:
       - run:
           name: install dotnet core
           command: |
+            echo export DOTNET_SKIP_FIRST_TIME_EXPERIENCE=1 >> "$BASH_ENV"
+            echo export DOTNET_CLI_TELEMETRY_OPTOUT=1 >> "$BASH_ENV"
+            wget -q https://packages.microsoft.com/config/ubuntu/16.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
+            sudo dpkg -i packages-microsoft-prod.deb
+            sudo apt-get install apt-transport-https
             sudo apt-get clean
             sudo apt-get update
             sudo apt-get install dpkg
-            wget -q https://packages.microsoft.com/config/ubuntu/14.04/packages-microsoft-prod.deb
-            sudo dpkg -i packages-microsoft-prod.deb
-            sudo apt-get install apt-transport-https
-            sudo apt-get update
-            echo export DOTNET_SKIP_FIRST_TIME_EXPERIENCE=1 >> "$BASH_ENV"
-            echo export DOTNET_CLI_TELEMETRY_OPTOUT=1 >> "$BASH_ENV"
-            sudo apt-get install dotnet-sdk-2.2
-      - run:
-          name: clear data in database
-          command: docker volume prune -f
+            sudo apt-get install dotnet-sdk-3.0
       - run: make start-test
       - run: bash ./Scripts/wait-until-app-is-deployed.sh
-      - run: make migrate-test
+      - run:
+          name: migrate test db 
+          command: |
+            dotnet tool install --global dotnet-ef
+            export ASPNETCORE_ENVIRONMENT=TestMigrations; \
+            ~/.dotnet/tools/dotnet-ef database update --project Services/TicketStore.Data/TicketStore.Data.csproj --verbose
       - run:
           name: integration tests
           command: dotnet test TicketStore.Api.Tests --logger "trx;LogFileName=report.trx" --filter Category!=DevelopmentData
@@ -65,7 +66,7 @@ jobs:
       - run:
           name: define version
           command: |
-            echo 'export VERSION="1.4.$CIRCLE_BUILD_NUM"' >> $BASH_ENV
+            echo 'export VERSION="1.5.$CIRCLE_BUILD_NUM"' >> $BASH_ENV
       - run:
           name: install sentry-cli and verify that cli was installed successfully
           command: |

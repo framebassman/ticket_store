@@ -2,8 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
@@ -12,10 +13,11 @@ namespace TicketStore.Api.Model.Email
     public class FakeSenderService : EmailService
     {
         private readonly HttpClient _client;
-        private readonly ILogger _log;
+        private readonly ILogger<FakeSenderService> _log;
         private readonly Uri _uri;
+        private readonly JsonSerializerOptions _options;
         
-        public FakeSenderService(IHostingEnvironment env, IConfiguration conf, ILogger log)
+        public FakeSenderService(ILogger<FakeSenderService> log, IConfiguration conf, IHttpClientFactory clientFactory)
         {
             _log = log;
             _uri = new UriBuilder(
@@ -25,17 +27,21 @@ namespace TicketStore.Api.Model.Email
             ).Uri;
             _log.LogInformation("FakeSender uri: {0}", _uri.ToString());
             
-            _client = HttpClientFactory.Create();
+            _client = clientFactory.CreateClient();
             _client.BaseAddress = _uri;
             _client.DefaultRequestHeaders.Accept.Clear();
             _client.DefaultRequestHeaders.Accept.Add(
                 new MediaTypeWithQualityHeaderValue("application/json"));
+            _options = new JsonSerializerOptions
+            {
+                Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping
+            };
         }
 
         public override void SendTicket(String to, Pdf.Pdf ticket)
         {
             _log.LogInformation("[FakeSender] Sending ticket to {0}", to);
-            IEnumerable<FakeEmail> json = new List<FakeEmail>
+            IEnumerable<FakeEmail> emails = new List<FakeEmail>
             {
                 new FakeEmail
                 {
@@ -46,7 +52,15 @@ namespace TicketStore.Api.Model.Email
                 }
                 
             };
-            Task.Run(() => _client.PostAsJsonAsync("api/emails", json)).Wait();
+            Task
+                .Run(() => _client.PostAsync(
+                    "api/emails",
+                    new StringContent(
+                        JsonSerializer.Serialize(emails, _options),
+                        Encoding.UTF8,
+                        "application/json"
+                    )))
+                .Wait();
             _log.LogInformation("[FakeSender] Successfully send ticket to {0}", to);
         }
 

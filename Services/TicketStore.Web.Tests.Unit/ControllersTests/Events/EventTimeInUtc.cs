@@ -2,10 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 using TicketStore.Data.Model;
 using TicketStore.Web.Model;
 using TicketStore.Web.Controllers;
+using TicketStore.Web.Tests.Unit.Model;
 using Xunit;
 using Moq;
 
@@ -56,7 +56,7 @@ namespace TicketStore.Web.Tests.Unit.ControllersTests.Events
             
             // Assert
             Assert.IsType<OkObjectResult>(result);
-            var json = JsonConvert.SerializeObject((result as OkObjectResult).Value);
+            var json = Serializer.ToJson((result as OkObjectResult).Value);
             Assert.Contains($"\"Time\":\"{_dateTimeInString}\"", json);
         }
         

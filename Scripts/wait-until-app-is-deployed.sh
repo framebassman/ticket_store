@@ -14,6 +14,7 @@ function wait_service {
 }
 
 apiPort=3000
+webPort=4000
 fakeSenderPort=5000
 
 host="localhost"
@@ -23,6 +24,7 @@ fi
 
 # Wait services
 wait_service "api" $apiPort
+wait_service "web" $webPort
 wait_service "fake_sender" $fakeSenderPort
 
 echo "I'm ready"

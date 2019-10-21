@@ -2,9 +2,9 @@ namespace TicketStore.Api.Model.Email
 {
     public class FakeEmail
     {
-        public string to;
-        public string subject;
-        public string html;
-        public string attachment;
+        public string to { get; set; }
+        public string subject { get; set; }
+        public string html { get; set; }
+        public string attachment { get; set; }
     }
 }

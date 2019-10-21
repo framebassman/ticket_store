@@ -1,6 +1,5 @@
 using System;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 using TicketStore.Api.Tests.Unit.Model;
 using Xunit;
 
@@ -26,7 +25,7 @@ namespace TicketStore.Api.Tests.Unit.ControllersTests.Verify
             
             // Assert
             Assert.IsType<BadRequestObjectResult>(result);
-            var json = JsonConvert.SerializeObject((result as BadRequestObjectResult).Value);
+            var json = Serializer.ToJson((result as BadRequestObjectResult).Value);
             Assert.Equal("{\"message\":\"cannot find code in database\"}", json);
         }
 
@@ -41,7 +40,7 @@ namespace TicketStore.Api.Tests.Unit.ControllersTests.Verify
             
             // Assert
             Assert.IsType<BadRequestObjectResult>(result);
-            var json = JsonConvert.SerializeObject((result as BadRequestObjectResult).Value);
+            var json = Serializer.ToJson((result as BadRequestObjectResult).Value);
             Assert.Equal("{\"message\":\"no concert found for this ticket\"}", json);
         }
 
@@ -56,7 +55,7 @@ namespace TicketStore.Api.Tests.Unit.ControllersTests.Verify
             
             // Assert
             Assert.IsType<OkObjectResult>(result);
-            var json = JsonConvert.SerializeObject((result as OkObjectResult).Value);
+            var json = Serializer.ToJson((result as OkObjectResult).Value);
             Assert.Equal("{\"concertLabel\":\"Test artist — 4 октября 2019\",\"used\":true,\"message\":\"OK\"}", json);
         }
 
@@ -71,7 +70,7 @@ namespace TicketStore.Api.Tests.Unit.ControllersTests.Verify
             
             // Assert
             Assert.IsType<OkObjectResult>(result);
-            var json = JsonConvert.SerializeObject((result as OkObjectResult).Value);
+            var json = Serializer.ToJson((result as OkObjectResult).Value);
             Assert.Equal("{\"concertLabel\":\"Test artist — 4 октября 2019\",\"used\":false,\"message\":\"OK\"}", json);
         }
     }

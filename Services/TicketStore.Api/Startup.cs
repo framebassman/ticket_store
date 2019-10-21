@@ -1,28 +1,24 @@
 ﻿using System;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
+using AspNetCore.Yandex.ObjectStorage;
 using DinkToPdf;
 using DinkToPdf.Contracts;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using TicketStore.Api.Middlewares;
-using TicketStore.Api.Model.Email;
-using TicketStore.Data;
-using TicketStore.Api.Model.Validation;
 using TicketStore.Api.Model;
-using AspNetCore.Yandex.ObjectStorage;
+using TicketStore.Api.Model.Email;
 using TicketStore.Api.Model.Poster;
-using TicketStore.Api.Model.Poster.Storage;
+using TicketStore.Api.Model.Validation;
+using TicketStore.Data;
 
 namespace TicketStore.Api
 {
     public class Startup
     {
-        private readonly ILogger _log;
-        
-        public Startup(IHostingEnvironment env, ILogger<Startup> log)
+        public Startup(IWebHostEnvironment env)
         {
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
@@ -31,17 +27,15 @@ namespace TicketStore.Api
                 .AddEnvironmentVariables();
             Configuration = builder.Build();
             Environment = env;
-            _log = log;
         }
 
         public IConfiguration Configuration { get; }
-        public IHostingEnvironment Environment { get; }
+        public IWebHostEnvironment Environment { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRouting(opt => opt.LowercaseUrls = true);
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddTransient<ITicketFinder, TicketFinder>();
             services.AddTransient<IDateTimeProvider, DateTimeProvider>();
             services.AddTransient<IGuidProvider, GuidProvider>();
@@ -52,23 +46,36 @@ namespace TicketStore.Api
             services
                 .AddDbContext<ApplicationContext>()
                 .BuildServiceProvider();
-            services.AddSingleton(Configuration);
             services.AddSingleton<IConverter>(new SynchronizedConverter(new PdfTools()));
-            services.AddSingleton(new EmailStrategy(Environment, Configuration, _log).Service());
+            services.AddHealthChecks();
+            services.AddControllers();
+            if (Environment.IsEnvironment("Test"))
+            {
+                services.AddHttpClient();
+                services.AddSingleton<EmailService, FakeSenderService>();
+            }
+            else
+            {
+                services.AddSingleton<EmailService, YandexService>();
+            }
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseMiddleware<HealthCheckMiddleware>();
+            app.UseRouting();
             app.UseWhen(x => x.Request.Path.StartsWithSegments("/api/verify", StringComparison.OrdinalIgnoreCase),
                 builder => builder.UseMiddleware<AuthorizationMiddleware>());
-            app.UseMvc();
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+                endpoints.MapHealthChecks("/healthcheck");
+            });
         }
     }
 }
