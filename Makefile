@@ -26,7 +26,6 @@ stop-dev:
 
 # test
 start-test:
-	make grant-permissions-to-cert
 	docker-compose \
 		--project-directory=${PWD} \
 		--project-name=ticket_store \
@@ -155,7 +154,7 @@ grant-permissions-to-cert:
 	chmod 600 ./Services/Proxy/certs/acme.json
 
 ngrok:
-	sh ./Scripts/ngrok/launch.sh
+	bash ./Scripts/ngrok/launch.sh
 
 db-seed:
 	dotnet test Services/TicketStore.Api.Tests \
