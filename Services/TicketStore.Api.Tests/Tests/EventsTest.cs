@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 using System.Linq;
 using Xunit;
 using TicketStore.Api.Tests.Data;
@@ -14,17 +15,12 @@ namespace TicketStore.Api.Tests.Tests
             _db = new ApplicationContext();
         }
 
-        [Fact]
-        public void Some()
-        {
-            var inUtc = DateTime.UtcNow;
-            // var events = _db.Events
-            //     .Where(e =>
-            //         e.MerchantId == 4
-            //         && e.Time - DateTime.Now >= TimeSpan.FromHours(6) 
-            //     )
-            //     .OrderBy(e => e.Time)
-            //     .ToList();
-        }
+        // [Fact]
+        // public void Some()
+        // {
+        //     var inUtc = DateTime.UtcNow;
+        //     var result = inUtc.ToString("d MMMM yyyy", CultureInfo.CreateSpecificCulture("ru"));
+        //     Assert.Equal("24 октября 2019", result);
+        // }
     }
 }
