@@ -60,7 +60,7 @@ namespace TicketStore.Api.Controllers
                 return new BadRequestObjectResult(new NoConcertFoundAnswer());
             }
 
-            var labelCalc = new LabelCalculator(concert);
+            var labelCalc = new LabelCalculator(_log, concert);
 
             if (ticket.Expired == true)
             {

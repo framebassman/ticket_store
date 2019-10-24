@@ -81,7 +81,7 @@ namespace TicketStore.Api.Controllers
 
             var concert = _db.Events
                 .AsEnumerable()
-                .FirstOrDefault(e => new LabelCalculator(e).Value() == label);
+                .FirstOrDefault(e => new LabelCalculator(_log, e).Value() == label);
             if (concert == null)
             {
                 return new BadRequestObjectResult("There is no event for merchant");
