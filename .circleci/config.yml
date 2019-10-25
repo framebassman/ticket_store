@@ -34,7 +34,8 @@ jobs:
             ~/.dotnet/tools/dotnet-ef database update --project Services/TicketStore.Data/TicketStore.Data.csproj --verbose
       - run:
           name: integration tests
-          command: make test-api-integration
+          command: dotnet test TicketStore.Api.Tests --logger "trx;LogFileName=report.trx" --filter Category!=DevelopmentData
+          working_directory: Services
       - run:
           name: transform trx report to junit for CI
           command: |
