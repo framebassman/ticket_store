@@ -34,13 +34,12 @@ jobs:
             ~/.dotnet/tools/dotnet-ef database update --project Services/TicketStore.Data/TicketStore.Data.csproj --verbose
       - run:
           name: integration tests
-          command: dotnet test TicketStore.Api.Tests --logger "trx;LogFileName=report.trx" --filter Category!=DevelopmentData
-          working_directory: Services
+          command: make test-api-integration
       - run:
           name: transform trx report to junit for CI
           command: |
             dotnet tool install -g trx2junit
-            ~/.dotnet/tools/trx2junit Services/TicketStore.Api.Tests/TestResults/report.trx
+            ~/.dotnet/tools/trx2junit TicketStore.Api.Tests/TestResults/report.trx
           when: always
       - store_test_results:
           path: Services/TicketStore.Api.Tests/TestResults
