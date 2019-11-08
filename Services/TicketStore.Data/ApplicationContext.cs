@@ -1,6 +1,5 @@
 using System;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.InMemory.Infrastructure.Internal;
 using TicketStore.Data.Model;
 

@@ -1,10 +1,7 @@
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
-using System.Net;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using DinkToPdf.Contracts;
 using TicketStore.Api.Model;
@@ -81,7 +78,9 @@ namespace TicketStore.Api.Controllers
 
             var concert = _db.Events
                 .AsEnumerable()
-                .FirstOrDefault(e => new LabelCalculator(_log, e).Value().ToLower() == label.ToLower());
+                .FirstOrDefault(e =>
+                    new LabelCalculator(_log, e).Value().ToLower() == label.ToLower()
+                );
             if (concert == null)
             {
                 return new BadRequestObjectResult("There is no event for merchant");
