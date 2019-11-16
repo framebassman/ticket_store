@@ -20,13 +20,11 @@ namespace TicketStore.Api.Model
         public String Value()
         {
             var artist = _concert.Artist;
-            var time = translateYearToRussian(
-                _concert.Time.ToString(
-                        "d MMMM yyyy",
-                        CultureInfo.CreateSpecificCulture("ru-RU")
-                        )
-                .ToLower()
-            );
+            var time = _concert.Time
+                .ToString(
+                    "d MMMM yyyy",
+                    CultureInfo.CreateSpecificCulture("ru-RU"))
+                .ToLower();
             var result = $"{artist} {_longDash} {time}";
             _log.LogInformation("Label is {@result}", result);
             return result;
