@@ -1,20 +1,19 @@
-FROM mcr.microsoft.com/dotnet/core/sdk:3.0.100-alpine3.9
-RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories \
-    && apk update \
-    && apk add \
-        libgdiplus \
-        libc-dev \
-        zlib-dev \
+FROM mcr.microsoft.com/dotnet/core/sdk:3.0
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+        zlib1g \
         fontconfig \
-        freetype-dev \
-        libx11-dev \
-        libxext \
-        libxrender \
-        tzdata \
-        curl \
+        libfreetype6 \
+        libx11-6 \
+        libxext6 \
+        libxrender1 \
     && curl -o /usr/lib/libwkhtmltox.so \
         --location \
-        https://github.com/rdvojmoc/DinkToPdf/raw/v1.1.0/v0.12.4/64%20bit/libwkhtmltox.so
+        https://github.com/rdvojmoc/DinkToPdf/raw/v1.0.8/v0.12.4/64%20bit/libwkhtmltox.so
+RUN apt-get update \
+    && apt-get install -y \
+        libgdiplus \
+        libc6-dev
 COPY ./Services/TicketStore.Api/ /app
 COPY ./Services/TicketStore.Data/ /TicketStore.Data
 WORKDIR /app
