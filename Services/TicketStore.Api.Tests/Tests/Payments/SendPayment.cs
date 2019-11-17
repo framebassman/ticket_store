@@ -25,7 +25,7 @@ namespace TicketStore.Api.Tests.Tests.Payments
             var sender = _fixture.Merchant.YandexMoneyAccount;
             var testEvent = _fixture.Events[1];
             var email = Generator.Email();
-            var before = _fixture.Db.Tickets.Select(t => t.Payment.Email == email);
+            var before = _fixture.Db.Tickets.Count(t => t.Payment.Email == email);
 
             // Act
             var response = _fixture.Api.SendPayment(
@@ -39,8 +39,8 @@ namespace TicketStore.Api.Tests.Tests.Payments
             // Assert
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
             AssertWithTimeout.That(
-                () => _fixture.Db.Tickets.Select(t => t.Payment.Email == email).Count(),
-                Is.EqualTo(before.Count())
+                () => _fixture.Db.Tickets.Count(t => t.Payment.Email == email),
+                Is.EqualTo(before)
             );
             AssertWithTimeout.That(() => _fixture.FakeSender.EmailsForAddress(email).Data.Count, Is.EqualTo(0));
         }
@@ -52,7 +52,7 @@ namespace TicketStore.Api.Tests.Tests.Payments
             var sender = _fixture.Merchant.YandexMoneyAccount;
             var testEvent = _fixture.Events[0];
             var email = Generator.Email();
-            var before = _fixture.Db.Tickets.Where(t => t.Payment.Email == email).ToList();
+            var before = _fixture.Db.Tickets.Count(t => t.Payment.Email == email);
 
             // Act
             var response = _fixture.Api.SendPayment(
@@ -67,7 +67,7 @@ namespace TicketStore.Api.Tests.Tests.Payments
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
             AssertWithTimeout.That(
                 () => _fixture.Db.Tickets.Count(t => t.Payment.Email == email),
-                Is.EqualTo(before.Count() + 1)
+                Is.EqualTo(before + 1)
             );
             AssertWithTimeout.That(() => _fixture.FakeSender.EmailsForAddress(email).Data.Count, Is.EqualTo(1));
         }

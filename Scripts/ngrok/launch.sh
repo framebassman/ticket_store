@@ -46,4 +46,4 @@ done
 
 ngrok_address=$(curl -sb -H "Accept: application/json" localhost:4040/api/tunnels |
     perl -pe 's|.*"public_url":"(https:\/\/.*?)".*$|\1|g')
-echo "\033[32mNgrok link: $ngrok_address\033[m"
+echo -e "\033[32mNgrok link: $ngrok_address\033[m"

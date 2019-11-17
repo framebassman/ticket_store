@@ -4,9 +4,14 @@ namespace TicketStore.Api.Tests.Data
 {
     public class Generator
     {
-        public static string Email()
+        public static String Email()
         {
-            return Guid.NewGuid().ToString() + "@test.test";
+            return Guid.NewGuid() + "@test.test";
+        }
+
+        public static String YandexMoneyAccount()
+        {
+            return Guid.NewGuid().ToString();
         }
     }
 }

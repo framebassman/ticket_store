@@ -1,15 +1,15 @@
 using System;
-using Newtonsoft.Json;
+using System.Text.Json;
 
 namespace TicketStore.Api.Tests.Model.Services
 {
     public abstract class Answer
     {
-        public String message;
+        public String message { get; set; }
 
         public override string ToString()
         {
-            return JsonConvert.SerializeObject(this);
+            return JsonSerializer.Serialize(this);
         }
     }
 }
