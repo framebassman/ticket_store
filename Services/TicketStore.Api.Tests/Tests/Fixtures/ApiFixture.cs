@@ -21,8 +21,6 @@ namespace TicketStore.Api.Tests.Tests.Fixtures
             Api = new ApiService();
             FakeSender = new FakeSenderService();
             Db = new ApplicationContext();
-            CleanUpDatabase();
-            Db.SaveChanges();
             SeedTestData();
             Db.SaveChanges();
         }
@@ -32,30 +30,18 @@ namespace TicketStore.Api.Tests.Tests.Fixtures
             Db.Dispose();
         }
 
-        public void CleanUpDatabase()
-        {
-            if (Db.Events.Count() != 0)
-            {
-                Db.Events.RemoveRange(Db.Events);
-            }
-            if (Db.Merchants.Count() != 0)
-            {
-                Db.Merchants.RemoveRange(Db.Merchants);
-            }
-        }
-
         public void SeedTestData()
         {
             Merchant = new Merchant
             {
                 Place = "Test Place",
-                YandexMoneyAccount = "1234567890"
+                YandexMoneyAccount = Generator.YandexMoneyAccount()
             };
             Events = new List<Event>
             {
                 new Event
                 {
-                    Id = 1,
+//                    Id = 1,
                     Artist = "First Test Artist",
                     Merchant = Merchant,
                     PosterUrl = "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png",
@@ -65,7 +51,7 @@ namespace TicketStore.Api.Tests.Tests.Fixtures
                 },
                 new Event
                 {
-                    Id = 2,
+//                    Id = 2,
                     Artist = "Second Test Artist",
                     Merchant = Merchant,
                     PosterUrl = "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png",

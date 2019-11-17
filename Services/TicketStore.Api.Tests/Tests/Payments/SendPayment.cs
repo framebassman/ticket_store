@@ -39,7 +39,7 @@ namespace TicketStore.Api.Tests.Tests.Payments
             // Assert
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
             AssertWithTimeout.That(
-                () => _fixture.Db.Tickets.Select(t => t.Payment.Email == email).Count(),
+                () => _fixture.Db.Tickets.Count(t => t.Payment.Email == email),
                 Is.EqualTo(before)
             );
             AssertWithTimeout.That(() => _fixture.FakeSender.EmailsForAddress(email).Data.Count, Is.EqualTo(0));
