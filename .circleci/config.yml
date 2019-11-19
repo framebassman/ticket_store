@@ -29,7 +29,7 @@ jobs:
       - run:
           name: migrate test db 
           command: |
-            dotnet tool install --global dotnet-ef
+            dotnet tool install --global dotnet-ef --version 3.0.0
             export ASPNETCORE_ENVIRONMENT=TestMigrations; \
             ~/.dotnet/tools/dotnet-ef database update --project Services/TicketStore.Data/TicketStore.Data.csproj --verbose
       - run:
