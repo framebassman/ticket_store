@@ -20,14 +20,32 @@ namespace TicketStore.Api.Model
         public String Value()
         {
             var artist = _concert.Artist;
-            var time = _concert.Time
-                .ToString(
-                    "d MMMM yyyy",
-                    CultureInfo.CreateSpecificCulture("ru-RU"))
-                .ToLower();
+            var time = translateMonthToRussian(
+                _concert.Time.ToString().ToLower()
+            );
             var result = $"{artist} {_longDash} {time}";
             _log.LogInformation("Label is {@result}", result);
             return result;
+        }
+
+        public String translateMonthToRussian(String origin)
+        {
+            origin.Replace("january", "января");
+            origin.Replace("february", "февраля");
+            origin.Replace("march", "марта");
+
+            origin.Replace("april", "апреля");
+            origin.Replace("may", "мая");
+            origin.Replace("june", "июня");
+
+            origin.Replace("july", "июля");
+            origin.Replace("august", "августа");
+            origin.Replace("september", "сентября");
+
+            origin.Replace("october", "октября");
+            origin.Replace("november", "ноября");
+            origin.Replace("december", "декабря");
+            return origin;
         }
     }
 }
