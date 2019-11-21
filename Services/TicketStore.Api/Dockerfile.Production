@@ -8,19 +8,13 @@ RUN dotnet publish -c Release -o out
 FROM mcr.microsoft.com/dotnet/core/aspnet:3.0.0-alpine3.9
 RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories \
     && apk update \
-    && apk add \
-        libgdiplus \
-        libc-dev \
-        zlib-dev \
-        fontconfig \
-        freetype-dev \
-        libx11-dev \
-        libxext \
-        libxrender \
+    && apk add --update-cache --allow-untrusted \
+        libgdiplus-dev \                                # This library for combine image
+        gcompat \                                       # This libraries for combine PDF
         curl \
-    && curl -o /usr/lib/libwkhtmltox.so \
-        --location \
-        https://github.com/rdvojmoc/DinkToPdf/raw/v1.1.0/v0.12.4/64%20bit/libwkhtmltox.so
+        && curl -o /usr/lib/libwkhtmltox.so \
+            --location \
+            https://github.com/rdvojmoc/DinkToPdf/raw/v1.1.0/v0.12.4/64%20bit/libwkhtmltox.so
 RUN apk add tzdata && ls /usr/share/zoneinfo
 WORKDIR /app
 COPY --from=build-env /app/out .

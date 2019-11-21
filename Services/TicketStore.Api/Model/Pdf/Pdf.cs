@@ -150,7 +150,7 @@ namespace TicketStore.Api.Model.Pdf
 
         private String Barcode(Ticket ticket, WebClient webClient)
         {
-	    var imageUrl = "https://www.scandit.com/wp-content/themes/scandit/barcode-generator.php?symbology=code128&value=213214214&size=200&ec=L";
+            var imageUrl = $"https://www.scandit.com/wp-content/themes/scandit/barcode-generator.php?symbology=code128&value={ticket.Number}&size=200&ec=L";
             using (var inputStream = webClient.OpenRead(imageUrl))
             {
                 using (var memoryStream = new MemoryStream())
