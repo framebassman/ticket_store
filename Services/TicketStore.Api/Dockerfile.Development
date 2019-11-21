@@ -1,9 +1,9 @@
 FROM mcr.microsoft.com/dotnet/core/sdk:3.0.100-alpine3.9
 RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories \
     && apk update \
-    && apk add --update-cache --allow-untrusted \
-        libgdiplus-dev \                                # This library for combine image
-        gcompat \                                       # This libraries for combine PDF
+    && apk add \
+        libgdiplus-dev \
+        gcompat \
         curl \
         && curl -o /usr/lib/libwkhtmltox.so \
             --location \
