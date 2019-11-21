@@ -10,6 +10,7 @@ RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/reposit
         && curl -o /usr/lib/libwkhtmltox.so \
             --location \
             https://github.com/rdvojmoc/DinkToPdf/raw/v1.1.0/v0.12.4/64%20bit/libwkhtmltox.so
+RUN apk add tzdata && ls /usr/share/zoneinfo
 COPY ./Services/TicketStore.Api/ /app
 COPY ./Services/TicketStore.Data/ /TicketStore.Data
 WORKDIR /app
