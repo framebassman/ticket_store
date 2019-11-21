@@ -49,9 +49,9 @@ namespace TicketStore.Api
             services.AddSingleton<IConverter>(new SynchronizedConverter(new PdfTools()));
             services.AddHealthChecks();
             services.AddControllers();
+            services.AddHttpClient();
             if (Environment.IsEnvironment("Test"))
             {
-                services.AddHttpClient();
                 services.AddSingleton<EmailService, FakeSenderService>();
             }
             else
