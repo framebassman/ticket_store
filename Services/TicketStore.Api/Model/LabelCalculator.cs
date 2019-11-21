@@ -32,21 +32,21 @@ namespace TicketStore.Api.Model
 
         public String translateMonthToRussian(String origin)
         {
-            origin.Replace("january", "января");
-            origin.Replace("february", "февраля");
-            origin.Replace("march", "марта");
+            origin = origin.Replace("january", "января");
+            origin = origin.Replace("february", "февраля");
+            origin = origin.Replace("march", "марта");
 
-            origin.Replace("april", "апреля");
-            origin.Replace("may", "мая");
-            origin.Replace("june", "июня");
+            origin = origin.Replace("april", "апреля");
+            origin = origin.Replace("may", "мая");
+            origin = origin.Replace("june", "июня");
 
-            origin.Replace("july", "июля");
-            origin.Replace("august", "августа");
-            origin.Replace("september", "сентября");
+            origin = origin.Replace("july", "июля");
+            origin = origin.Replace("august", "августа");
+            origin = origin.Replace("september", "сентября");
 
-            origin.Replace("october", "октября");
-            origin.Replace("november", "ноября");
-            origin.Replace("december", "декабря");
+            origin = origin.Replace("october", "октября");
+            origin = origin.Replace("november", "ноября");
+            origin = origin.Replace("december", "декабря");
             return origin;
         }
     }
