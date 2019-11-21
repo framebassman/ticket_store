@@ -21,7 +21,9 @@ namespace TicketStore.Api.Model
         {
             var artist = _concert.Artist;
             var time = translateMonthToRussian(
-                _concert.Time.ToString().ToLower()
+                _concert.Time
+                    .ToString("d MMMM yyyy", CultureInfo.CreateSpecificCulture("ru-RU"))
+                    .ToLower()
             );
             var result = $"{artist} {_longDash} {time}";
             _log.LogInformation("Label is {@result}", result);
