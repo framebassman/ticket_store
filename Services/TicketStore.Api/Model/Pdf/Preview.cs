@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
+using TicketStore.Api.Model.Pdf.Model;
+using TicketStore.Api.Model.Pdf.Model.BarcodeConverters;
 
 namespace TicketStore.Api.Model.Pdf
 {
@@ -14,39 +16,28 @@ namespace TicketStore.Api.Model.Pdf
             Client = client;
         }
 
-        protected abstract String Barcode(String ticketNumber);
-
         public String Layout(String ticketNumber)
         {
+            var converter = new FakeConverter();
             var ticketNumbers = new List<String>();
             ticketNumbers.Add(ticketNumber);
             ticketNumbers.Add(ticketNumber);
-            var layoutPath = Path.Combine("Model", "Pdf", "Templates", "Layout.html");
-            var ticketPath = Path.Combine("Model", "Pdf", "Templates", "Ticket.html");
-            var barcodePath = Path.Combine("Model", "Pdf", "Templates", "Barcode.html");
-            var layoutTemplate = ReadTemplate(layoutPath);
-            var ticketTemplate = ReadTemplate(ticketPath);
-            var barcodeTemplate = ReadTemplate(barcodePath);
-
-            var barcodesPreview = String.Empty;
+            var barcodes = new List<Barcode>();
             foreach (var number in ticketNumbers)
             {
-                var replaced = barcodeTemplate.Replace("%PICTURE%", Barcode(number));
-                barcodesPreview += replaced;
+                barcodes.Add(new Barcode(number, converter));
             }
-
-            var ticketPreview = ticketTemplate.Replace("%BARCODES%", barcodesPreview);
-
-            var layoutPreview = layoutTemplate.Replace("%TICKET%", ticketPreview);
-            return layoutPreview;
-        }
-
-        private String ReadTemplate(string path)
-        {
-            using (var reader = new StreamReader(path))
-            {
-                return reader.ReadToEnd();
-            }
+            var artist = "Blur";
+            var time = DateTime.Now;
+            var price = Decimal.One;
+            return new Layout(
+                new Ticket(
+                    barcodes,
+                    artist,
+                    time,
+                    price
+                )
+            ).ToHtml();
         }
     }
 }
