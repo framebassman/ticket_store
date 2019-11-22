@@ -1,41 +1,41 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Net.Http;
 using TicketStore.Api.Model.Pdf.Model;
 using TicketStore.Api.Model.Pdf.Model.BarcodeConverters;
+using TicketStore.Data.Model;
+using Ticket = TicketStore.Data.Model.Ticket;
 
 namespace TicketStore.Api.Model.Pdf
 {
-    public abstract class Preview
+    public class Preview
     {
-        protected readonly HttpClient Client;
+        private readonly HttpClient _client;
+        private readonly List<Ticket> _tickets;
+        private readonly Event _concert;
+        private readonly Converter _barcodeConverter;
 
-        protected Preview(HttpClient client)
+        public Preview(HttpClient client, Event concert)
         {
-            Client = client;
+            _client = client;
+            _concert = concert;
+            _tickets = concert.Tickets;
+            _barcodeConverter = new FakeConverter();
         }
 
-        public String Layout(String ticketNumber)
+        public String Layout()
         {
-            var converter = new FakeConverter();
-            var ticketNumbers = new List<String>();
-            ticketNumbers.Add(ticketNumber);
-            ticketNumbers.Add(ticketNumber);
             var barcodes = new List<Barcode>();
-            foreach (var number in ticketNumbers)
+            foreach (var ticket in _tickets)
             {
-                barcodes.Add(new Barcode(number, converter));
+                barcodes.Add(new Barcode(ticket.Number, _barcodeConverter));
             }
-            var artist = "Blur";
-            var time = DateTime.Now;
-            var price = Decimal.One;
             return new Layout(
-                new Ticket(
+                new TicketStore.Api.Model.Pdf.Model.Ticket(
                     barcodes,
-                    artist,
-                    time,
-                    price
+                    _concert.Artist,
+                    _concert.Time,
+                    _concert.Roubles
                 )
             ).ToHtml();
         }
