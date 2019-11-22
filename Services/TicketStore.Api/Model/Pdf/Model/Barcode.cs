@@ -24,7 +24,8 @@ namespace TicketStore.Api.Model.Pdf.Model
         {
             var template = ReadTemplate();
             var base64Number = _converter.ToBase64(_ticketNumber);
-            return template.Replace("%PICTURE%", base64Number);
+            template = template.Replace("%PICTURE%", base64Number);
+            return template.Replace("%NUMBER%", _ticketNumber);
         }
     }
 }
