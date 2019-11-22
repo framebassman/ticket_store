@@ -14,33 +14,39 @@ namespace TicketStore.Api.Model.Pdf
             Client = client;
         }
 
+        protected abstract String Barcode(String ticketNumber);
+
         public String Layout(String ticketNumber)
         {
-            var barcode = Barcode(ticketNumber);
+            var ticketNumbers = new List<String>();
+            ticketNumbers.Add(ticketNumber);
+            ticketNumbers.Add(ticketNumber);
             var layoutPath = Path.Combine("Model", "Pdf", "Templates", "Layout.html");
             var ticketPath = Path.Combine("Model", "Pdf", "Templates", "Ticket.html");
             var barcodePath = Path.Combine("Model", "Pdf", "Templates", "Barcode.html");
-            var layoutContent = String.Empty;
-            var ticketsContent = String.Empty;
-            var barcodesContent = String.Empty;
-            using (var barcodesReader = new StreamReader(barcodePath))
+            var layoutTemplate = ReadTemplate(layoutPath);
+            var ticketTemplate = ReadTemplate(ticketPath);
+            var barcodeTemplate = ReadTemplate(barcodePath);
+
+            var barcodesPreview = String.Empty;
+            foreach (var number in ticketNumbers)
             {
-                barcodesContent = barcodesReader.ReadToEnd();
-                barcodesContent = barcodesContent.Replace("%PICTURE%", barcode);
-                using (var ticketsReader = new StreamReader(ticketPath))
-                {
-                    ticketsContent = ticketsReader.ReadToEnd();
-                    ticketsContent = ticketsContent.Replace("%BARCODES%", barcodesContent);
-                    using (var layoutReader = new StreamReader(layoutPath))
-                    {
-                        layoutContent = layoutReader.ReadToEnd();
-                        layoutContent = layoutContent.Replace("%TICKET%", ticketsContent);
-                        return layoutContent;
-                    }                    
-                }
+                var replaced = barcodeTemplate.Replace("%PICTURE%", Barcode(number));
+                barcodesPreview += replaced;
             }
+
+            var ticketPreview = ticketTemplate.Replace("%BARCODES%", barcodesPreview);
+
+            var layoutPreview = layoutTemplate.Replace("%TICKET%", ticketPreview);
+            return layoutPreview;
         }
 
-        protected abstract String Barcode(String ticketNumber);
+        private String ReadTemplate(string path)
+        {
+            using (var reader = new StreamReader(path))
+            {
+                return reader.ReadToEnd();
+            }
+        }
     }
 }
