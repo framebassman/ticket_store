@@ -9,7 +9,7 @@ namespace TicketStore.Api.Model.Pdf.Model
 
         protected abstract String PathToTemplate();
 
-        protected String ReadTemplate()
+        protected virtual String ReadTemplate()
         {
             using (var reader = new StreamReader(PathToTemplate()))
             {
