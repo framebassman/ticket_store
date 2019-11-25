@@ -6,7 +6,7 @@ agent:
     type: e1-standard-2
     os_image: ubuntu1804
 blocks:
-  - name: Hello world
+  - name: Tests
     task:
       prologue:
         commands:
@@ -16,7 +16,9 @@ blocks:
         - name: Tests
           commands:
             - node --version
-
+  - name: Hello world
+    task:
+      jobs:
         - name: Run some code
           commands:
             - node -p '"evol".split("").reverse().join("")'
