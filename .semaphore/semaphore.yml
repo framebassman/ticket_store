@@ -16,8 +16,7 @@ blocks:
         - name: Tests
           commands:
             - node --version
-    task:
-      jobs:
+
         - name: Run some code
           commands:
             - node -p '"evol".split("").reverse().join("")'
