@@ -1,18 +1,15 @@
 # .semaphore/semaphore.yml
+version: v1.0
+name: JavaScript example
+agent:
+  machine:
+    type: e1-standard-2
+    os_image: ubuntu1804
 blocks:
-  - name: "Set things up"
+  - name: Hello world
     task:
       jobs:
-        - name: Compile
+        - name: Run some code
           commands:
-            - checkout
-            - echo "Linting code"
-            - echo "Compiling code"
-  - name: "Unit tests"
-    task:
-      jobs:
-        - name: Unit
-          commands:
-            - checkout
-            - echo "Running unit tests"
+            - node -p '"evol".split("").reverse().join("")'
 
