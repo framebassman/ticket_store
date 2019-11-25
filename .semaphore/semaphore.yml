@@ -10,8 +10,7 @@ blocks:
     task:
       prologue:
         commands:
-          - nvm install --lts carbon
-          - sem-version node --lts carbon
+          - sem-version node 10.13.0
       jobs:
         - name: Tests
           commands:
