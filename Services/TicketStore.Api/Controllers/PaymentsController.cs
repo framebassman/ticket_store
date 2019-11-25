@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using DinkToPdf.Contracts;
@@ -20,18 +21,21 @@ namespace TicketStore.Api.Controllers
         private ILogger<PaymentsController> _log;
         private EmailService _emailService;
         private IConverter _converter;
+        private HttpClient _httpClient;
 
         public PaymentsController(
             ApplicationContext context,
             ILogger<PaymentsController> log,
             IConverter pdfConverter,
-            EmailService emailService
+            EmailService emailService,
+            IHttpClientFactory clientFactory
         )
         {
             _db = context;
             _log = log;
             _emailService = emailService;
             _converter = pdfConverter;
+            _httpClient = clientFactory.CreateClient();
         }
 
         // POST api/values
@@ -92,7 +96,7 @@ namespace TicketStore.Api.Controllers
             {
                 return new OkObjectResult("Payment is less than ticket cost");
             }
-            var pdf = new Pdf(concert, tickets, _converter);
+            var pdf = new Pdf(concert, tickets, _converter, _httpClient);
             _log.LogInformation("Combined PDF with barcodes");
             _emailService.SendTicket(email, pdf);
             return new OkObjectResult("OK");
