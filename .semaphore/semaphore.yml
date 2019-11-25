@@ -8,6 +8,15 @@ agent:
 blocks:
   - name: Hello world
     task:
+      prologue:
+        commands:
+          - nvm install --lts carbon
+          - sem-version node --lts carbon
+      jobs:
+        - name: Tests
+          commands:
+            - node --version
+    task:
       jobs:
         - name: Run some code
           commands:
