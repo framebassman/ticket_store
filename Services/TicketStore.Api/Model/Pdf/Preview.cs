@@ -22,8 +22,7 @@ namespace TicketStore.Api.Model.Pdf
             _concert = concert;
             _tickets = concert.Tickets;
             _culture = CultureInfo.CreateSpecificCulture("ru-RU");
-//            _barcodeConverter = new RealConverter(client);
-            _barcodeConverter = new FakeConverter();
+            _barcodeConverter = new RealConverter(client);
         }
 
         public String Layout()
