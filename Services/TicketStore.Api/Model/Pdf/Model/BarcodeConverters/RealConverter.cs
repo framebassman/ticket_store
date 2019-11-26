@@ -18,15 +18,13 @@ namespace TicketStore.Api.Model.Pdf.Model.BarcodeConverters
 
         public override string ToBase64(String origin)
         {
-            var task = GenerateBarcodeTask(origin);
-            task.Start();
-            return task.Result;
+            return GenerateBarcodeTask(origin);
         }
         
-        private async Task<String> GenerateBarcodeTask(String ticketNumber)
+        private String GenerateBarcodeTask(String ticketNumber)
         {
             var imageUrl = $"https://www.scandit.com/wp-content/themes/scandit/barcode-generator.php?symbology=code128&value={ticketNumber}&size=200&ec=L";
-            using (var inputStream = await _client.GetStreamAsync(imageUrl))
+            using (var inputStream = _client.GetStreamAsync(imageUrl).Result)
             {
                 using (var memoryStream = new MemoryStream())
                 {
