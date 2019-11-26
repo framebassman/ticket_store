@@ -49,9 +49,9 @@ namespace TicketStore.Api
             services.AddSingleton<IConverter>(new SynchronizedConverter(new PdfTools()));
             services.AddHealthChecks();
             services.AddControllers();
+            services.AddHttpClient();
             if (Environment.IsEnvironment("Test"))
             {
-                services.AddHttpClient();
                 services.AddSingleton<EmailService, FakeSenderService>();
             }
             else
@@ -71,6 +71,8 @@ namespace TicketStore.Api
             app.UseRouting();
             app.UseWhen(x => x.Request.Path.StartsWithSegments("/api/verify", StringComparison.OrdinalIgnoreCase),
                 builder => builder.UseMiddleware<AuthorizationMiddleware>());
+//            app.UseWhen(x => x.Request.Path.StartsWithSegments("/api/pdf", StringComparison.OrdinalIgnoreCase),
+//                builder => builder.UseMiddleware<AuthorizationMiddleware>());
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
