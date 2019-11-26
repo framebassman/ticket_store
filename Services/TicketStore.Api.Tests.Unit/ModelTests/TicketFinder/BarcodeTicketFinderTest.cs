@@ -99,7 +99,7 @@ namespace TicketStore.Api.Tests.Unit.ModelTests
 
             var ex = Assert.Throws<TooLate>(() => Finder.Find(turnstileScan));
 
-            Assert.Equal("Method: Barcode. Too late for concert, it's happend 15 hours ago", ex.Message);
+            Assert.Equal("Method: Barcode. Too late for concert, it's happened 15 hours ago", ex.Message);
         }
 
         [Fact(Skip="disable for demo")]
