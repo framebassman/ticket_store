@@ -4,7 +4,8 @@
   "description": "Project for screenshots testing of TicketStore.Api",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "backstop test",
+    "update":"backstop reference"
   },
   "author": "",
   "license": "ISC",
