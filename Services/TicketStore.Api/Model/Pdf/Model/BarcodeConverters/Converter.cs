@@ -15,7 +15,7 @@ namespace TicketStore.Api.Model.Pdf.Model.BarcodeConverters
             _client = client;
         }
 
-        public String ToBase64(String origin)
+        public virtual String ToBase64(String origin)
         {
             return GenerateBarcodeTask(origin);
         }
