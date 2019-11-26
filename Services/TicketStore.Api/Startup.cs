@@ -71,6 +71,8 @@ namespace TicketStore.Api
             app.UseRouting();
             app.UseWhen(x => x.Request.Path.StartsWithSegments("/api/verify", StringComparison.OrdinalIgnoreCase),
                 builder => builder.UseMiddleware<AuthorizationMiddleware>());
+//            app.UseWhen(x => x.Request.Path.StartsWithSegments("/api/pdf", StringComparison.OrdinalIgnoreCase),
+//                builder => builder.UseMiddleware<AuthorizationMiddleware>());
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
