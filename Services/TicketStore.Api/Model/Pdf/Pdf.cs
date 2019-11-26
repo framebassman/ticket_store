@@ -1,11 +1,5 @@
 using System;
-using System.Text;
 using System.Collections.Generic;
-using System.Drawing;
-using System.Drawing.Imaging;
-using System.Globalization;
-using System.Net;
-using System.IO;
 using System.Net.Http;
 using DinkToPdf;
 using DinkToPdf.Contracts;
@@ -39,7 +33,7 @@ namespace TicketStore.Api.Model.Pdf
             return new HtmlToPdfDocument
             {
                 GlobalSettings = {
-                    ColorMode = DinkToPdf.ColorMode.Color,
+                    ColorMode = ColorMode.Color,
                     Orientation = Orientation.Portrait,
                     PaperSize = PaperKind.A4,
                 },
@@ -48,7 +42,7 @@ namespace TicketStore.Api.Model.Pdf
                         PagesCount = true,
                         HtmlContent = _preview.Layout(),
                         WebSettings = { DefaultEncoding = "utf-8" },
-                        HeaderSettings = { FontSize = 9, Right = "Page [page] of [toPage]", Line = true, Spacing = 2.812 }
+                        HeaderSettings = { FontSize = 9, Right = "[page] страница из [toPage]", Line = true, Spacing = 2.812 }
                     }
                 }
             };

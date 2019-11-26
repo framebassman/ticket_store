@@ -11,7 +11,7 @@ namespace TicketStore.Api.Model.Pdf.Model.BarcodeConverters
     {
         private HttpClient _client;
         
-        public RealConverter(HttpClient client) : base()
+        public RealConverter(HttpClient client)
         {
             _client = client;
         }
