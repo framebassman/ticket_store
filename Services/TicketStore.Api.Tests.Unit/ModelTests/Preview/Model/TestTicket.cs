@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using TicketStore.Api.Model.Pdf.Model;
-using TicketStore.Api.Model.Pdf.Model.BarcodeConverters;
 
 namespace TicketStore.Api.Tests.Unit.ModelTests.Preview.Model
 {
@@ -13,7 +12,7 @@ namespace TicketStore.Api.Tests.Unit.ModelTests.Preview.Model
             String template,
             List<Barcode> barcodes,
             String artist,
-            DateTime time,
+            String time,
             Decimal price
         ) : base(barcodes, artist, time, price)
         {

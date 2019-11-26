@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Net.Http;
+using System.Text;
 using TicketStore.Api.Model.Pdf.Model;
 using TicketStore.Api.Model.Pdf.Model.BarcodeConverters;
 using TicketStore.Data.Model;
@@ -10,16 +12,17 @@ namespace TicketStore.Api.Model.Pdf
 {
     public class Preview
     {
-        private readonly HttpClient _client;
+        private readonly CultureInfo _culture;
         private readonly List<Ticket> _tickets;
         private readonly Event _concert;
         private readonly Converter _barcodeConverter;
 
         public Preview(HttpClient client, Event concert)
         {
-            _client = client;
             _concert = concert;
             _tickets = concert.Tickets;
+            _culture = CultureInfo.CreateSpecificCulture("ru-RU");
+//            _barcodeConverter = new RealConverter(client);
             _barcodeConverter = new FakeConverter();
         }
 
@@ -34,10 +37,28 @@ namespace TicketStore.Api.Model.Pdf
                 new TicketStore.Api.Model.Pdf.Model.Ticket(
                     barcodes,
                     _concert.Artist,
-                    _concert.Time,
+                    ConcertTime(),
                     _concert.Roubles
                 )
             ).ToHtml();
+        }
+
+        public String ConcertTime()
+        {
+            return FormatTime(_concert.Time);
+        }
+        
+        private String FormatTime(DateTime origin)
+        {
+            var mskTimezone = TimeZoneInfo.FindSystemTimeZoneById("Europe/Moscow");
+            var originTime = DateTime.SpecifyKind(origin, DateTimeKind.Utc);
+            var withTimezone = TimeZoneInfo.ConvertTimeFromUtc(originTime, mskTimezone);
+            var allLowerCase = withTimezone.ToString("f", _culture);
+            var firstLetterIsCapital = new StringBuilder()
+                .Append(allLowerCase[0].ToString().ToUpper())
+                .Append(allLowerCase.Substring(1, allLowerCase.Length - 1))
+                .ToString();
+            return firstLetterIsCapital;
         }
     }
 }

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using TicketStore.Api.Model.Pdf;
 using TicketStore.Api.Tests.Unit.Stubs;
+using TicketStore.Api.Tests.Unit.Stubs.Http;
 using TicketStore.Data.Model;
 using Xunit;
 
@@ -25,10 +26,10 @@ namespace TicketStore.Api.Tests.Unit.ModelTests
             };
 
             // Act
-            var pdf = new Pdf(testEvent, new List<Ticket>{ticket}, new DummyConverter());
+            var pdf = new Pdf(testEvent, new List<Ticket>{ticket}, new DummyConverter(), new DummyHttpClient());
 
             // Assert
-            Assert.Equal("Суббота, 14 сентября 2019 г. 22:00", pdf.Time());
+            Assert.Equal("Суббота, 14 сентября 2019 г. 22:00", pdf.ConcertTime());
         }
     }
 }

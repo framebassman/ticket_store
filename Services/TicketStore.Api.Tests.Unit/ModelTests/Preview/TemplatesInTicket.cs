@@ -21,7 +21,7 @@ namespace TicketStore.Api.Tests.Unit.ModelTests.Preview
                 template,
                 barcodes, 
                 "Test artist", 
-                DateTime.Parse("8/18/2010 12:00:00 AM"),
+                "Среда, 18 августа 2010 г. 04:00",
                 new Decimal(10)
             );
         }

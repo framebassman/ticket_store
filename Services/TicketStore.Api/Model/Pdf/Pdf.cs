@@ -15,7 +15,7 @@ namespace TicketStore.Api.Model.Pdf
 {
     public class Pdf
     {
-        private IConverter _converter;
+        private readonly IConverter _converter;
         private readonly Preview _preview;
 
         public Pdf(Event concert, List<Ticket> tickets, IConverter converter, HttpClient client)
@@ -27,6 +27,11 @@ namespace TicketStore.Api.Model.Pdf
         public byte[] ToBytes()
         {
             return _converter.Convert(Template());
+        }
+
+        public String ConcertTime()
+        {
+            return _preview.ConcertTime();
         }
 
         private HtmlToPdfDocument Template()
