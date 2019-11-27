@@ -63,7 +63,6 @@ namespace TicketStore.Api.Controllers
         {
             _log.LogWarning("This is pdf example");
             var pdf = new Pdf(_concert, _tickets, _converter, _client);
-            Response.Headers.Add("Content-Disposition", "attachment; filename=\"tickets.pdf\"");
             using (var output = new MemoryStream(pdf.ToBytes()))
             {
                 return File(output.ToArray(), MediaTypeNames.Application.Pdf);
