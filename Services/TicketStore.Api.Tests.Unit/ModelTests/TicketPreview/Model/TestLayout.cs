@@ -1,7 +1,7 @@
 using System;
 using TicketStore.Api.Model.Pdf.Model;
 
-namespace TicketStore.Api.Tests.Unit.ModelTests.Preview.Model
+namespace TicketStore.Api.Tests.Unit.ModelTests.TicketPreview.Model
 {
     public class TestLayout : Layout
     {

@@ -1,8 +1,8 @@
 using TicketStore.Api.Model.Pdf.Model;
-using TicketStore.Api.Tests.Unit.ModelTests.Preview.Model;
+using TicketStore.Api.Tests.Unit.ModelTests.TicketPreview.Model;
 using Xunit;
 
-namespace TicketStore.Api.Tests.Unit.ModelTests.Preview
+namespace TicketStore.Api.Tests.Unit.ModelTests.TicketPreview
 {
     public class TemplatesInLayout : TemplatesInTicket
     {

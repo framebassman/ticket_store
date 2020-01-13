@@ -2,7 +2,7 @@ using System;
 using TicketStore.Api.Model.Pdf.Model;
 using TicketStore.Api.Model.Pdf.Model.BarcodeConverters;
 
-namespace TicketStore.Api.Tests.Unit.ModelTests.Preview.Model
+namespace TicketStore.Api.Tests.Unit.ModelTests.TicketPreview.Model
 {
     public class TestBarcode : Barcode
     {
