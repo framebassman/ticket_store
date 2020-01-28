@@ -31,7 +31,7 @@ services:
             - /var/run/docker.sock:/var/run/docker.sock
             - ./Services/Proxy/certs/acme.json:/acme.json
     kabinet:
-        image: metabase/metabase:v0.33.6
+        image: metabase/metabase:v0.34.1
         container_name: kabinet
         labels:
             - "traefik.enable=true"
