@@ -45,7 +45,7 @@ class Afisha extends Component<any, AfishaState> {
       )
     }
 
-    if (events.length == 0) {
+    if (events.length === 0) {
       return (
         <div className={classes.afisha}>
           <Grid container justify="center">
