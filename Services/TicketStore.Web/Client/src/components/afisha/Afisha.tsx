@@ -45,6 +45,16 @@ class Afisha extends Component<any, AfishaState> {
       )
     }
 
+    if (events.length === 0) {
+      return (
+        <div className={classes.afisha}>
+          <Grid container justify="center">
+            Пока нет предстоящих концертов
+          </Grid>
+        </div>
+      )
+    }
+
     return (
       <div className={classes.afisha}>
         <Grid container justify="center">
