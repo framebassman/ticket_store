@@ -3,8 +3,8 @@ version: '3.6'
 services:
     store_farewell:
         build:
-            context: ./Services/Farewell
-            dockerfile: ./Dockerfile.Development
+            context: .
+            dockerfile: ./Services/Farewell/Dockerfile.Development
         ports:
             - 4000:3000
         labels:

@@ -3,8 +3,8 @@ version: '3.6'
 services:
     store_farewell:
         build:
-            context: ./Services/Farewell
-            dockerfile: ./Dockerfile.Production
+            context: .
+            dockerfile: ./Services/Farewell/Dockerfile.Production
             args:
                 - NODE_ENV=production
         ports:
