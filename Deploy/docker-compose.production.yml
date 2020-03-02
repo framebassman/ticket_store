@@ -1,24 +1,17 @@
 version: '3.6'
 
 services:
-    store_api:
-        image: "docker.io/framebassman/store-api:${VERSION}"
+    store_farewell:
+        image: "docker.io/framebassman/store-farewell:${VERSION}"
         build:
-            context: .
-            dockerfile: ./Services/TicketStore.Api/Dockerfile.Production
-        environment:
-            - ASPNETCORE_ENVIRONMENT=Production
-            - SENTRY_RELEASE=${VERSION}
-    store_web:
-        image: "docker.io/framebassman/store-web:${VERSION}"
-        build:
-            context: .
-            dockerfile: ./Services/TicketStore.Web/Dockerfile.Production
+            context: ./Services/Farewell
+            dockerfile: ./Dockerfile.Production
             args:
-                - REACT_APP_ENVIRONMENT=Production
-        environment:
-            - ASPNETCORE_ENVIRONMENT=Production
-            - SENTRY_RELEASE=${VERSION}
+                - NODE_ENV=production
+        ports:
+            - 4000:80
+        labels:
+            - "traefik.port=80"
     store_proxy:
         image: "docker.io/framebassman/store-proxy:${VERSION}"
         build:
@@ -30,21 +23,3 @@ services:
         volumes:
             - /var/run/docker.sock:/var/run/docker.sock
             - ./Services/Proxy/certs/acme.json:/acme.json
-    kabinet:
-        image: metabase/metabase:v0.34.1
-        container_name: kabinet
-        labels:
-            - "traefik.enable=true"
-            - "traefik.port=3000"
-            - "traefik.backend=kabinet"
-            - "traefik.frontend.redirect.regex=^(.*)/kabinet$$"
-            - "traefik.frontend.redirect.replacement=$$1/kabinet/"
-            - "traefik.frontend.rule=PathPrefix:/kabinet;ReplacePathRegex: ^/kabinet/(.*) /$$1"
-            - "traefik.docker.network=ticket_store_default"
-        environment:
-            - MB_DB_TYPE=postgres
-            - MB_DB_DBNAME=metabase_db
-            - MB_DB_PORT=5432
-            - MB_DB_USER=metabase_user
-            - MB_DB_PASS=WPjpNg73ppJVpCF9
-            - MB_DB_HOST=188.68.210.162

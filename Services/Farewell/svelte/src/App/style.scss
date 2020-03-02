@@ -1,0 +1,17 @@
+@font-face {
+    font-family: 'Academy';
+    src: url('../Assets/fonts/Academy.svg') format('svg');
+    src: url('../Assets/fonts/Academy.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.container {
+    background-color: #fafafa;
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 100%;
+    justify-content: flex-start;
+    align-items: center;
+    min-height: 100vh;
+}

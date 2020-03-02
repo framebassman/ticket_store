@@ -9,6 +9,11 @@ on:
       - 'Services/TicketStore.Web/Client/*/*/*'
       - 'Services/TicketStore.Web/Client/*/*/*/*'
       - 'Services/TicketStore.Web/Client/*/*/*/*/*'
+      - 'Services/Farewell/svelte/*'
+      - 'Services/Farewell/svelte/*/*'
+      - 'Services/Farewell/svelte/*/*/*'
+      - 'Services/Farewell/svelte/*/*/*/*'
+      - 'Services/Farewell/svelte/*/*/*/*/*'
 
 jobs:
   build:
@@ -25,8 +30,15 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - name: npm install, check-bundlesize
+    - name: Check bundlesize for Web service
       working-directory: Services/TicketStore.Web/Client
+      run: |
+        npm install
+        npm run check-bundlesize
+      env:
+        CI: true
+    - name: Check bundlesize for Farewell service
+      working-directory: Services/Farewell/svelte
       run: |
         npm install
         npm run check-bundlesize
