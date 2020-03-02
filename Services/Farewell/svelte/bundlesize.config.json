@@ -1,0 +1,14 @@
+{
+    "files": [
+        {
+            "path": "./public/bundle.js",
+            "maxSize": "460 kB",
+            "compression": "none"
+        },
+        {
+            "path": "./public/bundle.css",
+            "maxSize": "2 kB",
+            "compression": "none"
+        }
+    ]
+}

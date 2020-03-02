@@ -1,0 +1,81 @@
+$title_font-size: 42px;
+$image_height: 150px;
+$image_width: $image_height * 32 / 19;
+$description_font-size: 16px;
+$description_text-indient: 8px;
+
+$breakpoint-phone: 640px;
+$breakpoint-tablet: 768px;
+$breakpoint-desktop: 1024px;
+
+.farewell {
+    font-family: Academy;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    overflow: auto;
+    text-align: justify;
+
+    .child {
+        max-width: 600px;
+    }
+
+    .title {
+        text-align: center;
+        font-size: $title_font-size;
+    }
+
+    .image-content {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        .smile-image {
+            background-image: url("../../Assets/images/kim.jpg");
+            background-size: contain;
+            background-repeat: no-repeat;
+            height: $image_height;
+            width: $image_width;
+        }
+    }
+
+    .description {
+        font-size: $description_font-size;
+        text-indent: $description_text-indient;
+        margin: 16px;
+    }
+
+    .team {
+        text-align: right;
+        font-size: $description_font-size;
+    }
+
+    @media (min-width: $breakpoint-tablet) {
+        .title {
+            font-size: 60px;
+        }
+
+        .description {
+            font-size: 20px;
+            text-indent: 20px;
+            margin: 20px;
+        }
+
+        .image-content {
+            .smile-image {
+                $image_height: 300px;
+                height: $image_height;
+                width: $image_height * 32 / 19;
+            }
+        }
+
+        .team {
+            font-size: 20px;
+        }
+    }
+}
