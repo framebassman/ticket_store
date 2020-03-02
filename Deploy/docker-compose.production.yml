@@ -4,8 +4,8 @@ services:
     store_farewell:
         image: "docker.io/framebassman/store-farewell:${VERSION}"
         build:
-            context: ./Services/Farewell
-            dockerfile: ./Dockerfile.Production
+            context: .
+            dockerfile: ./Services/Farewell/Dockerfile.Production
             args:
                 - NODE_ENV=production
         ports:
