@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using TicketStore.Api.Model.Pdf;
+using TicketStore.Api.Model.Pdf.Model.BarcodeConverters;
 using TicketStore.Data.Model;
 
 namespace TicketStore.Api.Controllers
@@ -20,16 +21,24 @@ namespace TicketStore.Api.Controllers
         private readonly ILogger<PdfController> _log;
         private readonly IWebHostEnvironment _environment;
         private readonly HttpClient _client;
-        private readonly IConverter _converter;
+        private readonly IConverter _pdfConverter;
+        private readonly Converter _barcodeConverter;
         private readonly Event _concert;
         private readonly List<Ticket> _tickets;
 
-        public PdfController(ILogger<PdfController> log, IHttpClientFactory clientFactory, IConverter pdfConverter, IWebHostEnvironment environment)
+        public PdfController(
+            ILogger<PdfController> log,
+            IHttpClientFactory clientFactory,
+            IConverter pdfConverter,
+            Converter barcodeConverter,
+            IWebHostEnvironment environment
+        )
         {
             _log = log;
             _environment = environment;
             _client = clientFactory.CreateClient();
-            _converter = pdfConverter;
+            _pdfConverter = pdfConverter;
+            _barcodeConverter = barcodeConverter;
             _tickets = new List<Ticket> 
             {
                 new Ticket
@@ -60,7 +69,7 @@ namespace TicketStore.Api.Controllers
             else
             {
                 _log.LogWarning("This is pdf preview");
-                var preview = new Preview(_client, _concert, _tickets);
+                var preview = new Preview(_client, _concert, _tickets, _barcodeConverter);
                 return new ContentResult
                 {
                     ContentType = "text/html",
@@ -79,7 +88,7 @@ namespace TicketStore.Api.Controllers
             else
             {
                 _log.LogWarning("This is pdf example");
-                var pdf = new Pdf(_concert, _tickets, _converter, _client);
+                var pdf = new Pdf(_concert, _tickets, _pdfConverter, _barcodeConverter, _client);
                 using (var output = new MemoryStream(pdf.ToBytes()))
                 {
                     return File(output.ToArray(), MediaTypeNames.Application.Pdf);

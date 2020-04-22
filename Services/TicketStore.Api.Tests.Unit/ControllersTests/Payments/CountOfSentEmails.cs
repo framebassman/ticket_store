@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using TicketStore.Api.Model;
+using TicketStore.Api.Tests.Unit.Stubs;
 using TicketStore.Data.Model;
 using Xunit;
 
@@ -9,7 +10,7 @@ namespace TicketStore.Api.Tests.Unit.ControllersTests.Payments
 {
     public class CountOfSentEmails : PaymentsControllerBaseTest
     {
-        public CountOfSentEmails() : base("count_of_sent")
+        public CountOfSentEmails() : base("count_of_emails")
         {
         }
         

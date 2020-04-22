@@ -1,11 +1,11 @@
 using System;
 using TicketStore.Api.Model.Pdf.Model.BarcodeConverters;
 
-namespace TicketStore.Api.Tests.Unit.ModelTests.TicketPreview.Model
+namespace TicketStore.Api.Tests.Unit.Stubs
 {
-    public class UnitTestConverter : Converter
+    public class DummyBarcodeConverter : Converter
     {
-        public UnitTestConverter() : base(null)
+        public DummyBarcodeConverter() : base(null)
         {
         }
         
