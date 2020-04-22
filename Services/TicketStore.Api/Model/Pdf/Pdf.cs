@@ -15,7 +15,7 @@ namespace TicketStore.Api.Model.Pdf
         public Pdf(Event concert, List<Ticket> tickets, IConverter converter, HttpClient client)
         {
             _converter = converter;
-            _preview = new Preview(client, concert);
+            _preview = new Preview(client, concert, tickets);
         }
 
         public byte[] ToBytes()

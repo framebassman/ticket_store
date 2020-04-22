@@ -60,7 +60,7 @@ namespace TicketStore.Api.Controllers
             else
             {
                 _log.LogWarning("This is pdf preview");
-                var preview = new Preview(_client, _concert);
+                var preview = new Preview(_client, _concert, _tickets);
                 return new ContentResult
                 {
                     ContentType = "text/html",
