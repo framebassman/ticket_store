@@ -17,12 +17,12 @@ namespace TicketStore.Api.Model.Pdf
         private readonly Event _concert;
         private readonly Converter _barcodeConverter;
 
-        public Preview(HttpClient client, Event concert, List<Ticket> tickets)
+        public Preview(HttpClient client, Event concert, List<Ticket> tickets, Converter barcodeConverter)
         {
             _concert = concert;
             _tickets = tickets;
             _culture = CultureInfo.CreateSpecificCulture("ru-RU");
-            _barcodeConverter = new Converter(client);
+            _barcodeConverter = barcodeConverter;
         }
 
         public String Layout()

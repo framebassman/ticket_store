@@ -3,29 +3,30 @@ using System.Collections.Generic;
 using System.Net.Http;
 using DinkToPdf;
 using DinkToPdf.Contracts;
+using TicketStore.Api.Model.Pdf.Model.BarcodeConverters;
 using TicketStore.Data.Model;
 
 namespace TicketStore.Api.Model.Pdf
 {
     public class Pdf
     {
-        private readonly IConverter _converter;
-        private readonly Preview _preview;
+        private readonly IConverter _pdfConverter;
+        protected readonly Preview Preview;
 
-        public Pdf(Event concert, List<Ticket> tickets, IConverter converter, HttpClient client)
+        public Pdf(Event concert, List<Ticket> tickets, IConverter pdfConverter, Converter barcodeConverter, HttpClient client)
         {
-            _converter = converter;
-            _preview = new Preview(client, concert, tickets);
+            _pdfConverter = pdfConverter;
+            Preview = new Preview(client, concert, tickets, barcodeConverter);
         }
 
         public byte[] ToBytes()
         {
-            return _converter.Convert(Template());
+            return _pdfConverter.Convert(Template());
         }
 
         public String ConcertTime()
         {
-            return _preview.ConcertTime();
+            return Preview.ConcertTime();
         }
 
         private HtmlToPdfDocument Template()
@@ -40,7 +41,7 @@ namespace TicketStore.Api.Model.Pdf
                 Objects = {
                     new ObjectSettings {
                         PagesCount = true,
-                        HtmlContent = _preview.Layout(),
+                        HtmlContent = Preview.Layout(),
                         WebSettings = { DefaultEncoding = "utf-8" },
                         HeaderSettings = { FontSize = 9, Right = "[page] страница из [toPage]", Line = true, Spacing = 2.812 }
                     }

@@ -10,6 +10,7 @@ using Microsoft.Extensions.Hosting;
 using TicketStore.Api.Middlewares;
 using TicketStore.Api.Model;
 using TicketStore.Api.Model.Email;
+using TicketStore.Api.Model.Pdf.Model.BarcodeConverters;
 using TicketStore.Api.Model.Poster;
 using TicketStore.Api.Model.Validation;
 using TicketStore.Data;
@@ -50,6 +51,7 @@ namespace TicketStore.Api
             services.AddHealthChecks();
             services.AddControllers();
             services.AddHttpClient();
+            services.AddTransient<Converter>();
             if (Environment.IsEnvironment("Test"))
             {
                 services.AddSingleton<EmailService, FakeSenderService>();
