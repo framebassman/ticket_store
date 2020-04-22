@@ -18,7 +18,7 @@ namespace TicketStore.Api.Tests.Unit.ModelTests.TicketPreview.Model
             IConverter pdfConverter,
             EmailService emailService,
             IHttpClientFactory clientFactory
-        ) : base(context, log, pdfConverter, new UnitTestConverter(), emailService, clientFactory)
+        ) : base(context, log, pdfConverter, new DummyBarcodeConverter(), emailService, clientFactory)
         {
         }
 

@@ -10,7 +10,7 @@ namespace TicketStore.Api.Tests.Unit.Stubs
     public class DummyPdf : Pdf
     {
         public DummyPdf(Event concert, List<Ticket> tickets, IConverter pdfConverter, HttpClient client)
-            : base(concert, tickets, pdfConverter, new UnitTestConverter(), client)
+            : base(concert, tickets, pdfConverter, new DummyBarcodeConverter(), client)
         {
         }
 

@@ -4,7 +4,7 @@ using DinkToPdf.EventDefinitions;
 
 namespace TicketStore.Api.Tests.Unit.Stubs
 {
-    public class DummyConverter : IConverter
+    public class DummyPdfConverter : IConverter
     {
         public byte[] Convert(IDocument document)
         {

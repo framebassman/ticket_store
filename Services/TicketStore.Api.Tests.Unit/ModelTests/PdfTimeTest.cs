@@ -27,7 +27,7 @@ namespace TicketStore.Api.Tests.Unit.ModelTests
             };
 
             // Act
-            var pdf = new Pdf(testEvent, new List<Ticket>{ticket}, new DummyConverter(), new UnitTestConverter(), new DummyHttpClient());
+            var pdf = new Pdf(testEvent, new List<Ticket>{ticket}, new DummyPdfConverter(), new DummyBarcodeConverter(), new DummyHttpClient());
 
             // Assert
             Assert.Equal("Суббота, 14 сентября 2019 г. 22:00", pdf.ConcertTime());
