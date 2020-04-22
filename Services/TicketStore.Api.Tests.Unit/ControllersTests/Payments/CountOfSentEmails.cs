@@ -1,31 +1,16 @@
 using System;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
-using TicketStore.Api.Controllers;
 using TicketStore.Api.Model;
-using TicketStore.Api.Tests.Unit.ModelTests.TicketPreview.Model;
-using TicketStore.Api.Tests.Unit.Stubs;
-using TicketStore.Api.Tests.Unit.Stubs.Http;
 using TicketStore.Data.Model;
 using Xunit;
 
 namespace TicketStore.Api.Tests.Unit.ControllersTests.Payments
 {
-    public class CountOfSentEmails : ControllersBaseTest<PaymentsController>
+    public class CountOfSentEmails : PaymentsControllerBaseTest
     {
-        private readonly PaymentsController _controller;
-        private readonly DummyEmailService _emailService;
-        
         public CountOfSentEmails() : base("count_of_sent")
         {
-            _emailService = new DummyEmailService();
-            _controller = new FakePaymentsController(
-                Db,
-                Logger,
-                new DummyConverter(),
-                _emailService,
-                new DummyHttpClientFactory()
-            );
         }
         
         [Fact]
@@ -38,7 +23,7 @@ namespace TicketStore.Api.Tests.Unit.ControllersTests.Payments
             String email = "test@test.test";
             
             // Act
-            var result = _controller.Post(
+            var result = Controller.Post(
                 false,
                 null,
                 null,
@@ -56,7 +41,7 @@ namespace TicketStore.Api.Tests.Unit.ControllersTests.Payments
 
             // Assert
             Assert.IsType<OkObjectResult>(result);
-            Assert.Single(_emailService.PdfList(email));
+            Assert.Single(EmailService.PdfList(email));
         }
     }
 }
