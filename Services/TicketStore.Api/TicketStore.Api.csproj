@@ -30,4 +30,9 @@
     <ProjectReference Include="..\TicketStore.Data\TicketStore.Data.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Include="Model\Pdf\Templates\*.*">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
 </Project>
