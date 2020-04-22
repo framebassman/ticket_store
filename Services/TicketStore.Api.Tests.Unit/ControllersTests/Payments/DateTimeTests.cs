@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Xunit;
 
@@ -43,8 +44,8 @@ namespace TicketStore.Api.Tests.Unit.ControllersTests.Payments
             // Assert
             Assert.IsType<OkObjectResult>(result);
             Assert.True(EmailService.IsExist("test@test.test"));
-            var pdf = EmailService.Pdf("test@test.test");
-            Assert.Equal("Пятница, 4 октября 2019 г. 19:00", pdf.ConcertTime());
+            var pdfs = EmailService.PdfList("test@test.test");
+            Assert.Equal("Пятница, 4 октября 2019 г. 19:00", pdfs.First().ConcertTime());
         }
     }
 }

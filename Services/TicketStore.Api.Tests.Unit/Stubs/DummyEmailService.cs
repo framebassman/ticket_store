@@ -7,23 +7,31 @@ namespace TicketStore.Api.Tests.Unit.Stubs
 {
     public class DummyEmailService : EmailService
     {
-        private readonly Dictionary<String, Pdf> _storage;
+        private readonly Dictionary<String, List<Pdf>> _storage;
 
         public DummyEmailService()
         {
-            _storage = new Dictionary<string, Pdf>();
+            _storage = new Dictionary<string, List<Pdf>>();
         }
         
         public override void SendTicket(String to, Pdf ticket)
         {
-            _storage.Add(to, ticket);
+            List<Pdf> items;
+            if (_storage.TryGetValue(to, out items))
+            {
+                items.Add(ticket);
+            }
+            else
+            {
+                _storage.Add(to, new List<Pdf> { ticket });
+            }
         }
 
         public override void Dispose()
         {
         }
 
-        public Pdf Pdf(String to)
+        public List<Pdf> PdfList(String to)
         {
             return _storage[to];
         }
