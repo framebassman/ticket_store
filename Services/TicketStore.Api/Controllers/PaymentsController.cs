@@ -8,6 +8,7 @@ using DinkToPdf.Contracts;
 using TicketStore.Api.Model;
 using TicketStore.Api.Model.Email;
 using TicketStore.Api.Model.Pdf;
+using TicketStore.Api.Model.Pdf.Model.BarcodeConverters;
 using TicketStore.Data;
 using TicketStore.Data.Model;
 
@@ -17,25 +18,28 @@ namespace TicketStore.Api.Controllers
     [ApiController]
     public class PaymentsController : ControllerBase
     {
-        private ApplicationContext _db;
-        private ILogger<PaymentsController> _log;
-        private EmailService _emailService;
-        private IConverter _converter;
-        private HttpClient _httpClient;
+        private readonly ApplicationContext _db;
+        private readonly ILogger<PaymentsController> _log;
+        protected readonly EmailService EmailService;
+        protected readonly IConverter PdfConverter;
+        protected readonly Converter BarcodeConverter;
+        protected readonly HttpClient HttpClient;
 
         public PaymentsController(
             ApplicationContext context,
             ILogger<PaymentsController> log,
             IConverter pdfConverter,
+            Converter barcodeConverter,
             EmailService emailService,
             IHttpClientFactory clientFactory
         )
         {
             _db = context;
             _log = log;
-            _emailService = emailService;
-            _converter = pdfConverter;
-            _httpClient = clientFactory.CreateClient();
+            EmailService = emailService;
+            PdfConverter = pdfConverter;
+            BarcodeConverter = barcodeConverter;
+            HttpClient = clientFactory.CreateClient();
         }
 
         // POST api/values
@@ -96,10 +100,15 @@ namespace TicketStore.Api.Controllers
             {
                 return new OkObjectResult("Payment is less than ticket cost");
             }
-            var pdf = new Pdf(concert, tickets, _converter, _httpClient);
-            _log.LogInformation("Combined PDF with barcodes");
-            _emailService.SendTicket(email, pdf);
+            SendTickets(concert, tickets, email);
             return new OkObjectResult("OK");
+        }
+
+        public virtual void SendTickets(Event concert, List<Ticket> tickets, String email)
+        {
+            var pdf = new Pdf(concert, tickets, PdfConverter, BarcodeConverter, HttpClient);
+            _log.LogInformation("Combined PDF with barcodes");
+            EmailService.SendTicket(email, pdf);
         }
 
         private String NormalizeEmail(String origin)

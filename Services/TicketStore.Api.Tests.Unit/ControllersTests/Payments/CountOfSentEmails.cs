@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using TicketStore.Api.Model;
+using TicketStore.Api.Tests.Unit.Stubs;
 using TicketStore.Data.Model;
 using Xunit;
 
@@ -42,6 +43,7 @@ namespace TicketStore.Api.Tests.Unit.ControllersTests.Payments
             // Assert
             Assert.IsType<OkObjectResult>(result);
             Assert.Single(EmailService.PdfList(email));
+            String some = ((DummyPdf) EmailService.PdfList(email).First()).GetPreview().Layout();
         }
     }
 }
