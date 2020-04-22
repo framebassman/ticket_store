@@ -10,7 +10,7 @@ namespace TicketStore.Api.Tests.Unit.ControllersTests.Payments
 {
     public class CountOfSentEmails : PaymentsControllerBaseTest
     {
-        public CountOfSentEmails() : base("count_of_sent")
+        public CountOfSentEmails() : base("count_of_emails")
         {
         }
         
@@ -43,7 +43,6 @@ namespace TicketStore.Api.Tests.Unit.ControllersTests.Payments
             // Assert
             Assert.IsType<OkObjectResult>(result);
             Assert.Single(EmailService.PdfList(email));
-            String some = ((DummyPdf) EmailService.PdfList(email).First()).GetPreview().Layout();
         }
     }
 }

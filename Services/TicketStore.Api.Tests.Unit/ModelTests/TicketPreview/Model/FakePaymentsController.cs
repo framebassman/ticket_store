@@ -4,6 +4,7 @@ using DinkToPdf.Contracts;
 using Microsoft.Extensions.Logging;
 using TicketStore.Api.Controllers;
 using TicketStore.Api.Model.Email;
+using TicketStore.Api.Model.Pdf.Model.BarcodeConverters;
 using TicketStore.Api.Tests.Unit.Stubs;
 using TicketStore.Data;
 using TicketStore.Data.Model;
@@ -16,9 +17,10 @@ namespace TicketStore.Api.Tests.Unit.ModelTests.TicketPreview.Model
             ApplicationContext context,
             ILogger<PaymentsController> log,
             IConverter pdfConverter,
+            Converter barcodeConverter,
             EmailService emailService,
             IHttpClientFactory clientFactory
-        ) : base(context, log, pdfConverter, new DummyBarcodeConverter(), emailService, clientFactory)
+        ) : base(context, log, pdfConverter, barcodeConverter, emailService, clientFactory)
         {
         }
 
