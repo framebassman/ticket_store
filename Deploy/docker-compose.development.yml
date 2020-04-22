@@ -1,48 +1,19 @@
 version: '3.6'
 
 services:
-    store_api:
+    store_farewell:
         build:
             context: .
-            dockerfile: ./Services/TicketStore.Api/Dockerfile.Development
-        depends_on:
-            - postgres
+            dockerfile: ./Services/Farewell/Dockerfile.Development
         ports:
-            - 3000:5000
+            - 4000:3000
+        labels:
+            - "traefik.port=3000"
         environment:
-            - ASPNETCORE_ENVIRONMENT=Development
-        volumes:
-            - ./Services/TicketStore.Api:/app
-            - ./Services/TicketStore.Data:/TicketStore.Data
-    store_web:
-        build:
-            context: .
-            dockerfile: ./Services/TicketStore.Web/Dockerfile.Development
-        ports:
-            - 4000:5000
-        environment:
-            - ASPNETCORE_ENVIRONMENT=Development
             - REACT_APP_ENVIRONMENT=Development
-        volumes:
-            - ./Services/TicketStore.Web:/app
-            - ./Services/TicketStore.Data:/TicketStore.Data
     store_proxy:
         build:
             context: .
             dockerfile: ./Services/Proxy/Dockerfile.Development
         logging:
             driver: none
-    postgres:
-        build:
-            context: .
-            dockerfile: ./Services/Postgres/Dockerfile
-        container_name: postgres
-        volumes:
-            - pgsdata:/var/lib/postgresql/data
-        ports:
-            - 5432:5432
-        logging:
-            driver: none
-
-volumes:
-    pgsdata:
