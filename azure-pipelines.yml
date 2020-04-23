@@ -78,7 +78,7 @@ stages:
       displayName: 'Install Dotnet Core'
       inputs:
         packageType: sdk
-        version: 3.0.100
+        version: 3.1.101
     - script: |
         dotnet test --logger "trx;LogFileName=report.trx"
       workingDirectory: $(build.sourcesDirectory)/Services/TicketStore.Api.Tests.Unit
@@ -106,7 +106,7 @@ stages:
       displayName: 'Install Dotnet Core'
       inputs:
         packageType: sdk
-        version: 3.0.100
+        version: 3.1.101
     - script: |
         dotnet test --logger "trx;LogFileName=report.trx"
       workingDirectory: $(build.sourcesDirectory)/Services/TicketStore.Web.Tests.Unit
