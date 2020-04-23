@@ -75,7 +75,7 @@ namespace TicketStore.Web.Tests.Unit.ModelTests.EventsFinderTests
             var result = _finder.Find();
             
             // Assert
-            Assert.Equal(1, result.Count);
+            Assert.Single(result);
             Assert.Equal(_newDate, result.First().Time);
         }
 

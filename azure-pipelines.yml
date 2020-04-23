@@ -78,9 +78,9 @@ stages:
       displayName: 'Install Dotnet Core'
       inputs:
         packageType: sdk
-        version: 3.0.100
+        version: 3.1.101
     - script: |
-        dotnet test --logger "trx;LogFileName=report.trx"
+        dotnet test --logger "trx;LogFileName=report.trx" --collect:"XPlat Code Coverage"
       workingDirectory: $(build.sourcesDirectory)/Services/TicketStore.Api.Tests.Unit
       displayName: 'dotnet test'
       env:
@@ -96,6 +96,14 @@ stages:
         testResultsFormat: 'JUnit' # Options: JUnit, NUnit, VSTest, xUnit, cTest
         testResultsFiles: 'TestResults/report.xml' 
         searchFolder: '$(build.sourcesDirectory)/Services/TicketStore.Api.Tests.Unit' # Optional
+    - task: PublishCodeCoverageResults@1
+      inputs:
+        codeCoverageTool: 'cobertura' # Options: cobertura, jaCoCo
+        summaryFileLocation: $(build.sourcesDirectory)/Services/TicketStore.Api.Tests.Unit/TestResults/**/coverage.cobertura.xml
+        #pathToSources: # Optional
+        #reportDirectory: # Optional
+        #additionalCodeCoverageFiles: # Optional
+        #failIfCoverageEmpty: false # Optional
 
   - job: Web
     pool:
@@ -106,9 +114,9 @@ stages:
       displayName: 'Install Dotnet Core'
       inputs:
         packageType: sdk
-        version: 3.0.100
+        version: 3.1.101
     - script: |
-        dotnet test --logger "trx;LogFileName=report.trx"
+        dotnet test --logger "trx;LogFileName=report.trx" --collect:"XPlat Code Coverage"
       workingDirectory: $(build.sourcesDirectory)/Services/TicketStore.Web.Tests.Unit
       displayName: 'dotnet test'
       env:
@@ -130,3 +138,11 @@ stages:
         #buildPlatform: # Optional
         #buildConfiguration: # Optional
         #publishRunAttachments: true # Optional
+    - task: PublishCodeCoverageResults@1
+      inputs:
+        codeCoverageTool: 'cobertura' # Options: cobertura, jaCoCo
+        summaryFileLocation: $(build.sourcesDirectory)/Services/TicketStore.Web.Tests.Unit/TestResults/**/coverage.cobertura.xml
+        #pathToSources: # Optional
+        #reportDirectory: # Optional
+        #additionalCodeCoverageFiles: # Optional
+        #failIfCoverageEmpty: false # Optional
