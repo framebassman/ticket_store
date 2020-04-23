@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/core/sdk:3.0.100-alpine3.9 AS build-env
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1.101-alpine3.9 AS build-env
 COPY ./Services/TicketStore.Api/ /app
 COPY ./Services/TicketStore.Data/ /TicketStore.Data
 WORKDIR /app

@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/core/sdk:3.0.100-alpine3.9 AS build-env
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1.101-alpine3.9 AS build-env
 
 RUN apk add --update 'nodejs=10.14.2-r0' 'npm=10.14.2-r0'
 
