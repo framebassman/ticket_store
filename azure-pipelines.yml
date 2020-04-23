@@ -100,7 +100,7 @@ stages:
       displayName: 'publish code coverage report'
       inputs:
         targetType: 'inline'
-        script: bash <(curl -s https://codecov.io/bash) -y token $(build.sourcesDirectory)/.ci/codecov.yml
+        script: bash <(curl -s https://codecov.io/bash) -y $(build.sourcesDirectory)/.ci/codecov.yml
 
   - job: Web
     pool:
@@ -139,4 +139,4 @@ stages:
       displayName: 'publish code coverage report'
       inputs:
         targetType: 'inline'
-        script: bash <(curl -s https://codecov.io/bash) -y token $(build.sourcesDirectory)/.ci/codecov.yml
+        script: bash <(curl -s https://codecov.io/bash) -y $(build.sourcesDirectory)/.ci/codecov.yml
