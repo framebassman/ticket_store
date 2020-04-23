@@ -10,6 +10,7 @@ coverage:
     project:
       default:
         target: 30%
+        threshold: 10%
         paths:
           - "Services/TicketStore.Api"
           - "Services/TicketStore.Web"
