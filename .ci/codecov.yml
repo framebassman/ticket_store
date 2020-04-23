@@ -5,7 +5,15 @@ codecov:
 coverage:
   precision: 2
   round: down
-  range: "30...100"
+  range: "70...100"
+  status:
+    project:
+      default:
+        target: 30%
+        paths:
+          - "Services/TicketStore.Api"
+          - "Services/TicketStore.Web"
+          - "Services/TicketStore.Data"
 
 parsers:
   gcov:
