@@ -21,6 +21,26 @@ coverage:
         paths:
           - "Services/TicketStore.Web"
 
+ignore:
+  - ".ci"  # ignore folders and all its contents
+  - ".circleci"  # ignore folders and all its contents
+  - ".github"  # ignore folders and all its contents
+  - ".semaphore"  # ignore folders and all its contents
+  - ".vscode"  # ignore folders and all its contents
+  - "Deploy"  # ignore folders and all its contents
+  - "Docs"  # ignore folders and all its contents
+  - "Scripts"  # ignore folders and all its contents
+  - ".gitignore"  # ignore folders and all its contents
+  - ".azure-pipelines.yml"  # ignore folders and all its contents
+  - "Makefile"  # ignore folders and all its contents
+  - "README.md"  # ignore folders and all its contents
+  - "Services/FakeYandexStorage"       # wildcards accepted
+  - "Services/Postgres"       # wildcards accepted
+  - "Services/Proxy"       # wildcards accepted
+  - "**/*.json"         # glob accepted
+  - "**/*.csproj"         # glob accepted
+  - "**/Dockerfile*"         # glob accepted
+
 parsers:
   gcov:
     branch_detection:
