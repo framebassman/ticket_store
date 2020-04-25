@@ -1,11 +1,14 @@
 using System;
+using System.Linq;
 using Moq;
 using TicketStore.Api.Model;
+using TicketStore.Api.Model.Pdf.Model;
 using TicketStore.Api.Model.Validation;
 using TicketStore.Api.Model.Validation.Exceptions;
 using TicketStore.Api.Tests.Unit.BaseTest;
 using TicketStore.Api.Tests.Unit.Model;
 using Xunit;
+using Ticket = TicketStore.Data.Model.Ticket;
 
 namespace TicketStore.Api.Tests.Unit.ModelTests
 {
@@ -103,7 +106,7 @@ namespace TicketStore.Api.Tests.Unit.ModelTests
         }
 
         [Fact(Skip="disable for demo")]
-        public void BarcodeVerificationMethod__TooEarlyForConcert()
+        public void BarcodeVerificationMethod_TooEarlyForConcert()
         {
             var now = _dbTime.AddHours(-15);
             SetupFinder(now);
@@ -112,6 +115,23 @@ namespace TicketStore.Api.Tests.Unit.ModelTests
             var ex = Assert.Throws<TooEarly>(() => Finder.Find(turnstileScan));
 
             Assert.Equal("Method: Barcode. Too early for concert, it will happen in 15 hours", ex.Message);
+        }
+
+        [Fact]
+        public void BarcodeVerificationMethod_MoreThanOneConcert()
+        {
+            // Arrange
+            Ticket secondSame = Db.Tickets.First(t => t.Number == "5555566666");
+            secondSame.Id = 0;
+            Db.Tickets.Add(secondSame);
+            Db.SaveChanges();
+            var turnstileScan = new BarcodeTurnstileScan("5555566666");
+
+            // Act
+            var ex = Assert.Throws<MultipleTicketsFound>(() => Finder.Find(turnstileScan));
+
+            // Assert
+            Assert.Equal("Method: Barcode. Multiple tickets found: 2 tickets", ex.Message);
         }
 
         protected void SetupFinder(DateTime date)

@@ -37,6 +37,7 @@ namespace TicketStore.Api.Tests.Unit.MiddlewaresTests
             {
                 var response = await reader.ReadToEndAsync();
                 Assert.Equal((int) HttpStatusCode.Unauthorized, context.Response.StatusCode);
+                Assert.Equal("application/json", context.Response.ContentType);
                 Assert.Equal("{\"message\":\"unauthorized\"}", response);
             }
         }
