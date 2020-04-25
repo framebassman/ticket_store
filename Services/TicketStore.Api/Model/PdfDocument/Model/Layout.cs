@@ -1,7 +1,6 @@
-using System;
 using System.IO;
 
-namespace TicketStore.Api.Model.Pdf.Model
+namespace TicketStore.Api.Model.PdfDocument.Model
 {
     public class Layout : TemplateModel
     {
@@ -14,7 +13,7 @@ namespace TicketStore.Api.Model.Pdf.Model
 
         protected override string PathToTemplate()
         {
-            return Path.Combine("Model", "Pdf", "Templates", "Layout.html");
+            return Path.Combine("Model", "PdfDocument", "Templates", "Layout.html");
         }
         
         public override string ToHtml()

@@ -1,4 +1,4 @@
-using TicketStore.Api.Model.Pdf.Model;
+using TicketStore.Api.Model.PdfDocument.Model;
 using TicketStore.Api.Tests.Unit.ModelTests.TicketPreview.Model;
 using Xunit;
 

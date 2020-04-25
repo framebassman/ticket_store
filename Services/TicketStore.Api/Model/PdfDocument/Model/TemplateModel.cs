@@ -1,7 +1,7 @@
 using System;
 using System.IO;
 
-namespace TicketStore.Api.Model.Pdf.Model
+namespace TicketStore.Api.Model.PdfDocument.Model
 {
     public abstract class TemplateModel
     {

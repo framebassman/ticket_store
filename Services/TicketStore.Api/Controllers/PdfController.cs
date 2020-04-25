@@ -8,8 +8,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using TicketStore.Api.Model.Pdf;
-using TicketStore.Api.Model.Pdf.Model.BarcodeConverters;
+using TicketStore.Api.Model.PdfDocument;
+using TicketStore.Api.Model.PdfDocument.Model.BarcodeConverters;
 using TicketStore.Data.Model;
 
 namespace TicketStore.Api.Controllers

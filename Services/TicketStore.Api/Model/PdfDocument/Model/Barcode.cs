@@ -1,8 +1,8 @@
 using System;
 using System.IO;
-using TicketStore.Api.Model.Pdf.Model.BarcodeConverters;
+using TicketStore.Api.Model.PdfDocument.Model.BarcodeConverters;
 
-namespace TicketStore.Api.Model.Pdf.Model
+namespace TicketStore.Api.Model.PdfDocument.Model
 {
     public class Barcode : TemplateModel
     {
@@ -17,7 +17,7 @@ namespace TicketStore.Api.Model.Pdf.Model
         
         protected override string PathToTemplate()
         {
-            return Path.Combine("Model", "Pdf", "Templates", "Barcode.html");
+            return Path.Combine("Model", "PdfDocument", "Templates", "Barcode.html");
         }
 
         public override string ToHtml()

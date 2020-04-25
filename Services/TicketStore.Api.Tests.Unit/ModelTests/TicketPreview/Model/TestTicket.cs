@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using TicketStore.Api.Model.Pdf.Model;
+using TicketStore.Api.Model.PdfDocument.Model;
 
 namespace TicketStore.Api.Tests.Unit.ModelTests.TicketPreview.Model
 {

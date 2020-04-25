@@ -96,14 +96,11 @@ stages:
         testResultsFormat: 'JUnit' # Options: JUnit, NUnit, VSTest, xUnit, cTest
         testResultsFiles: 'TestResults/report.xml' 
         searchFolder: '$(build.sourcesDirectory)/Services/TicketStore.Api.Tests.Unit' # Optional
-    - task: PublishCodeCoverageResults@1
+    - task: Bash@3
+      displayName: 'publish code coverage report'
       inputs:
-        codeCoverageTool: 'cobertura' # Options: cobertura, jaCoCo
-        summaryFileLocation: $(build.sourcesDirectory)/Services/TicketStore.Api.Tests.Unit/TestResults/**/coverage.cobertura.xml
-        #pathToSources: # Optional
-        #reportDirectory: # Optional
-        #additionalCodeCoverageFiles: # Optional
-        #failIfCoverageEmpty: false # Optional
+        targetType: 'inline'
+        script: bash <(curl -s https://codecov.io/bash) -y $(build.sourcesDirectory)/.ci/codecov.yml
 
   - job: Web
     pool:
@@ -138,11 +135,8 @@ stages:
         #buildPlatform: # Optional
         #buildConfiguration: # Optional
         #publishRunAttachments: true # Optional
-    - task: PublishCodeCoverageResults@1
+    - task: Bash@3
+      displayName: 'publish code coverage report'
       inputs:
-        codeCoverageTool: 'cobertura' # Options: cobertura, jaCoCo
-        summaryFileLocation: $(build.sourcesDirectory)/Services/TicketStore.Web.Tests.Unit/TestResults/**/coverage.cobertura.xml
-        #pathToSources: # Optional
-        #reportDirectory: # Optional
-        #additionalCodeCoverageFiles: # Optional
-        #failIfCoverageEmpty: false # Optional
+        targetType: 'inline'
+        script: bash <(curl -s https://codecov.io/bash) -y $(build.sourcesDirectory)/.ci/codecov.yml

@@ -4,7 +4,7 @@ using DinkToPdf.Contracts;
 using Microsoft.Extensions.Logging;
 using TicketStore.Api.Controllers;
 using TicketStore.Api.Model.Email;
-using TicketStore.Api.Model.Pdf.Model.BarcodeConverters;
+using TicketStore.Api.Model.PdfDocument.Model.BarcodeConverters;
 using TicketStore.Api.Tests.Unit.Stubs;
 using TicketStore.Data;
 using TicketStore.Data.Model;
@@ -28,7 +28,7 @@ namespace TicketStore.Api.Tests.Unit.ModelTests.TicketPreview.Model
         {
             EmailService.SendTicket(
                 email,
-                new DummyPdf(concert, tickets, PdfConverter, HttpClient)
+                new DummyPdf(concert, tickets, PdfConverter, BarcodeConverter, HttpClient)
             );
         }
     }

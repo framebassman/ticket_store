@@ -1,5 +1,5 @@
-using TicketStore.Api.Model.Pdf.Model;
-using TicketStore.Api.Model.Pdf.Model.BarcodeConverters;
+using TicketStore.Api.Model.PdfDocument.Model;
+using TicketStore.Api.Model.PdfDocument.Model.BarcodeConverters;
 using TicketStore.Api.Tests.Unit.ModelTests.TicketPreview.Model;
 using TicketStore.Api.Tests.Unit.Stubs;
 using Xunit;

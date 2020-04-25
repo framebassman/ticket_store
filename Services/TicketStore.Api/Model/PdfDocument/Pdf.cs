@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Net.Http;
 using DinkToPdf;
 using DinkToPdf.Contracts;
-using TicketStore.Api.Model.Pdf.Model.BarcodeConverters;
+using TicketStore.Api.Model.PdfDocument.Model.BarcodeConverters;
 using TicketStore.Data.Model;
 
-namespace TicketStore.Api.Model.Pdf
+namespace TicketStore.Api.Model.PdfDocument
 {
     public class Pdf
     {

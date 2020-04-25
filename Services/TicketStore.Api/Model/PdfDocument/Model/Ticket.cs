@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 
-namespace TicketStore.Api.Model.Pdf.Model
+namespace TicketStore.Api.Model.PdfDocument.Model
 {
     public class Ticket : TemplateModel
     {
@@ -40,7 +40,7 @@ namespace TicketStore.Api.Model.Pdf.Model
 
         protected override string PathToTemplate()
         {
-            return Path.Combine("Model", "Pdf", "Templates", "Ticket.html");
+            return Path.Combine("Model", "PdfDocument", "Templates", "Ticket.html");
         }
     }
 }

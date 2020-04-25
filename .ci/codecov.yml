@@ -1,0 +1,55 @@
+codecov:
+  token: a1816d82-dc38-4cde-addd-c2883f9df596
+  require_ci_to_pass: yes
+
+coverage:
+  precision: 2
+  round: down
+  range: "30...70"
+  status:
+    project:
+      default: false
+      api:
+        target: 30%
+        threshold: 10%
+        paths:
+          - "Services/TicketStore.Api"
+          - "Services/TicketStore.Data"
+      web:
+        target: 30%
+        threshold: 10%
+        paths:
+          - "Services/TicketStore.Web"
+
+ignore:
+  - ".ci"  # ignore folders and all its contents
+  - ".circleci"  # ignore folders and all its contents
+  - ".github"  # ignore folders and all its contents
+  - ".semaphore"  # ignore folders and all its contents
+  - ".vscode"  # ignore folders and all its contents
+  - "Deploy"  # ignore folders and all its contents
+  - "Docs"  # ignore folders and all its contents
+  - "Scripts"  # ignore folders and all its contents
+  - ".gitignore"  # ignore folders and all its contents
+  - ".azure-pipelines.yml"  # ignore folders and all its contents
+  - "Makefile"  # ignore folders and all its contents
+  - "README.md"  # ignore folders and all its contents
+  - "Services/FakeYandexStorage"       # wildcards accepted
+  - "Services/Postgres"       # wildcards accepted
+  - "Services/Proxy"       # wildcards accepted
+  - "**/*.json"         # glob accepted
+  - "**/*.csproj"         # glob accepted
+  - "**/Dockerfile*"         # glob accepted
+
+parsers:
+  gcov:
+    branch_detection:
+      conditional: yes
+      loop: yes
+      method: no
+      macro: no
+
+comment:
+  layout: "reach,diff,flags,tree"
+  behavior: default
+  require_changes: no
