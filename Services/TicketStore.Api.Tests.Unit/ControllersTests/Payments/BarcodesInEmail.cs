@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using TicketStore.Api.Model.Pdf;
+using TicketStore.Api.Model.PdfDocument;
 using TicketStore.Api.Tests.Unit.Matchers;
 using TicketStore.Api.Tests.Unit.Stubs;
 using TicketStore.Data.Model;

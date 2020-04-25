@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Net.Http;
 using System.Text;
-using TicketStore.Api.Model.Pdf.Model;
-using TicketStore.Api.Model.Pdf.Model.BarcodeConverters;
+using TicketStore.Api.Model.PdfDocument.Model;
+using TicketStore.Api.Model.PdfDocument.Model.BarcodeConverters;
 using TicketStore.Data.Model;
 using Ticket = TicketStore.Data.Model.Ticket;
 
-namespace TicketStore.Api.Model.Pdf
+namespace TicketStore.Api.Model.PdfDocument
 {
     public class Preview
     {
@@ -33,7 +33,7 @@ namespace TicketStore.Api.Model.Pdf
                 barcodes.Add(new Barcode(ticket.Number, _barcodeConverter));
             }
             return new Layout(
-                new TicketStore.Api.Model.Pdf.Model.Ticket(
+                new Model.Ticket(
                     barcodes,
                     _concert.Artist,
                     ConcertTime(),

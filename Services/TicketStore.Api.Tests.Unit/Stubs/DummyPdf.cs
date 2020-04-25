@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Net.Http;
 using DinkToPdf.Contracts;
-using TicketStore.Api.Model.Pdf;
+using TicketStore.Api.Model.PdfDocument;
 using TicketStore.Api.Tests.Unit.ModelTests.TicketPreview.Model;
 using TicketStore.Data.Model;
 

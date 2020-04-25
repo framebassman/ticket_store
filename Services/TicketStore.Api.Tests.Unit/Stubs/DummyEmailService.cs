@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using TicketStore.Api.Model.Email;
-using TicketStore.Api.Model.Pdf;
+using TicketStore.Api.Model.PdfDocument;
 
 namespace TicketStore.Api.Tests.Unit.Stubs
 {

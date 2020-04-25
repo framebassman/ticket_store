@@ -7,8 +7,8 @@ using Microsoft.Extensions.Logging;
 using DinkToPdf.Contracts;
 using TicketStore.Api.Model;
 using TicketStore.Api.Model.Email;
-using TicketStore.Api.Model.Pdf;
-using TicketStore.Api.Model.Pdf.Model.BarcodeConverters;
+using TicketStore.Api.Model.PdfDocument;
+using TicketStore.Api.Model.PdfDocument.Model.BarcodeConverters;
 using TicketStore.Data;
 using TicketStore.Data.Model;
 

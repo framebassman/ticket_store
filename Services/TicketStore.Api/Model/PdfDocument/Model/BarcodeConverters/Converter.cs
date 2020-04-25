@@ -4,7 +4,7 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Net.Http;
 
-namespace TicketStore.Api.Model.Pdf.Model.BarcodeConverters
+namespace TicketStore.Api.Model.PdfDocument.Model.BarcodeConverters
 {
     public class Converter
     {

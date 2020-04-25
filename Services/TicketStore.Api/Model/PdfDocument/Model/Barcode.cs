@@ -1,8 +1,8 @@
 using System;
 using System.IO;
-using TicketStore.Api.Model.Pdf.Model.BarcodeConverters;
+using TicketStore.Api.Model.PdfDocument.Model.BarcodeConverters;
 
-namespace TicketStore.Api.Model.Pdf.Model
+namespace TicketStore.Api.Model.PdfDocument.Model
 {
     public class Barcode : TemplateModel
     {

@@ -2,7 +2,6 @@ using System;
 using System.Linq;
 using Moq;
 using TicketStore.Api.Model;
-using TicketStore.Api.Model.Pdf.Model;
 using TicketStore.Api.Model.Validation;
 using TicketStore.Api.Model.Validation.Exceptions;
 using TicketStore.Api.Tests.Unit.BaseTest;

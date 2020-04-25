@@ -1,5 +1,5 @@
 using System;
-using TicketStore.Api.Model.Pdf.Model.BarcodeConverters;
+using TicketStore.Api.Model.PdfDocument.Model.BarcodeConverters;
 
 namespace TicketStore.Api.Tests.Unit.Stubs
 {

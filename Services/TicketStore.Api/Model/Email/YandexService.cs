@@ -20,7 +20,7 @@ namespace TicketStore.Api.Model.Email
             _smtpPassword = conf.GetValue<String>("EmailSenderPassword");
         }
 
-        public override void SendTicket(String to, Pdf.Pdf ticket)
+        public override void SendTicket(String to, PdfDocument.Pdf ticket)
         {
             var builder = new BodyBuilder
             {

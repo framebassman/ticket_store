@@ -38,7 +38,7 @@ namespace TicketStore.Api.Model.Email
             };
         }
 
-        public override void SendTicket(String to, Pdf.Pdf ticket)
+        public override void SendTicket(String to, PdfDocument.Pdf ticket)
         {
             _log.LogInformation("[FakeSender] Sending ticket to {0}", to);
             IEnumerable<FakeEmail> emails = new List<FakeEmail>
