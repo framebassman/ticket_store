@@ -28,7 +28,7 @@ namespace TicketStore.Api.Tests.Unit.ModelTests.TicketPreview.Model
         {
             EmailService.SendTicket(
                 email,
-                new DummyPdf(concert, tickets, PdfConverter, HttpClient)
+                new DummyPdf(concert, tickets, PdfConverter, BarcodeConverter, HttpClient)
             );
         }
     }

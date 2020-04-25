@@ -40,7 +40,7 @@ namespace TicketStore.Api.Model.PdfDocument.Model
 
         protected override string PathToTemplate()
         {
-            return Path.Combine("Model", "Pdf", "Templates", "Ticket.html");
+            return Path.Combine("Model", "PdfDocument", "Templates", "Ticket.html");
         }
     }
 }
