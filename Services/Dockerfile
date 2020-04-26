@@ -1,7 +1,6 @@
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1.201-alpine3.11 AS build-env
 
 ARG REACT_APP_ENVIRONMENT=Production
-ARG ASPNETCORE_ENVIRONMENT=Staging 
 
 RUN apk add --update 'nodejs=12.15.0-r1' 'npm=12.15.0-r1'
 
@@ -13,7 +12,6 @@ RUN echo REACT_APP_ENVIRONMENT=$REACT_APP_ENVIRONMENT > .env && cat .env
 
 WORKDIR /app
 RUN dotnet restore
-RUN dotnet-ef database update --project /TicketStore.Data/TicketStore.Data.csproj --verbose
 RUN dotnet publish -c Release -o out
 
 

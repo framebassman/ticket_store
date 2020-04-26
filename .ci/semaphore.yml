@@ -21,4 +21,3 @@ blocks:
         - name: Run some code
           commands:
             - node -p '"evol".split("").reverse().join("")'
-
