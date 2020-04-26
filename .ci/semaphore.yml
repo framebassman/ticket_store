@@ -1,4 +1,4 @@
-# .semaphore/semaphore.yml
+# .ci/semaphore.yml
 version: v1.0
 name: JavaScript example
 agent:
@@ -11,10 +11,12 @@ blocks:
       prologue:
         commands:
           - sem-version node 10.13.0
+          - curl https://cli-assets.heroku.com/install.sh | sh
       jobs:
         - name: Tests
           commands:
             - node --version
+            - heroku --version
   - name: Hello world
     task:
       jobs:
