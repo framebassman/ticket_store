@@ -1,25 +1,19 @@
 # .ci/semaphore.yml
 version: v1.0
-name: JavaScript example
+name: Deployment to staging pipeline
 agent:
   machine:
     type: e1-standard-2
     os_image: ubuntu1804
 blocks:
-  - name: Tests
+  - name: Deploy to staging on heroku
     task:
-      prologue:
-        commands:
-          - sem-version node 10.13.0
-          - curl https://cli-assets.heroku.com/install.sh | sh
+      secrets:
+        - name: Heroku
       jobs:
-        - name: Tests
+        - name: Install heroku
           commands:
-            - node --version
+            - curl https://cli-assets.heroku.com/install.sh | sh
             - heroku --version
-  - name: Hello world
-    task:
-      jobs:
-        - name: Run some code
-          commands:
-            - node -p '"evol".split("").reverse().join("")'
+            - heroku login
+
