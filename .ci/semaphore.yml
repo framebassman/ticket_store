@@ -12,7 +12,7 @@ blocks:
         - name: Heroku
       env_vars:
         - name: HEROKU_DEBUG
-          value: 1
+          value: "1"
       jobs:
         - name: Install heroku
           commands:
