@@ -10,13 +10,12 @@ blocks:
     task:
       secrets:
         - name: Heroku
-      env_vars:
-        - name: HEROKU_DEBUG
-          value: "1"
       jobs:
-        - name: Install heroku
+        - name: Build and deploy
           commands:
             - curl https://cli-assets.heroku.com/install.sh | sh
             - heroku --version
-            - heroku login
-
+            - cd Services
+            - heroku container:login
+            - heroku container:push web --app staging-chertopolokh
+            - heroku container:push release --app staging-chertopolokh
