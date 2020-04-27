@@ -15,6 +15,7 @@ blocks:
           commands:
             - curl https://cli-assets.heroku.com/install.sh | sh
             - heroku --version
+            - checkout
             - cd Services
             - heroku container:login
             - heroku container:push web --app staging-chertopolokh
