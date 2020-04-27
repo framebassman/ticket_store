@@ -6,6 +6,7 @@ trigger:
     exclude:
     - .circleci/**
     - .github/**
+    - .ci/**
     - Deploy/**
     - Docs/**
     - Scripts/**
@@ -22,6 +23,7 @@ pr:
     exclude:
     - .circleci/**
     - .github/**
+    - .ci/**
     - Deploy/**
     - Docs/**
     - Scripts/**
