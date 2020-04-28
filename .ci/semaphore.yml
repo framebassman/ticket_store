@@ -10,7 +10,7 @@ blocks:
     task:
       secrets:
         - name: Heroku
-        - name: Deploy_Keys
+        - name: private-repo
       jobs:
         - name: Build and deploy
           commands:
