@@ -18,7 +18,7 @@ blocks:
             - curl https://cli-assets.heroku.com/install.sh | sh
             - heroku --version
               # Setup ssh
-            - chmod 600 ~/.ssh/
+            - chmod 0600 ~/.ssh/*
             # - ssh-add ~/.ssh/*
             - checkout
             - cd Services
