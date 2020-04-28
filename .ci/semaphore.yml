@@ -19,9 +19,8 @@ blocks:
             - heroku --version
               # Setup ssh
             - chmod 0600 ~/.ssh/*
-            # - ssh-add ~/.ssh/*
             - checkout
             - cd Services
             - heroku container:login
             - heroku container:push web --app staging-chertopolokh
-            - heroku container:push release --app staging-chertopolokh
+            - heroku container:release web --app staging-chertopolokh
