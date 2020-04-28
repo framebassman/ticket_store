@@ -19,7 +19,7 @@ blocks:
             - heroku --version
               # Setup ssh
             - chmod 600 ~/.ssh/
-            - ssh-add ~/.ssh/*
+            # - ssh-add ~/.ssh/*
             - checkout
             - cd Services
             - heroku container:login
