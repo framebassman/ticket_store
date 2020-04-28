@@ -19,6 +19,7 @@ blocks:
             - heroku --version
               # Setup ssh
             - chmod 600 ~/.ssh/
+            - ls -la ~/.ssh
             - ssh-add ~/.ssh/*
             - checkout
             - cd Services
