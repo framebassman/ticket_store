@@ -19,10 +19,10 @@ namespace TicketStore.Data
 
         public String ConnectionString()
         {
-            return BuildConfiguration()
-                .GetConnectionString("DefaultConnection")
-                .Replace("$DOCKER_HOST", _host.Value())
-                .Replace("$DATABASE_URL", Environment.GetEnvironmentVariable("DATABASE_URL"));
+            return new ConnectionString(
+                BuildConfiguration().GetConnectionString("DefaultConnection"),
+                _host
+            ).Value();
         }
         
         private IConfiguration BuildConfiguration()
