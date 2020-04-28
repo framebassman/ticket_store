@@ -16,6 +16,8 @@ blocks:
           value: "1"
         - name: DOTNET_CLI_TELEMETRY_OPTOUT
           value: "1"
+        - name: ASPNETCORE_ENVIRONMENT
+          value: "Staging"
       jobs:
         - name: Build and deploy
           commands:
@@ -36,3 +38,8 @@ blocks:
             - heroku container:login
             - heroku container:push web --app staging-chertopolokh
             - heroku container:release web --app staging-chertopolokh
+              # Migrate staging database
+            - cd ..
+            - export DATABASE_URL=$(heroku config:get DATABASE_URL --app staging-chertopolokh)
+            - dotnet tool install --global dotnet-ef --version 3.1.101
+            - ~/.dotnet/tools/dotnet-ef database update --project Services/TicketStore.Data/TicketStore.Data.csproj --verbose
