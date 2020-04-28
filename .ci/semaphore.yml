@@ -41,5 +41,5 @@ blocks:
               # Migrate staging database
             - cd ..
             - export DATABASE_URL=$(heroku config:get DATABASE_URL --app staging-chertopolokh)
-            - dotnet tool install --global dotnet-ef --version 3.1.101
+            - dotnet tool install --global dotnet-ef --version 3.1.3
             - ~/.dotnet/tools/dotnet-ef database update --project Services/TicketStore.Data/TicketStore.Data.csproj --verbose
