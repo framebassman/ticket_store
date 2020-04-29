@@ -6,7 +6,7 @@ namespace TicketStore.Data
     {
         public String Value()
         {
-            var variable = Environment.GetEnvironmentVariable("DOCKER_HOST");
+            var variable = Environment.GetEnvironmentVariable("DOCKER_HOST", EnvironmentVariableTarget.Process);
             if (String.IsNullOrEmpty(variable))
             {
                 return "localhost";
