@@ -1,41 +1,40 @@
 using System;
 using System.IO;
+using System.Reflection;
 using Microsoft.Extensions.Configuration;
 
 namespace TicketStore.Data
 {
     public class ApplicationSettings
     {
-        private readonly String _environmentName;
-        private readonly Host _host;
-        
+        private readonly string _environmentName;
+
         public ApplicationSettings()
         {
-            _environmentName = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT",
+            _environmentName = Environment.GetEnvironmentVariable(
+                                   "ASPNETCORE_ENVIRONMENT",
                                    EnvironmentVariableTarget.Process)
                                ?? "Development";
-            _host = new Host();
         }
 
-        public String ConnectionString()
+        public string ConnectionString()
         {
             return new ConnectionString(
-                BuildConfiguration().GetConnectionString("DefaultConnection"),
-                _host
+                BuildConfiguration().GetConnectionString("DefaultConnection")
             ).Value();
         }
-        
+
         private IConfiguration BuildConfiguration()
         {
             return new ConfigurationBuilder()
                 .SetBasePath(CalculateBasePath())
-                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-                .AddJsonFile($"appsettings.{_environmentName}.json", optional: true)
+                .AddJsonFile("appsettings.json", true, true)
+                .AddJsonFile($"appsettings.{_environmentName}.json", true)
                 .AddEnvironmentVariables()
                 .Build();
         }
 
-        private String CalculateBasePath()
+        private string CalculateBasePath()
         {
             var dirname = Path.Combine(AbsolutePathOfProject(), "DbConfigs");
             var info = new DirectoryInfo(dirname);
@@ -44,14 +43,15 @@ namespace TicketStore.Data
                 Console.WriteLine("There is no directory via address {0}", info.FullName);
                 throw new FileNotFoundException("There is no file via address {0}", info.FullName);
             }
+
             return info.FullName;
         }
 
-        private String AbsolutePathOfProject()
+        private string AbsolutePathOfProject()
         {
             var prefix = "file:";
-            var pathWithPrefix = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase);
-            return pathWithPrefix.TrimStart(prefix.ToCharArray());            
+            var pathWithPrefix = Path.GetDirectoryName(Assembly.GetExecutingAssembly().GetName().CodeBase);
+            return pathWithPrefix.TrimStart(prefix.ToCharArray());
         }
     }
 }

@@ -9,10 +9,10 @@ namespace TicketStore.Data
         private readonly String _origin;
         private readonly Host _host;
 
-        public ConnectionString(String origin, Host host)
+        public ConnectionString(String origin)
         {
             _origin = origin;
-            _host = host;
+            _host = new Host();
         }
         
         public string Value()
@@ -20,7 +20,7 @@ namespace TicketStore.Data
             return ConvertToAdoNet(
                 _origin
                     .Replace("$DOCKER_HOST", _host.Value())
-                    .Replace("$DATABASE_URL", DatabaseUrlFromEnvironment())
+                    // .Replace("$DATABASE_URL", DatabaseUrlFromEnvironment())
             );
         }
 
@@ -55,11 +55,6 @@ namespace TicketStore.Data
             String port = container[4];
             String database = container[5];
             return $"Host={host};Port={port};Database={database};Username={username};Password={password}";
-        }
-
-        private String DatabaseUrlFromEnvironment()
-        {
-            return Environment.GetEnvironmentVariable("DATABASE_URL");
         }
     }
 }
