@@ -19,7 +19,7 @@ namespace TicketStore.Data.Tests.Unit
         {
             Environment.SetEnvironmentVariable("DATABASE_URL", "postgres://login:password@host:5432/database", EnvironmentVariableTarget.Process);
             var parser = new ParsersCascade("$DATABASE_URL$");
-            Assert.Equal("Host=host;Port=5432;Database=database;Username=login;Password=password", parser.Parse());
+            Assert.Equal("Host=host;Port=5432;Database=database;Username=login;Password=password;SSL Mode=Require;Trust Server Certificate=true", parser.Parse());
         }
     }
 }

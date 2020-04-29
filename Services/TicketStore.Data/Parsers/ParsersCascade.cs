@@ -6,21 +6,21 @@ namespace TicketStore.Data.Parsers
 {
     public class ParsersCascade : AbstractParser
     {
-        private List<AbstractParser> _parsers;
+        private List<Func<String, AbstractParser>> _parserCreators;
         
         public ParsersCascade(String origin) : base(origin)
         {
-            _parsers = new List<AbstractParser>();
-            _parsers.Add(new DockerHostParser(origin));
-            _parsers.Add(new EnvironmentVariablesParser(origin));
-            _parsers.Add(new HerokuParser(origin));
+            _parserCreators = new List<Func<String, AbstractParser>>();
+            _parserCreators.Add((src) => new DockerHostParser(src));
+            _parserCreators.Add((src) => new EnvironmentVariablesParser(src));
+            _parserCreators.Add((src) => new HerokuParser(src));
         }
         
         public override string Transform()
         {
-            foreach (var parser in _parsers)
+            foreach (var creator in _parserCreators)
             {
-                Origin = parser.Transform();
+                Origin = creator.Invoke(Origin).Transform();
             }
 
             return Origin;
@@ -28,17 +28,17 @@ namespace TicketStore.Data.Parsers
 
         public override Boolean ShouldTransform()
         {
-            var modifiedParsers = new List<AbstractParser>();
-            foreach (var parser in _parsers)
+            var modifiedCreators = new List<Func<String, AbstractParser>>();
+            foreach (var creator in _parserCreators)
             {
-                if (parser.ShouldTransform())
+                if (creator.Invoke(Origin).ShouldTransform())
                 {
-                    modifiedParsers.Add(parser);
+                    modifiedCreators.Add(creator);
                 }
             }
 
-            _parsers = modifiedParsers;
-            return _parsers.Any();
+            _parserCreators = modifiedCreators;
+            return _parserCreators.Any();
         }
     }
 }
