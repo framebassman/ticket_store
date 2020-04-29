@@ -142,3 +142,42 @@ stages:
       inputs:
         targetType: 'inline'
         script: bash <(curl -s https://codecov.io/bash) -y $(build.sourcesDirectory)/.ci/codecov.yml
+
+  - job: Data
+    pool:
+      vmImage: 'ubuntu-latest'
+    continueOnError: true
+    steps:
+    - task: UseDotNet@2
+      displayName: 'Install Dotnet Core'
+      inputs:
+        packageType: sdk
+        version: 3.1.101
+    - script: |
+        dotnet test --logger "trx;LogFileName=report.trx" --collect:"XPlat Code Coverage"
+      workingDirectory: $(build.sourcesDirectory)/Services/TicketStore.Data.Tests.Unit
+      displayName: 'dotnet test'
+      env:
+        DOTNET_CLI_TELEMETRY_OPTOUT: true
+    - script: |
+        dotnet tool install -g trx2junit
+        ~/.dotnet/tools/trx2junit TestResults/report.trx
+      workingDirectory: $(build.sourcesDirectory)/Services/TicketStore.Data.Tests.Unit
+      displayName: 'prepare JUnit report'
+    - task: PublishTestResults@2
+      condition: always()
+      inputs:
+        testResultsFormat: 'JUnit' # Options: JUnit, NUnit, VSTest, xUnit, cTest
+        testResultsFiles: 'TestResults/report.xml' 
+        searchFolder: '$(build.sourcesDirectory)/Services/TicketStore.Data.Tests.Unit' # Optional
+        #mergeTestResults: false # Optional
+        #failTaskOnFailedTests: false # Optional
+        #testRunTitle: # Optional
+        #buildPlatform: # Optional
+        #buildConfiguration: # Optional
+        #publishRunAttachments: true # Optional
+    - task: Bash@3
+      displayName: 'publish code coverage report'
+      inputs:
+        targetType: 'inline'
+        script: bash <(curl -s https://codecov.io/bash) -y $(build.sourcesDirectory)/.ci/codecov.yml
