@@ -1,27 +1,24 @@
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using TicketStore.Data.Parsers;
 
 namespace TicketStore.Data
 {
     public class ConnectionString
     {
         private readonly String _origin;
-        private readonly Host _host;
+        private readonly AbstractParser _parser;
 
         public ConnectionString(String origin)
         {
             _origin = origin;
-            _host = new Host();
+            _parser = new ParsersCascade(origin);
         }
         
         public string Value()
         {
-            return ConvertToAdoNet(
-                _origin
-                    .Replace("$DOCKER_HOST", _host.Value())
-                    // .Replace("$DATABASE_URL", DatabaseUrlFromEnvironment())
-            );
+            return _parser.Parse();
         }
 
         private String ConvertToAdoNet(String jdbc)
