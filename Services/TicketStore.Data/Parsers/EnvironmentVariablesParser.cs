@@ -25,7 +25,7 @@ namespace TicketStore.Data.Parsers
             {
                 candidate = candidate.Replace(
                     $"${match.Value}$",
-                    Environment.GetEnvironmentVariable(match.Value.Replace("$", ""))
+                    Environment.GetEnvironmentVariable(match.Value.Replace("$", ""), EnvironmentVariableTarget.Process)
                 );
                 match = _regex.Match(candidate);
             }
