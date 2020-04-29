@@ -4,7 +4,7 @@ namespace TicketStore.Data.Parsers
 {
     public abstract class AbstractParser
     {
-        protected readonly String Origin;
+        protected String Origin;
 
         public AbstractParser(String origin)
         {

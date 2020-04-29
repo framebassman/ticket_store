@@ -1,34 +1,44 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace TicketStore.Data.Parsers
 {
     public class ParsersCascade : AbstractParser
     {
-        private readonly List<AbstractParser> _parsers;
+        private List<AbstractParser> _parsers;
         
         public ParsersCascade(String origin) : base(origin)
         {
-            _parsers = new List<AbstractParser>
-            {
-                new EnvironmentVariablesParser(origin)
-            };
+            _parsers = new List<AbstractParser>();
+            _parsers.Add(new DockerHostParser(origin));
+            _parsers.Add(new EnvironmentVariablesParser(origin));
+            _parsers.Add(new HerokuParser(origin));
         }
         
         public override string Transform()
         {
-            var candidate = Origin;
             foreach (var parser in _parsers)
             {
-                candidate = parser.Transform();
+                Origin = parser.Transform();
             }
 
-            return candidate;
+            return Origin;
         }
 
         public override Boolean ShouldTransform()
         {
-            return true;
+            var modifiedParsers = new List<AbstractParser>();
+            foreach (var parser in _parsers)
+            {
+                if (parser.ShouldTransform())
+                {
+                    modifiedParsers.Add(parser);
+                }
+            }
+
+            _parsers = modifiedParsers;
+            return _parsers.Any();
         }
     }
 }
