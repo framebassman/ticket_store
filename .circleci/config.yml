@@ -17,6 +17,7 @@ jobs:
           command: |
             echo export DOTNET_SKIP_FIRST_TIME_EXPERIENCE=1 >> "$BASH_ENV"
             echo export DOTNET_CLI_TELEMETRY_OPTOUT=1 >> "$BASH_ENV"
+            sudo apt-get update
             sudo apt-get install -y gpg
             wget -O - https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor -o microsoft.asc.gpg
             sudo mv microsoft.asc.gpg /etc/apt/trusted.gpg.d/
