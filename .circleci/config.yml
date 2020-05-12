@@ -7,7 +7,6 @@ jobs:
       docker_layer_caching: false
     steps:
       - checkout
-      - run: gpg --version
       - run:
           name: update docker-compose
           command: |
@@ -18,7 +17,6 @@ jobs:
           command: |
             echo export DOTNET_SKIP_FIRST_TIME_EXPERIENCE=1 >> "$BASH_ENV"
             echo export DOTNET_CLI_TELEMETRY_OPTOUT=1 >> "$BASH_ENV"
-            curl -L https://packagecloud.io/user/repository/gpgkey | apt-key add -
             wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
             sudo apt-get update
             wget -O - https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor -o microsoft.asc.gpg
