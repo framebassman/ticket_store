@@ -1,0 +1,3 @@
+[submodule "Services/Farewell/svelte"]
+	path = Services/Farewell/svelte
+	url = git@github.com:kolenkainc/chertopolokh.git
