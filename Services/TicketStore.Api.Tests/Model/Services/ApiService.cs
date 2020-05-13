@@ -12,6 +12,11 @@ namespace TicketStore.Api.Tests.Model.Services
             return 3000;
         }
 
+        protected override string DockerContainerName()
+        {
+            return "store_api";
+        }
+
         public IRestResponse SendTestPayment()
         {
             var request = new RestRequest("api/payments", Method.POST);

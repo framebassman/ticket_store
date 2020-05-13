@@ -16,5 +16,10 @@ namespace TicketStore.Api.Tests.Environment
                 return new UriBuilder(variable).Host;
             }
         }
+
+        public Boolean InsideDockerContainer()
+        {
+            return Convert.ToBoolean(System.Environment.GetEnvironmentVariable("DOTNET_RUNNING_IN_CONTAINER"));
+        }
     }
 }
