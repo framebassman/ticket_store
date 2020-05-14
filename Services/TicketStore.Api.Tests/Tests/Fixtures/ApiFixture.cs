@@ -9,9 +9,9 @@ namespace TicketStore.Api.Tests.Tests.Fixtures
 {
     public class ApiFixture : IDisposable
     {
-        public readonly ApiService Api;
-        public readonly FakeSenderService FakeSender;
-        public readonly ApplicationContext Db;
+        public ApiService Api;
+        public FakeSenderService FakeSender;
+        public ApplicationContext Db;
         
         public Merchant Merchant;
         public List<Event> Events;

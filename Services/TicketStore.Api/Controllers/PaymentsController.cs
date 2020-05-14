@@ -18,12 +18,12 @@ namespace TicketStore.Api.Controllers
     [ApiController]
     public class PaymentsController : ControllerBase
     {
-        private readonly ApplicationContext _db;
-        private readonly ILogger<PaymentsController> _log;
-        protected readonly EmailService EmailService;
-        protected readonly IConverter PdfConverter;
-        protected readonly Converter BarcodeConverter;
-        protected readonly HttpClient HttpClient;
+        private ApplicationContext _db;
+        private ILogger<PaymentsController> _log;
+        protected EmailService EmailService;
+        protected IConverter PdfConverter;
+        protected Converter BarcodeConverter;
+        protected HttpClient HttpClient;
 
         public PaymentsController(
             ApplicationContext context,

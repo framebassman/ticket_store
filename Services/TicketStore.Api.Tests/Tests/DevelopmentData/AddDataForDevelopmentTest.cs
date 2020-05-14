@@ -7,8 +7,8 @@ namespace TicketStore.Api.Tests.Tests.DevelopmentData
 {
     public class AddDataForDevelopmentTest : IDisposable
     {
-        private readonly ITestOutputHelper _log;
-        private readonly ApplicationContext _db;
+        private ITestOutputHelper _log;
+        private ApplicationContext _db;
 
         public AddDataForDevelopmentTest(ITestOutputHelper log)
         {

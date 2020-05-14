@@ -8,8 +8,8 @@ namespace TicketStore.Api.Model.Validation
 {
     public class BarcodeTicketFinder : ITicketFinder
     {
-        private readonly ApplicationContext _db;
-        private readonly IDateTimeProvider _dateTimeProvider;
+        private ApplicationContext _db;
+        private IDateTimeProvider _dateTimeProvider;
 
         public BarcodeTicketFinder(ApplicationContext context, IDateTimeProvider dateTimeProvider)
         {

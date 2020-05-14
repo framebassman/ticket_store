@@ -11,9 +11,9 @@ namespace TicketStore.Web.Controllers
     [ApiController]
     public class EventsController : ControllerBase
     {
-        private readonly ILogger<EventsController> _log;
-        private readonly ApplicationContext _db;
-        private readonly IDateTimeProvider _dateTime;
+        private ILogger<EventsController> _log;
+        private ApplicationContext _db;
+        private IDateTimeProvider _dateTime;
 
         public EventsController(ILogger<EventsController> log, ApplicationContext db, IDateTimeProvider dateTime)
         {

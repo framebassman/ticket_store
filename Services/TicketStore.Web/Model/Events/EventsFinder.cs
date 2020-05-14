@@ -8,9 +8,9 @@ namespace TicketStore.Web.Model.Events
 {
     public class EventsFinder
     {
-        private readonly ApplicationContext _db;
-        private readonly Int32 _merchantId;
-        private readonly IDateTimeProvider _dateTime;
+        private ApplicationContext _db;
+        private Int32 _merchantId;
+        private IDateTimeProvider _dateTime;
 
         public EventsFinder(ApplicationContext context, Int32 merchantId, IDateTimeProvider dateTime)
         {

@@ -8,10 +8,10 @@ namespace TicketStore.Api.Tests.Tests.DevelopmentData
 {
     public class DevelopmentData
     {
-        private readonly Merchant _merchant;
-        private readonly List<Event> _concerts;
-        private readonly List<Ticket> _tickets;
-        private readonly Payment _payment;
+        private Merchant _merchant;
+        private List<Event> _concerts;
+        private List<Ticket> _tickets;
+        private Payment _payment;
         private Boolean _areMerchantsExist;
         private Boolean _areEventsExist;
         private Boolean _areTicketsExist;

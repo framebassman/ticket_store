@@ -6,7 +6,7 @@ namespace TicketStore.Api.Tests.Unit.TestData
 {
     public class TicketsProvider
     {
-        private readonly Event _concert;
+        private Event _concert;
 
         public TicketsProvider(Event concert)
         {

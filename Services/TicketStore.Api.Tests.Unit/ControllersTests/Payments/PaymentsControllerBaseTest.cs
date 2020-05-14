@@ -6,8 +6,8 @@ namespace TicketStore.Api.Tests.Unit.ControllersTests.Payments
 {
     public abstract class PaymentsControllerBaseTest : ControllersBaseTest<PaymentsController>
     {
-        protected readonly PaymentsController Controller;
-        protected readonly DummyEmailService EmailService;
+        protected PaymentsController Controller;
+        protected DummyEmailService EmailService;
         protected PaymentsControllerBaseTest(string databaseName) : base(databaseName)
         {
             EmailService = new DummyEmailService();

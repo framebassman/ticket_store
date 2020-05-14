@@ -7,7 +7,7 @@ namespace TicketStore.Data
 {
     public class ApplicationContext : DbContext
     {
-        private readonly DbContextOptions<ApplicationContext> _options;
+        private DbContextOptions<ApplicationContext> _options;
         public DbSet<Merchant> Merchants { get; set; }
         public DbSet<Event> Events { get; set; }
         public DbSet<Payment> Payments { get; set; }
