@@ -10,11 +10,6 @@ namespace TicketStore.Api.Tests.Model.Services
             return 5000;
         }
 
-        protected override string DockerContainerName()
-        {
-            return "fake_sender";
-        }
-
         public IRestResponse<List<Email>> EmailsForAddress(string to)
         {
             var request = new RestRequest($"api/emails/{to}", Method.GET);
