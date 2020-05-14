@@ -44,14 +44,5 @@ services:
             - 5000:5050
         volumes:
             - /var/log/fake_sender:/var/log
-    database_migrator:
-        container_name: database_migrator
-        build:
-            context: .
-            dockerfile: ./Services/DatabaseMigrator/Dockerfile.Test
-        depends_on:
-            - postgres
-        environment:
-            - ASPNETCORE_ENVIRONMENT=Test
 volumes:
     pgsdata:
