@@ -10,9 +10,9 @@ namespace TicketStore.Api.Model.PdfDocument.Model.BarcodeConverters
     {
         private readonly HttpClient _client;
         
-        public Converter(HttpClient client)
+        public Converter(IHttpClientFactory clientFactory)
         {
-            _client = client;
+            _client = clientFactory.CreateClient();
         }
 
         public virtual String ToBase64(String origin)
