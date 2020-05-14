@@ -16,9 +16,6 @@ blocks:
       jobs:
         - name: Build and deploy
           commands:
-            # Install heroku
-            - curl https://cli-assets.heroku.com/install.sh | sh
-            - heroku --version
             # update docker-compose
             - sudo curl -L "https://github.com/docker/compose/releases/download/1.24.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
             - sudo chmod +x /usr/local/bin/docker-compose
@@ -28,8 +25,9 @@ blocks:
             - sudo apt-get install apt-transport-https
             - sudo apt-get update
             - sudo apt-get install -y dotnet-sdk-3.1
+            # checkout repo
+            - checkout
             # run application in test environment
-            - make --version
             - make start-test
             - bash ./Scripts/wait-until-app-is-deployed.sh
             # run migrations
