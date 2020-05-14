@@ -1,7 +1,0 @@
-FROM mcr.microsoft.com/dotnet/core/sdk:3.1.201-alpine3.11
-RUN dotnet tool install --global dotnet-ef --version 3.1.4
-COPY ./Services/TicketStore.Data/ /TicketStore.Data
-COPY ./Services/DatabaseMigrator /DatabaseMigrator
-WORKDIR /DatabaseMigrator
-RUN chmod +x ./run-migration.sh
-ENTRYPOINT ["/bin/sh", "./run-migration.sh"]  
