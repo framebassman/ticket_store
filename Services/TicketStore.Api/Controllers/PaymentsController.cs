@@ -104,6 +104,7 @@ namespace TicketStore.Api.Controllers
             return new OkObjectResult("OK");
         }
 
+        [NonAction]
         public virtual void SendTickets(Event concert, List<Ticket> tickets, String email)
         {
             var pdf = new Pdf(concert, tickets, PdfConverter, BarcodeConverter, HttpClient);

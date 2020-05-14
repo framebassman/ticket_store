@@ -1,17 +1,48 @@
 version: '3.6'
 
 services:
-    store_farewell:
+    store_api:
         build:
             context: .
-            dockerfile: ./Services/Farewell/Dockerfile.Production
-            args:
-                - NODE_ENV=production
+            dockerfile: ./Services/TicketStore.Api/Dockerfile.Production
+        depends_on:
+            - postgres
+            - fake_sender
         ports:
-            - 4000:80
-        labels:
-            - "traefik.port=80"
+            - 3000:5000
+        environment:
+            - ASPNETCORE_ENVIRONMENT=Test
+    store_web:
+        build:
+            context: .
+            dockerfile: ./Services/TicketStore.Web/Dockerfile.Production
+            args:
+                - REACT_APP_ENVIRONMENT=Test
+        ports:
+            - 4000:5000
+        environment:
+            - ASPNETCORE_ENVIRONMENT=Test
     store_proxy:
         build:
             context: .
             dockerfile: ./Services/Proxy/Dockerfile.Test
+    postgres:
+        build:
+            context: .
+            dockerfile: ./Services/Postgres/Dockerfile
+        container_name: postgres
+        volumes:
+            - pgsdata:/var/lib/postgresql/data
+        ports:
+            - 5432:5432
+        logging:
+            driver: none
+    fake_sender:
+        image: framebassman/fake-sender:1.2.0
+        container_name: fake_sender
+        ports:
+            - 5000:5050
+        volumes:
+            - /var/log/fake_sender:/var/log
+volumes:
+    pgsdata:

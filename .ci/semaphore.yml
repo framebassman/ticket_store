@@ -1,45 +1,47 @@
 # .ci/semaphore.yml
 version: v1.0
-name: Deployment to staging pipeline
+name: Run integration tests pipeline
 agent:
   machine:
     type: e1-standard-2
     os_image: ubuntu1804
 blocks:
-  - name: Deploy to staging on heroku
+  - name: Run integration tests
     task:
       secrets:
-        - name: Heroku
         - name: private-repo
       env_vars:
         - name: DOTNET_SKIP_FIRST_TIME_EXPERIENCE
           value: "1"
         - name: DOTNET_CLI_TELEMETRY_OPTOUT
           value: "1"
-        - name: ASPNETCORE_ENVIRONMENT
-          value: "Staging"
       jobs:
         - name: Build and deploy
           commands:
-              # Install heroku
-            - curl https://cli-assets.heroku.com/install.sh | sh
-            - heroku --version
-              # Install dotnet core sdk
-            - wget https://packages.microsoft.com/config/ubuntu/19.10/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
+            # update docker-compose
+            - sudo curl -L "https://github.com/docker/compose/releases/download/1.24.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+            - sudo chmod +x /usr/local/bin/docker-compose
+            # install dotnet core
+            - wget https://packages.microsoft.com/config/ubuntu/18.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
             - sudo dpkg -i packages-microsoft-prod.deb
-            - sudo apt-get update
             - sudo apt-get install apt-transport-https
             - sudo apt-get update
             - sudo apt-get install -y dotnet-sdk-3.1
-              # Setup ssh and checkout
+            # checkout repo
             - chmod 0600 ~/.ssh/*
             - checkout
-            - cd Services
-            - heroku container:login
-            - heroku container:push web --app staging-chertopolokh
-            - heroku container:release web --app staging-chertopolokh
-              # Migrate staging database
-            - cd ..
-            - export DATABASE_URL=$(heroku config:get DATABASE_URL --app staging-chertopolokh)
-            - dotnet tool install --global dotnet-ef --version 3.1.3
-            - ~/.dotnet/tools/dotnet-ef database update --project Services/TicketStore.Data/TicketStore.Data.csproj --verbose
+            # run application in test environment
+            - make start-test
+            - bash ./Scripts/wait-until-app-is-deployed.sh
+            # run migrations
+            - dotnet tool install --global dotnet-ef --version 3.1.4
+            - export ASPNETCORE_ENVIRONMENT=TestMigrations; ~/.dotnet/tools/dotnet-ef database update --project Services/TicketStore.Data/TicketStore.Data.csproj --verbose
+            # run integration tests
+            - dotnet test Services/TicketStore.Api.Tests --logger "trx;LogFileName=report.trx" --filter Category!=DevelopmentData
+      epilogue:
+        on_fail:
+          commands:
+            - artifact push job Services/TicketStore.Api.Tests/TestResults
+            - artifact push job /var/log/store_api
+            - artifact push job /var/log/store_web
+            - artifact push job /var/log/fake_sender

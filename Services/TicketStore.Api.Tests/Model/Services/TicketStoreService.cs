@@ -15,7 +15,7 @@ namespace TicketStore.Api.Tests.Model.Services
                 new UriBuilder(
                     "http",
                     new AppHost().Value(),
-                    this.Port()
+                    Port()
                 ).Uri
             );
         }

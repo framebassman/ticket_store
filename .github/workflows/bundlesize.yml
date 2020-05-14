@@ -9,11 +9,11 @@ on:
       - 'Services/TicketStore.Web/Client/*/*/*'
       - 'Services/TicketStore.Web/Client/*/*/*/*'
       - 'Services/TicketStore.Web/Client/*/*/*/*/*'
-      - 'Services/Farewell/svelte/*'
-      - 'Services/Farewell/svelte/*/*'
-      - 'Services/Farewell/svelte/*/*/*'
-      - 'Services/Farewell/svelte/*/*/*/*'
-      - 'Services/Farewell/svelte/*/*/*/*/*'
+      - 'Services/Farewell/*'
+      - 'Services/Farewell/*/*'
+      - 'Services/Farewell/*/*/*'
+      - 'Services/Farewell/*/*/*/*'
+      - 'Services/Farewell/*/*/*/*/*'
 
 jobs:
   build:
@@ -22,7 +22,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [10.x]
+        node-version: [12.x]
 
     steps:
     - uses: actions/checkout@v1
@@ -38,7 +38,7 @@ jobs:
       env:
         CI: true
     - name: Check bundlesize for Farewell service
-      working-directory: Services/Farewell/svelte
+      working-directory: Services/Farewell
       run: |
         npm install
         npm run check-bundlesize

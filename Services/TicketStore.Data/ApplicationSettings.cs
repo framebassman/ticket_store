@@ -26,6 +26,7 @@ namespace TicketStore.Data
 
         private IConfiguration BuildConfiguration()
         {
+            Console.WriteLine($"[TicketStore.Data] Environment: {_environmentName}");
             return new ConfigurationBuilder()
                 .SetBasePath(CalculateBasePath())
                 .AddJsonFile("appsettings.json", true, true)
