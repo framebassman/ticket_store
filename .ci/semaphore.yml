@@ -8,6 +8,8 @@ agent:
 blocks:
   - name: Run integration tests
     task:
+      secrets:
+        - name: private-repo
       env_vars:
         - name: DOTNET_SKIP_FIRST_TIME_EXPERIENCE
           value: "1"
