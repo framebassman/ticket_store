@@ -28,6 +28,7 @@ blocks:
             - sudo apt-get update
             - sudo apt-get install -y dotnet-sdk-3.1
             # checkout repo
+            - chmod 0600 ~/.ssh/*
             - checkout
             # run application in test environment
             - make start-test
