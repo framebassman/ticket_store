@@ -38,3 +38,10 @@ blocks:
             - export ASPNETCORE_ENVIRONMENT=TestMigrations; ~/.dotnet/tools/dotnet-ef database update --project Services/TicketStore.Data/TicketStore.Data.csproj --verbose
             # run integration tests
             - dotnet test Services/TicketStore.Api.Tests --logger "trx;LogFileName=report.trx" --filter Category!=DevelopmentData
+      epilogue:
+        on_fail:
+          commands:
+            - artifact push job Services/TicketStore.Api.Tests/TestResults
+            - artifact push job /var/log/store_api
+            - artifact push job /var/log/store_web
+            - artifact push job /var/log/fake_sender
