@@ -6,8 +6,8 @@ namespace TicketStore.Data
 {
     public class ApplicationSettings
     {
-        private readonly String _environmentName;
-        private readonly Host _host;
+        private String _environmentName;
+        private Host _host;
         
         public ApplicationSettings()
         {

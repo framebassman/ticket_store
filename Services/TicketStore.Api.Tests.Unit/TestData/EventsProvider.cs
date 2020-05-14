@@ -5,7 +5,7 @@ namespace TicketStore.Api.Tests.Unit.TestData
 {
     public class EventsProvider
     {
-        private readonly Merchant _merchant;
+        private Merchant _merchant;
         private Int32 _idCounter;
 
         public EventsProvider(Merchant merchant)

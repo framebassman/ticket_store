@@ -6,7 +6,7 @@ namespace TicketStore.Api.Tests.Unit.ModelTests.TicketPreview
 {
     public class TemplatesInLayout : TemplatesInTicket
     {
-        private readonly Layout _layout;
+        private Layout _layout;
 
         public TemplatesInLayout()
         {

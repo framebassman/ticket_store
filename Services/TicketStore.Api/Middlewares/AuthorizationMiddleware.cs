@@ -8,7 +8,7 @@ namespace TicketStore.Api.Middlewares
     public class AuthorizationMiddleware
     {
         private const string Token = "Bearer pkR9vfZ9QdER53mf";
-        private readonly RequestDelegate _next;
+        private RequestDelegate _next;
 
         public AuthorizationMiddleware(RequestDelegate next)
         {

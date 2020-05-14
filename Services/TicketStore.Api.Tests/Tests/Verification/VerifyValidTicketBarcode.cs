@@ -17,7 +17,7 @@ namespace TicketStore.Api.Tests.Tests.Verification
     [Collection("Api collection")]
     public class VerifyValidTicketBarcode
     {
-        private readonly ApiFixture _fixture;
+        private ApiFixture _fixture;
         public VerifyValidTicketBarcode(ApiFixture fixture)
         {
             _fixture = fixture;

@@ -11,9 +11,9 @@ namespace TicketStore.Web.Tests.Unit.ModelTests.EventsFinderTests
 {
     public class FindOnlyNewEvents : DbBaseTest<EventsFinder>
     {
-        private readonly ApplicationContext _db;
+        private ApplicationContext _db;
         private EventsFinder _finder;
-        private readonly Mock<IDateTimeProvider> _dateTimeMock;
+        private Mock<IDateTimeProvider> _dateTimeMock;
         private DateTime _oldDate;
         private DateTime _newDate;
         private DateTime _now;

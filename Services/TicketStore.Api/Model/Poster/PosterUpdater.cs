@@ -7,7 +7,7 @@ namespace TicketStore.Api.Model.Poster
 {
     public class PosterUpdater : IPosterUpdater
     {
-        private readonly ILogger<PosterUpdater> _log;
+        private ILogger<PosterUpdater> _log;
         private YandexStorageService _storage;
         private IPosterReader _reader;
         private IPosterDbUpdater _dbUpdater;

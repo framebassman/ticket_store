@@ -9,9 +9,9 @@ namespace TicketStore.Web.Tests.Unit.BaseTest
 {
     public abstract class DbBaseTest<T> : IDisposable
     {
-        protected readonly DbContextOptions<ApplicationContext> Options;
-        protected readonly ILogger<T> Logger;
-        protected readonly Provider TestData;
+        protected DbContextOptions<ApplicationContext> Options;
+        protected ILogger<T> Logger;
+        protected Provider TestData;
         
         public DbBaseTest(String databaseName)
         {

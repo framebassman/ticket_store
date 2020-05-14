@@ -10,7 +10,7 @@ namespace TicketStore.Api.Tests.Tests.Uploads
     [Collection("Api collection")]
     public class UploadPoster
     {
-        private readonly ApiFixture _fixture;
+        private ApiFixture _fixture;
         public UploadPoster(ApiFixture fixture)
         {
             _fixture = fixture;

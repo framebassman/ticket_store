@@ -10,7 +10,7 @@ namespace TicketStore.Api.Tests.Unit.ControllersTests.Uploads
 {
     public abstract class UploadsControllerBaseTest : ControllersBaseTest<VerifyController>
     {
-        protected readonly UploadsController Controller;
+        protected UploadsController Controller;
         protected UploadsControllerBaseTest(string databaseName) : base(databaseName)
         {
             var updater = GetUpdater();

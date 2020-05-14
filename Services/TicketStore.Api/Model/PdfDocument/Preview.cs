@@ -12,10 +12,10 @@ namespace TicketStore.Api.Model.PdfDocument
 {
     public class Preview
     {
-        private readonly CultureInfo _culture;
-        private readonly List<Ticket> _tickets;
-        private readonly Event _concert;
-        private readonly Converter _barcodeConverter;
+        private CultureInfo _culture;
+        private List<Ticket> _tickets;
+        private Event _concert;
+        private Converter _barcodeConverter;
 
         public Preview(HttpClient client, Event concert, List<Ticket> tickets, Converter barcodeConverter)
         {

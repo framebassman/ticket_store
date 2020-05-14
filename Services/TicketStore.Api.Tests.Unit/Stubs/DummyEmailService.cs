@@ -7,7 +7,7 @@ namespace TicketStore.Api.Tests.Unit.Stubs
 {
     public class DummyEmailService : EmailService
     {
-        private readonly Dictionary<String, List<Pdf>> _storage;
+        private Dictionary<String, List<Pdf>> _storage;
 
         public DummyEmailService()
         {

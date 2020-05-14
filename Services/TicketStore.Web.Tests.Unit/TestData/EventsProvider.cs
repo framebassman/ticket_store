@@ -5,7 +5,7 @@ namespace TicketStore.Web.Tests.Unit.TestData
 {
     public class EventsProvider
     {
-        private readonly Merchant _merchant;
+        private Merchant _merchant;
 
         public EventsProvider(Merchant merchant)
         {

@@ -7,10 +7,10 @@ namespace TicketStore.Api.Model.Validation
 {
     public class TicketFinder : ITicketFinder
     {
-        private readonly ApplicationContext _db;
-        private readonly ILogger<ITicketFinder> _log;
-        private readonly ITicketFinder _manualTicketFinder;
-        private readonly ITicketFinder _barcodeTicketFinder;
+        private ApplicationContext _db;
+        private ILogger<ITicketFinder> _log;
+        private ITicketFinder _manualTicketFinder;
+        private ITicketFinder _barcodeTicketFinder;
 
         public TicketFinder(ApplicationContext context, ILogger<ITicketFinder> log, IDateTimeProvider dateTimeProvider)
         {

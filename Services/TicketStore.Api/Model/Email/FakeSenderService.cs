@@ -12,10 +12,10 @@ namespace TicketStore.Api.Model.Email
 {
     public class FakeSenderService : EmailService
     {
-        private readonly HttpClient _client;
-        private readonly ILogger<FakeSenderService> _log;
-        private readonly Uri _uri;
-        private readonly JsonSerializerOptions _options;
+        private HttpClient _client;
+        private ILogger<FakeSenderService> _log;
+        private Uri _uri;
+        private JsonSerializerOptions _options;
         
         public FakeSenderService(ILogger<FakeSenderService> log, IConfiguration conf, IHttpClientFactory clientFactory)
         {

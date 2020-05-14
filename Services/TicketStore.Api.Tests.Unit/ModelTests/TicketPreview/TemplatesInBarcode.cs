@@ -8,7 +8,7 @@ namespace TicketStore.Api.Tests.Unit.ModelTests.TicketPreview
 {
     public class TemplatesInBarcode
     {
-        protected readonly Barcode Barcode;
+        protected Barcode Barcode;
 
         public TemplatesInBarcode()
         {

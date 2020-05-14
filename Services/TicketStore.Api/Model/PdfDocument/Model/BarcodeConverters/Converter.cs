@@ -8,7 +8,7 @@ namespace TicketStore.Api.Model.PdfDocument.Model.BarcodeConverters
 {
     public class Converter
     {
-        private readonly HttpClient _client;
+        private HttpClient _client;
         
         public Converter(IHttpClientFactory clientFactory)
         {

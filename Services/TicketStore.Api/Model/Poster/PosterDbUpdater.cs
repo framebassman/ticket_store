@@ -7,8 +7,8 @@ namespace TicketStore.Api.Model.Poster
 {
     public class PosterDbUpdater : IPosterDbUpdater
     {
-        private readonly ApplicationContext _db;
-        private readonly ILogger<PosterDbUpdater> _log;
+        private ApplicationContext _db;
+        private ILogger<PosterDbUpdater> _log;
         public PosterDbUpdater(ApplicationContext context, ILogger<PosterDbUpdater> log)
         {
             _db = context;

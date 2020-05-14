@@ -10,8 +10,8 @@ namespace TicketStore.Api.Model.PdfDocument
 {
     public class Pdf
     {
-        private readonly IConverter _pdfConverter;
-        protected readonly Preview Preview;
+        private IConverter _pdfConverter;
+        protected Preview Preview;
 
         public Pdf(Event concert, List<Ticket> tickets, IConverter pdfConverter, Converter barcodeConverter, HttpClient client)
         {

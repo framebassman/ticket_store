@@ -5,7 +5,7 @@ namespace TicketStore.Api.Tests.Unit.TestData
 {
     public class PaymentsProvider
     {
-        private readonly List<Ticket> _tickets;
+        private List<Ticket> _tickets;
 
         public PaymentsProvider(List<Ticket> tickets)
         {
