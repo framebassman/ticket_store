@@ -39,7 +39,6 @@ namespace TicketStore.Web
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder
-                        .UseUrls(Urls())
                         .UseStartup<Startup>()
                         .UseSerilog()
                         .UseSentry(options =>
@@ -67,18 +66,6 @@ namespace TicketStore.Web
         private static string CurrentEnv()
         {
             return Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Production";
-        }
-
-        private static string Urls()
-        {
-            if (string.IsNullOrEmpty(Environment.GetEnvironmentVariable("PORT")))
-            {
-                return "http://0.0.0.0:5000";
-            }
-            else
-            {
-                return $"http://0.0.0.0:{Environment.GetEnvironmentVariable("PORT")}";
-            }
         }
     }
 }
