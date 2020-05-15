@@ -21,6 +21,7 @@ namespace TicketStore.Web
             try
             {
                 Log.Logger.Information("Getting started...");
+                Log.Logger.Information($"Environment: {CurrentEnv()}");
                 CreateHostBuilder(args).Build().Run();
             }
             catch (Exception ex)
@@ -38,7 +39,6 @@ namespace TicketStore.Web
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder
-                        .UseUrls("http://0.0.0.0:5000")
                         .UseStartup<Startup>()
                         .UseSerilog()
                         .UseSentry(options =>

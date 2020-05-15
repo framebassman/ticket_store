@@ -22,4 +22,4 @@ RUN apk add ttf-liberation && fc-cache -fv
 RUN apk add tzdata && ls /usr/share/zoneinfo
 WORKDIR /app
 COPY --from=build-env /app/out .
-ENTRYPOINT dotnet TicketStore.Api.dll
+ENTRYPOINT ["dotnet", "TicketStore.Api.dll"]

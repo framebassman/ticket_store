@@ -3,6 +3,8 @@ version: '3.6'
 services:
     store_api:
         container_name: store_api
+        environment:
+            - ASPNETCORE_URLS=http://+:5000
         labels:
             - "traefik.enable=true"
             - "traefik.port=5000"
@@ -16,6 +18,8 @@ services:
         tty: true
     store_web:
         container_name: store_web
+        environment:
+            - ASPNETCORE_URLS=http://+:5000
         labels:
             - "traefik.enable=true"
             - "traefik.port=5000"
