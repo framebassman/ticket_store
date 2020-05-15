@@ -15,7 +15,7 @@ namespace TicketStore.Data.Tests.Unit
             var parser = new DockerHostParser("Host=$DOCKER_HOST$;Port=5432", environmentVariables);
             Assert.Equal("Host=localhost;Port=5432", parser.Parse());
         }
-        
+
         [Fact]
         public void DockerHostWasSetup_ShouldChangeToValue()
         {
