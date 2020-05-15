@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -7,12 +8,12 @@ namespace TicketStore.Data.Parsers
     public class ParsersCascade : AbstractParser
     {
         private List<Func<String, AbstractParser>> _parserCreators;
-        
-        public ParsersCascade(String origin) : base(origin)
+
+        public ParsersCascade(String origin, IDictionary environmentVariables) : base(origin)
         {
             _parserCreators = new List<Func<String, AbstractParser>>();
-            _parserCreators.Add((src) => new DockerHostParser(src));
-            _parserCreators.Add((src) => new EnvironmentVariablesParser(src));
+            _parserCreators.Add((src) => new DockerHostParser(src, environmentVariables));
+            _parserCreators.Add((src) => new EnvironmentVariablesParser(src, environmentVariables));
             _parserCreators.Add((src) => new HerokuParser(src));
         }
         
