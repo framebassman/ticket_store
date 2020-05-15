@@ -1,20 +1,30 @@
 using System;
+using System.Collections;
 
 namespace TicketStore.Data
 {
     public class Host
     {
+        private IDictionary _environmentVariables;
+        
+        public Host(IDictionary environmentVariables)
+        {
+            _environmentVariables = environmentVariables;
+        }
+        
         public String Value()
         {
-            var variable = Environment.GetEnvironmentVariable("DOCKER_HOST", EnvironmentVariableTarget.Process);
-            if (String.IsNullOrEmpty(variable))
+            var variable = _environmentVariables["DOCKER_HOST"];
+            if (variable == null)
             {
                 return "localhost";
             }
-            else
+            if (String.IsNullOrEmpty(variable.ToString()))
             {
-                return new UriBuilder(variable).Host;
+                return "localhost";
             }
+
+            return new UriBuilder(variable.ToString()).Host;
         }
     }
 }
