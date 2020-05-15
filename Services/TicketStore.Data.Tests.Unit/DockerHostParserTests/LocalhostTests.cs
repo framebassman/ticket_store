@@ -1,4 +1,5 @@
-using System;
+using System.Collections;
+using System.Collections.Generic;
 using TicketStore.Data.Parsers;
 using Xunit;
 
@@ -10,8 +11,9 @@ namespace TicketStore.Data.Tests.Unit.DockerHostParserTests
         [Fact]
         public void DockerHostIsEmpty_ShouldChangeToLocalhost()
         {
-            Environment.SetEnvironmentVariable("DOCKER_HOST", "", EnvironmentVariableTarget.Process);
-            var parser = new DockerHostParser("Host=$DOCKER_HOST$;Port=5432");
+            IDictionary environmentVariables = new Dictionary<string, string>();
+            environmentVariables.Add("DOCKER_HOST", "");
+            var parser = new DockerHostParser("Host=$DOCKER_HOST$;Port=5432", environmentVariables);
             Assert.Equal("Host=localhost;Port=5432", parser.Parse());
         }
     }

@@ -1,16 +1,18 @@
-using System;
+using System.Collections;
 
 namespace TicketStore.Data.Parsers
 {
     public class DockerHostParser : EnvironmentVariablesParser
     {
-        public DockerHostParser(string origin) : base(origin)
+        public DockerHostParser(string origin, IDictionary environmentVariables)
+            : base(origin, environmentVariables)
         {
-            Environment.SetEnvironmentVariable(
-                "DOCKER_HOST",
-                new Host().Value(),
-                EnvironmentVariableTarget.Process
-            );
+            var host = new Host(EnvVariables).Value();
+            if (EnvVariables.Contains("DOCKER_HOST"))
+            {
+                EnvVariables.Remove("DOCKER_HOST");
+            }
+            EnvVariables.Add("DOCKER_HOST", host);
         }
     }
 }
