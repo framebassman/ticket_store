@@ -63,10 +63,19 @@ stages:
         testResultsFiles: 'TestResults/report.xml' 
         searchFolder: '$(build.sourcesDirectory)/Services/TicketStore.Api.Tests.Unit' # Optional
     - task: Bash@3
-      displayName: 'publish code coverage report'
+      displayName: 'publish code coverage report to Codecov'
       inputs:
         targetType: 'inline'
         script: bash <(curl -s https://codecov.io/bash) -y $(build.sourcesDirectory)/.ci/codecov.yml
+    - task: PublishCodeCoverageResults@1
+      displayName: 'publish code coverage report to Azure Devops'
+      inputs:
+        codeCoverageTool: 'cobertura' # Options: cobertura, jaCoCo
+        summaryFileLocation: $(build.sourcesDirectory)/Services/TicketStore.Api.Tests.Unit/TestResults/**/coverage.cobertura.xml
+        #pathToSources: # Optional
+        #reportDirectory: # Optional
+        #additionalCodeCoverageFiles: # Optional
+        #failIfCoverageEmpty: false # Optional
 
   - job: Web
     pool:
@@ -102,10 +111,19 @@ stages:
         #buildConfiguration: # Optional
         #publishRunAttachments: true # Optional
     - task: Bash@3
-      displayName: 'publish code coverage report'
+      displayName: 'publish code coverage report to Codecov'
       inputs:
         targetType: 'inline'
         script: bash <(curl -s https://codecov.io/bash) -y $(build.sourcesDirectory)/.ci/codecov.yml
+    - task: PublishCodeCoverageResults@1
+      displayName: 'publish code coverage report to Azure Devops'
+      inputs:
+        codeCoverageTool: 'cobertura' # Options: cobertura, jaCoCo
+        summaryFileLocation: $(build.sourcesDirectory)/Services/TicketStore.Web.Tests.Unit/TestResults/**/coverage.cobertura.xml
+        #pathToSources: # Optional
+        #reportDirectory: # Optional
+        #additionalCodeCoverageFiles: # Optional
+        #failIfCoverageEmpty: false # Optional
 
   - job: Data
     pool:
@@ -141,7 +159,16 @@ stages:
         #buildConfiguration: # Optional
         #publishRunAttachments: true # Optional
     - task: Bash@3
-      displayName: 'publish code coverage report'
+      displayName: 'publish code coverage report to Codecov'
       inputs:
         targetType: 'inline'
         script: bash <(curl -s https://codecov.io/bash) -y $(build.sourcesDirectory)/.ci/codecov.yml
+    - task: PublishCodeCoverageResults@1
+      displayName: 'publish code coverage report to Azure Devops'
+      inputs:
+        codeCoverageTool: 'cobertura' # Options: cobertura, jaCoCo
+        summaryFileLocation: $(build.sourcesDirectory)/Services/TicketStore.Data.Tests.Unit/TestResults/**/coverage.cobertura.xml
+        #pathToSources: # Optional
+        #reportDirectory: # Optional
+        #additionalCodeCoverageFiles: # Optional
+        #failIfCoverageEmpty: false # Optional
