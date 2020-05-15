@@ -25,6 +25,7 @@ jobs:
           command: npm test
       - store_test_results:
           path: reports
+
   deploy:
     machine:
       docker_layer_caching: false
