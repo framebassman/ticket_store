@@ -6,7 +6,7 @@ namespace TicketStore.Api.Model.Poster.Storage
 {
     public class ObjectStorage
     {
-        private readonly IConfigurationSection _json;
+        private IConfigurationSection _json;
 
         public ObjectStorage(IConfigurationSection json)
         {

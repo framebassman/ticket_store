@@ -8,7 +8,7 @@ namespace TicketStore.Api.Tests.Unit.Tests.ModelTests.TicketPreview
 {
     public class TemplatesInTicket : TemplatesInBarcode
     {
-        protected readonly Ticket Ticket;
+        protected Ticket Ticket;
         
         public TemplatesInTicket()
         {

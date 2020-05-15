@@ -9,8 +9,8 @@ namespace TicketStore.Web.Controllers
     [ApiController]
     public class MerchantsController : ControllerBase
     {
-        private readonly ILogger<MerchantsController> _log;
-        private readonly ApplicationContext _db;
+        private ILogger<MerchantsController> _log;
+        private ApplicationContext _db;
 
         public MerchantsController(ILogger<MerchantsController> log, ApplicationContext db)
         {

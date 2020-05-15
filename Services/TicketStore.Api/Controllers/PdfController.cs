@@ -18,13 +18,13 @@ namespace TicketStore.Api.Controllers
     [ApiController]
     public class PdfController : ControllerBase
     {
-        private readonly ILogger<PdfController> _log;
-        private readonly IWebHostEnvironment _environment;
-        private readonly HttpClient _client;
-        private readonly IConverter _pdfConverter;
-        private readonly Converter _barcodeConverter;
-        private readonly Event _concert;
-        private readonly List<Ticket> _tickets;
+        private ILogger<PdfController> _log;
+        private IWebHostEnvironment _environment;
+        private HttpClient _client;
+        private IConverter _pdfConverter;
+        private Converter _barcodeConverter;
+        private Event _concert;
+        private List<Ticket> _tickets;
 
         public PdfController(
             ILogger<PdfController> log,

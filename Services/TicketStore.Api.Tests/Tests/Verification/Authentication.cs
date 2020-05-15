@@ -14,7 +14,7 @@ namespace TicketStore.Api.Tests.Tests.Verification
     [Collection("Api collection")]
     public class Authentication
     {
-        private readonly ApiFixture _fixture;
+        private ApiFixture _fixture;
         public Authentication(ApiFixture fixture)
         {
             _fixture = fixture;

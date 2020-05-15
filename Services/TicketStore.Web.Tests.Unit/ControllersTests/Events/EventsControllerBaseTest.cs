@@ -6,8 +6,8 @@ namespace TicketStore.Web.Tests.Unit.ControllersTests.Events
 {
     public abstract class EventsControllerBaseTest : ControllersBaseTest<EventsController>
     {
-        protected readonly ApplicationContext Db;
-        protected readonly Provider Provider;
+        protected ApplicationContext Db;
+        protected Provider Provider;
 
         protected EventsControllerBaseTest(string databaseName) : base(databaseName)
         {

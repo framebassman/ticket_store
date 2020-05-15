@@ -15,9 +15,9 @@ namespace TicketStore.Api.Controllers
     [ApiController]
     public class VerifyController : ControllerBase
     {
-        private readonly ApplicationContext _db;
-        private readonly ILogger<VerifyController> _log;
-        private readonly ITicketFinder _finder;
+        private ApplicationContext _db;
+        private ILogger<VerifyController> _log;
+        private ITicketFinder _finder;
 
         public VerifyController(ApplicationContext context, ILogger<VerifyController> log, ITicketFinder finder)
         {

@@ -7,7 +7,7 @@ namespace TicketStore.Api.Model.Validation
 {
     public class ManualTicketFinder : ITicketFinder
     {
-        private readonly ApplicationContext _db;
+        private ApplicationContext _db;
 
         public ManualTicketFinder(ApplicationContext context)
         {

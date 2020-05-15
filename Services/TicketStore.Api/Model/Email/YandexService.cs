@@ -9,9 +9,9 @@ namespace TicketStore.Api.Model.Email
 {
     public class YandexService : EmailService
     {
-        private readonly ILogger<YandexService> _log;
-        private readonly String _smtpUsername;
-        private readonly String _smtpPassword;
+        private ILogger<YandexService> _log;
+        private String _smtpUsername;
+        private String _smtpPassword;
 
         public YandexService(IConfiguration conf, ILogger<YandexService> log)
         {

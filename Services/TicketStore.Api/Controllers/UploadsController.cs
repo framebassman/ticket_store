@@ -11,8 +11,8 @@ namespace TicketStore.Api.Controllers
     [ApiController]
     public class UploadsController : ControllerBase
     {
-        private readonly ILogger<VerifyController> _log;
-        private readonly IPosterUpdater _updater;
+        private ILogger<VerifyController> _log;
+        private IPosterUpdater _updater;
 
         public UploadsController(ILogger<VerifyController> log, IPosterUpdater updater)
         {

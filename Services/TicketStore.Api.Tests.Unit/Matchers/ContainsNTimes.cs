@@ -7,8 +7,8 @@ namespace TicketStore.Api.Tests.Unit.Matchers
 {
     public class ContainsNTimes : Matcher<String>
     {
-        private readonly String _substring;
-        private readonly Int32 _expectedCount;
+        private String _substring;
+        private Int32 _expectedCount;
         private Int32 _actialCount;
 
         public ContainsNTimes(String substring, Int32 expectedCount)

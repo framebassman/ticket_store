@@ -7,7 +7,7 @@ namespace TicketStore.Data
 {
     public class ApplicationSettings
     {
-        private readonly string _environmentName;
+        private String _environmentName;
 
         public ApplicationSettings()
         {
@@ -35,7 +35,7 @@ namespace TicketStore.Data
                 .Build();
         }
 
-        private string CalculateBasePath()
+        private String CalculateBasePath()
         {
             var dirname = Path.Combine(AbsolutePathOfProject(), "DbConfigs");
             var info = new DirectoryInfo(dirname);
@@ -48,7 +48,7 @@ namespace TicketStore.Data
             return info.FullName;
         }
 
-        private string AbsolutePathOfProject()
+        private String AbsolutePathOfProject()
         {
             var prefix = "file:";
             var pathWithPrefix = Path.GetDirectoryName(Assembly.GetExecutingAssembly().GetName().CodeBase);

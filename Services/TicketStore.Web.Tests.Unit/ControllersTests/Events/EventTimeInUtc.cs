@@ -13,7 +13,7 @@ namespace TicketStore.Web.Tests.Unit.ControllersTests.Events
 {
     public class EventTimeInUtc : EventsControllerBaseTest
     {
-        private readonly EventsController _controller;
+        private EventsController _controller;
         private Merchant _merchant;
         private Event _concert;
         private DateTime _closer;

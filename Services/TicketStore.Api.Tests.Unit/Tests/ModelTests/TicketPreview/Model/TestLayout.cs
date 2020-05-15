@@ -5,7 +5,7 @@ namespace TicketStore.Api.Tests.Unit.Tests.ModelTests.TicketPreview.Model
 {
     public class TestLayout : Layout
     {
-        private readonly String _template;
+        private String _template;
 
         public TestLayout(String template, Ticket ticket) : base(ticket)
         {

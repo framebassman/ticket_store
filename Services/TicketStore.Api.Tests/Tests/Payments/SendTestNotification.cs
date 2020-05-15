@@ -7,7 +7,7 @@ namespace TicketStore.Api.Tests.Tests.Payments
     [Collection("Api collection")]
     public class SendTestNotification
     {
-        private readonly ApiFixture _fixture;
+        private ApiFixture _fixture;
 
         public SendTestNotification(ApiFixture fixture)
         {

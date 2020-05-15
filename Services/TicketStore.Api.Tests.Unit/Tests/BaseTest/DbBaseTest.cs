@@ -11,11 +11,11 @@ namespace TicketStore.Api.Tests.Unit.Tests.BaseTest
 {
     public abstract class DbBaseTest<T> : IDisposable
     {
-        protected readonly ApplicationContext Db;
-        protected readonly DbContextOptions<ApplicationContext> DbOptions;
+        protected ApplicationContext Db;
+        protected DbContextOptions<ApplicationContext> DbOptions;
         
-        protected readonly ILogger<T> Logger;
-        protected readonly Provider Provider;
+        protected ILogger<T> Logger;
+        protected Provider Provider;
 
         protected Merchant _merchant;
         protected Event _concert;
