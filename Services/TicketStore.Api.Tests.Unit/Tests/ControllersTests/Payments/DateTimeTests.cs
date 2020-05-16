@@ -25,17 +25,13 @@ namespace TicketStore.Api.Tests.Unit.Tests.ControllersTests.Payments
             var concertLabel = $"{_concert.Artist} {_longDash} {_dateInString}";
             
             // Act
-            var result = Controller.Post(
-                false,
-                "",
+            var result = Controller.Post("",
                 "",
                 0.0m,
                 800.0m,
                 "",
                 DateTime.UtcNow,
-                false,
                 "test@test.test",
-                "",
                 _merchant.YandexMoneyAccount,
                 false,
                 concertLabel,

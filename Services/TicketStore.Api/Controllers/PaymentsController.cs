@@ -45,16 +45,13 @@ namespace TicketStore.Api.Controllers
         // POST api/values
         [HttpPost]
         public IActionResult Post(
-            [FromForm] Boolean test_notification,
             [FromForm] String notification_type,
             [FromForm] String operation_id,
             [FromForm] Decimal amount,
             [FromForm] Decimal withdraw_amount,
             [FromForm] String currency,
             [FromForm] DateTime datetime,
-            [FromForm] Boolean unaccepted,
             [FromForm] String email,
-            [FromForm] String lastname,
             [FromForm] String sender,
             [FromForm] Boolean codepro,
             [FromForm] String label,
