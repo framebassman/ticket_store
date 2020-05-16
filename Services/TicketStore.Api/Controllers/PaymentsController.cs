@@ -57,7 +57,8 @@ namespace TicketStore.Api.Controllers
             [FromForm] String lastname,
             [FromForm] String sender,
             [FromForm] Boolean codepro,
-            [FromForm] String label
+            [FromForm] String label,
+            [FromForm] String sha1_hash
         )
         {
             if (string.IsNullOrEmpty(email))
@@ -66,24 +67,7 @@ namespace TicketStore.Api.Controllers
                 return new OkObjectResult("It's OK for yandex testing");
             }
             email = NormalizeEmail(email);
-
             _log.LogInformation("Receive Yandex.Money request from {@0} about {@1}", email, label);
-            if (!new Validator(
-                    notification_type,
-                    operation_id,
-                    amount,
-                    currency,
-                    datetime,
-                    sender,
-                    codepro,
-                    "",
-                    label
-                ).FromYandex()
-            )
-            {
-                return new BadRequestObjectResult("Secret is not matching");
-            }
-
             var concert = _db.Events
                 .AsEnumerable()
                 .FirstOrDefault(e =>
@@ -92,6 +76,24 @@ namespace TicketStore.Api.Controllers
             if (concert == null)
             {
                 return new BadRequestObjectResult("There is no event for merchant");
+            }
+
+            var merchant = _db.Merchants.First(m => m.Id == concert.MerchantId);
+            if (!new Validator(
+                    notification_type,
+                    operation_id,
+                    amount,
+                    currency,
+                    datetime,
+                    sender,
+                    codepro,
+                    merchant.YandexMoneyAccount,
+                    label,
+                    sha1_hash
+                ).FromYandex()
+            )
+            {
+                return new BadRequestObjectResult("Secret is not matching");
             }
             
             var tickets = CombineTickets(concert, new Payment { Email = email, Amount = withdraw_amount});

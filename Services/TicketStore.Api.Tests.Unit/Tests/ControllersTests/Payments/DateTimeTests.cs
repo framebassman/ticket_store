@@ -38,7 +38,8 @@ namespace TicketStore.Api.Tests.Unit.Tests.ControllersTests.Payments
                 "",
                 _merchant.YandexMoneyAccount,
                 false,
-                concertLabel
+                concertLabel,
+                ""
             );
             
             // Assert

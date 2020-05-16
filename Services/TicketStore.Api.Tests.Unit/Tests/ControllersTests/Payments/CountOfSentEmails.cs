@@ -37,7 +37,8 @@ namespace TicketStore.Api.Tests.Unit.Tests.ControllersTests.Payments
                 null,
                 null,
                 false,
-                new LabelCalculator(Logger, concert).Value()
+                new LabelCalculator(Logger, concert).Value(),
+                ""
             );
 
             // Assert
