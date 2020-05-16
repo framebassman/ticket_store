@@ -5,54 +5,37 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "TicketStore.Api",
+            "name": "Attach to Api",
             "type": "coreclr",
-            "request": "launch",
-            "preLaunchTask": "build",
-            "program": "${workspaceFolder}/Services/TicketStore.Api/bin/Debug/netcoreapp2.2/TicketStore.Api.dll",
-            "args": [],
-            "cwd": "${workspaceFolder}/Services/TicketStore.Api",
-            "stopAtEntry": false,
-            "internalConsoleOptions": "openOnSessionStart",
-            "serverReadyAction": {
-              "action": "openExternally",
-              "pattern": "^\\s*Now listening on:\\s+http://\\S+:([0-9]+)",
-              "uriFormat": "http://localhost:%s/healthcheck"
-            },
-            "env": {
-                "ASPNETCORE_ENVIRONMENT": "Development"
+            "request": "attach",
+            "processId": "${command:pickRemoteProcess}",
+            "pipeTransport": {
+                "pipeProgram": "docker",
+                "pipeArgs": [ "exec", "-i", "store_api" ],
+                "debuggerPath": "/root/vsdbg/vsdbg",
+                "pipeCwd": "${workspaceRoot}",
+                "quoteArgs": false
             },
             "sourceFileMap": {
-                "/Views": "${workspaceFolder}/Views"
+                "/app": "${workspaceRoot}/Services/TicketStore.Api/"
             }
         },
         {
-          "name": "TicketStore.Web",
-          "type": "coreclr",
-          "request": "launch",
-          "preLaunchTask": "build",
-          "program": "${workspaceFolder}/Services/TicketStore.Web/bin/Debug/netcoreapp2.2/TicketStore.Web.dll",
-          "args": [],
-          "cwd": "${workspaceFolder}/Services/TicketStore.Web",
-          "stopAtEntry": false,
-          "internalConsoleOptions": "openOnSessionStart",
-          "serverReadyAction": {
-            "action": "openExternally",
-            "pattern": "^\\s*Now listening on:\\s+http://\\S+:([0-9]+)"
-          },
-          "env": {
-              "ASPNETCORE_ENVIRONMENT": "Development"
-          },
-          "sourceFileMap": {
-              "/Views": "${workspaceFolder}/Views"
-          }
-      },
-        {
-            "name": ".NET Core Attach",
+            "name": "Attach to Web",
             "type": "coreclr",
             "request": "attach",
-            "processId": "${command:pickProcess}"
-        }
+            "processId": "${command:pickRemoteProcess}",
+            "pipeTransport": {
+                "pipeProgram": "docker",
+                "pipeArgs": [ "exec", "-i", "store_web" ],
+                "debuggerPath": "/root/vsdbg/vsdbg",
+                "pipeCwd": "${workspaceRoot}",
+                "quoteArgs": false
+            },
+            "sourceFileMap": {
+                "/app": "${workspaceRoot}/Services/TicketStore.Web/"
+            }
+        },
     ]
   }
   
