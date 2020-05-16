@@ -15,9 +15,13 @@ RUN apk add ttf-liberation && fc-cache -fv
 RUN apk add tzdata && ls /usr/share/zoneinfo
 RUN dotnet tool install --global dotnet-ef --version 3.1.3
 ENV PATH="/root/.dotnet/tools:${PATH}"
+# install debugger
+RUN apk add unzip procps
+RUN curl -sSL https://aka.ms/getvsdbgsh | /bin/sh /dev/stdin -v latest -l ~/vsdbg
+# copy code
 COPY ./Services/TicketStore.Api/ /app
 COPY ./Services/TicketStore.Data/ /TicketStore.Data
 WORKDIR /app
 RUN dotnet restore
 RUN dotnet build
-ENTRYPOINT dotnet watch run
+ENTRYPOINT ["dotnet", "watch", "run"]
