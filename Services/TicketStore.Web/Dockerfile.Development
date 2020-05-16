@@ -1,10 +1,12 @@
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1.201-alpine3.11 AS build-env
-
 RUN apk add --update 'nodejs=12.15.0-r1' 'npm=12.15.0-r1'
-
+# install debugger
+RUN apk add unzip procps
+RUN curl -sSL https://aka.ms/getvsdbgsh | /bin/sh /dev/stdin -v latest -l ~/vsdbg
+# copy code
 COPY ./Services/TicketStore.Web/ /app
 COPY ./Services/TicketStore.Data/ /TicketStore.Data
 WORKDIR /app
 RUN dotnet restore
 RUN dotnet build
-ENTRYPOINT dotnet watch run
+ENTRYPOINT ["dotnet", "watch", "run"]
