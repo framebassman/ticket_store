@@ -38,7 +38,10 @@ namespace TicketStore.Api.Model
                 .Append(notification_secret).Append("&")
                 .Append(label)
                 .ToString();
-            _log.LogInformation($"============ line was: {line}");
+            _log.LogInformation("line was: {0}", line);
+            var calculatedShaHash = shaHash(line);
+            _log.LogInformation("calculated sha1Hash: {0}", calculatedShaHash);
+            _log.LogInformation("origin sha1Hash: {0}", sha1Hash);
             return shaHash(line) == sha1Hash;
         }
         
