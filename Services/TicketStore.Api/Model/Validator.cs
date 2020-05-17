@@ -1,11 +1,19 @@
 using System;
 using System.Security.Cryptography;
 using System.Text;
+using Microsoft.Extensions.Logging;
 
 namespace TicketStore.Api.Model
 {
     public class Validator
     {
+        private ILogger<Validator> _log;
+
+        public Validator(ILogger<Validator> log)
+        {
+            _log = log;
+        }
+
         public virtual Boolean FromYandex(
             String notification_type,
             String operation_id,
@@ -30,6 +38,7 @@ namespace TicketStore.Api.Model
                 .Append(notification_secret).Append("&")
                 .Append(label)
                 .ToString();
+            _log.LogInformation($"============ line was: {line}");
             return shaHash(line) == sha1Hash;
         }
         
