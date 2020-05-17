@@ -24,6 +24,7 @@ namespace TicketStore.Api.Controllers
         protected IConverter PdfConverter;
         protected Converter BarcodeConverter;
         protected HttpClient HttpClient;
+        protected Validator Validator;
 
         public PaymentsController(
             ApplicationContext context,
@@ -31,7 +32,8 @@ namespace TicketStore.Api.Controllers
             IConverter pdfConverter,
             Converter barcodeConverter,
             EmailService emailService,
-            IHttpClientFactory clientFactory
+            IHttpClientFactory clientFactory,
+            Validator validator
         )
         {
             _db = context;
@@ -40,6 +42,7 @@ namespace TicketStore.Api.Controllers
             PdfConverter = pdfConverter;
             BarcodeConverter = barcodeConverter;
             HttpClient = clientFactory.CreateClient();
+            Validator = validator;
         }
 
         // POST api/values
@@ -76,7 +79,7 @@ namespace TicketStore.Api.Controllers
             }
 
             var merchant = _db.Merchants.First(m => m.Id == concert.MerchantId);
-            if (!new Validator(
+            if (!Validator.FromYandex(
                     notification_type,
                     operation_id,
                     amount,
@@ -87,7 +90,7 @@ namespace TicketStore.Api.Controllers
                     merchant.YandexMoneyAccount,
                     label,
                     sha1_hash
-                ).FromYandex()
+                )
             )
             {
                 return new BadRequestObjectResult("Secret is not matching");

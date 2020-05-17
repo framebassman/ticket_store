@@ -17,7 +17,8 @@ namespace TicketStore.Api.Tests.Unit.Tests.ControllersTests.Payments
                 new DummyPdfConverter(),
                 new DummyBarcodeConverter(),
                 EmailService,
-                new DummyHttpClientFactory()
+                new DummyHttpClientFactory(),
+                new DummyValidator()
             );
         }
     }
