@@ -54,7 +54,7 @@ stages:
     - task: PublishTestResults@2
       condition: always()
       inputs:
-        testResultsFormat: 'xUnit' # Options: JUnit, NUnit, VSTest, xUnit, cTest
+        testResultsFormat: 'VSTest' # Options: JUnit, NUnit, VSTest, xUnit, cTest
         testResultsFiles: 'TestResults/report.trx' 
         searchFolder: '$(build.sourcesDirectory)/Services/TicketStore.Api.Tests.Unit' # Optional
     - task: Bash@3
@@ -91,7 +91,7 @@ stages:
     - task: PublishTestResults@2
       condition: always()
       inputs:
-        testResultsFormat: 'xUnit' # Options: JUnit, NUnit, VSTest, xUnit, cTest
+        testResultsFormat: 'VSTest' # Options: JUnit, NUnit, VSTest, xUnit, cTest
         testResultsFiles: 'TestResults/report.trx' 
         searchFolder: '$(build.sourcesDirectory)/Services/TicketStore.Web.Tests.Unit' # Optional
         #mergeTestResults: false # Optional
@@ -134,7 +134,7 @@ stages:
     - task: PublishTestResults@2
       condition: always()
       inputs:
-        testResultsFormat: 'xUnit' # Options: JUnit, NUnit, VSTest, xUnit, cTest
+        testResultsFormat: 'VSTest' # Options: JUnit, NUnit, VSTest, xUnit, cTest
         testResultsFiles: 'TestResults/report.trx' 
         searchFolder: '$(build.sourcesDirectory)/Services/TicketStore.Data.Tests.Unit' # Optional
         #mergeTestResults: false # Optional
