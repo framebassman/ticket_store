@@ -70,11 +70,11 @@ workflows:
   frontend-unit-tests:
     jobs:
       - client-unit-tests
-      # - deploy:
-      #     filters:
-      #       branches:
-      #         only:
-      #           - master
-      #     context: credentials
-      #     requires:
-      #       - test-integration
+      - deploy:
+          filters:
+            branches:
+              only:
+                - master
+          context: credentials
+          # requires:
+          #   - test-integration
