@@ -61,7 +61,7 @@ stages:
       displayName: 'publish code coverage report to Codecov'
       inputs:
         targetType: 'inline'
-        script: bash <(curl -s https://codecov.io/bash) -y $(build.sourcesDirectory)/.ci/codecov.yml
+        script: bash <(curl -s https://codecov.io/bash)
     - task: PublishCodeCoverageResults@1
       displayName: 'publish code coverage report to Azure Devops'
       inputs:
@@ -104,7 +104,7 @@ stages:
       displayName: 'publish code coverage report to Codecov'
       inputs:
         targetType: 'inline'
-        script: bash <(curl -s https://codecov.io/bash) -y $(build.sourcesDirectory)/.ci/codecov.yml
+        script: bash <(curl -s https://codecov.io/bash)
     - task: PublishCodeCoverageResults@1
       displayName: 'publish code coverage report to Azure Devops'
       inputs:
@@ -147,7 +147,7 @@ stages:
       displayName: 'publish code coverage report to Codecov'
       inputs:
         targetType: 'inline'
-        script: bash <(curl -s https://codecov.io/bash) -y $(build.sourcesDirectory)/.ci/codecov.yml
+        script: bash <(curl -s https://codecov.io/bash)
     - task: PublishCodeCoverageResults@1
       displayName: 'publish code coverage report to Azure Devops'
       inputs:
