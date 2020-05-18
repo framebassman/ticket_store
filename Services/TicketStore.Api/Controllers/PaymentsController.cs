@@ -7,6 +7,7 @@ using Microsoft.Extensions.Logging;
 using DinkToPdf.Contracts;
 using TicketStore.Api.Model;
 using TicketStore.Api.Model.Email;
+using TicketStore.Api.Model.Payment.YandexMoney;
 using TicketStore.Api.Model.PdfDocument;
 using TicketStore.Api.Model.PdfDocument.Model.BarcodeConverters;
 using TicketStore.Data;

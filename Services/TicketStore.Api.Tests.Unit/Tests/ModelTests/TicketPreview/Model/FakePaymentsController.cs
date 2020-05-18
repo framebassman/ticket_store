@@ -5,6 +5,7 @@ using Microsoft.Extensions.Logging;
 using TicketStore.Api.Controllers;
 using TicketStore.Api.Model;
 using TicketStore.Api.Model.Email;
+using TicketStore.Api.Model.Payment.YandexMoney;
 using TicketStore.Api.Model.PdfDocument.Model.BarcodeConverters;
 using TicketStore.Api.Tests.Unit.Stubs;
 using TicketStore.Data;

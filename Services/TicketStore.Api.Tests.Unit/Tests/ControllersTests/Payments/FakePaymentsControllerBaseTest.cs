@@ -4,6 +4,7 @@ using TicketStore.Api.Tests.Unit.Tests.ModelTests.TicketPreview.Model;
 using Moq;
 using Microsoft.Extensions.Logging;
 using TicketStore.Api.Model;
+using TicketStore.Api.Model.Payment.YandexMoney;
 
 namespace TicketStore.Api.Tests.Unit.Tests.ControllersTests.Payments
 {

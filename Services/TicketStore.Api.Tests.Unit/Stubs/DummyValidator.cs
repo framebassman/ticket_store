@@ -1,6 +1,7 @@
 using System;
 using TicketStore.Api.Model;
 using Microsoft.Extensions.Logging;
+using TicketStore.Api.Model.Payment.YandexMoney;
 
 namespace TicketStore.Api.Tests.Unit.Stubs
 {
