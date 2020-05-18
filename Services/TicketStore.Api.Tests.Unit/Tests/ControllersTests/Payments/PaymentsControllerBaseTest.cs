@@ -1,6 +1,10 @@
 using TicketStore.Api.Controllers;
 using TicketStore.Api.Tests.Unit.Stubs;
 using TicketStore.Api.Tests.Unit.Stubs.Http;
+using Moq;
+using Microsoft.Extensions.Logging;
+using TicketStore.Api.Model;
+using TicketStore.Api.Model.Payment.YandexMoney;
 
 namespace TicketStore.Api.Tests.Unit.Tests.ControllersTests.Payments
 {
@@ -16,7 +20,9 @@ namespace TicketStore.Api.Tests.Unit.Tests.ControllersTests.Payments
                 Logger,
                 new DummyPdfConverter(),
                 new DummyBarcodeConverter(),
-                EmailService, new DummyHttpClientFactory()
+                EmailService,
+                new DummyHttpClientFactory(),
+                new DummyValidator(new Mock<ILogger<Validator>>().Object)
             );
         }
     }
