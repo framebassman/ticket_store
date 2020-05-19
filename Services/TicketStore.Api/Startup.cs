@@ -53,14 +53,15 @@ namespace TicketStore.Api
             services.AddControllers();
             services.AddHttpClient();
             services.AddTransient<Converter>();
-            services.AddTransient<Validator>();
             if (Environment.IsEnvironment("Test"))
             {
                 services.AddSingleton<EmailService, FakeSenderService>();
+                services.AddTransient<IPaymentValidator, DummyValidator>();
             }
             else
             {
                 services.AddSingleton<EmailService, YandexService>();
+                services.AddTransient<IPaymentValidator, Validator>();
             }
         }
 

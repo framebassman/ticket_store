@@ -6,7 +6,7 @@ using Microsoft.Extensions.Logging;
 
 namespace TicketStore.Api.Model.Payment.YandexMoney
 {
-    public class Validator
+    public class Validator : IPaymentValidator
     {
         private ILogger<Validator> _log;
 
