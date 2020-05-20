@@ -3,7 +3,9 @@ using System.Net.Http;
 using DinkToPdf.Contracts;
 using Microsoft.Extensions.Logging;
 using TicketStore.Api.Controllers;
+using TicketStore.Api.Model;
 using TicketStore.Api.Model.Email;
+using TicketStore.Api.Model.Payment.YandexMoney;
 using TicketStore.Api.Model.PdfDocument.Model.BarcodeConverters;
 using TicketStore.Api.Tests.Unit.Stubs;
 using TicketStore.Data;
@@ -19,8 +21,9 @@ namespace TicketStore.Api.Tests.Unit.Tests.ModelTests.TicketPreview.Model
             IConverter pdfConverter,
             Converter barcodeConverter,
             EmailService emailService,
-            IHttpClientFactory clientFactory
-        ) : base(context, log, pdfConverter, barcodeConverter, emailService, clientFactory)
+            IHttpClientFactory clientFactory,
+            Validator validator
+        ) : base(context, log, pdfConverter, barcodeConverter, emailService, clientFactory, validator)
         {
         }
 
