@@ -16,7 +16,7 @@ namespace TicketStore.Api.Model.Payment.YandexMoney
             String currency, DateTime datetime, String sender, Boolean codepro, String notification_secret,
             String label, String sha1Hash)
         {
-            _log.LogInformation("Dummy Validator should answer `true` always");
+            _log.LogInformation("Dummy Validator should answer {0} always", true);
             return true;
         }
     }
