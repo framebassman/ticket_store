@@ -12,14 +12,12 @@ blocks:
         - name: private-repo
       env_vars:
         - name: DOTNET_SKIP_FIRST_TIME_EXPERIENCE
-          value: "1"
+          value: true
         - name: DOTNET_CLI_TELEMETRY_OPTOUT
-          value: "1"
+          value: true
       jobs:
         - name: Run integration tests
           commands:
-            # check dotnet env
-            - echo $DOTNET_SKIP_FIRST_TIME_EXPERIENCE
             # update docker-compose
             - sudo curl -L "https://github.com/docker/compose/releases/download/1.24.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
             - sudo chmod +x /usr/local/bin/docker-compose
