@@ -7,6 +7,7 @@ using Microsoft.Extensions.Logging;
 using DinkToPdf.Contracts;
 using TicketStore.Api.Model;
 using TicketStore.Api.Model.Email;
+using TicketStore.Api.Model.Payment.YandexMoney;
 using TicketStore.Api.Model.PdfDocument;
 using TicketStore.Api.Model.PdfDocument.Model.BarcodeConverters;
 using TicketStore.Data;
@@ -24,6 +25,7 @@ namespace TicketStore.Api.Controllers
         protected IConverter PdfConverter;
         protected Converter BarcodeConverter;
         protected HttpClient HttpClient;
+        protected IPaymentValidator Validator;
 
         public PaymentsController(
             ApplicationContext context,
@@ -31,7 +33,8 @@ namespace TicketStore.Api.Controllers
             IConverter pdfConverter,
             Converter barcodeConverter,
             EmailService emailService,
-            IHttpClientFactory clientFactory
+            IHttpClientFactory clientFactory,
+            IPaymentValidator validator
         )
         {
             _db = context;
@@ -40,24 +43,23 @@ namespace TicketStore.Api.Controllers
             PdfConverter = pdfConverter;
             BarcodeConverter = barcodeConverter;
             HttpClient = clientFactory.CreateClient();
+            Validator = validator;
         }
 
         // POST api/values
         [HttpPost]
         public IActionResult Post(
-            [FromForm] Boolean test_notification,
             [FromForm] String notification_type,
             [FromForm] String operation_id,
             [FromForm] Decimal amount,
             [FromForm] Decimal withdraw_amount,
             [FromForm] String currency,
             [FromForm] DateTime datetime,
-            [FromForm] Boolean unaccepted,
             [FromForm] String email,
-            [FromForm] String lastname,
             [FromForm] String sender,
             [FromForm] Boolean codepro,
-            [FromForm] String label
+            [FromForm] String label,
+            [FromForm] String sha1_hash
         )
         {
             if (string.IsNullOrEmpty(email))
@@ -66,24 +68,7 @@ namespace TicketStore.Api.Controllers
                 return new OkObjectResult("It's OK for yandex testing");
             }
             email = NormalizeEmail(email);
-
             _log.LogInformation("Receive Yandex.Money request from {@0} about {@1}", email, label);
-            if (!new Validator(
-                    notification_type,
-                    operation_id,
-                    amount,
-                    currency,
-                    datetime,
-                    sender,
-                    codepro,
-                    "",
-                    label
-                ).FromYandex()
-            )
-            {
-                return new BadRequestObjectResult("Secret is not matching");
-            }
-
             var concert = _db.Events
                 .AsEnumerable()
                 .FirstOrDefault(e =>
@@ -92,6 +77,24 @@ namespace TicketStore.Api.Controllers
             if (concert == null)
             {
                 return new BadRequestObjectResult("There is no event for merchant");
+            }
+
+            var merchant = _db.Merchants.First(m => m.Id == concert.MerchantId);
+            if (!Validator.FromYandex(
+                    notification_type,
+                    operation_id,
+                    amount,
+                    currency,
+                    datetime,
+                    sender,
+                    codepro,
+                    merchant.YandexMoneyAccount,
+                    label,
+                    sha1_hash
+                )
+            )
+            {
+                return new BadRequestObjectResult("Secret is not matching");
             }
             
             var tickets = CombineTickets(concert, new Payment { Email = email, Amount = withdraw_amount});
