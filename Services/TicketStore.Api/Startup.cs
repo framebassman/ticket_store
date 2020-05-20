@@ -10,6 +10,7 @@ using Microsoft.Extensions.Hosting;
 using TicketStore.Api.Middlewares;
 using TicketStore.Api.Model;
 using TicketStore.Api.Model.Email;
+using TicketStore.Api.Model.Payment.YandexMoney;
 using TicketStore.Api.Model.PdfDocument.Model.BarcodeConverters;
 using TicketStore.Api.Model.Poster;
 using TicketStore.Api.Model.Validation;
@@ -55,10 +56,12 @@ namespace TicketStore.Api
             if (Environment.IsEnvironment("Test"))
             {
                 services.AddSingleton<EmailService, FakeSenderService>();
+                services.AddTransient<IPaymentValidator, DummyValidator>();
             }
             else
             {
                 services.AddSingleton<EmailService, YandexService>();
+                services.AddTransient<IPaymentValidator, Validator>();
             }
         }
 

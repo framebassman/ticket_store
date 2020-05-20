@@ -24,20 +24,17 @@ namespace TicketStore.Api.Tests.Unit.Tests.ControllersTests.Payments
             String email = "test@test.test";
             
             // Act
-            var result = Controller.Post(
-                false,
-                null,
+            var result = Controller.Post(null,
                 null,
                 0,
                 concert.Roubles,
                 null,
-                concertTime - TimeSpan.FromHours(1), 
-                false,
+                concertTime - TimeSpan.FromHours(1),
                 email,
                 null,
-                null,
                 false,
-                new LabelCalculator(Logger, concert).Value()
+                new LabelCalculator(Logger, concert).Value(),
+                ""
             );
 
             // Assert
