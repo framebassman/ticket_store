@@ -25,7 +25,7 @@ namespace TicketStore.Api.Controllers
         protected IConverter PdfConverter;
         protected Converter BarcodeConverter;
         protected HttpClient HttpClient;
-        protected Validator Validator;
+        protected IPaymentValidator Validator;
 
         public PaymentsController(
             ApplicationContext context,
@@ -34,7 +34,7 @@ namespace TicketStore.Api.Controllers
             Converter barcodeConverter,
             EmailService emailService,
             IHttpClientFactory clientFactory,
-            Validator validator
+            IPaymentValidator validator
         )
         {
             _db = context;
