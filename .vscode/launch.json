@@ -5,6 +5,13 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Debug Web in Chrome",
+            "type": "chrome",
+            "request": "launch",
+            "url": "http://localhost:5000",
+            "webRoot": "${workspaceFolder}/Services/TicketStore.Web/Client"
+        },
+        {
             "name": "Attach to Api",
             "type": "coreclr",
             "request": "attach",
