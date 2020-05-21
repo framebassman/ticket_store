@@ -14,6 +14,11 @@ services:
         volumes:
             - ./Services/TicketStore.Api:/app
             - ./Services/TicketStore.Data:/TicketStore.Data
+            - /app/bin
+            - /app/obj
+            - /TicketStore.Data/bin
+            - /TicketStore.Data/obj
+            - /TicketStore.Data/DbConfigs
     store_web:
         build:
             context: .
@@ -26,6 +31,11 @@ services:
         volumes:
             - ./Services/TicketStore.Web:/app
             - ./Services/TicketStore.Data:/TicketStore.Data
+            - /app/bin
+            - /app/obj
+            - /TicketStore.Data/bin
+            - /TicketStore.Data/obj
+            - /TicketStore.Data/DbConfigs
     store_proxy:
         build:
             context: .
