@@ -19,6 +19,8 @@ namespace TicketStore.Web.Tests.Unit.ControllersTests.Events
         private DateTime _closer;
         private DateTime _farther;
         private String _dateTimeInString;
+        private Int32 _page;
+        private Int32 _size;
         
         public EventTimeInUtc() : base("EventTimeInUtc")
         {
@@ -31,6 +33,8 @@ namespace TicketStore.Web.Tests.Unit.ControllersTests.Events
             dateTimeMock.Setup(mock => mock.Now).Returns(now);
             _controller = new EventsController(Logger, Db, dateTimeMock.Object);
             SeedTestData(dbTime);
+            _page = 0;
+            _size = Int32.MaxValue;
         }
         
         private void SeedTestData(DateTime date)
@@ -52,7 +56,7 @@ namespace TicketStore.Web.Tests.Unit.ControllersTests.Events
                 .Id;
             
             // Act
-            var result = _controller.Get(merchantId);
+            var result = _controller.Get(merchantId, _page, _size);
             
             // Assert
             Assert.IsType<OkObjectResult>(result);
@@ -72,7 +76,7 @@ namespace TicketStore.Web.Tests.Unit.ControllersTests.Events
                 .Id;
             
             // Act
-            var result = _controller.Get(merchantId);
+            var result = _controller.Get(merchantId, _page, _size);
             
             // Assert
             Assert.IsType<OkObjectResult>(result);

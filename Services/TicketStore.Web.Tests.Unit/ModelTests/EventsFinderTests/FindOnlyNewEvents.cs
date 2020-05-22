@@ -38,7 +38,7 @@ namespace TicketStore.Web.Tests.Unit.ModelTests.EventsFinderTests
             SetupTestData(diff, startHours);
             
             // Act
-            var result = _finder.Find();
+            var result = _finder.Find(0, 100);
             
             // Assert
             Assert.Equal(2, result.Count);
@@ -55,7 +55,7 @@ namespace TicketStore.Web.Tests.Unit.ModelTests.EventsFinderTests
             SetupTestData(diff, startHours);
             
             // Act
-            var result = _finder.Find();
+            var result = _finder.Find(0, 100);
             
             // Assert
             Assert.Equal(2, result.Count);
@@ -72,7 +72,7 @@ namespace TicketStore.Web.Tests.Unit.ModelTests.EventsFinderTests
             SetupTestData(diff, startHours);
             
             // Act
-            var result = _finder.Find();
+            var result = _finder.Find(0, 100);
             
             // Assert
             Assert.Single(result);

@@ -19,15 +19,11 @@ namespace TicketStore.Web.Model.Events
             _dateTime = dateTime;
         }
         
-        public List<Event> Find()
+        public List<Event> Find(Int32 page, Int32 size)
         {
             return _db.Events
-                .Where(e =>
-                    e.MerchantId == _merchantId
-                    && e.Time - _dateTime.Now >= TimeSpan.FromHours(6) 
-                )
-                .OrderBy(e => e.Time)
-                .ToList();
+                .Where(e => e.MerchantId == _merchantId && e.Time - _dateTime.Now >= TimeSpan.FromHours(6))
+                .OrderBy(e => e.Time).Skip(page * size).Take(size).ToList();
         }
     }
 }
