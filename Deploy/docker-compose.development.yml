@@ -16,6 +16,7 @@ services:
             - ./Services/TicketStore.Data:/TicketStore.Data
             - /app/bin
             - /app/obj
+            - /app/Properties
             - /TicketStore.Data/bin
             - /TicketStore.Data/obj
             - /TicketStore.Data/DbConfigs
@@ -33,6 +34,7 @@ services:
             - ./Services/TicketStore.Data:/TicketStore.Data
             - /app/bin
             - /app/obj
+            - /app/Properties
             - /TicketStore.Data/bin
             - /TicketStore.Data/obj
             - /TicketStore.Data/DbConfigs
