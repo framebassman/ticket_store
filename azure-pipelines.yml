@@ -37,7 +37,7 @@ stages:
   jobs:
   - job: Api
     pool:
-      vmImage: 'ubuntu-latest'
+      vmImage: 'ubuntu-20.04'
     continueOnError: true
     steps:
     - task: UseDotNet@2
@@ -74,7 +74,7 @@ stages:
 
   - job: Web
     pool:
-      vmImage: 'ubuntu-latest'
+      vmImage: 'ubuntu-20.04'
     continueOnError: true
     steps:
     - task: UseDotNet@2
@@ -117,7 +117,7 @@ stages:
 
   - job: Data
     pool:
-      vmImage: 'ubuntu-latest'
+      vmImage: 'ubuntu-20.04'
     continueOnError: true
     steps:
     - task: UseDotNet@2
