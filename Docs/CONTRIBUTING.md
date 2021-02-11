@@ -43,7 +43,7 @@ make db-seed
 ```
 
 #### 8. Finish!
-Hooray - application was started. You can look at this via `ngrok url` or https://localhost or https://your_docker_host_ip
+Hooray - application was started. You can look at this via `ngrok url` or http://localhost or http://your_docker_host_ip
 
 ## Scanner developing
 Only via mobile and `ngrok url`
