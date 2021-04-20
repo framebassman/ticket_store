@@ -1,5 +1,5 @@
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1.201-alpine3.11 AS build-env
-RUN apk add --update 'nodejs=12.21.0-r0' 'npm=12.21.0-r0'
+RUN apk add --update 'nodejs=12.22.1-r0' 'npm=12.22.1-r0'
 # install debugger
 RUN apk add unzip procps
 RUN curl -sSL https://aka.ms/getvsdbgsh | /bin/sh /dev/stdin -v latest -l ~/vsdbg
