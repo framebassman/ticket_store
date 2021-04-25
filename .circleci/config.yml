@@ -4,7 +4,7 @@ jobs:
   client-unit-tests:
     working_directory: ~/repo/Services/TicketStore.Web/Client
     docker:
-      - image: node:14.16.1-alpine3.13
+      - image: node:12.20.1-alpine3.11
     steps:
       - checkout:
           path: ~/repo
@@ -12,7 +12,7 @@ jobs:
           key: npm-cache-v1-{{ checksum "package-lock.json" }}
       - run:
           name: install libraries
-          command: npm ci
+          command: python --version && npm ci
       - save_cache:
           key: npm-cache-v1-{{ checksum "package-lock.json" }}
           paths:
