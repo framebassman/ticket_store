@@ -1,11 +1,11 @@
-FROM mcr.microsoft.com/dotnet/core/sdk:3.1.201-alpine3.11 AS build-env
+FROM mcr.microsoft.com/dotnet/sdk:5.0.202-alpine3.13 AS build-env
 COPY ./Services/TicketStore.Api/ /app
 COPY ./Services/TicketStore.Data/ /TicketStore.Data
 WORKDIR /app
 RUN dotnet restore
 RUN dotnet publish -c Release -o out
 
-FROM mcr.microsoft.com/dotnet/core/aspnet:3.1.3-alpine3.11
+FROM mcr.microsoft.com/dotnet/aspnet:5.0.5-alpine3.13
 # libgdiplus-dev - for bitmap creating and pdf generation
 # gcompat, libwkhtmltox.so - for pdf generation
 RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories \

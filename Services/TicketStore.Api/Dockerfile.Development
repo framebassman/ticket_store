@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/core/sdk:3.1.201-alpine3.11
+FROM mcr.microsoft.com/dotnet/sdk:5.0.202-alpine3.13
 # libgdiplus-dev - for bitmap creating and pdf generation
 # gcompat, libwkhtmltox.so - for pdf generation
 RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories \
