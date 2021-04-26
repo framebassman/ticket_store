@@ -1,9 +1,10 @@
 import axios from 'axios';
+import { Dispatch } from 'redux';
 import { merchantsUrl } from '../urls';
 import { merchantsFetchDataSuccessType, merchantsHasErroredType, merchantsIsLoadingType } from './types';
 
 export function merchantsFetchData() {
-  return (dispatch) => {
+  return (dispatch: Dispatch) => {
     dispatch(merchantsIsLoading(true));
 
     axios.get(merchantsUrl)
@@ -36,7 +37,7 @@ export function merchantsIsLoading(bool: boolean) {
   };
 }
 
-export function merchantsFetchDataSuccess(merchants) {
+export function merchantsFetchDataSuccess(merchants: any[]) {
   return {
     type: merchantsFetchDataSuccessType,
     merchants

@@ -14,7 +14,7 @@ import { useStyles } from './Menu.styles';
 import Logo from './Logo';
 import MenuFooter from './MenuFooter';
 
-export const Menu = (props) => {
+export const Menu = (props: any) => {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);

@@ -1,6 +1,5 @@
 ﻿import React, { Component } from 'react';
 import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom';
-import { hot } from 'react-hot-loader';
 import yellow from '@material-ui/core/colors/yellow';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
@@ -44,4 +43,4 @@ class App extends Component {
   }
 }
 
-export default hot(module)(App);
+export default App;
