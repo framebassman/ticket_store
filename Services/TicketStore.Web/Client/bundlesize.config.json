@@ -16,7 +16,7 @@
             "compression": "none"
         },
         {
-            "path": "./build/static/media/**.png",
+            "path": "./build/static/media/**.svg",
             "maxSize": "65 kB",
             "compression": "none"
         }
