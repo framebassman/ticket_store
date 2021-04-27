@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import * as Quagga from 'quagga';
 import './Scanner.css';
 import { DetectedBarcode } from './DetectedBarcode';
+let Quagga = require('quagga');
 
 type Props = {
   onDetected: (detectedBarcode: DetectedBarcode) => any

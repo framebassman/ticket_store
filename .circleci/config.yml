@@ -4,7 +4,7 @@ jobs:
   client-unit-tests:
     working_directory: ~/repo/Services/TicketStore.Web/Client
     docker:
-      - image: node:12.20.1-alpine3.11
+      - image: node:14.16.1-alpine3.13
     steps:
       - checkout:
           path: ~/repo

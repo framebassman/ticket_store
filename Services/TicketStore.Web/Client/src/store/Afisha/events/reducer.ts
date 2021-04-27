@@ -1,9 +1,9 @@
 import {
   eventsFetchDataSuccessType, eventsHasErroredType, eventsIsLoadingType
 } from './types';
-import { combineReducers } from 'redux';
+import { AnyAction, combineReducers } from 'redux';
 
-function eventsHasErrored(state = false, action) {
+function eventsHasErrored(state = false, action: AnyAction) {
   switch (action.type) {
     case eventsHasErroredType:
       return action.hasErrored;
@@ -13,7 +13,7 @@ function eventsHasErrored(state = false, action) {
   }
 }
 
-function eventsIsLoading(state = false, action) {
+function eventsIsLoading(state = false, action: AnyAction) {
   switch (action.type) {
     case eventsIsLoadingType:
       return action.isLoading;
@@ -23,7 +23,7 @@ function eventsIsLoading(state = false, action) {
   }
 }
 
-function events(state = [], action) {
+function events(state = [], action: AnyAction) {
   switch (action.type) {
     case eventsFetchDataSuccessType:
       return action.events;
