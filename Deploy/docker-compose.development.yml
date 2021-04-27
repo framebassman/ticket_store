@@ -12,8 +12,9 @@ services:
         environment:
             - ASPNETCORE_ENVIRONMENT=Development
         volumes:
-            - ./Services/TicketStore.Api:/app
-            - ./Services/TicketStore.Data:/TicketStore.Data
+            - ./Services/TicketStore.Api/Controllers:/app/Controllers
+            - ./Services/TicketStore.Api/Middlewares:/app/Middlewares
+            - ./Services/TicketStore.Api/Model:/app/Model
     store_web:
         build:
             context: .
@@ -24,8 +25,10 @@ services:
             - ASPNETCORE_ENVIRONMENT=Development
             - REACT_APP_ENVIRONMENT=Development
         volumes:
-            - ./Services/TicketStore.Web:/app
-            - ./Services/TicketStore.Data:/TicketStore.Data
+            - ./Services/TicketStore.Web/Client:/app/Client
+            - ./Services/TicketStore.Web/Controllers:/app/Controllers
+            - ./Services/TicketStore.Web/Pages:/app/Pages
+            - ./Services/TicketStore.Web/Model:/app/Model
     store_proxy:
         build:
             context: .
