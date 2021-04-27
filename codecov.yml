@@ -24,6 +24,23 @@ coverage:
         threshold: 10%
         paths:
           - "Services/TicketStore.Data"
+    patch:
+      default:
+        # basic
+        target: auto
+        threshold: 10%
+        base: auto
+        # advanced
+        branches:
+          - master
+        if_ci_failed: failure #success, failure, error, ignore
+        only_pulls: true
+        flags:
+          - "unit"
+        paths:
+          - "Services/TicketStore.Api"
+          - "Services/TicketStore.Web"
+          - "Services/TicketStore.Data"
 
 ignore:
   - ".ci"  # ignore folders and all its contents
