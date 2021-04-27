@@ -20,7 +20,7 @@ const theme = createMuiTheme({
   }
 });
 
-const Container = ({ children }) => (
+const Container: React.FC<{}> = ({ children }) => (
   <MuiThemeProvider theme={theme}>
     <div className="status-container">
       {children}

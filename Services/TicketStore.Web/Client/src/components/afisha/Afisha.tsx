@@ -58,7 +58,7 @@ class Afisha extends Component<any, AfishaState> {
     return (
       <div className={classes.afisha}>
         <Grid container justify="center">
-          {events.map((event, key) => (
+          {events.map((event: any, key: any) => (
             <Event
               key={key}
               artist={event.artist}
@@ -75,7 +75,7 @@ class Afisha extends Component<any, AfishaState> {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state: any) => {
   return {
     events: state.afisha.events.events,
     eventsHasErrored: state.afisha.events.eventsHasErrored,

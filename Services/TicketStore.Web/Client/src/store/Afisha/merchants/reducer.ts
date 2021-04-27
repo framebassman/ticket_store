@@ -1,9 +1,9 @@
 import {
     merchantsFetchDataSuccessType, merchantsHasErroredType, merchantsIsLoadingType
 } from './types';
-import { combineReducers } from 'redux';
+import { AnyAction, combineReducers } from 'redux';
 
-function merchantsHasErrored(state = false, action) {
+function merchantsHasErrored(state = false, action: AnyAction) {
     switch (action.type) {
       case merchantsHasErroredType:
         return action.hasErrored;
@@ -13,7 +13,7 @@ function merchantsHasErrored(state = false, action) {
     }
   }
   
-  function merchantsIsLoading(state = false, action) {
+  function merchantsIsLoading(state = false, action: AnyAction) {
     switch (action.type) {
       case merchantsIsLoadingType:
         return action.isLoading;
@@ -23,7 +23,7 @@ function merchantsHasErrored(state = false, action) {
     }
   }
   
-  function merchants(state = [], action) {
+  function merchants(state = [], action: AnyAction) {
     switch (action.type) {
       case merchantsFetchDataSuccessType:
         return action.merchants;

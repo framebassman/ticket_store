@@ -1,10 +1,11 @@
 import axios from 'axios';
+import { Dispatch } from 'redux';
 import { eventsUrl, merchantsUrl } from '../urls';
 import { eventsFetchDataSuccessType, eventsHasErroredType, eventsIsLoadingType } from './types';
 import { merchantsHasErrored, merchantsIsLoading, merchantsFetchDataSuccess } from '../merchants/actions';
 
 export function eventsFetchData(merchantId: number) {
-  return (dispatch) => {
+  return (dispatch: Dispatch) => {
     dispatch(eventsIsLoading(true));
 
     axios.get(eventsUrl, { params: { merchantId }})
@@ -24,7 +25,7 @@ export function eventsFetchData(merchantId: number) {
 }
 
 export function allEventsFetch() {
-  return (dispatch) => {
+  return (dispatch: Dispatch) => {
     dispatch(merchantsIsLoading(true));
 
     axios.get(merchantsUrl)
@@ -84,7 +85,7 @@ function eventsIsLoading(bool: boolean) {
   };
 }
 
-function eventsFetchDataSuccess(events) {
+function eventsFetchDataSuccess(events: any[]) {
   return {
     type: eventsFetchDataSuccessType,
     events

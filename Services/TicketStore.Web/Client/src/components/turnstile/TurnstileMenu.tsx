@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Route, withRouter } from 'react-router-dom';
+import { Route, RouteComponentProps, withRouter } from 'react-router-dom';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import Box from '@material-ui/core/Box';
@@ -23,7 +23,7 @@ const navigation = {
 
 const navigationList = [navigation.camera, navigation.manual];
 
-export const TurnstileMenu = ({ location, history }) => {
+export const TurnstileMenu: React.FC<RouteComponentProps> = ({ location, history }) => {
   const index = navigationList.findIndex(navItem => location.pathname === navItem.path);
   const [value, setValue] = useState(index);
 

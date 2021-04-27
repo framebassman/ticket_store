@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import * as throttle from 'lodash/throttle';
+import throttle from 'lodash/throttle';
 import { connect } from 'react-redux';
 
 import { actionCreators, TurnstileActions } from '../../../store/Turnstile/actions';
