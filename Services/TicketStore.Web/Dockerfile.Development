@@ -6,7 +6,9 @@ RUN curl -sSL https://aka.ms/getvsdbgsh | /bin/sh /dev/stdin -v latest -l ~/vsdb
 # copy code
 COPY ./Services/TicketStore.Web/ /app
 COPY ./Services/TicketStore.Data/ /TicketStore.Data
+RUN adduser -S user
 WORKDIR /app
+USER user
 RUN dotnet restore
 RUN dotnet build
 ENTRYPOINT ["dotnet", "watch", "run"]
