@@ -16,22 +16,22 @@ services:
         volumes:
             - /var/log/store_api:/app/logs
         tty: true
-#    store_web:
-#        container_name: store_web
-#        environment:
-#            - ASPNETCORE_URLS=http://+:5000
-#        labels:
-#            - "traefik.enable=true"
-#            - "traefik.port=5000"
-#            - "traefik.backend=store_web"
-#            - "traefik.frontend.rule=PathPrefixStrip:/;ReplacePathRegex: ^/index(.html)? /"
-#            - "traefik.docker.network=ticket_store_default"
-#        volumes:
-#            - /var/log/store_web:/app/logs
-#        tty: true
-#    store_proxy:
-#        container_name: store_proxy
-#        ports:
-#            - 80:80
-#        volumes:
-#            - /var/run/docker.sock:/var/run/docker.sock
+    store_web:
+        container_name: store_web
+        environment:
+            - ASPNETCORE_URLS=http://+:5000
+        labels:
+            - "traefik.enable=true"
+            - "traefik.port=5000"
+            - "traefik.backend=store_web"
+            - "traefik.frontend.rule=PathPrefixStrip:/;ReplacePathRegex: ^/index(.html)? /"
+            - "traefik.docker.network=ticket_store_default"
+        volumes:
+            - /var/log/store_web:/app/logs
+        tty: true
+    store_proxy:
+        container_name: store_proxy
+        ports:
+            - 80:80
+        volumes:
+            - /var/run/docker.sock:/var/run/docker.sock
