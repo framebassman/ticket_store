@@ -16,8 +16,8 @@ RUN dotnet publish -c Release -o out
 
 
 FROM mcr.microsoft.com/dotnet/aspnet:5.0.5-alpine3.13
-RUN adduser -S user
-WORKDIR /app
-USER user
-COPY --from=build-env /app/out .
+RUN adduser --system --disabled-password deployer wheel
+USER deployer
+WORKDIR /home/deployer/app
+COPY --chown=deployer:wheel --from=build-env /app/out .
 ENTRYPOINT ["dotnet", "TicketStore.Web.dll"]
