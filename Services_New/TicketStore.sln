@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketStore.Data", "TicketStore.Data\TicketStore.Data.csproj", "{FD4F0BD8-DB04-4A5C-92DE-8E9D6A2889F1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketStore.Data.Tests.Unit", "TicketStore.Data.Tests.Unit\TicketStore.Data.Tests.Unit.csproj", "{0072F2BA-12B9-4440-AD82-8D781618EF2C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{FD4F0BD8-DB04-4A5C-92DE-8E9D6A2889F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FD4F0BD8-DB04-4A5C-92DE-8E9D6A2889F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FD4F0BD8-DB04-4A5C-92DE-8E9D6A2889F1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0072F2BA-12B9-4440-AD82-8D781618EF2C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0072F2BA-12B9-4440-AD82-8D781618EF2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0072F2BA-12B9-4440-AD82-8D781618EF2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0072F2BA-12B9-4440-AD82-8D781618EF2C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
