@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Rewrite;
-// using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
+using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -10,9 +10,9 @@ using TicketStore.Web.Model;
 
 namespace TicketStore.Web
 {
-    public class Startup
+    public class StartupOld
     {
-        public Startup(IConfiguration configuration)
+        public StartupOld(IConfiguration configuration)
         {
             Configuration = configuration;
         }
@@ -29,10 +29,10 @@ namespace TicketStore.Web
             services.AddDbContext<ApplicationContext>();
 
             // In production, the React files will be served from this directory
-            // services.AddSpaStaticFiles(configuration =>
-            // {
-            //     configuration.RootPath = "Client/build";
-            // });
+            services.AddSpaStaticFiles(configuration =>
+            {
+                configuration.RootPath = "Client/build";
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -49,7 +49,7 @@ namespace TicketStore.Web
 
             app.UseResponseCompression();
             app.UseStaticFiles();
-            // app.UseSpaStaticFiles();
+            app.UseSpaStaticFiles();
             app.UseRewriter(new RewriteOptions().AddRedirect("index.html", "/"));
             app.UseRouting();
             app.UseEndpoints(endpoints =>
@@ -60,15 +60,15 @@ namespace TicketStore.Web
                 endpoints.MapHealthChecks("/healthcheck");
             });
 
-            // app.UseSpa(spa =>
-            // {
-            //     spa.Options.SourcePath = "Client";
-            //
-            //     if (env.IsDevelopment())
-            //     {
-            //         spa.UseReactDevelopmentServer(npmScript: "start");
-            //     }
-            // });
+            app.UseSpa(spa =>
+            {
+                spa.Options.SourcePath = "Client";
+            
+                if (env.IsDevelopment())
+                {
+                    spa.UseReactDevelopmentServer(npmScript: "start");
+                }
+            });
         }
     }
 }
