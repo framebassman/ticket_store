@@ -1,46 +1,58 @@
-import React, { Component } from 'react';
-import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom';
-import yellow from '@material-ui/core/colors/yellow';
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import React from 'react';
+import logo from './logo.svg';
+import { Counter } from './features/counter/Counter';
+import './App.css';
 
-import { Farewell } from './components/farewell/Farewell';
-import TurnstileMenu from './components/turnstile/TurnstileMenu';
-import { Menu } from './components/menu/Menu';
-import Afisha from './components/afisha/Afisha';
-import { FirstLoaderRemover } from './components/core/FirstLoaderRemover/FirstLoaderRemover';
-
-const AfishaWithMenu = () => {
-  const theme = createMuiTheme({
-    palette: {
-      primary: {
-        main: '#FFFFFF'
-      },
-      secondary: yellow
-    }
-  });
+function App() {
   return (
-    <MuiThemeProvider theme={theme}>
-      <Menu>
-        <Afisha/>
-      </Menu>
-    </MuiThemeProvider>
-  )
-}
-
-class App extends Component {
-  render() {
-    return (
-      <BrowserRouter>
-        <FirstLoaderRemover />
-        <Switch>
-          <Route path="/tickets/farewell" component={Farewell}/>
-          <Redirect from="/tickets/turnstile" to="/turnstile/camera" />
-          <Route path="/turnstile" component={TurnstileMenu} />
-          <Route path="" component={AfishaWithMenu}/>
-        </Switch>
-      </BrowserRouter>
-    );
-  }
+    <div className="App">
+      <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+        <Counter />
+        <p>
+          Edit <code>src/App.tsx</code> and save to reload.
+        </p>
+        <span>
+          <span>Learn </span>
+          <a
+            className="App-link"
+            href="https://reactjs.org/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            React
+          </a>
+          <span>, </span>
+          <a
+            className="App-link"
+            href="https://redux.js.org/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Redux
+          </a>
+          <span>, </span>
+          <a
+            className="App-link"
+            href="https://redux-toolkit.js.org/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Redux Toolkit
+          </a>
+          ,<span> and </span>
+          <a
+            className="App-link"
+            href="https://react-redux.js.org/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            React Redux
+          </a>
+        </span>
+      </header>
+    </div>
+  );
 }
 
 export default App;

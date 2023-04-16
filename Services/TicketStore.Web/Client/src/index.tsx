@@ -1,30 +1,21 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
-import configureStore from './store/configureStore';
-import * as serviceWorker from './serviceWorker';
-
-import './index.css';
+import { store } from './app/store';
 import App from './App';
-import { YandexMetrica } from './YandexMetrica';
 import reportWebVitals from './reportWebVitals';
+import './index.css';
 
-const store = configureStore();
+const container = document.getElementById('root')!;
+const root = createRoot(container);
 
-ReactDOM.render(
+root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App/>
-      <YandexMetrica accounts={[53979967]} />
+      <App />
     </Provider>
-  </React.StrictMode>,
-  document.getElementById('root')
+  </React.StrictMode>
 );
-
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: http://bit.ly/CRA-PWA
-serviceWorker.unregister();
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
