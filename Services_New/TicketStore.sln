@@ -10,6 +10,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketStore.Api.Tests.Unit"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketStore.Api.Tests", "TicketStore.Api.Tests\TicketStore.Api.Tests.csproj", "{C9AF4DE1-0333-4897-A68D-AC5CD219882D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketStore.Web", "TicketStore.Web\TicketStore.Web.csproj", "{93E2CD35-6112-4060-AE98-D38CCD6589B9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,5 +38,9 @@ Global
 		{C9AF4DE1-0333-4897-A68D-AC5CD219882D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C9AF4DE1-0333-4897-A68D-AC5CD219882D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C9AF4DE1-0333-4897-A68D-AC5CD219882D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{93E2CD35-6112-4060-AE98-D38CCD6589B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93E2CD35-6112-4060-AE98-D38CCD6589B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93E2CD35-6112-4060-AE98-D38CCD6589B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93E2CD35-6112-4060-AE98-D38CCD6589B9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
