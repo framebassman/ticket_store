@@ -8,6 +8,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketStore.Api", "TicketSt
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketStore.Api.Tests.Unit", "TicketStore.Api.Tests.Unit\TicketStore.Api.Tests.Unit.csproj", "{90FEC4CB-3AC3-49AA-8529-E4B410B3A240}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketStore.Api.Tests", "TicketStore.Api.Tests\TicketStore.Api.Tests.csproj", "{C9AF4DE1-0333-4897-A68D-AC5CD219882D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{90FEC4CB-3AC3-49AA-8529-E4B410B3A240}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{90FEC4CB-3AC3-49AA-8529-E4B410B3A240}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{90FEC4CB-3AC3-49AA-8529-E4B410B3A240}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C9AF4DE1-0333-4897-A68D-AC5CD219882D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C9AF4DE1-0333-4897-A68D-AC5CD219882D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C9AF4DE1-0333-4897-A68D-AC5CD219882D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C9AF4DE1-0333-4897-A68D-AC5CD219882D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
