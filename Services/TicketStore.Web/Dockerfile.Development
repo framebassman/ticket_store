@@ -1,4 +1,5 @@
 FROM mcr.microsoft.com/dotnet/sdk:7.0.203-alpine3.17 AS build-env
+ENV DOTNET_GENERATE_ASPNET_CERTIFICATE=false
 RUN apk add --update 'nodejs>18.14.0' 'npm>9.1.0'
 # install debugger
 RUN apk add unzip procps
