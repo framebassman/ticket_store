@@ -41,7 +41,7 @@ namespace TicketStore.Web
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder
-                        .UseStartup<StartupOld>()
+                        .UseStartup<Startup>()
                         .UseSerilog()
                         .UseSentry(options =>
                             {

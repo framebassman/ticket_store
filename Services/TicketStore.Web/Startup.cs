@@ -12,7 +12,7 @@ namespace TicketStore.Web
 {
     public class Startup
     {
-        public StartupOld(IConfiguration configuration)
+        public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
