@@ -10,7 +10,7 @@ using TicketStore.Web.Model;
 
 namespace TicketStore.Web
 {
-    public class StartupOld
+    public class Startup
     {
         public StartupOld(IConfiguration configuration)
         {

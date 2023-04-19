@@ -1,60 +1,73 @@
+using System;
+using System.IO;
+using System.Net;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Http.Headers;
 using Microsoft.Net.Http.Headers;
+using Sentry;
+using Sentry.Extensibility;
+using Serilog;
+using Log = Serilog.Log;
 
-var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
-
-builder.Services.AddControllersWithViews();
-builder.Services.AddSpaStaticFiles(configuration => {
-    configuration.RootPath = "Client/build";
-});
-var app = builder.Build();
-
-app.UseStaticFiles();
-app.UseRouting();
-app.MapFallbackToFile("index.html");
-
-
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller}/{action=Index}/{id?}");
-
-var spaPath = "/";
-if (app.Environment.IsDevelopment())
+namespace TicketStore.Web
 {
-    app.MapWhen(y => y.Request.Path.StartsWithSegments(spaPath), client =>
+    public class Program
     {
-        client.UseSpa(spa =>
+        public static void Main(string[] args)
         {
-            spa.UseProxyToSpaDevelopmentServer("https://localhost:3000");
-        });
-    });
-}
-else
-{
-    app.Map(new PathString(spaPath), client =>
-    {
-        client.UseSpaStaticFiles();
-        client.UseSpa(spa => {
-            spa.Options.SourcePath = "Client";
-
-            // adds no-store header to index page to prevent deployment issues (prevent linking to old .js files)
-            // .js and other static resources are still cached by the browser
-            spa.Options.DefaultPageStaticFileOptions = new StaticFileOptions
+            Log.Logger = new LoggerConfiguration()
+                .ReadFrom.Configuration(BuildConfiguration())
+                .CreateLogger();
+            try
             {
-                OnPrepareResponse = ctx =>
+                Log.Logger.Information("Getting started...");
+                Log.Logger.Information($"Environment: {CurrentEnv()}");
+                CreateHostBuilder(args).Build().Run();
+            }
+            catch (Exception ex)
+            {
+                Log.Logger.Fatal(ex, "Host terminated unexpectedly");
+            }
+            finally
+            {
+                Log.CloseAndFlush();
+            }
+        }
+
+        public static IHostBuilder CreateHostBuilder(string[] args) =>
+            Host.CreateDefaultBuilder(args)
+                .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    ResponseHeaders headers = ctx.Context.Response.GetTypedHeaders();
-                    headers.CacheControl = new CacheControlHeaderValue
-                    {
-                        NoCache = true,
-                        NoStore = true,
-                        MustRevalidate = true
-                    };
-                }
-            };
-        });
-    });
+                    webBuilder
+                        .UseStartup<StartupOld>()
+                        .UseSerilog()
+                        .UseSentry(options =>
+                            {
+                                options.Environment = CurrentEnv();
+                                options.MaxQueueItems = 100;
+                                options.ShutdownTimeout = TimeSpan.FromSeconds(5);
+                                options.DecompressionMethods = DecompressionMethods.None;
+                                options.MaxRequestBodySize = RequestSize.Always;
+                                options.Release = Environment.GetEnvironmentVariable("SENTRY_RELEASE");
+                            }
+                        );
+                });
+        
+        private static IConfiguration BuildConfiguration()
+        {
+            return new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                .AddJsonFile($"appsettings.{CurrentEnv()}.json", optional: true)
+                .AddEnvironmentVariables()
+                .Build();
+        }
+
+        private static string CurrentEnv()
+        {
+            return Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Production";
+        }
+    }
 }
-app.Run();
