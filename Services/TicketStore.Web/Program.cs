@@ -4,6 +4,8 @@ using System.Net;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
+using Microsoft.AspNetCore.Http.Headers;
+using Microsoft.Net.Http.Headers;
 using Sentry;
 using Sentry.Extensibility;
 using Serilog;
@@ -39,7 +41,7 @@ namespace TicketStore.Web
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder
-                        .UseStartup<Startup>()
+                        .UseStartup<StartupOld>()
                         .UseSerilog()
                         .UseSentry(options =>
                             {
