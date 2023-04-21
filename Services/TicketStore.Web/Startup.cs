@@ -23,13 +23,10 @@ namespace TicketStore.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddResponseCompression();
-//            services.AddRobotify(c => c.AddRobotGroupsFromAppSettings());
             services.AddHealthChecks();
             services.AddControllers();
             services.AddTransient<IDateTimeProvider, DateTimeProvider>();
-            services
-                .AddDbContext<ApplicationContext>()
-                .BuildServiceProvider();
+            services.AddDbContext<ApplicationContext>();
 
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
@@ -53,12 +50,7 @@ namespace TicketStore.Web
             app.UseResponseCompression();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
-            app.UseRewriter(new RewriteOptions()
-                .AddRedirect("index.html", "/"));
-//            app.UseRobotify(c => c
-//                .WithSitemap(new Uri("https://chertopolokh.ru/sitemap"))
-//                .WithCrawlDelay(10)
-//            );
+            app.UseRewriter(new RewriteOptions().AddRedirect("index.html", "/"));
             app.UseRouting();
             app.UseEndpoints(endpoints =>
             {
@@ -71,7 +63,7 @@ namespace TicketStore.Web
             app.UseSpa(spa =>
             {
                 spa.Options.SourcePath = "Client";
-
+            
                 if (env.IsDevelopment())
                 {
                     spa.UseReactDevelopmentServer(npmScript: "start");
