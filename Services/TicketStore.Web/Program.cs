@@ -4,6 +4,8 @@ using System.Net;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
+using Microsoft.AspNetCore.Http.Headers;
+using Microsoft.Net.Http.Headers;
 using Sentry;
 using Sentry.Extensibility;
 using Serilog;
@@ -40,7 +42,6 @@ namespace TicketStore.Web
                 {
                     webBuilder
                         .UseStartup<Startup>()
-                        .UseSerilog()
                         .UseSentry(options =>
                             {
                                 options.Environment = CurrentEnv();
@@ -51,7 +52,8 @@ namespace TicketStore.Web
                                 options.Release = Environment.GetEnvironmentVariable("SENTRY_RELEASE");
                             }
                         );
-                });
+                })
+                .UseSerilog();
         
         private static IConfiguration BuildConfiguration()
         {
