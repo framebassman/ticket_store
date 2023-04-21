@@ -42,7 +42,6 @@ namespace TicketStore.Web
                 {
                     webBuilder
                         .UseStartup<Startup>()
-                        .UseSerilog()
                         .UseSentry(options =>
                             {
                                 options.Environment = CurrentEnv();
@@ -53,7 +52,8 @@ namespace TicketStore.Web
                                 options.Release = Environment.GetEnvironmentVariable("SENTRY_RELEASE");
                             }
                         );
-                });
+                })
+                .UseSerilog();
         
         private static IConfiguration BuildConfiguration()
         {
