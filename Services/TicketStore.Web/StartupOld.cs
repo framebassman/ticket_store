@@ -10,9 +10,9 @@ using TicketStore.Web.Model;
 
 namespace TicketStore.Web
 {
-    public class Startup
+    public class StartupOld
     {
-        public Startup(IConfiguration configuration)
+        public StartupOld(IConfiguration configuration)
         {
             Configuration = configuration;
         }
@@ -57,7 +57,6 @@ namespace TicketStore.Web
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller}/{action=Index}/{id?}");
-                endpoints.MapHealthChecks("/healthcheck");
             });
 
             app.UseSpa(spa =>
