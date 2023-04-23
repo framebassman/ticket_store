@@ -50,45 +50,14 @@ try
         name: "default",
         pattern: "{controller}/{action=Index}/{id?}");
     app.MapHealthChecks("/healthcheck");
-
-
-    var spaPath = "/";
-    if (app.Environment.IsDevelopment())
+    app.UseSpa(spa =>
     {
-        app.MapWhen(y => y.Request.Path.StartsWithSegments(spaPath), client =>
+        spa.Options.SourcePath = "Client";
+        if (app.Environment.IsDevelopment())
         {
-            client.UseSpa(spa =>
-            {
-                spa.UseProxyToSpaDevelopmentServer("https://localhost:3000");
-            });
-        });
-    }
-    else
-    {
-        app.Map(new PathString(spaPath), client =>
-        {
-            client.UseSpaStaticFiles();
-            client.UseSpa(spa => {
-                spa.Options.SourcePath = "Client";
-
-                // adds no-store header to index page to prevent deployment issues (prevent linking to old .js files)
-                // .js and other static resources are still cached by the browser
-                spa.Options.DefaultPageStaticFileOptions = new StaticFileOptions
-                {
-                    OnPrepareResponse = ctx =>
-                    {
-                        ResponseHeaders headers = ctx.Context.Response.GetTypedHeaders();
-                        headers.CacheControl = new CacheControlHeaderValue
-                        {
-                            NoCache = true,
-                            NoStore = true,
-                            MustRevalidate = true
-                        };
-                    }
-                };
-            });
-        });
-    }
+            spa.UseProxyToSpaDevelopmentServer("http://localhost:3000/");
+        }
+    });
     app.Run();
 }
 catch (Exception ex)
