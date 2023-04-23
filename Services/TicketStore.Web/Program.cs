@@ -19,7 +19,6 @@ Log.Logger = new LoggerConfiguration()
 try
 {
     Log.Logger.Information("Getting started...");
-    Log.Logger.Information("Environment: {env}", currentEnv);
     var builder = WebApplication.CreateBuilder(args);
 
     // Add services to the container.
