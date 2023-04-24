@@ -12,17 +12,17 @@ namespace TicketStore.Api.Tests.Model.Services
             return 3000;
         }
 
-        public IRestResponse SendTestPayment()
+        public RestResponse SendTestPayment()
         {
-            var request = new RestRequest("api/payments", Method.POST);
+            var request = new RestRequest("api/payments", Method.Post);
             request.AddHeader("Content-Type", "application/x-www-form-urlencoded");
             request.AddParameter("test_notification", true);
             return Client.Execute(request);
         }
 
-        public IRestResponse SendPayment(String sender, YandexPaymentLabel label, String email, Decimal withdraw_amount, Decimal amount)
+        public RestResponse SendPayment(String sender, YandexPaymentLabel label, String email, Decimal withdraw_amount, Decimal amount)
         {
-            var request = new RestRequest("api/payments", Method.POST);
+            var request = new RestRequest("api/payments", Method.Post);
             request.AddHeader("Content-Type", "application/x-www-form-urlencoded");
             request.AddParameter("sender", sender);
             request.AddParameter("label", label.Value());
@@ -32,14 +32,14 @@ namespace TicketStore.Api.Tests.Model.Services
             return Client.Execute(request);
         }
 
-        public IRestResponse VerifyBarcode(TurnstileScan scan)
+        public RestResponse VerifyBarcode(TurnstileScan scan)
         {
             var request = CreateVerifyRequest(scan);
             request.AddHeader("Authorization", "Bearer pkR9vfZ9QdER53mf");
             return Client.Execute(request);
         }
 
-        public IRestResponse VerifyBarcodeWithoutAuth(TurnstileScan scan)
+        public RestResponse VerifyBarcodeWithoutAuth(TurnstileScan scan)
         {
             var request = CreateVerifyRequest(scan);
             return Client.Execute(request);
@@ -47,15 +47,15 @@ namespace TicketStore.Api.Tests.Model.Services
 
         private RestRequest CreateVerifyRequest(TurnstileScan scan)
         {
-            var request = new RestRequest("api/verify", Method.POST);
+            var request = new RestRequest("api/verify", Method.Post);
             request.AddHeader("Content-Type", "application/json");
             request.AddJsonBody(scan);
             return request;
         }
 
-        public IRestResponse UploadPoster(Poster poster)
+        public RestResponse UploadPoster(Poster poster)
         {
-            var request = new RestRequest("api/uploads/poster", Method.POST);
+            var request = new RestRequest("api/uploads/poster", Method.Post);
             request.AddHeader("Content-Type", "application/json");
             request.AddJsonBody(poster);
             return Client.Execute(request);
