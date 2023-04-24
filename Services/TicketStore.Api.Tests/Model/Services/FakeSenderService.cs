@@ -10,9 +10,9 @@ namespace TicketStore.Api.Tests.Model.Services
             return 5000;
         }
 
-        public IRestResponse<List<Email>> EmailsForAddress(string to)
+        public RestResponse<List<Email>> EmailsForAddress(string to)
         {
-            var request = new RestRequest($"api/emails/{to}", Method.GET);
+            var request = new RestRequest($"api/emails/{to}", Method.Get);
             request.AddHeader("Content-Type", "application/json");
             return Client.Execute<List<Email>>(request);
         }
