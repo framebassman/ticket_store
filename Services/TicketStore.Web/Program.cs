@@ -28,7 +28,6 @@ try
     builder.Services.AddResponseCompression();
     builder.Services.AddTransient<IDateTimeProvider, DateTimeProvider>();
     builder.Services.AddDbContext<ApplicationContext>();
-    AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
     builder.Services.AddHealthChecks();
     builder.WebHost.UseSentry(options =>
     {
