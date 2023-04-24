@@ -19,9 +19,9 @@ using TicketStore.Data;
 
 namespace TicketStore.Api
 {
-    public class Startup
+    public class StartupOld
     {
-        public Startup(IWebHostEnvironment env)
+        public StartupOld(IWebHostEnvironment env)
         {
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)

@@ -1,7 +1,5 @@
 using System.Net;
 using Elasticsearch.Net;
-using Microsoft.AspNetCore.Http.Headers;
-using Microsoft.Net.Http.Headers;
 using Sentry.Extensibility;
 using Serilog;
 using TicketStore.Data;
