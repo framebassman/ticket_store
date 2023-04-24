@@ -44,6 +44,7 @@ try
     builder.Services.AddTransient<IPosterReader, PosterReader>();
     builder.Services.AddYandexObjectStorage(configuration);
     builder.Services.AddDbContext<ApplicationContext>();
+    AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
     builder.Services.AddSingleton<IConverter>(new SynchronizedConverter(new PdfTools()));
     builder.Services.AddHttpClient();
     builder.Services.AddTransient<Converter>();
