@@ -131,7 +131,7 @@ namespace TicketStore.Api.Controllers
             for (int i = 0; i < count; i++)
             {
                 ticketsToSave.Add(new Ticket {
-                    CreatedAt = DateTime.Now,
+                    CreatedAt = DateTime.UtcNow,
                     Number = new Algorithm(savedTickets.Concat(ticketsToSave).ToList()).Next(),
                     Roubles = ticketCost,
                     Expired = false,
