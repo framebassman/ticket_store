@@ -1,71 +1,69 @@
-using System;
-using System.IO;
 using System.Net;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Hosting;
-using Sentry;
+using Elasticsearch.Net;
 using Sentry.Extensibility;
 using Serilog;
-using Log = Serilog.Log;
+using TicketStore.Data;
 
-namespace TicketStore.Web
+var currentEnv = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Production";
+var configuration = new ConfigurationBuilder()
+    .SetBasePath(Directory.GetCurrentDirectory())
+    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+    .AddJsonFile($"appsettings.{currentEnv}.json", optional: true)
+    .AddEnvironmentVariables()
+    .Build();
+Log.Logger = new LoggerConfiguration()
+    .ReadFrom.Configuration(configuration)
+    .CreateLogger();
+try
 {
-    public class Program
+    Log.Logger.Information("Getting started...");
+    var builder = WebApplication.CreateBuilder(args);
+
+    // Add services to the container.
+    builder.Host.UseSerilog();
+    builder.Services.AddControllers();
+    builder.Services.AddSpaStaticFiles(config => {
+        config.RootPath = "Client/build";
+    });
+    builder.Services.AddResponseCompression();
+    builder.Services.AddTransient<IDateTimeProvider, DateTimeProvider>();
+    builder.Services.AddDbContext<ApplicationContext>();
+    AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+    builder.Services.AddHealthChecks();
+    builder.WebHost.UseSentry(options =>
     {
-        public static void Main(string[] args)
-        {
-            Log.Logger = new LoggerConfiguration()
-                .ReadFrom.Configuration(BuildConfiguration())
-                .CreateLogger();
-            try
-            {
-                Log.Logger.Information("Getting started...");
-                Log.Logger.Information($"Environment: {CurrentEnv()}");
-                CreateHostBuilder(args).Build().Run();
-            }
-            catch (Exception ex)
-            {
-                Log.Logger.Fatal(ex, "Host terminated unexpectedly");
-            }
-            finally
-            {
-                Log.CloseAndFlush();
-            }
-        }
+        options.Environment = currentEnv;
+        options.MaxQueueItems = 100;
+        options.ShutdownTimeout = TimeSpan.FromSeconds(5);
+        options.DecompressionMethods = DecompressionMethods.None;
+        options.MaxRequestBodySize = RequestSize.Always;
+        options.Release = Environment.GetEnvironmentVariable("SENTRY_RELEASE");
+    });
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder
-                        .UseStartup<Startup>()
-                        .UseSerilog()
-                        .UseSentry(options =>
-                            {
-                                options.Environment = CurrentEnv();
-                                options.MaxQueueItems = 100;
-                                options.ShutdownTimeout = TimeSpan.FromSeconds(5);
-                                options.DecompressionMethods = DecompressionMethods.None;
-                                options.MaxRequestBodySize = RequestSize.Always;
-                                options.Release = Environment.GetEnvironmentVariable("SENTRY_RELEASE");
-                            }
-                        );
-                });
-        
-        private static IConfiguration BuildConfiguration()
+    var app = builder.Build();
+    app.UseStaticFiles();
+    app.UseRouting();
+    app.UseSentryTracing();
+    app.MapFallbackToFile("index.html");
+    app.MapControllerRoute(
+        name: "default",
+        pattern: "{controller}/{action=Index}/{id?}");
+    app.MapHealthChecks("/healthcheck");
+    app.UseSpa(spa =>
+    {
+        spa.Options.SourcePath = "Client";
+        if (app.Environment.IsDevelopment())
         {
-            return new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-                .AddJsonFile($"appsettings.{CurrentEnv()}.json", optional: true)
-                .AddEnvironmentVariables()
-                .Build();
+            spa.UseProxyToSpaDevelopmentServer("http://localhost:3000/");
         }
-
-        private static string CurrentEnv()
-        {
-            return Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Production";
-        }
-    }
+    });
+    app.Run();
+}
+catch (Exception ex)
+{
+    Log.Logger.Fatal(ex, "Host terminated unexpectedly");
+}
+finally
+{
+    Log.CloseAndFlush();
 }

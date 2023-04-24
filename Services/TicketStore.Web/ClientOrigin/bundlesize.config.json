@@ -1,0 +1,24 @@
+{
+    "files": [
+        {
+            "path": "./build/**.*",
+            "maxSize": "30 KB",
+            "compression": "none"
+        },
+        {
+            "path": "./build/static/js/**.js",
+            "maxSize": "480 KB",
+            "compression": "none"
+        },
+        {
+            "path": "./build/static/css/**.css",
+            "maxSize": "3 KB",
+            "compression": "none"
+        },
+        {
+            "path": "./build/static/media/**.svg",
+            "maxSize": "6 KB",
+            "compression": "none"
+        }
+    ]
+}
