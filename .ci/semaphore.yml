@@ -42,7 +42,7 @@ blocks:
             - dotnet tool install --global dotnet-ef --version 7.0.5
             - export ASPNETCORE_ENVIRONMENT=TestMigrations; ~/.dotnet/tools/dotnet-ef database update --project Services/TicketStore.Data/TicketStore.Data.csproj --verbose
             # run integration tests
-            - dotnet test Services/TicketStore.Api.Tests --logger "junit;LogFilePath=report.xml" --filter Category!=DevelopmentData
+            - dotnet test Services/TicketStore.Api.Tests --logger "junit;LogFilePath=TestResults/report.xml" --filter Category!=DevelopmentData
       epilogue:
         always:
           commands:
