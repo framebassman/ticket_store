@@ -1,5 +1,6 @@
 ﻿using System;
 using AspNetCore.Yandex.ObjectStorage;
+using AspNetCore.Yandex.ObjectStorage.Extensions;
 using DinkToPdf;
 using DinkToPdf.Contracts;
 using Microsoft.AspNetCore.Builder;
@@ -18,9 +19,9 @@ using TicketStore.Data;
 
 namespace TicketStore.Api
 {
-    public class Startup
+    public class StartupOld
     {
-        public Startup(IWebHostEnvironment env)
+        public StartupOld(IWebHostEnvironment env)
         {
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
@@ -45,9 +46,7 @@ namespace TicketStore.Api
             services.AddTransient<IPosterDbUpdater, PosterDbUpdater>();
             services.AddTransient<IPosterReader, PosterReader>();
             services.AddYandexObjectStorage(Configuration);
-            services
-                .AddDbContext<ApplicationContext>()
-                .BuildServiceProvider();
+            services.AddDbContext<ApplicationContext>();
             services.AddSingleton<IConverter>(new SynchronizedConverter(new PdfTools()));
             services.AddHealthChecks();
             services.AddControllers();
