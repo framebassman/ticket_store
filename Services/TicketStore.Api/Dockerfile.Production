@@ -22,8 +22,7 @@ RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/reposit
 RUN apk add ttf-liberation && fc-cache -fv
 RUN apk add tzdata && ls /usr/share/zoneinfo
 # user
-RUN addgroup -g 1000 wheel && \
-    adduser --shell /sbin/nologin --disabled-password \
+RUN adduser --shell /sbin/nologin --disabled-password \
     --no-create-home --uid 1000 --ingroup wheel deployer
 USER deployer
 WORKDIR /home/deployer/app
