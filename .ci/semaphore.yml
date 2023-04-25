@@ -36,6 +36,7 @@ blocks:
             - chmod 0600 ~/.ssh/*
             - checkout
             # run application in test environment
+            - whoami
             - make start-test
             - bash ./Scripts/wait-until-app-is-deployed.sh
             # run migrations
