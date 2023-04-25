@@ -14,17 +14,7 @@ services:
             - "traefik.frontend.rule=PathPrefix:/store_api;ReplacePathRegex: ^/store_api/(.*) /$$1"
             - "traefik.docker.network=ticket_store_default"
         volumes:
-            - type: volume
-              source: api-logs
-              target: /home/deployer/app/logs
-              volume:
-                driver: local
-                driver_opts:
-                  type: "none"
-                  o: "bind"
-                  device: "./Services/TicketStore.Api/logs"
-                  uid: "1000"
-                  gid: "1000"
+            - api-logs:/home/deployer/app/logs
         tty: true
     store_web:
         container_name: store_web
