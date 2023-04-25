@@ -20,8 +20,14 @@ ENV PATH="/root/.dotnet/tools:${PATH}"
 RUN apk add unzip procps
 RUN curl -sSL https://aka.ms/getvsdbgsh | /bin/sh /dev/stdin -v latest -l ~/vsdbg
 # user
-RUN adduser --system --disabled-password deployer wheel
-USER deployer
+ENV USER_ID=1000
+ENV GROUP_ID=1000
+ENV USER_NAME=deployer
+ENV GROUP_NAME=wheel
+RUN addgroup -g $GROUP_ID $GROUP_NAME && \
+    adduser --shell /sbin/nologin --disabled-password \
+    --no-create-home --uid $USER_ID --ingroup $GROUP_NAME $USER_NAME
+USER $USER_NAME
 # copy code
 COPY --chown=deployer:wheel ./Services/TicketStore.Api/ /home/deployer/app
 COPY --chown=deployer:wheel ./Services/TicketStore.Data/ /home/deployer/TicketStore.Data
