@@ -54,7 +54,7 @@ namespace TicketStore.Api.Controllers
             {
                 Artist = "Animal Джаз",
                 Roubles = 1000,
-                Time = DateTime.Today,
+                Time = DateTime.Today.ToUniversalTime(),
                 Tickets = _tickets
             };
         }
