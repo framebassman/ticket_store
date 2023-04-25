@@ -21,9 +21,6 @@ RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/reposit
 # install font for PDF generation
 RUN apk add ttf-liberation && fc-cache -fv
 RUN apk add tzdata && ls /usr/share/zoneinfo
-# user
-RUN adduser --system --disabled-password deployer wheel
-USER deployer
-WORKDIR /home/deployer/app
-COPY --chown=deployer:wheel --from=build-env /app/out .
+WORKDIR /app
+COPY --from=build-env /app/out .
 ENTRYPOINT ["dotnet", "TicketStore.Api.dll"]
