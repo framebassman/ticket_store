@@ -39,8 +39,8 @@ volumes:
   api-logs:
     driver: local
     driver_opts:
-        type: "none"
-        o: "bind"
-        device: "./Services/TicketStore.Api/logs"
-        uid: "1000"
-        gid: "1000"
+      type: "none"
+      o: "bind"
+      device: "./Services/TicketStore.Api/logs"
+      uid: 1000
+      gid: 1000
