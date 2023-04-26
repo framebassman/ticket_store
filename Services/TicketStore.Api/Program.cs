@@ -12,8 +12,6 @@ using TicketStore.Api.Model.PdfDocument.Model.BarcodeConverters;
 using TicketStore.Api.Model.Poster;
 using TicketStore.Api.Model.Validation;
 using TicketStore.Data;
-using DateTimeProvider = Elasticsearch.Net.DateTimeProvider;
-using IDateTimeProvider = Elasticsearch.Net.IDateTimeProvider;
 
 var currentEnv = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Production";
 var configuration = new ConfigurationBuilder()
@@ -42,9 +40,19 @@ try
     builder.Services.AddTransient<IPosterUpdater, PosterUpdater>();
     builder.Services.AddTransient<IPosterDbUpdater, PosterDbUpdater>();
     builder.Services.AddTransient<IPosterReader, PosterReader>();
-    builder.Services.AddYandexObjectStorage(configuration);
+    builder.Services.AddYandexObjectStorage(options =>
+    {
+        options.Protocol = configuration.GetSection("YandexObjectStorage").GetSection("Protocol").Value;
+        options.Endpoint = configuration.GetSection("YandexObjectStorage").GetSection("Endpoint").Value;
+        options.Location = configuration.GetSection("YandexObjectStorage").GetSection("Location").Value;
+        options.BucketName = configuration.GetSection("YandexObjectStorage").GetSection("BucketName").Value;
+        options.AccessKey = configuration.GetSection("YandexObjectStorage").GetSection("AccessKey").Value;
+        options.SecretKey = configuration.GetSection("YandexObjectStorage").GetSection("SecretKey").Value;
+        
+    });
     builder.Services.AddDbContext<ApplicationContext>();
-    builder.Services.AddSingleton<IConverter>(new SynchronizedConverter(new PdfTools()));
+    builder.Services.AddSingleton<PdfTools>();
+    builder.Services.AddSingleton<IConverter, SynchronizedConverter>();
     builder.Services.AddHttpClient();
     builder.Services.AddTransient<Converter>();
     if (builder.Environment.IsEnvironment("Test"))
