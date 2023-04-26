@@ -1,6 +1,5 @@
-using System.Linq;
 using System.Net;
-using Xunit;
+using Xunit.Abstractions;
 using NHamcrest;
 using TicketStore.Api.Tests.Data;
 using TicketStore.Api.Tests.Model;
@@ -13,9 +12,11 @@ namespace TicketStore.Api.Tests.Tests.Payments
     public class SendPayment
     {
         private ApiFixture _fixture;
-        public SendPayment(ApiFixture fixture)
+        private readonly ITestOutputHelper _output;
+        public SendPayment(ApiFixture fixture, ITestOutputHelper output)
         {
             _fixture = fixture;
+            _output = output;
         }
 
         [Fact]
