@@ -15,7 +15,7 @@ services:
             - "traefik.frontend.rule=PathPrefix:/store_api;ReplacePathRegex: ^/store_api/(.*) /$$1"
             - "traefik.docker.network=ticket_store_default"
         volumes:
-            - ./Services/TicketStore.Api/logs:/app/logs:rw
+            - /var/log/store_api:/app/logs:rw
         tty: true
     store_web:
         container_name: store_web
@@ -28,7 +28,7 @@ services:
             - "traefik.frontend.rule=PathPrefixStrip:/;ReplacePathRegex: ^/index(.html)? /"
             - "traefik.docker.network=ticket_store_default"
         volumes:
-            - ./Services/TicketStore.Web/logs:/home/deployer/app/logs
+            - /var/log/store_web:/app/logs:rw
         tty: true
     store_proxy:
         container_name: store_proxy

@@ -1,6 +1,4 @@
-using System.Linq;
 using System.Net;
-using Xunit;
 using Xunit.Abstractions;
 using NHamcrest;
 using TicketStore.Api.Tests.Data;
@@ -19,14 +17,6 @@ namespace TicketStore.Api.Tests.Tests.Payments
         {
             _fixture = fixture;
             _output = output;
-        }
-
-        [Fact]
-        public void always() {
-            while (true) {
-                Thread.Sleep(1_000);
-                _output.WriteLine("Lets wait 1 sec");
-            }
         }
 
         [Fact]
