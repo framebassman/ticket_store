@@ -1,4 +1,5 @@
 using AspNetCore.Yandex.ObjectStorage;
+using AspNetCore.Yandex.ObjectStorage.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Moq;
