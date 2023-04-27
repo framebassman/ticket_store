@@ -51,7 +51,7 @@ try
         
     });
     builder.Services.AddDbContext<ApplicationContext>();
-    builder.Services.AddSingleton<PdfTools>();
+    builder.Services.AddSingleton<ITools, PdfTools>();
     builder.Services.AddSingleton<IConverter, SynchronizedConverter>();
     builder.Services.AddHttpClient();
     builder.Services.AddTransient<Converter>();
