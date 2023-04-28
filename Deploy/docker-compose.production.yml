@@ -20,18 +20,10 @@ services:
             - ASPNETCORE_ENVIRONMENT=Production
             - SENTRY_RELEASE=${VERSION}
     store_proxy:
-        image: "docker.io/framebassman/store-proxy:${VERSION}"
-        build:
-            context: .
-            dockerfile: ./Services/Proxy/Dockerfile.Production
-        ports:
-            - 80:80
-            - 443:443
         volumes:
-            - /var/run/docker.sock:/var/run/docker.sock
-            - ./Services/Proxy/certs/acme.json:/acme.json
+            - ./Services/Proxy/config/traefik.toml:/traefik.toml:ro
     kabinet:
-        image: metabase/metabase:v0.34.1
+        image: metabase/metabase:v0.46.2
         container_name: kabinet
         labels:
             - "traefik.enable=true"
