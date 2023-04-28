@@ -1,5 +1,6 @@
 using System;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.EntityFrameworkCore.InMemory.Infrastructure.Internal;
 using TicketStore.Data.Model;
 
@@ -33,8 +34,11 @@ namespace TicketStore.Data
             else
             {
                 var inMemoryOptions = _options.GetExtension<InMemoryOptionsExtension>();
-                builder.UseInMemoryDatabase(databaseName: inMemoryOptions.StoreName);
+                builder.UseInMemoryDatabase(databaseName: inMemoryOptions.StoreName)
+                    .LogTo(Console.WriteLine, new[] { InMemoryEventId.ChangesSaved })
+                    .UseInMemoryDatabase(inMemoryOptions.StoreName, b => b.EnableNullChecks(false));
             }
+            builder.EnableSensitiveDataLogging();
         }
 
         private Boolean IsAppRunning()
