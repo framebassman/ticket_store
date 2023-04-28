@@ -1,6 +1,6 @@
 # dev
 build-dev:
-	docker-compose \
+	docker compose \
 		--project-directory=${PWD} \
 		--project-name=ticket_store \
 		-f Deploy/docker-compose.yml \
@@ -9,7 +9,7 @@ build-dev:
 
 start-dev:
 	make ngrok
-	docker-compose \
+	docker compose \
 		--project-directory=${PWD} \
 		--project-name=ticket_store \
 		-f Deploy/docker-compose.yml \
@@ -17,7 +17,7 @@ start-dev:
 		up --build
 
 stop-dev:
-	docker-compose \
+	docker compose \
 		--project-directory=${PWD} \
 		--project-name=ticket_store \
 		-f Deploy/docker-compose.yml \
@@ -26,7 +26,7 @@ stop-dev:
 
 # test
 start-test:
-	docker-compose \
+	docker compose \
 		--project-directory=${PWD} \
 		--project-name=ticket_store \
 		-f Deploy/docker-compose.yml \
@@ -34,7 +34,7 @@ start-test:
 		up --build -d
 
 stop-test:
-	docker-compose \
+	docker compose \
 		--project-directory=${PWD} \
 		--project-name=ticket_store \
 		-f Deploy/docker-compose.yml \
@@ -42,7 +42,7 @@ stop-test:
 		down
 
 start-yandex:
-	docker-compose \
+	docker compose \
 		--project-directory=${PWD} \
 		--project-name=ticket_store \
 		-f Deploy/docker-compose.yandex.yml \
@@ -50,14 +50,14 @@ start-yandex:
 
 # db only
 start-db:
-	docker-compose \
+	docker compose \
 		--project-directory=${PWD} \
 		--project-name=ticket_store \
 		-f Deploy/docker-compose.db.yml \
 		up --build -d
 
 stop-db:
-	docker-compose \
+	docker compose \
 		--project-directory=${PWD} \
 		--project-name=ticket_store \
 		-f Deploy/docker-compose.db.yml \
@@ -65,7 +65,7 @@ stop-db:
 
 # prod
 build-prod:
-	docker-compose \
+	docker compose \
 		--project-directory=${PWD} \
 		--project-name=ticket_store \
 		-f Deploy/docker-compose.yml \
@@ -73,7 +73,7 @@ build-prod:
 		build ${ARGS}
 
 stop-prod:
-	docker-compose \
+	docker compose \
 		--project-directory=${PWD} \
 		--project-name=ticket_store \
 		-f Deploy/docker-compose.yml \
@@ -82,13 +82,13 @@ stop-prod:
 
 start-prod:
 	make grant-permissions-to-cert
-	docker-compose \
+	docker compose \
 		--project-directory=${PWD} \
 		--project-name=ticket_store \
 		-f Deploy/docker-compose.yml \
 		-f Deploy/docker-compose.production.yml \
 		pull
-	docker-compose \
+	docker compose \
 		--project-directory=${PWD} \
 		--project-name=ticket_store \
 		-f Deploy/docker-compose.yml \
@@ -97,7 +97,7 @@ start-prod:
 
 push:
 	docker login
-	docker-compose \
+	docker compose \
 		--project-directory=${PWD} \
 		--project-name=ticket_store \
 		-f Deploy/docker-compose.yml \
@@ -106,7 +106,7 @@ push:
 
 pull:
 	docker login
-	docker-compose \
+	docker compose \
 		--project-directory=${PWD} \
 		--project-name=ticket_store \
 		-f Deploy/docker-compose.yml \

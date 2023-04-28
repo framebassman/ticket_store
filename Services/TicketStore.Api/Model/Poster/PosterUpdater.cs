@@ -1,6 +1,8 @@
 using System;
+using System.Text;
 using System.Threading.Tasks;
 using AspNetCore.Yandex.ObjectStorage;
+using FluentResults;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 
@@ -38,14 +40,24 @@ namespace TicketStore.Api.Model.Poster
             var imageUrl = "testImage";
             try
             {
-                var answer = await _storage.PutObjectAsync(image, imageName);
-                if (answer.IsSuccessStatusCode)
+                var response = await _storage.ObjectService.PutAsync(image, imageName);
+                if (response.IsSuccessStatusCode)
                 {
-                    imageUrl = answer.Result;
+                    var answer = await response.ReadResultAsStringAsync();
+                    imageUrl = answer.Value;
                 }
                 else
                 {
-                    throw new BadHttpRequestException("Answer from Yandex was: {0}", (int) answer.StatusCode, new Exception(answer.Error));
+                    StringBuilder errorsList = new StringBuilder();
+                    foreach (var error in response.ToResult().Errors)
+                    {
+                        errorsList.Append(error).Append("\n");
+                    }
+                    throw new BadHttpRequestException(
+                        "Answer from Yandex was: {0}",
+                        (int) response.StatusCode,
+                        new Exception(errorsList.ToString())
+                    );
                 }
             }
             catch (Exception e)
