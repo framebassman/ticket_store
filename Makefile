@@ -149,6 +149,10 @@ migrate-test:
 	export ASPNETCORE_ENVIRONMENT=TestMigrations; \
 	dotnet ef database update --project Services/TicketStore.Data/TicketStore.Data.csproj --verbose
 
+migrate-prod:
+	export ASPNETCORE_ENVIRONMENT=Production; \
+	~/.dotnet/tools/dotnet-ef ef database update --project Services/TicketStore.Data/TicketStore.Data.csproj --verbose
+
 # etc
 grant-permissions-to-cert:
 	chmod 600 ./Services/Proxy/certs/acme.json
