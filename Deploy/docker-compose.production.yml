@@ -43,8 +43,8 @@ services:
             - "traefik.docker.network=ticket_store_default"
         environment:
             - MB_DB_TYPE=postgres
-            - MB_DB_DBNAME=jtgdilqi
+            - MB_DB_DBNAME=kvhujpef
             - MB_DB_PORT=5432
-            - MB_DB_USER=jtgdilqi
-            - MB_DB_PASS=NGs80IIq1FonJdRtkmokTEbyqEH_9BOR
-            - MB_DB_HOST=dumbo.db.elephantsql.com
+            - MB_DB_USER=kvhujpef
+            - MB_DB_PASS=K91joCBljPHmFj22QIRDAIZDjl_OKbJQ
+            - MB_DB_HOST=balarama.db.elephantsql.com
