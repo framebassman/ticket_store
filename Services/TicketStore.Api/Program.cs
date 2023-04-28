@@ -2,7 +2,6 @@ using System.Net;
 using AspNetCore.Yandex.ObjectStorage.Extensions;
 using DinkToPdf;
 using DinkToPdf.Contracts;
-using Microsoft.AspNetCore.Authorization;
 using Sentry.Extensibility;
 using Serilog;
 using TicketStore.Api.Model;
@@ -11,6 +10,7 @@ using TicketStore.Api.Model.Payment.YandexMoney;
 using TicketStore.Api.Model.PdfDocument.Model.BarcodeConverters;
 using TicketStore.Api.Model.Poster;
 using TicketStore.Api.Model.Validation;
+using TicketStore.Api.Middlewares;
 using TicketStore.Data;
 
 var currentEnv = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Production";
