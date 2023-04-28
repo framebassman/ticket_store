@@ -128,7 +128,7 @@ db-test:
 	docker exec -it postgres psql postgresql://store_user:KqCQzyH2akGB9gQ4@localhost:5432/store_db
 
 db-prod:
-	psql postgresql://store_user:GMQCruf5SzsCGR2xd3euUVZQG3c@188.68.210.162:5432/store_db
+	psql postgresql://jtgdilqi:NGs80IIq1FonJdRtkmokTEbyqEH_9BOR@dumbo.db.elephantsql.com/jtgdilqi
 
 # run tests
 test-api-integration:
