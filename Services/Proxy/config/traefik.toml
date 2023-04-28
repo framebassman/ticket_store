@@ -27,7 +27,7 @@ attempts = 3
 
 [docker]
 endpoint = "unix:///var/run/docker.sock"
-domain = "chertopolokh.ru"
+domain = "demo.chertopolokh.ru"
 watch = true
 exposedByDefault = false
 swarmMode = false
@@ -41,5 +41,5 @@ entryPoint = "https"
   entryPoint = "http"
 
 [[acme.domains]]
-  main = "chertopolokh.ru"
-  sans = ["www.chertopolokh.ru"]
+  main = "demo.chertopolokh.ru"
+  sans = ["www.demo.chertopolokh.ru"]
