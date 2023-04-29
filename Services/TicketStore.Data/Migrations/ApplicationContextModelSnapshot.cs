@@ -6,6 +6,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using TicketStore.Data;
 
+#nullable disable
+
 namespace TicketStore.Data.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
@@ -15,32 +17,45 @@ namespace TicketStore.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn)
-                .HasAnnotation("ProductVersion", "2.2.4-servicing-10062")
+                .HasAnnotation("ProductVersion", "8.0.0-preview.3.23174.2")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
+
+            NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
             modelBuilder.Entity("TicketStore.Data.Model.Event", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
                         .HasColumnName("id");
 
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
                     b.Property<string>("Artist")
+                        .IsRequired()
+                        .HasColumnType("text")
                         .HasColumnName("artist");
 
                     b.Property<int>("MerchantId")
+                        .HasColumnType("integer")
                         .HasColumnName("merchant_id");
 
                     b.Property<string>("PosterUrl")
+                        .IsRequired()
+                        .HasColumnType("text")
                         .HasColumnName("poster_url");
 
                     b.Property<string>("PressRelease")
+                        .IsRequired()
+                        .HasColumnType("text")
                         .HasColumnName("press_release");
 
                     b.Property<decimal>("Roubles")
+                        .HasColumnType("numeric")
                         .HasColumnName("roubles");
 
                     b.Property<DateTime>("Time")
+                        .HasColumnType("timestamp with time zone")
                         .HasColumnName("time");
 
                     b.HasKey("Id");
@@ -54,13 +69,25 @@ namespace TicketStore.Data.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
                         .HasColumnName("id");
 
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
                     b.Property<string>("Place")
+                        .IsRequired()
+                        .HasColumnType("text")
                         .HasColumnName("place");
 
                     b.Property<string>("YandexMoneyAccount")
+                        .IsRequired()
+                        .HasColumnType("text")
                         .HasColumnName("yandex_money_account");
+
+                    b.Property<string>("YandexMoneySecret")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("yandex_money_secret");
 
                     b.HasKey("Id");
 
@@ -71,12 +98,18 @@ namespace TicketStore.Data.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
                         .HasColumnName("id");
 
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
                     b.Property<decimal>("Amount")
+                        .HasColumnType("numeric")
                         .HasColumnName("amount");
 
                     b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("text")
                         .HasColumnName("email");
 
                     b.HasKey("Id");
@@ -88,27 +121,39 @@ namespace TicketStore.Data.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
                         .HasColumnName("id");
 
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
                     b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone")
                         .HasColumnName("created_at");
 
                     b.Property<int>("EventId")
+                        .HasColumnType("integer")
                         .HasColumnName("event_id");
 
                     b.Property<string>("EventName")
+                        .IsRequired()
+                        .HasColumnType("text")
                         .HasColumnName("event_name");
 
                     b.Property<bool>("Expired")
+                        .HasColumnType("boolean")
                         .HasColumnName("expired");
 
                     b.Property<string>("Number")
+                        .IsRequired()
+                        .HasColumnType("text")
                         .HasColumnName("number");
 
                     b.Property<int>("PaymentId")
+                        .HasColumnType("integer")
                         .HasColumnName("payment_id");
 
                     b.Property<decimal>("Roubles")
+                        .HasColumnType("numeric")
                         .HasColumnName("roubles");
 
                     b.HasKey("Id");
@@ -125,7 +170,10 @@ namespace TicketStore.Data.Migrations
                     b.HasOne("TicketStore.Data.Model.Merchant", "Merchant")
                         .WithMany("Events")
                         .HasForeignKey("MerchantId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Merchant");
                 });
 
             modelBuilder.Entity("TicketStore.Data.Model.Ticket", b =>
@@ -133,12 +181,33 @@ namespace TicketStore.Data.Migrations
                     b.HasOne("TicketStore.Data.Model.Event", "Event")
                         .WithMany("Tickets")
                         .HasForeignKey("EventId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("TicketStore.Data.Model.Payment", "Payment")
                         .WithMany("Tickets")
                         .HasForeignKey("PaymentId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Event");
+
+                    b.Navigation("Payment");
+                });
+
+            modelBuilder.Entity("TicketStore.Data.Model.Event", b =>
+                {
+                    b.Navigation("Tickets");
+                });
+
+            modelBuilder.Entity("TicketStore.Data.Model.Merchant", b =>
+                {
+                    b.Navigation("Events");
+                });
+
+            modelBuilder.Entity("TicketStore.Data.Model.Payment", b =>
+                {
+                    b.Navigation("Tickets");
                 });
 #pragma warning restore 612, 618
         }
