@@ -81,7 +81,6 @@ stop-prod:
 		down
 
 start-prod:
-	make grant-permissions-to-cert
 	docker-compose \
 		--project-directory=${PWD} \
 		--project-name=ticket_store \
@@ -152,10 +151,6 @@ migrate-test:
 migrate-prod:
 	export ASPNETCORE_ENVIRONMENT=Production; \
 	~/.dotnet/tools/dotnet-ef ef database update --project Services/TicketStore.Data/TicketStore.Data.csproj --verbose
-
-# etc
-grant-permissions-to-cert:
-	chmod 600 ./Services/Proxy/certs/acme.json
 
 ngrok:
 	bash ./Scripts/ngrok/launch.sh
