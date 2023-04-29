@@ -20,8 +20,7 @@ export const PayButton = (props: PayButtonProps) => {
   } else {
     return (
       <form style={{marginLeft: 'auto', marginRight: 'auto'}} method="POST" action="https://yoomoney.ru/quickpay/confirm.xml">
-        {/* <input type="hidden" name="receiver" value={yandexMoneyAccount} /> */}
-        <input type="hidden" name="receiver" value="410011021763706" />
+        <input type="hidden" name="receiver" value={yandexMoneyAccount} />
         <input type="hidden" name="quickpay-form" value="button" />
         <input type="hidden" name="paymentType" value="AC"/>
         <input type="hidden" name="sum" value={roubles} data-type="number"></input>
