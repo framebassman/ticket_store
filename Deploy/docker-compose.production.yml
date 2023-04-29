@@ -23,7 +23,7 @@ services:
         volumes:
             - ./Services/Proxy/config/traefik.toml:/traefik.toml:ro
     kabinet:
-        image: metabase/metabase:v0.46.2
+        image: metabase/metabase:v0.34.1
         container_name: kabinet
         labels:
             - "traefik.enable=true"
