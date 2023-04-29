@@ -11,10 +11,9 @@ const MenuFooter = (props: any) => {
       <div className={classes.content}></div>
       <Divider />
       <div className={classes.footer}>
-        <a className={classes.link} href="https://vk.me/sudo_chertopolokh">Техподдержка</a>
-        <a className={classes.link} href="http://status.chertopolokh.ru">Статус</a>
-        <span>Сделано в компании</span>
-        <span>Kolenka Inc.</span>
+        <a className={classes.link} href="https://vk.me/sudo_chertopolokh">Support</a>
+        <a className={classes.link} href="http://status.chertopolokh.ru">Status</a>
+        <span>Made in Kolenka Inc.</span>
       </div>
     </Typography>
   )
