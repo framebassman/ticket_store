@@ -19,6 +19,7 @@ ENV PATH="/root/.dotnet/tools:${PATH}"
 # install debugger
 RUN apk add unzip procps
 RUN curl -sSL https://aka.ms/getvsdbgsh | /bin/sh /dev/stdin -v latest -l ~/vsdbg
+ENV DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=false
 # copy code
 COPY ./Services/TicketStore.Api/ /app
 COPY ./Services/TicketStore.Data/ /TicketStore.Data
