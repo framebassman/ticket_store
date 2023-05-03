@@ -63,7 +63,7 @@ try
     else
     {
         builder.Services.AddSingleton<EmailService, YandexService>();
-        builder.Services.AddTransient<IPaymentValidator, Validator>();
+        builder.Services.AddTransient<IPaymentValidator, DummyValidator>();
     }
     builder.Services.AddDbContext<ApplicationContext>();
     builder.Services.AddHealthChecks();
