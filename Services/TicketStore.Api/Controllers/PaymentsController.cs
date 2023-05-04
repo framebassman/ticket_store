@@ -88,7 +88,7 @@ namespace TicketStore.Api.Controllers
                     datetime,
                     sender,
                     codepro,
-                    merchant.YandexMoneyAccount,
+                    merchant.YandexMoneySecret,
                     label,
                     sha1_hash
                 )
