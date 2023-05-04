@@ -26,7 +26,7 @@ export const PayButton = (props: PayButtonProps) => {
         <input type="hidden" name="sum" value={roubles} data-type="number"></input>
         <input type="hidden" name="label" value={label} />
         <input type="hidden" name="successURL" value={window.location.hostname + "/tickets/farewell"} />
-        <Button variant="contained" color="secondary" size="large" type="submit">Купить билет</Button>
+        <Button variant="contained" color="secondary" size="large" type="submit">Buy tickets</Button>
       </form>
     )
   }
