@@ -23,9 +23,8 @@ services:
         environment:
             - ASPNETCORE_ENVIRONMENT=Test
     store_proxy:
-        build:
-            context: .
-            dockerfile: ./Services/Proxy/Dockerfile.Test
+        volumes:
+            - ./Services/Proxy/config/traefik.toml:/traefik.development.toml:ro
     postgres:
         build:
             context: .
