@@ -33,7 +33,7 @@ describe('Status of <TurnstileManual />', () => {
     const info = turnstileManual.find('#ticket-info');
     
     // Assert
-    expect(description.text()).toEqual('Готов к проверке!');
+    expect(description.text()).toEqual('Ready');
     expect(info.text()).toEqual(`Событие: `);
   });
   
@@ -57,7 +57,7 @@ describe('Status of <TurnstileManual />', () => {
     
       // Assert
       const description = turnstileManual.find('#status-description');
-      expect(description.text()).toEqual('Билет Действителен');
+      expect(description.text()).toEqual('The ticket is valid');
       const info = turnstileManual.find('#ticket-info');
       expect(info.text()).toEqual(`Событие: ${concertLabel}`);
       done();
@@ -84,7 +84,7 @@ describe('Status of <TurnstileManual />', () => {
     
       // Assert
       const description = turnstileManual.find('#status-description');
-      expect(description.text()).toEqual('Билет Использован');
+      expect(description.text()).toEqual('The ticket is used');
       const info = turnstileManual.find('#ticket-info');
       expect(info.text()).toEqual(`Событие: ${concertLabel}`);
       done();
@@ -106,7 +106,7 @@ describe('Status of <TurnstileManual />', () => {
   
       // Assert
       const description = turnstileManual.find('#status-description');
-      expect(description.text()).toEqual('Билет не найден');
+      expect(description.text()).toEqual('Cannot find the ticket');
       const info = turnstileManual.find('#ticket-info');
       expect(info.text()).toEqual(`Событие: `);
       done();
@@ -127,7 +127,7 @@ describe('Status of <TurnstileManual />', () => {
       turnstileManual.update();
 
       const description = turnstileManual.find('#status-description');
-      expect(description.text()).toEqual('Билет Действителен');
+      expect(description.text()).toEqual('The ticket is valid');
     }, 100);
 
       // Assert
@@ -136,7 +136,7 @@ describe('Status of <TurnstileManual />', () => {
         turnstileManual.update();
   
         const description = turnstileManual.find('#status-description');
-        expect(description.text()).toEqual('Готов к проверке!');
+        expect(description.text()).toEqual('Ready');
         done();
       }, cooldown);
   });
