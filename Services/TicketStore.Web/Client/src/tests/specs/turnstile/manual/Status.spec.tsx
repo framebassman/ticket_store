@@ -34,7 +34,7 @@ describe('Status of <TurnstileManual />', () => {
     
     // Assert
     expect(description.text()).toEqual('Ready');
-    expect(info.text()).toEqual(`Событие: `);
+    expect(info.text()).toEqual(`Event: `);
   });
   
   it('should declare ticket valid if backend returns OK and ticket not used', done => {
@@ -59,7 +59,7 @@ describe('Status of <TurnstileManual />', () => {
       const description = turnstileManual.find('#status-description');
       expect(description.text()).toEqual('The ticket is valid');
       const info = turnstileManual.find('#ticket-info');
-      expect(info.text()).toEqual(`Событие: ${concertLabel}`);
+      expect(info.text()).toEqual(`Event: ${concertLabel}`);
       done();
     }, 100);
   });
@@ -86,7 +86,7 @@ describe('Status of <TurnstileManual />', () => {
       const description = turnstileManual.find('#status-description');
       expect(description.text()).toEqual('The ticket is used');
       const info = turnstileManual.find('#ticket-info');
-      expect(info.text()).toEqual(`Событие: ${concertLabel}`);
+      expect(info.text()).toEqual(`Event: ${concertLabel}`);
       done();
     }, 100);
   });
@@ -108,7 +108,7 @@ describe('Status of <TurnstileManual />', () => {
       const description = turnstileManual.find('#status-description');
       expect(description.text()).toEqual('Cannot find the ticket');
       const info = turnstileManual.find('#ticket-info');
-      expect(info.text()).toEqual(`Событие: `);
+      expect(info.text()).toEqual(`Event: `);
       done();
     }, 100);
   });
