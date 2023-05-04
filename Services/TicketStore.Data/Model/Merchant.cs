@@ -12,6 +12,8 @@ namespace TicketStore.Data.Model
         public Int32 Id { get; set; }
         [Column("yandex_money_account")]
         public String YandexMoneyAccount { get; set; }
+        [Column("yandex_money_secret")]
+        public String YandexMoneySecret { get; set; }
         [Column("place")]
         public String Place { get; set; }
         

@@ -14,19 +14,18 @@ function isEmpty(origin: string) {
 }
 
 export const PayButton = (props: PayButtonProps) => {
-  const { roubles, label, targets, yandexMoneyAccount } = props;
+  const { roubles, label, yandexMoneyAccount } = props;
   if (roubles <= 0 || isEmpty(yandexMoneyAccount)) {
     return null;
   } else {
     return (
-      <form style={{marginLeft: 'auto', marginRight: 'auto'}} method="POST" action="https://money.yandex.ru/quickpay/confirm.xml">
+      <form style={{marginLeft: 'auto', marginRight: 'auto'}} method="POST" action="https://yoomoney.ru/quickpay/confirm.xml">
         <input type="hidden" name="receiver" value={yandexMoneyAccount} />
-        <input type="hidden" name="quickpay-form" value="small" />
-        <input type="hidden" name="need-email" value="true" />
-        <input type="hidden" name="label" value={label} />
-        <input type="hidden" name="targets" value={targets} />
-        <input type="hidden" name="sum" value={roubles} data-type="number"></input>
+        <input type="hidden" name="quickpay-form" value="button" />
         <input type="hidden" name="paymentType" value="AC"/>
+        <input type="hidden" name="sum" value={roubles} data-type="number"></input>
+        <input type="hidden" name="label" value={label} />
+        <input type="hidden" name="successURL" value={window.location.hostname + "/tickets/farewell"} />
         <Button variant="contained" color="secondary" size="large" type="submit">Купить билет</Button>
       </form>
     )

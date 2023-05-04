@@ -50,7 +50,7 @@ export class EventDialog extends Component<any, any> {
             <div className="event-dialog__item event-dialog__bold">{roubles + '\u00A0₽'}</div>
           </div>
           <div className="event-dialog__license">
-            Билеты возврату и обмену не подлежат. Оплата производится на Яндекс.Кошелек. В момент оплаты яндекс потребует указать имейл - после оплаты на него придет электронный билет со штрихкодом, который нужно будет показать на входе. Не покупайте билеты с рук, потому что они могут быть с неверным штрихкодом. Если что-то пошло не так - всегда можно написать <a href="https://vk.me/sudo_chertopolokh">в техподдержку.</a> Сделано с любовью.
+          Tickets cannot be returned or exchanged. Payment is made with YooMoney. At the time of payment, the service will ask for an email - after payment will receive an electronic ticket with a barcode, which must be shown at the entrance. Do not buy tickets by hand, because they may have the wrong barcode. If something went wrong - you can always text <a href="https://vk.me/sudo_chertopolokh">to tech support.</a> Made with love.
           </div>
         </DialogContent>
         <DialogActions className={"event-dialog__actions"}>
