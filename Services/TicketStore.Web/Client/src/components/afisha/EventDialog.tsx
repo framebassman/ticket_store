@@ -7,11 +7,6 @@ import { PayButton } from '../greetings/PayButton';
 import TextField from '@material-ui/core/TextField';
 import './EventDialog.css';
 
-function declOfNum(num: number, titles: string[]) {
-  const cases = [2, 0, 1, 1, 1, 2];
-  return titles[ (num%100>4 && num%100<20)? 2 : cases[(num%10<5)?num%10:5] ];
-};
-
 export class EventDialog extends Component<any, any> {
   state: any = {
     count: 1,
@@ -39,7 +34,7 @@ export class EventDialog extends Component<any, any> {
               <TextField
                 id="ticket-count"
                 className={"event-dialog__bold"}
-                label={declOfNum(this.state.count, ['Билет', 'Билета', 'Билетов'])}
+                label="Tickets"
                 value={this.state.count}
                 onChange={this.handleChange('count')}
                 type="number"
