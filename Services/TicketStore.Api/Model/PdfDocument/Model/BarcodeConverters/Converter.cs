@@ -22,7 +22,7 @@ namespace TicketStore.Api.Model.PdfDocument.Model.BarcodeConverters
         
         private String GenerateBarcodeTask(String ticketNumber)
         {
-            var imageUrl = $"https://www.scandit.com/wp-content/themes/scandit/barcode-generator.php?symbology=code128&value={ticketNumber}&size=200&ec=L";
+            var imageUrl = $"https://barcodeapi.org/api/{ticketNumber}";
             using (var inputStream = _client.GetStreamAsync(imageUrl).Result)
             {
                 using (var memoryStream = new MemoryStream())
