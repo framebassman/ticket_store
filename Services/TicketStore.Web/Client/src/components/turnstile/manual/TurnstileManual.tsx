@@ -42,7 +42,7 @@ const TurnstileManual = ({ verify }: TurnstileActions) => {
             size="large"
             type="submit"
           >
-            Verity the ticket
+            Verify the ticket
           </Button>
         </Box>
       </form>
