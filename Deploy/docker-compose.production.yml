@@ -22,6 +22,17 @@ services:
     store_proxy:
         volumes:
             - ./Services/Proxy/config/traefik.toml:/traefik.toml:ro
+    postgres:
+        build:
+            context: .
+            dockerfile: ./Services/Postgres/Dockerfile
+        container_name: postgres
+        volumes:
+            - pgsdata:/var/lib/postgresql/data
+        ports:
+            - 5432:5432
+        logging:
+            driver: none
     kabinet:
         image: metabase/metabase:v0.34.1
         container_name: kabinet
@@ -35,11 +46,11 @@ services:
             - "traefik.docker.network=ticket_store_default"
         environment:
             - MB_DB_TYPE=postgres
-            - MB_DB_DBNAME=kvhujpef
+            - MB_DB_DBNAME=store_db
             - MB_DB_PORT=5432
-            - MB_DB_USER=kvhujpef
-            - MB_DB_PASS=K91joCBljPHmFj22QIRDAIZDjl_OKbJQ
-            - MB_DB_HOST=balarama.db.elephantsql.com
+            - MB_DB_USER=store_user
+            - MB_DB_PASS=KqCQzyH2akGB9gQ4
+            - MB_DB_HOST=postgres
     migration-agent:
         image: "docker.io/framebassman/store-migration-agent:${VERSION}"
         environment:
