@@ -36,8 +36,8 @@ services:
             - 80:80
         volumes:
             - /var/run/docker.sock:/var/run/docker.sock
-    migration-agent:
-        container_name: store_migration-agent
-        build:
-            context: .
-            dockerfile: ./Services/MigrationAgent/Dockerfile.Production
+    # migration-agent:
+    #     container_name: store_migration-agent
+    #     build:
+    #         context: .
+    #         dockerfile: ./Services/MigrationAgent/Dockerfile.Production
