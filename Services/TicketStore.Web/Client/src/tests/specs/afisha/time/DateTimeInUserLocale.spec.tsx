@@ -31,9 +31,9 @@ describe('<EventTime />', () => {
         it('Convert source time to user locale', () => {
             // Assert
             expect(wrapper.find('#when').hostNodes().text())
-                .toEqual('4 октября 2019');
+                .toEqual('4 Oct 2019');
             expect(wrapper.find('#start').hostNodes().text())
-                .toEqual('Начало в 18:00 часов');
+                .toEqual('Doors Open: 18:00');
         });
     });
 
@@ -55,9 +55,9 @@ describe('<EventTime />', () => {
         it('Convert source time to user locale', () => {
             // Assert
             expect(wrapper.find('#when').hostNodes().text())
-                .toEqual('4 октября 2019');
+                .toEqual('4 Oct 2019');
             expect(wrapper.find('#start').hostNodes().text())
-                .toEqual('Начало в 18:00 часов');
+                .toEqual('Doors Open: 18:00');
         });
     });
 });

@@ -84,6 +84,7 @@ workflows:
             branches:
               only:
                 - master
+                - demo
           context: credentials
           requires:
             - client-unit-tests

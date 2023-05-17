@@ -7,8 +7,8 @@ export interface EventTimeProps {
   origin: string
 }
 
-const monthNames = ["января", "февраля", "март", "апреля", "мая", "июня",
-  "июля", "августа", "сентября", "октября", "ноября", "декабря"
+const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "June",
+  "July", "Aug", "Sept", "Oct", "Nov", "Dec"
 ];
 
 export function calculateWhen(startedAt: Date): String {
@@ -25,7 +25,7 @@ export function calculateStart(startedAt: Date): String {
   const minutesWithoutZeros = startedAt.getUTCMinutes();
   const hours = hoursWithoutZeros.toString().padStart(2, '0');
   const minutes = minutesWithoutZeros.toString().padStart(2, '0');
-  return `Начало в ${hours}:${minutes} часов`;
+  return `Doors Open: ${hours}:${minutes}`;
 }
 
 export function EventTime(props: EventTimeProps) {
