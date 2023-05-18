@@ -22,7 +22,7 @@ namespace TicketStore.Api.Model.PdfDocument.Model.BarcodeConverters
         
         private String GenerateBarcodeTask(String ticketNumber)
         {
-            var imageUrl = $"https://barcodeapi.org/api/{ticketNumber}";
+            var imageUrl = $"https://barcodeapi.org/api/code128/{ticketNumber}";
             using (var inputStream = _client.GetStreamAsync(imageUrl).Result)
             {
                 using (var memoryStream = new MemoryStream())
