@@ -158,3 +158,6 @@ ngrok:
 db-seed:
 	dotnet test Services/TicketStore.Api.Tests \
 		--filter Category=DevelopmentData
+
+ssh-prod:
+	ssh root@5.161.220.188
