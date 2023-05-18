@@ -10,8 +10,10 @@ type Props = {
 
 export const TurnstileOnHold = ({ onClick }: Props) => {
   return (
-    <Button variant="contained" onClick={onClick}>
-      <Typography variant="h4">Start</Typography>
-    </Button>
+    <div className="button_wrapper">
+      <Button className="start_button" variant="contained" onClick={onClick}>
+        <Typography variant="h4">Start</Typography>
+      </Button>
+    </div>
   )
 };
