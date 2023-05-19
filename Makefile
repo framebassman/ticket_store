@@ -129,6 +129,9 @@ db-test:
 db-prod:
 	psql postgresql://jtgdilqi:NGs80IIq1FonJdRtkmokTEbyqEH_9BOR@dumbo.db.elephantsql.com/jtgdilqi
 
+db-metabase:
+	psql postgresql://kvhujpef:K91joCBljPHmFj22QIRDAIZDjl_OKbJQ@balarama.db.elephantsql.com/kvhujpef
+
 # run tests
 test-api-integration:
 	dotnet test Services/TicketStore.Api.Tests \

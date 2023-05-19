@@ -40,9 +40,3 @@ services:
             - MB_DB_USER=kvhujpef
             - MB_DB_PASS=K91joCBljPHmFj22QIRDAIZDjl_OKbJQ
             - MB_DB_HOST=balarama.db.elephantsql.com
-    # migration-agent:
-    #     image: "docker.io/framebassman/store-migration-agent:${VERSION}"
-    #     environment:
-    #         - DOTNET_SKIP_FIRST_TIME_EXPERIENCE=true
-    #         - DOTNET_CLI_TELEMETRY_OPTOUT=true
-    #         - ASPNETCORE_ENVIRONMENT=Production
