@@ -62,6 +62,9 @@ namespace TicketStore.Data.Migrations
                     b.Property<string>("YandexMoneyAccount")
                         .HasColumnName("yandex_money_account");
 
+                    b.Property<string>("YandexMoneySecret")
+                        .HasColumnName("yandex_money_secret");
+
                     b.HasKey("Id");
 
                     b.ToTable("merchants");

@@ -14,11 +14,6 @@ export class Description extends React.Component {
     });
   };
 
-  declOfNum = (num: number, titles: string[]) => {
-    const cases = [2, 0, 1, 1, 1, 2];
-    return titles[ (num%100>4 && num%100<20)? 2 : cases[(num%10<5)?num%10:5] ];
-  };
-
   render() {
     const roubles = 300;
     return (
@@ -27,7 +22,7 @@ export class Description extends React.Component {
             <div className="description__money">
               <TextField
                   id="standard-number"
-                  label={this.declOfNum(this.state.count, ['Билет', 'Билета', 'Билетов'])}
+                  label="Tickets"
                   value={this.state.count}
                   onChange={this.handleChange('count')}
                   type="number"
