@@ -30,8 +30,8 @@ class Afisha extends Component<any, AfishaState> {
       return (
         <Typography align="center" component="div">
           <Box marginTop={16}>
-            <div>У нас что-то сломалось.</div>
-            <div>Мы уже знаем об этом и уже чиним.</div>
+            <div>Something is broken.</div>
+            <div>We have already been informed and are already fixing it.</div>
           </Box>
         </Typography>
       );
@@ -40,7 +40,7 @@ class Afisha extends Component<any, AfishaState> {
     if (merchantsIsLoading || eventsIsLoading) {
       return (
         <CenteredProgress>
-          Загружаем концерты...
+          Loading...
         </CenteredProgress>
       )
     }
@@ -48,9 +48,7 @@ class Afisha extends Component<any, AfishaState> {
     if (events.length === 0) {
       return (
         <div className={classes.afisha}>
-          <Grid container justify="center">
-            Пока нет предстоящих концертов
-          </Grid>
+          <Grid container justify="center">No upcoming events yet</Grid>
         </div>
       )
     }

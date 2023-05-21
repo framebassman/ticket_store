@@ -30,9 +30,8 @@ services:
             - ./Services/TicketStore.Web/Pages:/home/deployer/app/Pages
             - ./Services/TicketStore.Web/Model:/home/deployer/app/Model
     store_proxy:
-        build:
-            context: .
-            dockerfile: ./Services/Proxy/Dockerfile.Development
+        volumes:
+            - ./Services/Proxy/config/traefik.toml:/traefik.development.toml:ro
         logging:
             driver: none
     postgres:
