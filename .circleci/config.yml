@@ -88,11 +88,11 @@ workflows:
           context: credentials
           requires:
             - client-unit-tests
-      - deploy:
-          filters:
-            branches:
-              only:
-                - demo
-          context: credentials
-          requires:
-            - release
+      # - deploy:
+      #     filters:
+      #       branches:
+      #         only:
+      #           - demo
+      #     context: credentials
+      #     requires:
+      #       - release
