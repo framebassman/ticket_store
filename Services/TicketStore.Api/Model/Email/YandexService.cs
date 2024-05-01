@@ -30,7 +30,7 @@ namespace TicketStore.Api.Model.Email
 
             var message = new MimeMessage();
 			message.From.Add (new MailboxAddress ("no-reply", "no-reply@romashov.tech"));
-			message.To.Add (new MailboxAddress (to));
+			message.To.Add(new MailboxAddress(to, to));
 			message.Subject = "Билеты от Чертополоха";
             message.Body = builder.ToMessageBody();
             
