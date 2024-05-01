@@ -39,14 +39,14 @@ stages:
   jobs:
   - job: Api
     pool:
-      vmImage: 'ubuntu-20.04'
+      vmImage: 'ubuntu-22.04'
     continueOnError: true
     steps:
     - task: UseDotNet@2
       displayName: 'Install Dotnet Core'
       inputs:
         packageType: sdk
-        version: 5.0.202
+        version: 8.0.3
     - script: |
         dotnet test --logger "trx;LogFileName=report.trx" --collect:"XPlat Code Coverage"
       workingDirectory: $(build.sourcesDirectory)/Services/TicketStore.Api.Tests.Unit
@@ -76,14 +76,14 @@ stages:
 
   - job: Web
     pool:
-      vmImage: 'ubuntu-20.04'
+      vmImage: 'ubuntu-22.04'
     continueOnError: true
     steps:
     - task: UseDotNet@2
       displayName: 'Install Dotnet Core'
       inputs:
         packageType: sdk
-        version: 5.0.202
+        version: 8.0.3
     - script: |
         dotnet test --logger "trx;LogFileName=report.trx" --collect:"XPlat Code Coverage"
       workingDirectory: $(build.sourcesDirectory)/Services/TicketStore.Web.Tests.Unit
@@ -119,14 +119,14 @@ stages:
 
   - job: Data
     pool:
-      vmImage: 'ubuntu-20.04'
+      vmImage: 'ubuntu-22.04'
     continueOnError: true
     steps:
     - task: UseDotNet@2
       displayName: 'Install Dotnet Core'
       inputs:
         packageType: sdk
-        version: 5.0.202
+        version: 8.0.3
     - script: |
         dotnet test --logger "trx;LogFileName=report.trx" --collect:"XPlat Code Coverage"
       workingDirectory: $(build.sourcesDirectory)/Services/TicketStore.Data.Tests.Unit
