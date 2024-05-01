@@ -25,7 +25,7 @@ const TurnstileManual = ({ verify }: TurnstileActions) => {
         <Box>
           <TextField
             id="ticket_number"
-            label="Номер Билета"
+            label="Ticket number"
             onChange={(e) => setTicketNumber(e.target.value)}
             margin="normal"
             variant="outlined"
@@ -42,7 +42,7 @@ const TurnstileManual = ({ verify }: TurnstileActions) => {
             size="large"
             type="submit"
           >
-            Проверить Билет
+            Verify the ticket
           </Button>
         </Box>
       </form>

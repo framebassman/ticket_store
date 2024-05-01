@@ -5,12 +5,12 @@ export const Farewell = () => {
   return (
     <div className="farewell">
       <div className="farewell__item">
-        <div className="farewell__item--centered farewell__item--title">Спасибо за поддержку</div>
+        <div className="farewell__item--centered farewell__item--title">Thank you for your support</div>
       </div>
       <div className="farewell__item block">
-        <div>Сейчас мы отправим вам билет на имейл</div>
-        <div>Увидимся на концерте</div>
-        <div className="footer"><a href="https://vk.com/framebassman">Напишите</a>, если что то пошло не так</div>
+        <div>We'll email you the ticket now</div>
+        <div>See you at the concert</div>
+        <div className="footer">Please <a href="https://vk.com/framebassman">let us know </a>if anything went wrong</div>
       </div>
     </div>
   )
