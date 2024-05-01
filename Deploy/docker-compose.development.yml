@@ -12,9 +12,9 @@ services:
         environment:
             - ASPNETCORE_ENVIRONMENT=Development
         volumes:
-            - ./Services/TicketStore.Api/Controllers:/home/deployer/app/Controllers
-            - ./Services/TicketStore.Api/Middlewares:/home/deployer/app/Middlewares
-            - ./Services/TicketStore.Api/Model:/home/deployer/app/Model
+            - ./Services/TicketStore.Api/Controllers:/app/Controllers:ro
+            - ./Services/TicketStore.Api/Middlewares:/app/Middlewares:ro
+            - ./Services/TicketStore.Api/Model:/app/Model:ro
     store_web:
         build:
             context: .
@@ -25,10 +25,10 @@ services:
             - ASPNETCORE_ENVIRONMENT=Development
             - REACT_APP_ENVIRONMENT=Development
         volumes:
-            - ./Services/TicketStore.Web/Client:/home/deployer/app/Client
-            - ./Services/TicketStore.Web/Controllers:/home/deployer/app/Controllers
-            - ./Services/TicketStore.Web/Pages:/home/deployer/app/Pages
-            - ./Services/TicketStore.Web/Model:/home/deployer/app/Model
+            - ./Services/TicketStore.Web/Client:/app/Client:ro
+            - ./Services/TicketStore.Web/Controllers:/app/Controllers:ro
+            - ./Services/TicketStore.Web/Pages:/app/Pages:ro
+            - ./Services/TicketStore.Web/Model:/app/Model:ro
     store_proxy:
         build:
             context: .
