@@ -1,10 +1,10 @@
-FROM mcr.microsoft.com/dotnet/sdk:5.0.202-alpine3.13 AS build-env
+FROM mcr.microsoft.com/dotnet/sdk:8.0.203-alpine3.19-amd64 AS build-env
 COPY ./Services/TicketStore.Api/ /app
 COPY ./Services/TicketStore.Data/ /TicketStore.Data
 WORKDIR /app
 RUN dotnet restore
 RUN dotnet publish -c Release -o out
 
-FROM framebassman/store-api:1.7.1807
+FROM mcr.microsoft.com/dotnet/aspnet:8.0.3-alpine3.19-amd64
 COPY --chown=deployer:wheel --from=build-env /app/out .
 ENTRYPOINT ["dotnet", "TicketStore.Api.dll"]
