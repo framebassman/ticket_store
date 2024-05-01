@@ -9,7 +9,7 @@ using Sentry.Extensibility;
 
 namespace TicketStore.Api
 {
-    public class Program
+    public class ProgramOld
     {
         public static void Main(string[] args)
         {
@@ -36,7 +36,7 @@ namespace TicketStore.Api
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder
-                        .UseStartup<Startup>()
+                        .UseStartup<StartupOld>()
                         .UseSerilog()
                         .UseSentry(options =>
                             {

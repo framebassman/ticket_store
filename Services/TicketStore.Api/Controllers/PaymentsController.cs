@@ -49,17 +49,17 @@ namespace TicketStore.Api.Controllers
         // POST api/values
         [HttpPost]
         public IActionResult Post(
-            [FromForm] String notification_type,
-            [FromForm] String operation_id,
+            [FromForm] String? notification_type,
+            [FromForm] String? operation_id,
             [FromForm] Decimal amount,
             [FromForm] Decimal withdraw_amount,
-            [FromForm] String currency,
+            [FromForm] String? currency,
             [FromForm] DateTime datetime,
             [FromForm] String email,
             [FromForm] String sender,
             [FromForm] Boolean codepro,
             [FromForm] String label,
-            [FromForm] String sha1_hash
+            [FromForm] String? sha1_hash
         )
         {
             if (string.IsNullOrEmpty(email))
@@ -131,7 +131,7 @@ namespace TicketStore.Api.Controllers
             for (int i = 0; i < count; i++)
             {
                 ticketsToSave.Add(new Ticket {
-                    CreatedAt = DateTime.Now,
+                    CreatedAt = DateTime.UtcNow,
                     Number = new Algorithm(savedTickets.Concat(ticketsToSave).ToList()).Next(),
                     Roubles = ticketCost,
                     Expired = false,
