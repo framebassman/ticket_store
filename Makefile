@@ -81,7 +81,6 @@ stop-prod:
 		down
 
 start-prod:
-	make grant-permissions-to-cert
 	docker-compose \
 		--project-directory=${PWD} \
 		--project-name=ticket_store \
@@ -128,7 +127,10 @@ db-test:
 	docker exec -it postgres psql postgresql://store_user:KqCQzyH2akGB9gQ4@localhost:5432/store_db
 
 db-prod:
-	psql postgresql://store_user:GMQCruf5SzsCGR2xd3euUVZQG3c@188.68.210.162:5432/store_db
+	psql postgresql://jtgdilqi:NGs80IIq1FonJdRtkmokTEbyqEH_9BOR@dumbo.db.elephantsql.com/jtgdilqi
+
+db-metabase:
+	psql postgresql://kvhujpef:K91joCBljPHmFj22QIRDAIZDjl_OKbJQ@balarama.db.elephantsql.com/kvhujpef
 
 # run tests
 test-api-integration:
@@ -149,9 +151,9 @@ migrate-test:
 	export ASPNETCORE_ENVIRONMENT=TestMigrations; \
 	dotnet ef database update --project Services/TicketStore.Data/TicketStore.Data.csproj --verbose
 
-# etc
-grant-permissions-to-cert:
-	chmod 600 ./Services/Proxy/certs/acme.json
+migrate-prod:
+	export ASPNETCORE_ENVIRONMENT=Production; \
+	~/.dotnet/tools/dotnet-ef ef database update --project Services/TicketStore.Data/TicketStore.Data.csproj --verbose
 
 ngrok:
 	bash ./Scripts/ngrok/launch.sh
@@ -159,3 +161,6 @@ ngrok:
 db-seed:
 	dotnet test Services/TicketStore.Api.Tests \
 		--filter Category=DevelopmentData
+
+ssh-prod:
+	ssh root@5.161.220.188
