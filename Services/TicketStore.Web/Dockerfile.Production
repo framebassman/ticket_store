@@ -2,7 +2,7 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0.203-alpine3.19-amd64 AS build-env
 
 ARG REACT_APP_ENVIRONMENT=Production
 
-RUN apk add --update 'nodejs>20.12.2-r0' 'npm>10.6.0-r0'
+RUN apk add --update 'nodejs>=20.12.2-r0' 'npm>=10.2.5-r0'
 
 COPY ./Services/TicketStore.Web/ /app
 COPY ./Services/TicketStore.Data/ /TicketStore.Data
