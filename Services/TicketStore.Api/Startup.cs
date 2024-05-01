@@ -61,7 +61,7 @@ namespace TicketStore.Api
             else
             {
                 services.AddSingleton<EmailService, YandexService>();
-                services.AddTransient<IPaymentValidator, Validator>();
+                services.AddTransient<IPaymentValidator, DummyValidator>();
             }
         }
 

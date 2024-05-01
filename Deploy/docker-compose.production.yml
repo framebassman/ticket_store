@@ -20,16 +20,8 @@ services:
             - ASPNETCORE_ENVIRONMENT=Production
             - SENTRY_RELEASE=${VERSION}
     store_proxy:
-        image: "docker.io/framebassman/store-proxy:${VERSION}"
-        build:
-            context: .
-            dockerfile: ./Services/Proxy/Dockerfile.Production
-        ports:
-            - 80:80
-            - 443:443
         volumes:
-            - /var/run/docker.sock:/var/run/docker.sock
-            - ./Services/Proxy/certs/acme.json:/acme.json
+            - ./Services/Proxy/config/traefik.toml:/traefik.toml:ro
     kabinet:
         image: metabase/metabase:v0.34.1
         container_name: kabinet
@@ -43,8 +35,8 @@ services:
             - "traefik.docker.network=ticket_store_default"
         environment:
             - MB_DB_TYPE=postgres
-            - MB_DB_DBNAME=metabase_db
+            - MB_DB_DBNAME=kvhujpef
             - MB_DB_PORT=5432
-            - MB_DB_USER=metabase_user
-            - MB_DB_PASS=WPjpNg73ppJVpCF9
-            - MB_DB_HOST=188.68.210.162
+            - MB_DB_USER=kvhujpef
+            - MB_DB_PASS=K91joCBljPHmFj22QIRDAIZDjl_OKbJQ
+            - MB_DB_HOST=balarama.db.elephantsql.com

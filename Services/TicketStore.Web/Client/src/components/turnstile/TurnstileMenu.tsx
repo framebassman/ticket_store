@@ -47,11 +47,11 @@ export const TurnstileMenu: React.FC<RouteComponentProps> = ({ location, history
           showLabels
         >
           <BottomNavigationAction
-            label="Скан Билета"
+            label="Scan ticket"
             icon={<CameraIcon />}
           />
           <BottomNavigationAction
-            label="Ручной Ввод"
+            label="Manual mode"
             icon={<TouchAppIcon />}
           />
         </BottomNavigation>
