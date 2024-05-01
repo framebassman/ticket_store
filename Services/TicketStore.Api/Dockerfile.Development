@@ -18,13 +18,10 @@ ENV PATH="/root/.dotnet/tools:${PATH}"
 # install debugger
 RUN apk add unzip procps
 RUN curl -sSL https://aka.ms/getvsdbgsh | /bin/sh /dev/stdin -v latest -l ~/vsdbg
-# user
-RUN adduser --system --disabled-password deployer wheel
-USER deployer
 # copy code
-COPY --chown=deployer:wheel ./Services/TicketStore.Api/ /home/deployer/app
-COPY --chown=deployer:wheel ./Services/TicketStore.Data/ /home/deployer/TicketStore.Data
-WORKDIR /home/deployer/app
+COPY ./Services/TicketStore.Api/ /app
+COPY ./Services/TicketStore.Data/ /TicketStore.Data
+WORKDIR /app
 RUN dotnet restore
 RUN dotnet build
 ENTRYPOINT ["dotnet", "watch", "run"]
