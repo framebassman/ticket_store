@@ -24,14 +24,14 @@ namespace TicketStore.Api.Model.Email
         {
             var builder = new BodyBuilder
             {
-                TextBody = "Билеты во вложении",
+                TextBody = "Tickets are attached to this email",
             };
             builder.Attachments.Add($"Ticket-{DateTime.Now}.pdf", ticket.ToBytes(), new ContentType("application", "pdf"));
 
             var message = new MimeMessage();
 			message.From.Add (new MailboxAddress ("no-reply", "no-reply@romashov.tech"));
 			message.To.Add (new MailboxAddress (to));
-			message.Subject = "Билеты от Чертополоха";
+			message.Subject = "Tickets from Chert-o-polokh";
             message.Body = builder.ToMessageBody();
             
             _log.LogInformation("Send ticket to @{0}", to);

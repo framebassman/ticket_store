@@ -28,7 +28,13 @@ namespace TicketStore.Data
         {
             if (IsAppRunning())
             {
-                builder.UseNpgsql(new ApplicationSettings().ConnectionString());                
+                builder.UseNpgsql(
+                    new ApplicationSettings().ConnectionString(),
+                    builder =>
+                    {
+                        builder.EnableRetryOnFailure(5, TimeSpan.FromSeconds(10), null);
+                    }
+                );                
             }
             else
             {
