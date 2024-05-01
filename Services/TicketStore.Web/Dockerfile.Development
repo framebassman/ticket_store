@@ -1,15 +1,12 @@
-FROM mcr.microsoft.com/dotnet/sdk:5.0.202-alpine3.13 AS build-env
-RUN apk add --update 'nodejs>14.16.0-r1' 'npm>14.16.0-r1'
+FROM mcr.microsoft.com/dotnet/sdk:8.0.203-alpine3.19-amd64 AS build-env
+RUN apk add --update nodejs npm
 # install debugger
 RUN apk add unzip procps
 RUN curl -sSL https://aka.ms/getvsdbgsh | /bin/sh /dev/stdin -v latest -l ~/vsdbg
-# user
-RUN adduser --system --disabled-password deployer wheel
-USER deployer
 # copy code
-COPY --chown=deployer:wheel ./Services/TicketStore.Web/ /home/deployer/app
-COPY --chown=deployer:wheel ./Services/TicketStore.Data/ /home/deployer/TicketStore.Data
-WORKDIR /home/deployer/app
+COPY ./Services/TicketStore.Web/ /app
+COPY ./Services/TicketStore.Data/ /TicketStore.Data
+WORKDIR /app
 RUN dotnet restore
 RUN dotnet build
 ENTRYPOINT ["dotnet", "watch", "run"]

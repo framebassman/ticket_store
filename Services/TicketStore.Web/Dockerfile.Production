@@ -1,8 +1,8 @@
-FROM mcr.microsoft.com/dotnet/sdk:5.0.202-alpine3.13 AS build-env
+FROM mcr.microsoft.com/dotnet/sdk:8.0.203-alpine3.19-amd64 AS build-env
 
 ARG REACT_APP_ENVIRONMENT=Production
 
-RUN apk add --update 'nodejs>14.16.0-r1' 'npm>14.16.0-r1'
+RUN apk add --update 'nodejs=~21.7.2-r0' 'npm=~10.2.5-r0'
 
 COPY ./Services/TicketStore.Web/ /app
 COPY ./Services/TicketStore.Data/ /TicketStore.Data
@@ -15,9 +15,7 @@ RUN dotnet restore
 RUN dotnet publish -c Release -o out
 
 
-FROM mcr.microsoft.com/dotnet/aspnet:5.0.5-alpine3.13
-RUN adduser --system --disabled-password deployer wheel
-USER deployer
-WORKDIR /home/deployer/app
-COPY --chown=deployer:wheel --from=build-env /app/out .
+FROM mcr.microsoft.com/dotnet/aspnet:8.0.3-alpine3.19-amd64
+WORKDIR /app
+COPY --from=build-env /app/out .
 ENTRYPOINT ["dotnet", "TicketStore.Web.dll"]

@@ -31,7 +31,13 @@ services:
         tty: true
     store_proxy:
         container_name: store_proxy
+        image: traefik:1.7
         ports:
             - 80:80
         volumes:
             - /var/run/docker.sock:/var/run/docker.sock
+    # migration-agent:
+    #     container_name: store_migration-agent
+    #     build:
+    #         context: .
+    #         dockerfile: ./Services/MigrationAgent/Dockerfile.Production
