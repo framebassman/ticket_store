@@ -14,7 +14,7 @@ function isEmpty(origin: string) {
 }
 
 export const PayButton = (props: PayButtonProps) => {
-  const { roubles, label, targets, yandexMoneyAccount } = props;
+  const { roubles, label, yandexMoneyAccount } = props;
   if (roubles <= 0 || isEmpty(yandexMoneyAccount)) {
     return null;
   } else {
