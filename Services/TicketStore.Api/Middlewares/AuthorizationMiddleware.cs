@@ -18,18 +18,17 @@ namespace TicketStore.Api.Middlewares
         public async Task Invoke(HttpContext context)
         {
             var header = context.Request.Headers["Authorization"];
-            await _next(context);
-            // if (header == Token)
-            // {
-            //     await _next(context);
-            // }
-            // else
-            // {
-            //     context.Response.ContentType = "application/json";
-            //     context.Response.StatusCode = (int) HttpStatusCode.Unauthorized;
-            //     context.Response.Headers.Add(HeaderNames.Connection, "close");
-            //     await context.Response.WriteAsync("{\"message\":\"unauthorized\"}");
-            // }
+            if (header == Token)
+            {
+                await _next(context);
+            }
+            else
+            {
+                context.Response.ContentType = "application/json";
+                context.Response.StatusCode = (int) HttpStatusCode.Unauthorized;
+                context.Response.Headers.Add(HeaderNames.Connection, "close");
+                await context.Response.WriteAsync("{\"message\":\"unauthorized\"}");
+            }
         }
     }
 }

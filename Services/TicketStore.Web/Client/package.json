@@ -2,26 +2,37 @@
   "name": "web",
   "version": "0.1.0",
   "private": true,
+  "author": "Kolenka Inc.",
   "dependencies": {
-    "@reduxjs/toolkit": "^1.9.3",
-    "@testing-library/jest-dom": "^5.16.5",
-    "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^14.4.3",
-    "@types/jest": "^27.5.2",
-    "@types/node": "^17.0.45",
-    "@types/react": "^18.0.35",
-    "@types/react-dom": "^18.0.11",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-redux": "^8.0.5",
-    "react-scripts": "5.0.1",
-    "typescript": "^4.9.5",
-    "web-vitals": "^2.1.4"
+    "@material-ui/core": "^4.11.3",
+    "@material-ui/icons": "^4.11.2",
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^11.1.0",
+    "@testing-library/user-event": "^12.1.10",
+    "@types/enzyme": "^3.10.8",
+    "@types/jest": "^26.0.15",
+    "@types/react-redux": "^7.1.16",
+    "@types/react-router-dom": "^5.1.7",
+    "axios": "^0.21.1",
+    "enzyme": "^3.11.0",
+    "formik": "^2.2.6",
+    "lodash": "^4.17.21",
+    "quagga": "^0.12.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-redux": "^7.2.4",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "4.0.3",
+    "react-yandex-metrika": "^2.6.0",
+    "redux": "^4.1.0",
+    "redux-thunk": "^2.3.0",
+    "typescript": "^4.1.2",
+    "web-vitals": "^1.0.1"
   },
   "scripts": {
-    "start": "BROWSER=none react-scripts start",
+    "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test --env=jsdom --reporters=default --reporters=jest-junit",
     "eject": "react-scripts eject",
     "bundlesize": "bundlesize",
     "check-bundlesize": "react-scripts build && bundlesize"
@@ -44,7 +55,28 @@
       "last 1 safari version"
     ]
   },
+  "jest-junit": {
+    "suiteName": "jest tests",
+    "outputDirectory": "reports",
+    "outputName": "junit.xml",
+    "classNameTemplate": "{classname}-{title}",
+    "titleTemplate": "{classname}-{title}",
+    "ancestorSeparator": " › ",
+    "usePathForSuiteName": "true"
+  },
   "devDependencies": {
-    "bundlesize2": "^0.0.31"
+    "@material-ui/styles": "^4.11.3",
+    "@types/lodash": "^4.14.168",
+    "@types/moxios": "^0.4.11",
+    "@types/node": "^15.0.0",
+    "@types/react": "^17.0.4",
+    "@types/react-dom": "^17.0.3",
+    "@types/webpack-env": "^1.16.0",
+    "@wojtekmaj/enzyme-adapter-react-17": "^0.6.1",
+    "bundlesize2": "^0.0.27",
+    "jest-junit": "^12.0.0",
+    "moxios": "^0.4.0",
+    "react-test-renderer": "^17.0.2",
+    "redux-devtools-extension": "^2.13.9"
   }
 }
