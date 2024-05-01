@@ -46,7 +46,7 @@ namespace TicketStore.Api.Tests.Tests.Fixtures
                     PosterUrl = "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png",
                     PressRelease = "First test press",
                     Roubles = 2.00m,
-                    Time = DateTime.Parse("Tue, 9 Jul 2019 17:00:00Z"),
+                    Time = DateTime.Parse("Sun, 9 Jul 2119 17:00:00Z").ToUniversalTime(),
                 },
                 new Event
                 {
@@ -55,7 +55,7 @@ namespace TicketStore.Api.Tests.Tests.Fixtures
                     PosterUrl = "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png",
                     PressRelease = "Second test press",
                     Roubles = 3.00m,
-                    Time = DateTime.Parse("Mon, 8 Jul 2019 18:00:00Z"),
+                    Time = DateTime.Parse("Sat, 8 Jul 2119 18:00:00Z").ToUniversalTime(),
                 }
             };
 
