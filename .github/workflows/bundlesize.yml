@@ -29,6 +29,7 @@ jobs:
       working-directory: Services/TicketStore.Web/Client
       run: |
         npm install
-        npm run check-bundlesize
+        npm run build
+        npm run bundlesize
       env:
         CI: true
