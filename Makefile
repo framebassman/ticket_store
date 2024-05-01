@@ -146,7 +146,7 @@ migrate-dev:
 	docker exec store_api dotnet ef database update --verbose
 
 migrate-test:
-	export ASPNETCORE_ENVIRONMENT=TestMigrations; \
+	export ASPNETCORE_ENVIRONMENT=Test; \
 	dotnet ef database update --project Services/TicketStore.Data/TicketStore.Data.csproj --verbose
 
 # etc
