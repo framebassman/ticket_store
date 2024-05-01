@@ -72,7 +72,7 @@ namespace TicketStore.Api.Controllers
             var concert = _db.Events
                 .AsEnumerable()
                 .FirstOrDefault(e =>
-                    new LabelCalculator(_log, e).Value() == label
+                    label.Contains(e.Artist)
                 );
             if (concert == null)
             {
