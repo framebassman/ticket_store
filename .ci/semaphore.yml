@@ -27,10 +27,6 @@ blocks:
             - sudo apt-get install docker-compose-plugin
             - docker compose version
             # install dotnet core
-            - wget https://packages.microsoft.com/config/ubuntu/22.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
-            - sudo dpkg -i packages-microsoft-prod.deb
-            - rm packages-microsoft-prod.deb
-            - sudo apt-get update
             - sudo apt-get install -y dotnet-sdk-7.0
             # checkout repo
             - chmod 0600 ~/.ssh/*
@@ -40,6 +36,7 @@ blocks:
             - make start-test
             - bash ./Scripts/wait-until-app-is-deployed.sh
             # run migrations
+            - dotnet --info
             - dotnet tool install --global dotnet-ef --version 7.0.5
             - export ASPNETCORE_ENVIRONMENT=TestMigrations; ~/.dotnet/tools/dotnet-ef database update --project Services/TicketStore.Data/TicketStore.Data.csproj --verbose
             # run integration tests
