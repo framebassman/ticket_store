@@ -64,7 +64,7 @@ stages:
       inputs:
         targetType: 'inline'
         script: bash <(curl -s https://codecov.io/bash)
-    - task: PublishCodeCoverageResults@1
+    - task: PublishCodeCoverageResults@2
       displayName: 'publish code coverage report to Azure Devops'
       inputs:
         codeCoverageTool: 'cobertura' # Options: cobertura, jaCoCo
@@ -107,7 +107,7 @@ stages:
       inputs:
         targetType: 'inline'
         script: bash <(curl -s https://codecov.io/bash)
-    - task: PublishCodeCoverageResults@1
+    - task: PublishCodeCoverageResults@2
       displayName: 'publish code coverage report to Azure Devops'
       inputs:
         codeCoverageTool: 'cobertura' # Options: cobertura, jaCoCo
@@ -150,7 +150,7 @@ stages:
       inputs:
         targetType: 'inline'
         script: bash <(curl -s https://codecov.io/bash)
-    - task: PublishCodeCoverageResults@1
+    - task: PublishCodeCoverageResults@2
       displayName: 'publish code coverage report to Azure Devops'
       inputs:
         codeCoverageTool: 'cobertura' # Options: cobertura, jaCoCo
