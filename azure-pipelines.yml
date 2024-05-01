@@ -46,7 +46,7 @@ stages:
       displayName: 'Install Dotnet Core'
       inputs:
         packageType: sdk
-        version: 8.0.3
+        version: 8.0.204
     - script: |
         dotnet test --logger "trx;LogFileName=report.trx" --collect:"XPlat Code Coverage"
       workingDirectory: $(build.sourcesDirectory)/Services/TicketStore.Api.Tests.Unit
@@ -83,7 +83,7 @@ stages:
       displayName: 'Install Dotnet Core'
       inputs:
         packageType: sdk
-        version: 8.0.3
+        version: 8.0.204
     - script: |
         dotnet test --logger "trx;LogFileName=report.trx" --collect:"XPlat Code Coverage"
       workingDirectory: $(build.sourcesDirectory)/Services/TicketStore.Web.Tests.Unit
@@ -126,7 +126,7 @@ stages:
       displayName: 'Install Dotnet Core'
       inputs:
         packageType: sdk
-        version: 8.0.3
+        version: 8.0.204
     - script: |
         dotnet test --logger "trx;LogFileName=report.trx" --collect:"XPlat Code Coverage"
       workingDirectory: $(build.sourcesDirectory)/Services/TicketStore.Data.Tests.Unit
