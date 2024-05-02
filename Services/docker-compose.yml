@@ -1,0 +1,11 @@
+﻿services:
+  webapplication1:
+    image: webapplication1
+    container_name: webapplication1
+    build:
+      context: .
+      dockerfile: WebApplication1/Dockerfile
+    environment:
+      - ASPNETCORE_URLS=http://+:5000
+    ports:
+      - 5000:5000
