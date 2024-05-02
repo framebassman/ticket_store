@@ -10,7 +10,8 @@
     <ItemGroup>
         <PackageReference Include="AspNetCore.Yandex.ObjectStorage" Version="0.2.2" />
         <PackageReference Include="DinkToPdf" Version="1.0.8" />
-        <PackageReference Include="Magick.NET-Q8-AnyCPU" Version="13.0.1" />
+        <PackageReference Include="Magick.NET-Q8-AnyCPU" Version="13.7.0" />
+        <PackageReference Include="Magick.NET.Core" Version="13.7.0" />
         <PackageReference Include="MailKit" Version="3.6.0" />
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.5" />
         <PackageReference Include="Sentry" Version="3.30.0" />
@@ -49,5 +50,9 @@
     <ItemGroup>
       <ProjectReference Include="..\TicketStore.Data\TicketStore.Data.csproj" />
     </ItemGroup>
+
+    <ItemGroup>
+      <RuntimeHostConfigurationOption Include="System.Drawing.EnableUnixSupport" Value="true" />
+    </ItemGroup
 
 </Project>
