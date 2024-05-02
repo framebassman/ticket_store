@@ -51,4 +51,8 @@
       <ProjectReference Include="..\TicketStore.Data\TicketStore.Data.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <RuntimeHostConfigurationOption Include="System.Drawing.EnableUnixSupport" Value="true" />
+    </ItemGroup
+
 </Project>
