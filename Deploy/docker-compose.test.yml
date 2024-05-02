@@ -6,7 +6,6 @@ services:
             context: .
             dockerfile: ./Services/TicketStore.Api/Dockerfile.Production
         depends_on:
-            - postgres
             - fake_sender
         ports:
             - 3000:5000
