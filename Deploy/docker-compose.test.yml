@@ -26,17 +26,6 @@ services:
         build:
             context: .
             dockerfile: ./Services/Proxy/Dockerfile.Test
-    postgres:
-        build:
-            context: .
-            dockerfile: ./Services/Postgres/Dockerfile
-        container_name: postgres
-        volumes:
-            - pgsdata:/var/lib/postgresql/data
-        ports:
-            - 5432:5432
-        logging:
-            driver: none
     fake_sender:
         image: framebassman/fake-sender:1.2.0
         container_name: fake_sender
@@ -44,5 +33,3 @@ services:
             - 5000:5050
         volumes:
             - /var/log/fake_sender:/var/log
-volumes:
-    pgsdata:

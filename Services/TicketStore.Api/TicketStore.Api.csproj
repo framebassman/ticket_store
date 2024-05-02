@@ -3,7 +3,7 @@
     <PropertyGroup>
         <TargetFramework>net8.0</TargetFramework>
         <Nullable>enable</Nullable>
-        <ImplicitUsings>enable</ImplicitUsings>
+        <ImplicitUsings>disable</ImplicitUsings>
         <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     </PropertyGroup>
 
@@ -49,10 +49,6 @@
 
     <ItemGroup>
       <ProjectReference Include="..\TicketStore.Data\TicketStore.Data.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <RuntimeHostConfigurationOption Include="System.Drawing.EnableUnixSupport" Value="true" />
     </ItemGroup>
 
 </Project>

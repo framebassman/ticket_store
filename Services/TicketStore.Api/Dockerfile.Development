@@ -14,9 +14,6 @@ RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/reposit
 # install font for PDF generation
 RUN apk add ttf-liberation && fc-cache -fv
 RUN apk add tzdata && ls /usr/share/zoneinfo
-# install new stuff for PDF generation
-RUN apk add libgdiplus
-RUN apk add ttf-freefont libssl1.1 
 RUN dotnet tool install --global dotnet-ef --version 7.0.5
 ENV PATH="/root/.dotnet/tools:${PATH}"
 # install debugger

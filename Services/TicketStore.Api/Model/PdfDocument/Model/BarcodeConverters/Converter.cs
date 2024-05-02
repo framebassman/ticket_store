@@ -1,6 +1,6 @@
 using System;
-using System.Drawing;
-using System.Drawing.Imaging;
+// using System.Drawing;
+// using System.Drawing.Imaging;
 using System.IO;
 using System.Net.Http;
 
@@ -25,13 +25,18 @@ namespace TicketStore.Api.Model.PdfDocument.Model.BarcodeConverters
             var imageUrl = $"https://barcodeapi.org/api/code128/{ticketNumber}";
             using (var inputStream = _client.GetStreamAsync(imageUrl).Result)
             {
-                using (var memoryStream = new MemoryStream())
+                using (MemoryStream ms = new MemoryStream())
                 {
-                    var bitmap = new Bitmap(inputStream);
-                    bitmap.Save(memoryStream, ImageFormat.Png);
-                    byte[] byteImage = memoryStream.ToArray();
-                    return Convert.ToBase64String(byteImage);
+                    inputStream.CopyTo(ms);
+                    return Convert.ToBase64String(ms.ToArray());
                 }
+                // using (var memoryStream = new MemoryStream())
+                // {
+                //     var bitmap = new Bitmap(inputStream);
+                //     bitmap.Save(memoryStream, ImageFormat.Png);
+                //     byte[] byteImage = memoryStream.ToArray();
+                //     return Convert.ToBase64String(byteImage);
+                // }
             }
         }
     }
