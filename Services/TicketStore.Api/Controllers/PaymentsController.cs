@@ -70,7 +70,6 @@ namespace TicketStore.Api.Controllers
             email = NormalizeEmail(email);
             _log.LogInformation("Receive Yandex.Money request from {@0} about {@1}", email, label);
             var concert = _db.Events
-                .AsEnumerable()
                 .FirstOrDefault(e =>
                     label.Contains(e.Artist)
                 );
@@ -130,13 +129,16 @@ namespace TicketStore.Api.Controllers
             _log.LogInformation($"Combine {count} tickets");
             for (int i = 0; i < count; i++)
             {
-                ticketsToSave.Add(new Ticket {
+                var ticket = new Ticket
+                {
                     CreatedAt = DateTime.UtcNow,
                     Number = new Algorithm(savedTickets.Concat(ticketsToSave).ToList()).Next(),
                     Roubles = ticketCost,
                     Expired = false,
+                    EventName = concert.Artist,
                     Event = concert
-                });
+                };
+                ticketsToSave.Add(ticket);
             }
             payment.Tickets = ticketsToSave;
             _db.Payments.Add(payment);
