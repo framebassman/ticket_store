@@ -1,4 +1,5 @@
 using System.Net;
+using System.Linq;
 using Xunit.Abstractions;
 using NHamcrest;
 using TicketStore.Api.Tests.Data;
