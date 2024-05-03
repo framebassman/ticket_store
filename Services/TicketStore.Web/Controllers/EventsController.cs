@@ -1,6 +1,4 @@
-using System;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using TicketStore.Data;
 using TicketStore.Web.Model;
 using TicketStore.Web.Model.Events;
@@ -8,14 +6,13 @@ using TicketStore.Web.Model.Events;
 namespace TicketStore.Web.Controllers
 {
     [Route("api/[controller]")]
-    [ApiController]
-    public class EventsController : ControllerBase
+    public class EventsController
     {
         private ILogger<EventsController> _log;
         private ApplicationContext _db;
-        private AbstractDateTimeProvider _dateTime;
+        private AbstractCustomStuff _dateTime;
 
-        public EventsController(ILogger<EventsController> log, ApplicationContext db, AbstractDateTimeProvider dateTime)
+        public EventsController(ILogger<EventsController> log, ApplicationContext db, AbstractCustomStuff dateTime)
         {
             _log = log;
             _db = db;

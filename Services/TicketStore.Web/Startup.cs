@@ -24,8 +24,7 @@ namespace TicketStore.Web
         {
             services.AddResponseCompression();
             services.AddHealthChecks();
-            services.AddControllers();
-            services.AddTransient<AbstractDateTimeProvider, DateTimeProvider>();
+            services.AddSingleton<AbstractCustomStuff>(new CustomStuff());
             services.AddDbContext<ApplicationContext>();
 
             // In production, the React files will be served from this directory
@@ -33,6 +32,7 @@ namespace TicketStore.Web
             {
                 configuration.RootPath = "Client/build";
             });
+            services.AddControllers();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
