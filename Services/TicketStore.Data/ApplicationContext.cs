@@ -2,6 +2,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.EntityFrameworkCore.InMemory.Infrastructure.Internal;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Infrastructure;
 using TicketStore.Data.Model;
 
 namespace TicketStore.Data
@@ -29,12 +30,10 @@ namespace TicketStore.Data
         {
             if (IsAppRunning())
             {
+                var settings = new ApplicationSettings();
                 builder.UseNpgsql(
-                    new ApplicationSettings().ConnectionString(),
-                    builder =>
-                    {
-                        builder.EnableRetryOnFailure(5, TimeSpan.FromSeconds(10), null);
-                    }
+                    settings.ConnectionString()
+                    // settings.BuilderAction
                 ); 
             }
             else
