@@ -10,9 +10,9 @@ using TicketStore.Web.Model;
 
 namespace TicketStore.Web
 {
-    public class StartupOld
+    public class Startup
     {
-        public StartupOld(IConfiguration configuration)
+        public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
@@ -24,7 +24,6 @@ namespace TicketStore.Web
         {
             services.AddResponseCompression();
             services.AddHealthChecks();
-            services.AddControllers();
             services.AddTransient<IDateTimeProvider, DateTimeProvider>();
             services.AddDbContext<ApplicationContext>();
 
@@ -33,6 +32,7 @@ namespace TicketStore.Web
             {
                 configuration.RootPath = "Client/build";
             });
+            services.AddControllers();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -62,7 +62,7 @@ namespace TicketStore.Web
             app.UseSpa(spa =>
             {
                 spa.Options.SourcePath = "Client";
-            
+
                 if (env.IsDevelopment())
                 {
                     spa.UseReactDevelopmentServer(npmScript: "start");
