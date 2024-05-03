@@ -25,7 +25,7 @@ namespace TicketStore.Web
             services.AddResponseCompression();
             services.AddHealthChecks();
             services.AddControllers();
-            services.AddTransient<IDateTimeProvider, DateTimeProvider>();
+            services.AddTransient<AbstractDateTimeProvider, DateTimeProvider>();
             services.AddDbContext<ApplicationContext>();
 
             // In production, the React files will be served from this directory
@@ -62,7 +62,7 @@ namespace TicketStore.Web
             app.UseSpa(spa =>
             {
                 spa.Options.SourcePath = "Client";
-            
+
                 if (env.IsDevelopment())
                 {
                     spa.UseReactDevelopmentServer(npmScript: "start");
