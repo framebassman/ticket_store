@@ -15,9 +15,53 @@ namespace TicketStore.Api.Model.Payment.YandexMoney
             _log = log;
         }
 
-        public virtual Boolean FromYandex(String notification_type, String operation_id, Decimal amount,
-            String currency, DateTime datetime, String sender, Boolean codepro, String notification_secret,
-            String label, String sha1Hash)
+        public virtual Boolean FromYandex(
+            String? notification_type,
+            String? operation_id,
+            Decimal? amount,
+            String? currency,
+            DateTime? datetime,
+            String? sender,
+            Boolean? codepro,
+            String? notification_secret,
+            String? label,
+            String? sha1Hash
+        )
+        {
+            try
+            {
+                return FromYandexInner(
+                    notification_type, 
+                    operation_id,
+                    amount.Value,
+                    currency, 
+                    datetime.Value,
+                    sender,
+                    codepro.Value,
+                    notification_secret,
+                    label,
+                    sha1Hash
+                );
+            }
+            catch (Exception e)
+            {
+                _log.LogError(e, e.Message);
+                return false;
+            }
+        }
+
+        private Boolean FromYandexInner(
+            String notification_type,
+            String operation_id,
+            Decimal amount,
+            String currency,
+            DateTime datetime,
+            String sender,
+            Boolean codepro,
+            String notification_secret,
+            String label,
+            String sha1Hash
+        )
         {
             var uniqueTimezones = TimeZoneInfo.GetSystemTimeZones()
                 .GroupBy(tz => tz.BaseUtcOffset)
