@@ -1,4 +1,3 @@
-using System;
 using TicketStore.Data.Model;
 
 namespace TicketStore.Web.Tests.Unit.TestData
