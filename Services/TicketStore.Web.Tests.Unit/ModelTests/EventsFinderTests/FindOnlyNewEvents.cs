@@ -36,16 +36,16 @@ namespace TicketStore.Web.Tests.Unit.ModelTests.EventsFinderTests
             var diff = 7;
             var startHours = 16;
             SetupTestData(diff, startHours);
-            
+
             // Act
             var result = _finder.Find();
-            
+
             // Assert
             Assert.Equal(2, result.Count);
             Assert.Equal(_oldDate, result.First().Time);
             Assert.Equal(_newDate, result.Last().Time);
         }
-        
+
         [Fact]
         public void TimeDiffEqualTo6Hours_ReturnsBothEvents()
         {
@@ -53,10 +53,10 @@ namespace TicketStore.Web.Tests.Unit.ModelTests.EventsFinderTests
             var diff = 6;
             var startHours = 16;
             SetupTestData(diff, startHours);
-            
+
             // Act
             var result = _finder.Find();
-            
+
             // Assert
             Assert.Equal(2, result.Count);
             Assert.Equal(_oldDate, result.First().Time);
@@ -70,10 +70,10 @@ namespace TicketStore.Web.Tests.Unit.ModelTests.EventsFinderTests
             var diff = 5;
             var startHours = 16;
             SetupTestData(diff, startHours);
-            
+
             // Act
             var result = _finder.Find();
-            
+
             // Assert
             Assert.Single(result);
             Assert.Equal(_newDate, result.First().Time);

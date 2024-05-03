@@ -1,28 +1,31 @@
-﻿using System.Net;
-using Serilog;
+using System.Net;
 using Sentry.Extensibility;
+using Serilog;
+using Log = Serilog.Log;
 
-namespace TicketStore.Api
+namespace TicketStore.Web
 {
-    public class Program
+    public class ProgramOld
     {
         public static void Main(string[] args)
         {
-            Serilog.Log.Logger = new LoggerConfiguration()
+            Log.Logger = new LoggerConfiguration()
                 .ReadFrom.Configuration(BuildConfiguration())
                 .CreateLogger();
             try
             {
-                Serilog.Log.Logger.Information("Getting started...");
-                CreateHostBuilder(args).Build().Run();
+                Log.Logger.Information("Getting started...");
+                Log.Logger.Information($"Environment: {CurrentEnv()}");
+                var app = CreateHostBuilder(args).Build();
+                app.Run();
             }
             catch (Exception ex)
             {
-                Serilog.Log.Logger.Fatal(ex, "Host terminated unexpectedly");
+                Log.Logger.Fatal(ex, "Host terminated unexpectedly");
             }
             finally
             {
-                Serilog.Log.CloseAndFlush();
+                Log.CloseAndFlush();
             }
         }
 
@@ -31,8 +34,7 @@ namespace TicketStore.Api
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder
-                        .UseStartup<Startup>()
-                        .UseSerilog()
+                        .UseStartup<StartupOld>()
                         .UseSentry(options =>
                             {
                                 options.Environment = CurrentEnv();
@@ -43,7 +45,8 @@ namespace TicketStore.Api
                                 options.Release = Environment.GetEnvironmentVariable("SENTRY_RELEASE");
                             }
                         );
-                });
+                })
+                .UseSerilog();
 
         private static IConfiguration BuildConfiguration()
         {
