@@ -1,5 +1,3 @@
-using System;
-using System.Linq;
 using Moq;
 using TicketStore.Data;
 using TicketStore.Web.Model;

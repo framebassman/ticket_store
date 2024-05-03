@@ -4,9 +4,9 @@ using TicketStore.Web.Model;
 
 namespace TicketStore.Web
 {
-    public class StartupOld
+    public class Startup
     {
-        public StartupOld(IConfiguration configuration)
+        public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
@@ -16,15 +16,13 @@ namespace TicketStore.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddRouting(opt => opt.LowercaseUrls = true);
-            services.AddHealthChecks();
             services.AddControllers();
             services.AddTransient<IDateTimeProvider, DateTimeProvider>();
             services.AddDbContext<ApplicationContext>();
-            // In production, the React files will be served from this directory
-            services.AddSpaStaticFiles(configuration =>
+            services.AddHealthChecks();
+            services.AddSpaStaticFiles(config =>
             {
-                configuration.RootPath = "Client/build";
+                config.RootPath = "Client/build";
             });
             services.AddResponseCompression();
         }
@@ -32,13 +30,10 @@ namespace TicketStore.Web
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseSentryTracing();
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-            }
-            else
-            {
-                app.UseExceptionHandler("/Error");
             }
 
             app.UseRouting();
@@ -46,17 +41,15 @@ namespace TicketStore.Web
             {
                 endpoints.MapControllers();
                 endpoints.MapHealthChecks("/healthcheck");
+                endpoints.MapFallbackToFile("index.html");
             });
-            app.UseResponseCompression();
             app.UseStaticFiles();
-            app.UseSpaStaticFiles();
             app.UseSpa(spa =>
             {
                 spa.Options.SourcePath = "Client";
-
                 if (env.IsDevelopment())
                 {
-                    spa.UseReactDevelopmentServer(npmScript: "start");
+                    spa.UseProxyToSpaDevelopmentServer("http://localhost:3000/");
                 }
             });
         }

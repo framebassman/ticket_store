@@ -1,6 +1,6 @@
 using TicketStore.Web.Model;
 using NHamcrest;
-
+using Xunit;
 using Assert = NHamcrest.XUnit.Assert;
 
 namespace TicketStore.Web.Tests.Unit.ModelTests;
