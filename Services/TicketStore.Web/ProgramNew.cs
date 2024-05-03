@@ -1,8 +1,8 @@
 using System.Net;
-using Elasticsearch.Net;
 using Sentry.Extensibility;
 using Serilog;
 using TicketStore.Data;
+using TicketStore.Web.Model;
 
 var currentEnv = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Production";
 var configuration = new ConfigurationBuilder()

@@ -1,9 +1,6 @@
-using System;
+namespace TicketStore.Web.Model;
 
-namespace TicketStore.Web.Model
+public interface IDateTimeProvider
 {
-    public interface IDateTimeProvider
-    {
-        DateTime Now { get; }
-    }
+    public DateTime Now { get; }
 }
