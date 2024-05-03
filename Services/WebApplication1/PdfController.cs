@@ -33,7 +33,7 @@ public class PdfController
                 page.Margin(2, Unit.Centimetre);
                 page.PageColor(Colors.White);
                 page.DefaultTextStyle(x => x.FontSize(20));
-        
+
                 page.Header()
                     .Text("Hello PDF!")
                     .SemiBold().FontSize(36).FontColor(Colors.Blue.Medium);
@@ -47,7 +47,7 @@ public class PdfController
                         x.Item().Text(Placeholders.LoremIpsum());
                         x.Item().Image(Placeholders.Image(200, 100));
                     });
-        
+
                 page.Footer()
                     .AlignCenter()
                     .Text(x =>
