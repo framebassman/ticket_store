@@ -1,10 +1,12 @@
 using System.Net;
+using System.Linq;
 using Xunit.Abstractions;
 using NHamcrest;
 using TicketStore.Api.Tests.Data;
 using TicketStore.Api.Tests.Model;
 using TicketStore.Api.Tests.Tests.Fixtures;
 using TicketStore.Api.Tests.Tests.Matchers;
+using Xunit;
 
 namespace TicketStore.Api.Tests.Tests.Payments
 {
