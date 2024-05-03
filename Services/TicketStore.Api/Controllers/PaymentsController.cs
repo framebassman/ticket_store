@@ -51,14 +51,14 @@ namespace TicketStore.Api.Controllers
         public IActionResult Post(
             [FromForm] String? notification_type,
             [FromForm] String? operation_id,
-            [FromForm] Decimal amount,
-            [FromForm] Decimal withdraw_amount,
+            [FromForm] Decimal? amount,
+            [FromForm] Decimal? withdraw_amount,
             [FromForm] String? currency,
-            [FromForm] DateTime datetime,
-            [FromForm] String email,
-            [FromForm] String sender,
-            [FromForm] Boolean codepro,
-            [FromForm] String label,
+            [FromForm] DateTime? datetime,
+            [FromForm] String? email,
+            [FromForm] String? sender,
+            [FromForm] Boolean? codepro,
+            [FromForm] String? label,
             [FromForm] String? sha1_hash
         )
         {
@@ -70,7 +70,6 @@ namespace TicketStore.Api.Controllers
             email = NormalizeEmail(email);
             _log.LogInformation("Receive Yandex.Money request from {@0} about {@1}", email, label);
             var concert = _db.Events
-                .AsEnumerable()
                 .FirstOrDefault(e =>
                     label.Contains(e.Artist)
                 );
@@ -97,7 +96,7 @@ namespace TicketStore.Api.Controllers
                 return new BadRequestObjectResult("Secret is not matching");
             }
             
-            var tickets = CombineTickets(concert, new Payment { Email = email, Amount = withdraw_amount});
+            var tickets = CombineTickets(concert, new Payment { Email = email, Amount = withdraw_amount.Value});
             
             if (tickets.Count == 0)
             {
@@ -130,13 +129,16 @@ namespace TicketStore.Api.Controllers
             _log.LogInformation($"Combine {count} tickets");
             for (int i = 0; i < count; i++)
             {
-                ticketsToSave.Add(new Ticket {
+                var ticket = new Ticket
+                {
                     CreatedAt = DateTime.UtcNow,
                     Number = new Algorithm(savedTickets.Concat(ticketsToSave).ToList()).Next(),
                     Roubles = ticketCost,
                     Expired = false,
+                    EventName = concert.Artist,
                     Event = concert
-                });
+                };
+                ticketsToSave.Add(ticket);
             }
             payment.Tickets = ticketsToSave;
             _db.Payments.Add(payment);
