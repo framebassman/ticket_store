@@ -2,7 +2,7 @@ using System;
 
 namespace TicketStore.Web.Model
 {
-    public class DateTimeProvider : IDateTimeProvider
+    public class DateTimeProvider : AbstractDateTimeProvider
     {
         public DateTime Now => DateTime.Now;
     }

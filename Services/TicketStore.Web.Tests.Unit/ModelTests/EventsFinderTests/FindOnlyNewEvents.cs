@@ -13,7 +13,7 @@ namespace TicketStore.Web.Tests.Unit.ModelTests.EventsFinderTests
     {
         private ApplicationContext _db;
         private EventsFinder _finder;
-        private Mock<IDateTimeProvider> _dateTimeMock;
+        private Mock<AbstractDateTimeProvider> _dateTimeMock;
         private DateTime _oldDate;
         private DateTime _newDate;
         private DateTime _now;
@@ -21,7 +21,7 @@ namespace TicketStore.Web.Tests.Unit.ModelTests.EventsFinderTests
         public FindOnlyNewEvents() : base("find_only_new_events")
         {
             _db = new ApplicationContext(Options);
-            _dateTimeMock = new Mock<IDateTimeProvider>();
+            _dateTimeMock = new Mock<AbstractDateTimeProvider>();
         }
 
         public override void Dispose()
@@ -36,16 +36,16 @@ namespace TicketStore.Web.Tests.Unit.ModelTests.EventsFinderTests
             var diff = 7;
             var startHours = 16;
             SetupTestData(diff, startHours);
-            
+
             // Act
             var result = _finder.Find();
-            
+
             // Assert
             Assert.Equal(2, result.Count);
             Assert.Equal(_oldDate, result.First().Time);
             Assert.Equal(_newDate, result.Last().Time);
         }
-        
+
         [Fact]
         public void TimeDiffEqualTo6Hours_ReturnsBothEvents()
         {
@@ -53,10 +53,10 @@ namespace TicketStore.Web.Tests.Unit.ModelTests.EventsFinderTests
             var diff = 6;
             var startHours = 16;
             SetupTestData(diff, startHours);
-            
+
             // Act
             var result = _finder.Find();
-            
+
             // Assert
             Assert.Equal(2, result.Count);
             Assert.Equal(_oldDate, result.First().Time);
@@ -70,10 +70,10 @@ namespace TicketStore.Web.Tests.Unit.ModelTests.EventsFinderTests
             var diff = 5;
             var startHours = 16;
             SetupTestData(diff, startHours);
-            
+
             // Act
             var result = _finder.Find();
-            
+
             // Assert
             Assert.Single(result);
             Assert.Equal(_newDate, result.First().Time);
