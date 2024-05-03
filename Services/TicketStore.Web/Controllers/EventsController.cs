@@ -13,9 +13,9 @@ namespace TicketStore.Web.Controllers
     {
         private ILogger<EventsController> _log;
         private ApplicationContext _db;
-        private IDateTimeProvider _dateTime;
+        private AbstractDateTimeProvider _dateTime;
 
-        public EventsController(ILogger<EventsController> log, ApplicationContext db, IDateTimeProvider dateTime)
+        public EventsController(ILogger<EventsController> log, ApplicationContext db, AbstractDateTimeProvider dateTime)
         {
             _log = log;
             _db = db;
