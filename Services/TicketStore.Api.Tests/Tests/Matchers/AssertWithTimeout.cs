@@ -4,6 +4,7 @@ using System.Diagnostics;
 using NHamcrest;
 using NHamcrest.Core;
 using NHamcrest.XUnit;
+using Xunit.Sdk;
 
 namespace TicketStore.Api.Tests.Tests.Matchers
 {

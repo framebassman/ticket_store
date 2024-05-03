@@ -1,6 +1,5 @@
 using System;
 using RestSharp;
-using TicketStore.Api.Tests.Environment;
 
 namespace TicketStore.Api.Tests.Model.Services
 {
@@ -14,7 +13,7 @@ namespace TicketStore.Api.Tests.Model.Services
             Client = new RestClient(
                 new UriBuilder(
                     "http",
-                    new AppHost().Value(),
+                    "localhost",
                     Port()
                 ).Uri
             );
