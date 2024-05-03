@@ -9,6 +9,12 @@ public class WebService : TicketStoreService
         return 80;
     }
 
+    public RestResponse GetEvents()
+    {
+        var request = new RestRequest("api/events");
+        return Client.Execute(request);
+    }
+
     public RestResponse GetEvents(int merchantId)
     {
         var request = new RestRequest("api/events");

@@ -12,9 +12,9 @@ using Xunit.Abstractions;
 using Xunit.Microsoft.DependencyInjection.Abstracts;
 using Assert = NHamcrest.XUnit.Assert;
 
-namespace TicketStore.Api.Tests.Tests;
+namespace TicketStore.Api.Tests.Tests.Events;
 
-public class MerchantsTests : TestBed<ApiDIFixture>
+public class EventsTests : TestBed<ApiDIFixture>
 {
     private ITestOutputHelper _logger;
     private ApplicationContext _db;
@@ -24,20 +24,28 @@ public class MerchantsTests : TestBed<ApiDIFixture>
     private Merchant _merchant;
     private List<Event> _events;
 
-    public MerchantsTests(ITestOutputHelper logger, ApiDIFixture fixture) : base(logger, fixture)
+    public EventsTests(ITestOutputHelper logger, ApiDIFixture fixture) : base(logger, fixture)
     {
         _logger = logger;
         _web = fixture.GetService<WebService>(logger);
         _api = fixture.GetService<ApiService>(logger);
         _db = fixture.GetService<ApplicationContext>(logger);
+        _logger.WriteLine("Seed database");
+        SeedData();
+    }
+
+    [Fact]
+    public void GetEvents_WithoutMerchantId_ShouldReturnBadRequest()
+    {
+        _logger.WriteLine("Make a request");
+        var response = _web.GetEvents();
+
+        Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.BadRequest));
     }
 
     [Fact]
     public void GetEvents_ShouldReturnEvents()
     {
-        _logger.WriteLine("Seed database");
-        SeedData();
-
         _logger.WriteLine("Make a request");
         var response = _web.GetEvents(_merchant.Id);
 
@@ -80,5 +88,7 @@ public class MerchantsTests : TestBed<ApiDIFixture>
 
         _db.Merchants.Add(_merchant);
         _db.Events.AddRange(_events);
+        _db.SaveChanges();
+        _merchant = _db.Merchants.First();
     }
 }
