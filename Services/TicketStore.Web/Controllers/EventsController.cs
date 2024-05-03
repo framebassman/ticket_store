@@ -10,13 +10,13 @@ namespace TicketStore.Web.Controllers
     {
         private ILogger<EventsController> _log;
         private ApplicationContext _db;
-        private AbstractCustomStuff _dateTime;
+        private IDateTimeProvider _customStuff;
 
-        public EventsController(ILogger<EventsController> log, ApplicationContext db, AbstractCustomStuff dateTime)
+        public EventsController(ILogger<EventsController> log, ApplicationContext db, IDateTimeProvider customStuff)
         {
             _log = log;
             _db = db;
-            _dateTime = dateTime;
+            _customStuff = customStuff;
         }
 
         [HttpGet]
@@ -28,7 +28,7 @@ namespace TicketStore.Web.Controllers
                 return new BadRequestObjectResult("Request should contains merchantId parameter");
             }
 
-            var result = new EventsFinder(_db, merchantId, _dateTime).Find();
+            var result = new EventsFinder(_db, merchantId, _customStuff).Find();
             _log.LogInformation("Return events: {@result} for merchantId: {@merchantId}", result, merchantId);
             return new OkObjectResult(result);
         }

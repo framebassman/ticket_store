@@ -1,13 +1,6 @@
-﻿using System;
-using AspNetCore.Yandex.ObjectStorage;
-using AspNetCore.Yandex.ObjectStorage.Extensions;
+﻿using AspNetCore.Yandex.ObjectStorage.Extensions;
 using DinkToPdf;
 using DinkToPdf.Contracts;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using TicketStore.Api.Middlewares;
 using TicketStore.Api.Model;
 using TicketStore.Api.Model.Email;
@@ -19,9 +12,9 @@ using TicketStore.Data;
 
 namespace TicketStore.Api
 {
-    public class StartupOld
+    public class Startup
     {
-        public StartupOld(IWebHostEnvironment env)
+        public Startup(IWebHostEnvironment env)
         {
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)

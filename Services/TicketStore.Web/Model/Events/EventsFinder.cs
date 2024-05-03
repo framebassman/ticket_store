@@ -10,9 +10,9 @@ namespace TicketStore.Web.Model.Events
     {
         private ApplicationContext _db;
         private Int32 _merchantId;
-        private AbstractCustomStuff _dateTime;
+        private IDateTimeProvider _dateTime;
 
-        public EventsFinder(ApplicationContext context, Int32 merchantId, AbstractCustomStuff dateTime)
+        public EventsFinder(ApplicationContext context, Int32 merchantId, IDateTimeProvider dateTime)
         {
             _db = context;
             _merchantId = merchantId;

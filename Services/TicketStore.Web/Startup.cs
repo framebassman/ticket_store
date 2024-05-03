@@ -10,9 +10,9 @@ using TicketStore.Web.Model;
 
 namespace TicketStore.Web
 {
-    public class StartupOld
+    public class Startup
     {
-        public StartupOld(IConfiguration configuration)
+        public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
@@ -24,7 +24,7 @@ namespace TicketStore.Web
         {
             services.AddResponseCompression();
             services.AddHealthChecks();
-            services.AddSingleton<AbstractCustomStuff>(new CustomStuff());
+            services.AddTransient<IDateTimeProvider, DateTimeProvider>();
             services.AddDbContext<ApplicationContext>();
 
             // In production, the React files will be served from this directory

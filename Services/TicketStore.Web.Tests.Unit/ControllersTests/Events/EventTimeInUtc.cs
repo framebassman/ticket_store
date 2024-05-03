@@ -27,7 +27,7 @@ namespace TicketStore.Web.Tests.Unit.ControllersTests.Events
             _farther = now + TimeSpan.FromDays(2);
             var dbTime = new DateTime(2018, 9, 5, 16, 00, 00, DateTimeKind.Utc);
             _dateTimeInString = "2018-09-05T16:00:00Z";
-            var dateTimeMock = new Mock<AbstractCustomStuff>();
+            var dateTimeMock = new Mock<IDateTimeProvider>();
             dateTimeMock.Setup(mock => mock.Now).Returns(now);
             _controller = new EventsController(Logger, Db, dateTimeMock.Object);
             SeedTestData(dbTime);

@@ -13,7 +13,7 @@ namespace TicketStore.Web.Tests.Unit.ModelTests.EventsFinderTests
     {
         private ApplicationContext _db;
         private EventsFinder _finder;
-        private Mock<AbstractCustomStuff> _dateTimeMock;
+        private Mock<IDateTimeProvider> _dateTimeMock;
         private DateTime _oldDate;
         private DateTime _newDate;
         private DateTime _now;
@@ -21,7 +21,7 @@ namespace TicketStore.Web.Tests.Unit.ModelTests.EventsFinderTests
         public FindOnlyNewEvents() : base("find_only_new_events")
         {
             _db = new ApplicationContext(Options);
-            _dateTimeMock = new Mock<AbstractCustomStuff>();
+            _dateTimeMock = new Mock<IDateTimeProvider>();
         }
 
         public override void Dispose()
