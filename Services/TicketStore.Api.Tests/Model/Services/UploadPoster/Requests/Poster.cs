@@ -1,9 +1,11 @@
-namespace TicketStore.Api.Tests.Model.Services.UploadPoster
+using System;
+
+namespace TicketStore.Api.Tests.Model.Services.UploadPoster.Requests
 {
     public class Poster
     {
-        public string imageUrl;
-        public int eventId;
+        public String imageUrl { get; set; }
+        public Int32 eventId { get; set; }
     }
 }
 
