@@ -1,4 +1,3 @@
-using System;
 using TicketStore.Web.Tests.Unit.BaseTest;
 
 namespace TicketStore.Web.Tests.Unit.ControllersTests
