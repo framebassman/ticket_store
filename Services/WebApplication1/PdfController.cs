@@ -7,6 +7,7 @@ using Microsoft.Extensions.Logging;
 using QuestPDF.Fluent;
 using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
+using SkiaSharp;
 
 namespace WebApplication1;
 
@@ -36,13 +37,13 @@ public class PdfController
                 page.Header()
                     .Text("Hello PDF!")
                     .SemiBold().FontSize(36).FontColor(Colors.Blue.Medium);
-        
+
                 page.Content()
                     .PaddingVertical(1, Unit.Centimetre)
                     .Column(x =>
                     {
                         x.Spacing(20);
-        
+
                         x.Item().Text(Placeholders.LoremIpsum());
                         x.Item().Image(Placeholders.Image(200, 100));
                     });
