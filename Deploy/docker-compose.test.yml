@@ -41,3 +41,5 @@ services:
             - 5432:5432
         logging:
             driver: none
+volumes:
+    pgsdata:
