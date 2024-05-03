@@ -1,6 +1,5 @@
 using System;
 using RestSharp;
-using TicketStore.Api.Tests.Model.Services.UploadPoster;
 using TicketStore.Api.Tests.Model.Services.UploadPoster.Requests;
 using TicketStore.Api.Tests.Model.Services.Verify.Requests;
 
