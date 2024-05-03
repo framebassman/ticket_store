@@ -1,7 +1,12 @@
 using System;
 using System.IO;
+using System.Net.Security;
 using System.Reflection;
+using System.Security.Cryptography.X509Certificates;
+using System.Text;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Infrastructure;
 
 namespace TicketStore.Data
 {

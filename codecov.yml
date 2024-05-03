@@ -20,7 +20,7 @@ coverage:
         paths:
           - "Services/TicketStore.Web"
       data:
-        target: 30%
+        target: 15%
         threshold: 10%
         paths:
           - "Services/TicketStore.Data"

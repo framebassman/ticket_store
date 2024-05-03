@@ -1,5 +1,6 @@
 using System.Net;
 using TicketStore.Api.Tests.Model.Services.UploadPoster;
+using TicketStore.Api.Tests.Model.Services.UploadPoster.Requests;
 using TicketStore.Api.Tests.Model.Services.Verify.Answers;
 using TicketStore.Api.Tests.Tests.Fixtures;
 using Xunit;
