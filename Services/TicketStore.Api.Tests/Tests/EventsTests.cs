@@ -54,14 +54,14 @@ public class EventsTests : TestBed<ApiDIFixture>
 
     private void SeedData()
     {
-        _db.Merchants.RemoveRange(_db.Merchants.ToList());
-        _db.Events.RemoveRange(_db.Events.ToList());
-        _db.Payments.RemoveRange(_db.Payments.ToList());
-        _db.Tickets.RemoveRange(_db.Tickets.ToList());
-        _db.SaveChanges();
+        // _db.Merchants.RemoveRange(_db.Merchants.ToList());
+        // _db.Events.RemoveRange(_db.Events.ToList());
+        //_db.Payments.RemoveRange(_db.Payments.ToList());
+        // _db.Tickets.RemoveRange(_db.Tickets.ToList());
+        // _db.SaveChanges();
         _merchant = new Merchant
         {
-            Place = "Test Place Events Tests",
+            Place = "Test1",
             YandexMoneyAccount = Generator.YandexMoneyAccount()
         };
         _events = new List<Event>
@@ -92,7 +92,8 @@ public class EventsTests : TestBed<ApiDIFixture>
         var count = _db.Merchants.Count();
         _logger.WriteLine("Merchants count: " + count);
         _logger.WriteLine("Try to get the merchant from valid merchant id from DataBase");
-        _merchant = _db.Merchants.First();
+        _merchant = _db.Merchants
+            .First(m => m.Place == "Test1")
         _logger.WriteLine("Merchant ID from the database is " + _merchant.Id);
     }
 }
