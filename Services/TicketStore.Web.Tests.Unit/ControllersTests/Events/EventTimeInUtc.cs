@@ -19,7 +19,7 @@ namespace TicketStore.Web.Tests.Unit.ControllersTests.Events
         private DateTime _closer;
         private DateTime _farther;
         private String _dateTimeInString;
-        
+
         public EventTimeInUtc() : base("EventTimeInUtc")
         {
             var now = new DateTime(2018, 9, 3, 16, 00, 00, DateTimeKind.Utc);
@@ -27,12 +27,12 @@ namespace TicketStore.Web.Tests.Unit.ControllersTests.Events
             _farther = now + TimeSpan.FromDays(2);
             var dbTime = new DateTime(2018, 9, 5, 16, 00, 00, DateTimeKind.Utc);
             _dateTimeInString = "2018-09-05T16:00:00Z";
-            var dateTimeMock = new Mock<IDateTimeProvider>();
+            var dateTimeMock = new Mock<AbstractCustomStuff>();
             dateTimeMock.Setup(mock => mock.Now).Returns(now);
             _controller = new EventsController(Logger, Db, dateTimeMock.Object);
             SeedTestData(dbTime);
         }
-        
+
         private void SeedTestData(DateTime date)
         {
             var merchant = Provider.Merchants().First();
@@ -50,16 +50,16 @@ namespace TicketStore.Web.Tests.Unit.ControllersTests.Events
             var merchantId = Db.Merchants
                 .First(m => m.YandexMoneyAccount == _merchant.YandexMoneyAccount)
                 .Id;
-            
+
             // Act
             var result = _controller.Get(merchantId);
-            
+
             // Assert
             Assert.IsType<OkObjectResult>(result);
             var json = Serializer.ToJson((result as OkObjectResult).Value);
             Assert.Contains($"\"Time\":\"{_dateTimeInString}\"", json);
         }
-        
+
         [Fact]
         public void GetEvents_ReturnInOrderDescByTime()
         {
@@ -70,10 +70,10 @@ namespace TicketStore.Web.Tests.Unit.ControllersTests.Events
             var merchantId = Db.Merchants
                 .First(m => m.YandexMoneyAccount == merchant.YandexMoneyAccount)
                 .Id;
-            
+
             // Act
             var result = _controller.Get(merchantId);
-            
+
             // Assert
             Assert.IsType<OkObjectResult>(result);
             var value = (result as OkObjectResult).Value;
@@ -91,7 +91,7 @@ namespace TicketStore.Web.Tests.Unit.ControllersTests.Events
             var oldConcert = Provider.Events(merchant).WithDate(farther);
             var newConcert = Provider.Events(merchant).WithDate(closer);
             var concertsToInsert = new List<Event> { newConcert, oldConcert };
-            
+
             merchant = Db.Merchants.Add(merchant).Entity;
             oldConcert.Merchant = merchant;
             Db.Events.Add(oldConcert);
