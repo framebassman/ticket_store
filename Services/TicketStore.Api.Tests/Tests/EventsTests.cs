@@ -89,6 +89,8 @@ public class EventsTests : TestBed<ApiDIFixture>
         _db.Merchants.Add(_merchant);
         _db.Events.AddRange(_events);
         _db.SaveChanges();
+        var count = _db.Merchants.Count();
+        _logger.WriteLine("Merchants count: " + count);
         _logger.WriteLine("Try to get the merchant from valid merchant id from DataBase");
         _merchant = _db.Merchants.First();
         _logger.WriteLine("Merchant ID from the database is " + _merchant.Id);
