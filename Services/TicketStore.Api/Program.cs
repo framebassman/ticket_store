@@ -1,15 +1,10 @@
-﻿using System;
-using System.IO;
-using System.Net;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Hosting;
+﻿using System.Net;
 using Serilog;
 using Sentry.Extensibility;
 
 namespace TicketStore.Api
 {
-    public class ProgramOld
+    public class Program
     {
         public static void Main(string[] args)
         {
@@ -36,7 +31,7 @@ namespace TicketStore.Api
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder
-                        .UseStartup<StartupOld>()
+                        .UseStartup<Startup>()
                         .UseSerilog()
                         .UseSentry(options =>
                             {

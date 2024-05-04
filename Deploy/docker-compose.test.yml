@@ -41,5 +41,13 @@ services:
             - 5432:5432
         logging:
             driver: none
+    fake_yandex_storage:
+        build:
+            context: .
+            dockerfile: ./Services/FakeYandexStorage/Dockerfile
+        container_name: fake_yandex_storage
+        ports:
+            - 5001:8080
+
 volumes:
     pgsdata:
