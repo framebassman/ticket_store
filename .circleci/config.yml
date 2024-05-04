@@ -75,6 +75,10 @@ workflows:
     jobs:
       - client-unit-tests
       - release:
+          filters:
+            branches:
+              only:
+                - master
           context: credentials
           requires:
             - client-unit-tests
