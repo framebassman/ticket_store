@@ -1,19 +1,11 @@
-using System;
-using System.IO;
 using System.Net;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Hosting;
-using Microsoft.AspNetCore.Http.Headers;
-using Microsoft.Net.Http.Headers;
-using Sentry;
 using Sentry.Extensibility;
 using Serilog;
 using Log = Serilog.Log;
 
 namespace TicketStore.Web
 {
-    public class ProgramOld
+    public class Program
     {
         public static void Main(string[] args)
         {
@@ -25,7 +17,6 @@ namespace TicketStore.Web
                 Log.Logger.Information("Getting started...");
                 Log.Logger.Information($"Environment: {CurrentEnv()}");
                 var app = CreateHostBuilder(args).Build();
-                // app.MapHealthChecks("/healthcheck");
                 app.Run();
             }
             catch (Exception ex)
@@ -43,7 +34,7 @@ namespace TicketStore.Web
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder
-                        .UseStartup<StartupOld>()
+                        .UseStartup<Startup>()
                         .UseSentry(options =>
                             {
                                 options.Environment = CurrentEnv();
@@ -56,7 +47,7 @@ namespace TicketStore.Web
                         );
                 })
                 .UseSerilog();
-        
+
         private static IConfiguration BuildConfiguration()
         {
             return new ConfigurationBuilder()
