@@ -93,7 +93,7 @@ public class EventsTests : TestBed<ApiDIFixture>
         _logger.WriteLine("Merchants count: " + count);
         _logger.WriteLine("Try to get the merchant from valid merchant id from DataBase");
         _merchant = _db.Merchants
-            .First(m => m.Place == "Test1")
+            .First(m => m.Place == "Test1");
         _logger.WriteLine("Merchant ID from the database is " + _merchant.Id);
     }
 }
