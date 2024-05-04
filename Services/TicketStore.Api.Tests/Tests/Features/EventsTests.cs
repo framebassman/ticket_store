@@ -46,7 +46,7 @@ public class EventsTests : TestBed<ApiDIFixture>
     [Fact]
     public void GetEvents_ShouldReturnEvents()
     {
-        _logger.WriteLine("Make a request with merchant id: {}", _merchant.Id);
+        _logger.WriteLine("Make a request with merchant id: " + _merchant.Id);
         var response = _web.GetEvents(_merchant.Id);
 
         Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
@@ -92,6 +92,6 @@ public class EventsTests : TestBed<ApiDIFixture>
         _logger.WriteLine("Try to get the merchant from valid merchant id from DataBase");
         _merchant = _db.Merchants
             .First(m => m.Place == "Test Place Events Tests");
-        _logger.WriteLine("Merchant ID from the database is {}", _merchant.Id);
+        _logger.WriteLine("Merchant ID from the database is " + _merchant.Id);
     }
 }
