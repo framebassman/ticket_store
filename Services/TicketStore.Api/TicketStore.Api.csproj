@@ -12,21 +12,21 @@
         <PackageReference Include="DinkToPdf" Version="1.0.8" />
         <PackageReference Include="Magick.NET-Q8-AnyCPU" Version="13.7.0" />
         <PackageReference Include="Magick.NET.Core" Version="13.7.0" />
-        <PackageReference Include="MailKit" Version="3.6.0" />
+        <PackageReference Include="MailKit" Version="4.5.0" />
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.5" />
-        <PackageReference Include="Sentry" Version="3.30.0" />
-        <PackageReference Include="Sentry.AspNetCore" Version="3.30.0" />
-        <PackageReference Include="Sentry.Serilog" Version="3.30.0" />
-        <PackageReference Include="Serilog.AspNetCore" Version="6.1.1-dev-00295" />
-        <PackageReference Include="Serilog.Enrichers.Environment" Version="2.3.0-dev-00792" />
+        <PackageReference Include="Sentry" Version="4.5.0" />
+        <PackageReference Include="Sentry.AspNetCore" Version="4.5.0" />
+        <PackageReference Include="Sentry.Serilog" Version="4.5.0" />
+        <PackageReference Include="Serilog.AspNetCore" Version="8.0.1" />
+        <PackageReference Include="Serilog.Enrichers.Environment" Version="2.3.0" />
         <PackageReference Include="Serilog.Enrichers.Thread" Version="3.2.0-dev-00752" />
-        <PackageReference Include="Serilog.Formatting.Compact" Version="1.1.1-dev-00944" />
-        <PackageReference Include="Serilog.Formatting.Elasticsearch" Version="9.0.0" />
-        <PackageReference Include="Serilog.Settings.Configuration" Version="4.0.0-dev-00499" />
+        <PackageReference Include="Serilog.Formatting.Compact" Version="2.0.0" />
+        <PackageReference Include="Serilog.Formatting.Elasticsearch" Version="10.0.0" />
+        <PackageReference Include="Serilog.Settings.Configuration" Version="8.0.0" />
         <PackageReference Include="Serilog.Sinks.Async" Version="1.5.0" />
-        <PackageReference Include="Serilog.Sinks.Elasticsearch" Version="9.0.0" />
-        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
-        <PackageReference Include="System.Drawing.Common" Version="8.0.0-preview.2.23128.3" />
+        <PackageReference Include="Serilog.Sinks.Elasticsearch" Version="10.0.0" />
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+        <PackageReference Include="System.Drawing.Common" Version="8.0.4" />
         <Content Include="Model\PdfDocument\Templates\Barcode.html">
           <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Content>
