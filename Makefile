@@ -1,4 +1,7 @@
 # dev
+prepare:
+	git config core.hooksPath .git-hooks || echo 'Not in a git repo'
+
 build-dev:
 	docker compose \
 		--project-directory=${PWD} \

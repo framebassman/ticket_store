@@ -1,8 +1,8 @@
 using System.Net;
-using Elasticsearch.Net;
 using Sentry.Extensibility;
 using Serilog;
 using TicketStore.Data;
+using TicketStore.Web.Model;
 
 var currentEnv = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Production";
 var configuration = new ConfigurationBuilder()
@@ -26,7 +26,7 @@ try
         config.RootPath = "Client/build";
     });
     builder.Services.AddResponseCompression();
-    builder.Services.AddTransient<IDateTimeProvider, DateTimeProvider>();
+    builder.Services.AddTransient<AbstractCustomStuff, CustomStuff>();
     builder.Services.AddDbContext<ApplicationContext>();
     builder.Services.AddHealthChecks();
     builder.WebHost.UseSentry(options =>
