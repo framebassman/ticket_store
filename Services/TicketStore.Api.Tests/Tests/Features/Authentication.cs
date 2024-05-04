@@ -9,7 +9,7 @@ using TicketStore.Api.Tests.Tests.Fixtures;
 using TicketStore.Api.Tests.Tests.Matchers;
 using Xunit;
 
-namespace TicketStore.Api.Tests.Tests.Verification
+namespace TicketStore.Api.Tests.Tests.Features
 {
     [Collection("Api collection")]
     public class Authentication

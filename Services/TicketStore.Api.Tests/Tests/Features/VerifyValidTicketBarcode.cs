@@ -12,7 +12,7 @@ using TicketStore.Api.Tests.Tests.Matchers;
 using TicketStore.Api.Tests.Tests.Matchers.Tickets;
 using Xunit;
 
-namespace TicketStore.Api.Tests.Tests.Verification
+namespace TicketStore.Api.Tests.Tests.Features
 {
     [Collection("Api collection")]
     public class VerifyValidTicketBarcode
