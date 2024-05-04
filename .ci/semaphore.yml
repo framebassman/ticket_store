@@ -49,3 +49,4 @@ blocks:
             - artifact push job /var/log/store_api
             - artifact push job /var/log/store_web
             - artifact push job /var/log/fake_sender
+            - sleep 10m

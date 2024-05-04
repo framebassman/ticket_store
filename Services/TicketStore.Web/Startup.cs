@@ -1,18 +1,12 @@
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Rewrite;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using TicketStore.Data;
 using TicketStore.Web.Model;
 
 namespace TicketStore.Web
 {
-    public class StartupOld
+    public class Startup
     {
-        public StartupOld(IConfiguration configuration)
+        public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
@@ -22,50 +16,41 @@ namespace TicketStore.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddResponseCompression();
-            services.AddHealthChecks();
+            services.AddRouting(opt => opt.LowercaseUrls = true);
             services.AddControllers();
             services.AddTransient<IDateTimeProvider, DateTimeProvider>();
             services.AddDbContext<ApplicationContext>();
-
-            // In production, the React files will be served from this directory
-            services.AddSpaStaticFiles(configuration =>
+            services.AddHealthChecks();
+            services.AddSpaStaticFiles(config =>
             {
-                configuration.RootPath = "Client/build";
+                config.RootPath = "Client/build";
             });
+            services.AddResponseCompression();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseSentryTracing();
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
-            else
-            {
-                app.UseExceptionHandler("/Error");
-            }
 
-            app.UseResponseCompression();
-            app.UseStaticFiles();
-            app.UseSpaStaticFiles();
-            app.UseRewriter(new RewriteOptions().AddRedirect("index.html", "/"));
             app.UseRouting();
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller}/{action=Index}/{id?}");
+                endpoints.MapControllers();
+                endpoints.MapHealthChecks("/healthcheck");
+                endpoints.MapFallbackToFile("index.html");
             });
-
+            app.UseStaticFiles();
             app.UseSpa(spa =>
             {
                 spa.Options.SourcePath = "Client";
-            
                 if (env.IsDevelopment())
                 {
-                    spa.UseReactDevelopmentServer(npmScript: "start");
+                    spa.UseProxyToSpaDevelopmentServer("http://localhost:3000/");
                 }
             });
         }

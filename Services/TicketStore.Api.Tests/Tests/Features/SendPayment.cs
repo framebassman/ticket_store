@@ -1,14 +1,14 @@
-using System.Net;
 using System.Linq;
-using Xunit.Abstractions;
+using System.Net;
 using NHamcrest;
 using TicketStore.Api.Tests.Data;
 using TicketStore.Api.Tests.Model;
 using TicketStore.Api.Tests.Tests.Fixtures;
 using TicketStore.Api.Tests.Tests.Matchers;
 using Xunit;
+using Xunit.Abstractions;
 
-namespace TicketStore.Api.Tests.Tests.Payments
+namespace TicketStore.Api.Tests.Tests.Features
 {
     [Collection("Api collection")]
     public class SendPayment
@@ -33,7 +33,7 @@ namespace TicketStore.Api.Tests.Tests.Payments
             // Act
             var response = _fixture.Api.SendPayment(
                 sender,
-                new YandexPaymentLabel(testEvent), 
+                new YandexPaymentLabel(testEvent),
                 email,
                 testEvent.Roubles - 0.01m,
                 testEvent.Roubles

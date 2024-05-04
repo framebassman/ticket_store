@@ -1,11 +1,10 @@
 using System.Net;
-using TicketStore.Api.Tests.Model.Services.UploadPoster;
 using TicketStore.Api.Tests.Model.Services.UploadPoster.Requests;
 using TicketStore.Api.Tests.Model.Services.Verify.Answers;
 using TicketStore.Api.Tests.Tests.Fixtures;
 using Xunit;
 
-namespace TicketStore.Api.Tests.Tests.Uploads
+namespace TicketStore.Api.Tests.Tests.Features
 {
     // TODO: Write test for success case
     [Collection("Api collection")]
@@ -26,7 +25,7 @@ namespace TicketStore.Api.Tests.Tests.Uploads
                 eventId = 1,
                 imageUrl = "qwe"
             };
-            
+
             // Act
             var response = _fixture.Api.UploadPoster(scan);
 
@@ -44,7 +43,7 @@ namespace TicketStore.Api.Tests.Tests.Uploads
                 eventId = -1,
                 imageUrl = "https://sun9-32.userapi.com/c852236/v852236322/17cdae/uHreFWeE3Sw.jpg"
             };
-            
+
             // Act
             var response = _fixture.Api.UploadPoster(scan);
 
