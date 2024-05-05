@@ -13,21 +13,21 @@ jobs:
       - restore_cache:
           key: npm-cache-v1-{{ checksum "package-lock.json" }}
       - run:
-          name: install libraries
+          name: Install libraries
           command: npm ci
       - save_cache:
           key: npm-cache-v1-{{ checksum "package-lock.json" }}
           paths:
             - /home/circleci/.npm
       - run:
-          name: build typescript
+          name: Build typescript
           command: npm run build
       - run:
-          name: run tests
+          name: Run tests
           command: npm test
       - run:
-          name: download curl
-          command: apk add curl
+          name: Download misc
+          command: apk add curl gpg
       - codecov/upload
       - store_test_results:
           path: reports
@@ -37,7 +37,7 @@ jobs:
     steps:
       - checkout
       - run:
-          name: define version
+          name: Define version
           command: |
             echo 'export VERSION="2.0.$CIRCLE_BUILD_NUM"' >> $BASH_ENV
       - run: bash ./Scripts/publish-to-docker-hub.sh
@@ -47,16 +47,16 @@ jobs:
     steps:
       - checkout
       - run:
-          name: define version
+          name: Define version
           command: |
             echo 'export VERSION="2.0.$CIRCLE_BUILD_NUM"' >> $BASH_ENV
       - run:
-          name: install sentry-cli and verify that cli was installed successfully
+          name: Install sentry-cli and verify that cli was installed successfully
           command: |
             curl -sL https://sentry.io/get-cli/ | bash
             sentry-cli --help
       - run:
-          name: create release in sentry and associate commits with a release
+          name: Create a release in Sentry and associate commits with a release
           command: |
             sentry-cli releases new -p $SENTRY_PROJECT_NAME $VERSION
       - run:
@@ -71,7 +71,7 @@ jobs:
           command: |
             bash ./Scripts/check-deployment.sh https://chertopolokh.ru
       - run:
-          name: finish sentry release
+          name: Finish sentry release
           command: |
             sentry-cli releases deploys $VERSION new -e Production
 
