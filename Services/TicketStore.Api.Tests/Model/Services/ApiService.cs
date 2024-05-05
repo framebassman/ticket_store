@@ -9,7 +9,7 @@ namespace TicketStore.Api.Tests.Model.Services
     {
         protected override int Port()
         {
-            return 3000;
+            return 80;
         }
 
         public RestResponse SendTestPayment()

@@ -41,7 +41,6 @@ blocks:
             - bash ./Scripts/wait-until-app-is-deployed.sh
             - ASPNETCORE_ENVIRONMENT=TestMigrations ~/.dotnet/tools/dotnet-ef database update --project Services/TicketStore.Data/TicketStore.Data.csproj --verbose
             # run integration tests
-            - bash ./Scripts/wait-until-app-is-deployed-copy.sh
             - dotnet test Services/TicketStore.Api.Tests --logger "junit;LogFilePath=TestResults/report.xml" --filter Category!=DevelopmentData
       epilogue:
         always:
