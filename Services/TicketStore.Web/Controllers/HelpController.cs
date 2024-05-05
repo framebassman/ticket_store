@@ -1,13 +1,14 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace TicketStore.Web.Controllers;
-
-[Route("api/[controller]")]
-public class HelpController
+namespace TicketStore.Web.Controllers
 {
-    [HttpGet]
-    public IActionResult Get()
+    [Route("[controller]")]
+    public class HelpController
     {
-        return new OkObjectResult("OK");
+        [HttpGet]
+        public IActionResult Get()
+        {
+            return new OkObjectResult("OK");
+        }
     }
 }
