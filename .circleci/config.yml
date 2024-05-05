@@ -19,7 +19,9 @@ jobs:
             - /home/circleci/.npm
       - run:
           name: install codecov
-          command: bash <(curl -s https://codecov.io/bash)
+          command: |
+            curl -Os https://cli.codecov.io/latest/alpine/codecov
+            chmod +x codecov
       - run:
           name: build typescript
           command: npm run build
