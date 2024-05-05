@@ -26,18 +26,18 @@ blocks:
             - sudo apt-get update
             - sudo apt-get install docker-compose-plugin
             - docker compose version
-            # install dotnet core
-            - sudo apt-get install -y dotnet-sdk-8.0
             # checkout repo
             - chmod 0600 ~/.ssh/*
             - checkout
             # run application in test environment
             - whoami
             - make start-test
-            - bash ./Scripts/wait-until-app-is-deployed.sh
-            # run migrations
+            # install dotnet core
+            - sudo apt-get install -y dotnet-sdk-8.0
             - dotnet --info
             - dotnet tool install --global dotnet-ef --version 8.0.3
+            # run migrations
+            - bash ./Scripts/wait-until-app-is-deployed.sh
             - ASPNETCORE_ENVIRONMENT=TestMigrations ~/.dotnet/tools/dotnet-ef database update --project Services/TicketStore.Data/TicketStore.Data.csproj --verbose
             # run integration tests
             - dotnet test Services/TicketStore.Api.Tests --logger "junit;LogFilePath=TestResults/report.xml" --filter Category!=DevelopmentData
