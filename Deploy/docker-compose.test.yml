@@ -23,8 +23,6 @@ services:
         ports:
             - 80:80
             - 8080:8080
-        volumes:
-            - ./Services/Proxy/config/traefik.yml:/traefik.yml:ro
     fake_sender:
         image: framebassman/fake-sender:1.2.0
         container_name: fake_sender
