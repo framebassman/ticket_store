@@ -20,8 +20,8 @@ EXPOSE 5000
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0.203-alpine3.19-amd64 AS build
 ENV DOTNET_GENERATE_ASPNET_CERTIFICATE=false
-COPY ["./Services/TicketStore.Api/TicketStore.Api.csproj", "/app"]
-COPY ["./Services/TicketStore.Data/TicketStore.Data.csproj", "/TicketStore.Data"]
+COPY ["./Services/TicketStore.Api/TicketStore.Api.csproj", "/app/"]
+COPY ["./Services/TicketStore.Data/TicketStore.Data.csproj", "/TicketStore.Data/"]
 WORKDIR /app
 RUN dotnet restore "TicketStore.Api.csproj"
 COPY ./Services/TicketStore.Api/ /app
