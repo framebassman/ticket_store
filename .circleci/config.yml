@@ -7,8 +7,7 @@ jobs:
     docker:
       - image: node:18.16.0-alpine3.17
     steps:
-      - checkout:
-          path: ~/repo
+      - checkout
       - restore_cache:
           key: npm-cache-v1-{{ checksum "./Services/TicketStore.Web/Client/package-lock.json" }}
       - run:
