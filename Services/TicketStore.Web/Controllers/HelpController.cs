@@ -3,8 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace TicketStore.Web.Controllers;
 
 [Route("api/[controller]")]
-[ApiController]
-public class HelpController : ControllerBase
+public class HelpController
 {
     [HttpGet]
     public IActionResult Get()
