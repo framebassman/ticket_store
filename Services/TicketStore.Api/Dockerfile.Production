@@ -1,4 +1,12 @@
-FROM mcr.microsoft.com/dotnet/aspnet:8.0.3-alpine3.19-amd64 AS base
+FROM mcr.microsoft.com/dotnet/sdk:8.0.203-alpine3.19-amd64 AS build-env
+ENV DOTNET_GENERATE_ASPNET_CERTIFICATE=false
+COPY ./Services/TicketStore.Api/ /app
+COPY ./Services/TicketStore.Data/ /TicketStore.Data
+WORKDIR /app
+RUN dotnet restore
+RUN dotnet publish -c Release -o out
+
+FROM mcr.microsoft.com/dotnet/aspnet:8.0.3-alpine3.19-amd64
 # libgdiplus-dev - for bitmap creating and pdf generation
 # gcompat, libwkhtmltox.so - for pdf generation
 RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories \
@@ -14,24 +22,6 @@ RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/reposit
 RUN apk add ttf-liberation && fc-cache -fv
 RUN apk add tzdata && ls /usr/share/zoneinfo
 ENV DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=false
-USER $APP_UID
 WORKDIR /app
-EXPOSE 80
-
-FROM mcr.microsoft.com/dotnet/sdk:8.0.203-alpine3.19-amd64 AS build
-ENV DOTNET_GENERATE_ASPNET_CERTIFICATE=false
-COPY --chown=$APP_UID:$APP_UID ["./Services/TicketStore.Api/TicketStore.Api.csproj", "/app/"]
-COPY --chown=$APP_UID:$APP_UID ["./Services/TicketStore.Data/TicketStore.Data.csproj", "/TicketStore.Data/"]
-WORKDIR /app
-RUN dotnet restore "TicketStore.Api.csproj"
-COPY --chown=$APP_UID:$APP_UID ["./Services/TicketStore.Api/", "/app"]
-COPY --chown=$APP_UID:$APP_UID ["./Services/TicketStore.Data/", "/TicketStore.Data"]
-RUN dotnet build "TicketStore.Api.csproj" -c Release -o out
-
-FROM build AS publish
-RUN dotnet publish "TicketStore.Api.csproj" -c Release -o out /p:UseAppHost=false
-
-FROM base AS final
-WORKDIR /app
-COPY --from=publish /app/out .
+COPY --from=build-env /app/out .
 ENTRYPOINT ["dotnet", "TicketStore.Api.dll"]
