@@ -20,14 +20,22 @@ services:
         environment:
             - ASPNETCORE_ENVIRONMENT=Test
     store_proxy:
-        build:
-            context: .
-            dockerfile: ./Services/Proxy/Dockerfile.Test
+        ports:
+            - 80:80
+            - 8080:8080
+        volumes:
+            - ./Services/Proxy/config/traefik.yml:/traefik.yml:ro
     fake_sender:
         image: framebassman/fake-sender:1.2.0
         container_name: fake_sender
         ports:
             - 5000:5050
+        expose:
+            - 5050
+        labels:
+            - traefik.enable=true
+            - traefik.http.routers.fake_sender.rule=PathPrefix(`/fake_sender`)
+            - traefik.http.routers.fake_sender.entrypoints=http-point
         volumes:
             - /var/log/fake_sender:/var/log
     postgres:
