@@ -12,8 +12,6 @@ services:
         volumes:
             - /var/log/store_api:/app/logs:rw
         tty: true
-        networks:
-            - ticket_store_default
     store_web:
         container_name: store_web
         environment:
@@ -27,8 +25,6 @@ services:
         volumes:
             - /var/log/store_web:/app/logs:rw
         tty: true
-        networks:
-            - ticket_store_default
     store_proxy:
         container_name: store_proxy
         image: traefik:v3.0.0-beta5
@@ -40,5 +36,3 @@ services:
         labels:
             - "traefik.enable=true"
             - "traefik.http.routers.api.service=api@internal"
-        networks:
-            - ticket_store_default
