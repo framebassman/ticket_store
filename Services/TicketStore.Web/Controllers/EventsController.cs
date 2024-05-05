@@ -5,7 +5,7 @@ using TicketStore.Web.Model.Events;
 
 namespace TicketStore.Web.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     public class EventsController
     {
         private ILogger<EventsController> _log;

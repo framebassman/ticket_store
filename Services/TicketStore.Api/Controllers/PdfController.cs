@@ -14,8 +14,7 @@ using TicketStore.Data.Model;
 
 namespace TicketStore.Api.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
+    [Route("store_api/[controller]")]
     public class PdfController : ControllerBase
     {
         private ILogger<PdfController> _log;
@@ -39,7 +38,7 @@ namespace TicketStore.Api.Controllers
             _client = clientFactory.CreateClient();
             _pdfConverter = pdfConverter;
             _barcodeConverter = barcodeConverter;
-            _tickets = new List<Ticket> 
+            _tickets = new List<Ticket>
             {
                 new Ticket
                 {
@@ -74,7 +73,7 @@ namespace TicketStore.Api.Controllers
                 {
                     ContentType = "text/html",
                     Content = preview.Layout()
-                };                
+                };
             }
         }
 
@@ -92,7 +91,7 @@ namespace TicketStore.Api.Controllers
                 using (var output = new MemoryStream(pdf.ToBytes()))
                 {
                     return File(output.ToArray(), MediaTypeNames.Application.Pdf);
-                }                
+                }
             }
         }
     }

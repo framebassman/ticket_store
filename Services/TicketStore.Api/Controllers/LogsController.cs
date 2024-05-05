@@ -15,9 +15,8 @@ using TicketStore.Data.Model;
 
 namespace TicketStore.Api.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class LogsController : ControllerBase
+    [Route("store_api/[controller]")]
+    public class LogsController
     {
         private ILogger<LogsController> _log;
 
