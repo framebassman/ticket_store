@@ -12,7 +12,7 @@ services:
             - traefik.http.routers.store_api.rule=PathPrefix(`/store_api`)
             - traefik.http.routers.store_api.entrypoints=http-point
         volumes:
-            - /var/log/store_api:/app/logs:rw
+            - ./Services/TicketStore.Api/logs:/app/logs:rw
         tty: true
     store_web:
         container_name: store_web

@@ -47,6 +47,6 @@ blocks:
           commands:
             - artifact push job Services/TicketStore.Api.Tests/TestResults
             - test-results publish Services/TicketStore.Api.Tests/TestResults/report.xml
-            - artifact push job /var/log/store_api
+            - artifact push job ./Services/TicketStore.Api/logs
             - artifact push job /var/log/store_web
             - artifact push job /var/log/fake_sender
