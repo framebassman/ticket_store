@@ -11,8 +11,7 @@ using TicketStore.Data.Model;
 
 namespace TicketStore.Api.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
+    [Route("store_api/[controller]")]
     public class VerifyController : ControllerBase
     {
         private ApplicationContext _db;

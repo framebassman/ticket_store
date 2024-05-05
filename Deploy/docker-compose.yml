@@ -3,14 +3,12 @@ services:
         container_name: store_api
         environment:
             - ASPNETCORE_URLS=http://+:5000
+        expose:
+            - 5000
         labels:
-            - "traefik.enable=true"
-            - "traefik.port=5000"
-            - "traefik.backend=store_api"
-            - "traefik.frontend.redirect.regex=^(.*)/store_api$$"
-            - "traefik.frontend.redirect.replacement=$$1/store_api/"
-            - "traefik.frontend.rule=PathPrefix:/store_api;ReplacePathRegex: ^/store_api/(.*) /$$1"
-            - "traefik.docker.network=ticket_store_default"
+            - traefik.enable=true
+            - traefik.http.routers.store_api.rule=PathPrefix(`/store_api`)
+            - traefik.http.routers.store_api.entrypoints=http-point
         volumes:
             - /var/log/store_api:/app/logs:rw
         tty: true
@@ -18,19 +16,26 @@ services:
         container_name: store_web
         environment:
             - ASPNETCORE_URLS=http://+:5000
+        expose:
+            - 5000
         labels:
-            - "traefik.enable=true"
-            - "traefik.port=5000"
-            - "traefik.backend=store_web"
-            - "traefik.frontend.rule=PathPrefixStrip:/;ReplacePathRegex: ^/index(.html)? /"
-            - "traefik.docker.network=ticket_store_default"
+            - traefik.enable=true
+            - traefik.http.routers.store_web.rule=PathPrefix(`/`)
+            - traefik.http.routers.store_web.entrypoints=http-point
         volumes:
             - /var/log/store_web:/app/logs:rw
         tty: true
     store_proxy:
         container_name: store_proxy
-        image: traefik:1.7
+        image: traefik:v3.0.0-beta5
         ports:
             - 80:80
         volumes:
-            - /var/run/docker.sock:/var/run/docker.sock
+            - /etc/localtime:/etc/localtime:ro
+            - /var/run/docker.sock:/var/run/docker.sock:ro
+            - type: bind
+              source: ./Services/Proxy/config/traefik.yml
+              target: /etc/traefik/traefik.yml
+        labels:
+            - "traefik.enable=true"
+            - "traefik.http.routers.api.service=api@internal"
