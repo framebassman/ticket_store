@@ -26,10 +26,10 @@ blocks:
             - sudo apt-get update
             - sudo apt-get install docker-compose-plugin
             - docker compose version
-            - bash ./Scripts/wait-until-app-is-deployed.sh
             # checkout repo
             - chmod 0600 ~/.ssh/*
             - checkout
+            - bash ./Scripts/wait-until-app-is-deployed.sh
             # run application in test environment
             - whoami
             - make start-test
