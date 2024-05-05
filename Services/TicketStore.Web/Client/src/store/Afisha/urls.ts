@@ -1,2 +1,2 @@
-export const merchantsUrl = "api/merchants";
-export const eventsUrl = "api/events";
+export const merchantsUrl = "merchants";
+export const eventsUrl = "events";
