@@ -6,14 +6,14 @@ jobs:
     docker:
       - image: node:18.16.0-alpine3.17
     steps:
+      - checkout:
+          path: ~/repo
       - run:
           name: install codecov
           command: |
             apk add curl
             curl -Os https://cli.codecov.io/latest/alpine/codecov
             chmod +x codecov
-      - checkout:
-          path: ~/repo
       - restore_cache:
           key: npm-cache-v1-{{ checksum "package-lock.json" }}
       - run:
