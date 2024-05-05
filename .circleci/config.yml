@@ -30,6 +30,7 @@ jobs:
           command: apk add curl gpg
       - codecov/upload:
           validate: false
+          file: './coverage/lcov.info'
       - store_test_results:
           path: reports
     # The resource_class feature allows configuring CPU and RAM resources for each job. Different resource classes are available for different executors. https://circleci.com/docs/2.0/configuration-reference/#resourceclass
