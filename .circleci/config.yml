@@ -18,11 +18,25 @@ jobs:
           paths:
             - /home/circleci/.npm
       - run:
+          name: install codecov
+          command: |
+            apk add curl
+            curl -Os https://cli.codecov.io/latest/alpine/codecov
+            chmod +x codecov
+      - run:
           name: build typescript
           command: npm run build
       - run:
           name: run tests
           command: npm test
+      - run:
+          name: ls files
+          command: ls -la
+      - run:
+          name: code coverage
+          command: codecov
+          environment:
+            CODECOV_TOKEN: a1816d82-dc38-4cde-addd-c2883f9df596
       - store_test_results:
           path: reports
   release:
