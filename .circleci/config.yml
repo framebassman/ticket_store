@@ -28,7 +28,8 @@ jobs:
       - run:
           name: Download misc
           command: apk add curl gpg
-      - codecov/upload
+      - codecov/upload:
+          validate: false
       - store_test_results:
           path: reports
   release:
