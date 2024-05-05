@@ -2,9 +2,11 @@ services:
     store_api:
         container_name: store_api
         environment:
-            - ASPNETCORE_URLS=http://+:5000
+            - ASPNETCORE_URLS=http://+:80
         expose:
-            - 5000
+            - 80
+        ports:
+            - 3000:80
         labels:
             - traefik.enable=true
             - traefik.http.routers.store_api.rule=PathPrefix(`/store_api`)
@@ -15,9 +17,11 @@ services:
     store_web:
         container_name: store_web
         environment:
-            - ASPNETCORE_URLS=http://+:5000
+            - ASPNETCORE_URLS=http://+:80
         expose:
-            - 5000
+            - 80
+        ports:
+            - 4000:80
         labels:
             - traefik.enable=true
             - traefik.http.routers.store_web.rule=PathPrefix(`/`)
