@@ -1,7 +1,5 @@
 version: 2.1
 
-orbs:
-  codecov: codecov/codecov@4.1.0
 jobs:
   client-unit-tests:
     working_directory: ~/repo/Services/TicketStore.Web/Client
@@ -20,6 +18,9 @@ jobs:
           paths:
             - /home/circleci/.npm
       - run:
+          name: install codecov
+          command: bash <(curl -s https://codecov.io/bash)
+      - run:
           name: build typescript
           command: npm run build
       - run:
@@ -28,10 +29,11 @@ jobs:
       - run:
           name: ls files
           command: ls -la
-      - codecov/upload:
-          file: coverage/lcov.info
-          # environment:
-          #   CODECOV_TOKEN: a1816d82-dc38-4cde-addd-c2883f9df596
+      - run:
+          name: code coverage
+          command: codecov
+          environment:
+            CODECOV_TOKEN: a1816d82-dc38-4cde-addd-c2883f9df596
       - store_test_results:
           path: reports
   release:
