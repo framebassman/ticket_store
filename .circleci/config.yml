@@ -9,12 +9,12 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: npm-cache-v1-{{ checksum "./Services/TicketStore.Web/Client/package-lock.json" }}
+          key: npm-cache-v1-{{ checksum "Services/TicketStore.Web/Client/package-lock.json" }}
       - run:
           name: Install libraries
           command: npm --prefix Services/TicketStore.Web/Client ci
       - save_cache:
-          key: npm-cache-v1-{{ checksum "./Services/TicketStore.Web/Client/package-lock.json" }}
+          key: npm-cache-v1-{{ checksum "Services/TicketStore.Web/Client/package-lock.json" }}
           paths:
             - /home/circleci/.npm
       - run:
