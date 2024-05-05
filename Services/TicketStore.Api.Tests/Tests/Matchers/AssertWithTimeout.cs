@@ -3,7 +3,6 @@ using System.Threading;
 using System.Diagnostics;
 using NHamcrest;
 using NHamcrest.Core;
-using NHamcrest.XUnit;
 using Xunit.Sdk;
 
 namespace TicketStore.Api.Tests.Tests.Matchers
@@ -17,17 +16,17 @@ namespace TicketStore.Api.Tests.Tests.Matchers
         {
             That(null, func, matcher);
         }
-        
+
         public static void That<T>(String reason, Func<T> func, IMatcher<T> matcher)
         {
             T actual = WaitAndGetActualValue(func, matcher, _timeout, _delay);
-            if (!matcher.Matches(actual)) 
+            if (!matcher.Matches(actual))
             {
                 StringDescription stringDescription1 = new StringDescription();
                 matcher.DescribeTo(stringDescription1);
                 StringDescription stringDescription2 = new StringDescription();
                 matcher.DescribeMismatch(actual, stringDescription2);
-                throw new MatchException(stringDescription1.ToString(), stringDescription2.ToString(), reason);
+                throw EqualException.ForMismatchedValues(stringDescription1.ToString(), stringDescription2.ToString(), reason);
             }
         }
 
