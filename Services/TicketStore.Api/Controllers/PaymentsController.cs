@@ -15,9 +15,8 @@ using TicketStore.Data.Model;
 
 namespace TicketStore.Api.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class PaymentsController : ControllerBase
+    [Route("store_api/[controller]")]
+    public class PaymentsController
     {
         private ApplicationContext _db;
         private ILogger<PaymentsController> _log;
@@ -95,9 +94,9 @@ namespace TicketStore.Api.Controllers
             {
                 return new BadRequestObjectResult("Secret is not matching");
             }
-            
+
             var tickets = CombineTickets(concert, new Payment { Email = email, Amount = withdraw_amount.Value});
-            
+
             if (tickets.Count == 0)
             {
                 return new OkObjectResult("Payment is less than ticket cost");
