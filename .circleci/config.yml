@@ -1,5 +1,7 @@
 version: 2.1
 
+orbs:
+  codecov: codecov/codecov@4.1.0
 jobs:
   client-unit-tests:
     working_directory: ~/repo/Services/TicketStore.Web/Client
@@ -23,6 +25,12 @@ jobs:
       - run:
           name: run tests
           command: npm test
+      - run:
+          name: ls files
+          command: ls -la
+      - codecov/upload:
+          file: './coverage/clover.xml'
+          token: a1816d82-dc38-4cde-addd-c2883f9df596
       - store_test_results:
           path: reports
   release:
