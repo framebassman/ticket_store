@@ -15,7 +15,7 @@ function wait_service {
 
 apiPort=3000
 webPort=4000
-fakeSenderPort=5000
+fakeSenderPort=5050
 
 host="localhost"
 
