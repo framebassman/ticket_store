@@ -7,9 +7,8 @@ using TicketStore.Api.Model.Poster;
 
 namespace TicketStore.Api.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class UploadsController : ControllerBase
+    [Route("store_api/[controller]")]
+    public class UploadsController
     {
         private ILogger<VerifyController> _log;
         private IPosterUpdater _updater;
@@ -28,7 +27,7 @@ namespace TicketStore.Api.Controllers
                 _log.LogInformation($"Update event ID: {poster.eventId}, Image URL {poster.imageUrl}");
                 var imageUrl = await _updater.Update(poster);
                 return new OkObjectResult(new SuccessUploadPosterAnswer(imageUrl));
-            } 
+            }
             catch (Exception ex)
             {
                 _log.LogError(ex.Message);
