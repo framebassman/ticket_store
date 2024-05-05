@@ -20,6 +20,7 @@ jobs:
       - run:
           name: install codecov
           command: |
+            apk add curl
             curl -Os https://cli.codecov.io/latest/alpine/codecov
             chmod +x codecov
       - run:
