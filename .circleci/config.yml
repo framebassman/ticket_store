@@ -4,35 +4,34 @@ orbs:
   codecov: codecov/codecov@3.3.0
 jobs:
   client-unit-tests:
-    working_directory: ~/repo/Services/TicketStore.Web/Client
     docker:
       - image: node:18.16.0-alpine3.17
     steps:
       - checkout:
           path: ~/repo
       - restore_cache:
-          key: npm-cache-v1-{{ checksum "package-lock.json" }}
+          key: npm-cache-v1-{{ checksum "Services/TicketStore.Web/Client/package-lock.json" }}
       - run:
           name: Install libraries
-          command: npm ci
+          command: npm --prefix Services/TicketStore.Web/Client ci
       - save_cache:
-          key: npm-cache-v1-{{ checksum "package-lock.json" }}
+          key: npm-cache-v1-{{ checksum "Services/TicketStore.Web/Client/package-lock.json" }}
           paths:
             - /home/circleci/.npm
       - run:
           name: Build typescript
-          command: npm run build
+          command: npm --prefix Services/TicketStore.Web/Client run build
       - run:
           name: Run tests
-          command: npm test
+          command: npm --prefix Services/TicketStore.Web/Client test
       - run:
           name: Download misc
           command: apk add curl gpg
       - codecov/upload:
           validate: false
-          file: './coverage/lcov.info'
+          file: './Services/TicketStore.Web/Client/coverage/lcov.info'
       - store_test_results:
-          path: reports
+          path: ./Services/TicketStore.Web/Client/reports
     # The resource_class feature allows configuring CPU and RAM resources for each job. Different resource classes are available for different executors. https://circleci.com/docs/2.0/configuration-reference/#resourceclass
     resource_class: large
   release:
