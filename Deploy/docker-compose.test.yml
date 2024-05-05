@@ -5,8 +5,6 @@ services:
             dockerfile: ./Services/TicketStore.Api/Dockerfile.Production
         depends_on:
             - fake_sender
-        ports:
-            - 3000:5000
         environment:
             - ASPNETCORE_ENVIRONMENT=Test
     store_web:
@@ -15,19 +13,25 @@ services:
             dockerfile: ./Services/TicketStore.Web/Dockerfile.Production
             args:
                 - REACT_APP_ENVIRONMENT=Test
-        ports:
-            - 4000:5000
         environment:
             - ASPNETCORE_ENVIRONMENT=Test
     store_proxy:
-        build:
-            context: .
-            dockerfile: ./Services/Proxy/Dockerfile.Test
+        ports:
+            - 80:80
+            - 8080:8080
     fake_sender:
         image: framebassman/fake-sender:1.2.0
         container_name: fake_sender
         ports:
-            - 5000:5050
+            - 5050:80
+        expose:
+            - 80
+        environment:
+          - ASPNETCORE_URLS=http://+:80
+        labels:
+            - traefik.enable=true
+            - traefik.http.routers.fake_sender.rule=PathPrefix(`/fake_sender`)
+            - traefik.http.routers.fake_sender.entrypoints=http-point
         volumes:
             - /var/log/fake_sender:/var/log
     postgres:
