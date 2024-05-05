@@ -32,7 +32,7 @@
   "scripts": {
     "start": "NODE_OPTIONS=--openssl-legacy-provider react-scripts start",
     "build": "NODE_OPTIONS=--openssl-legacy-provider react-scripts build",
-    "test": "NODE_OPTIONS=--openssl-legacy-provider react-scripts test --env=jsdom --reporters=default --reporters=jest-junit",
+    "test": "NODE_OPTIONS=--openssl-legacy-provider react-scripts test --env=jsdom --watchAll=false --coverage",
     "eject": "react-scripts eject",
     "bundlesize": "bundlesize"
   },
@@ -55,6 +55,7 @@
     ]
   },
   "jest-junit": {
+    "reporters": ["default", "jest-junit"],
     "suiteName": "jest tests",
     "outputDirectory": "reports",
     "outputName": "junit.xml",
