@@ -16,15 +16,14 @@ function wait_service {
 apiPort=3000
 webPort=4000
 fakeSenderPort=5000
+dummyPort=5001
 
 host="localhost"
-if [ "$DOCKER_HOST" != '' ]; then
-  host=$(docker-machine ip $DOCKER_MACHINE_NAME)
-fi
 
 # Wait services
 wait_service "api" $apiPort
 wait_service "web" $webPort
 wait_service "fake_sender" $fakeSenderPort
+wait_service "dummy" $dummyPort
 
 echo "I'm ready"
