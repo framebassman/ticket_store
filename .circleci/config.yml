@@ -1,5 +1,7 @@
 version: 2.1
 
+orbs:
+  codecov: codecov/codecov@4.1.0
 jobs:
   client-unit-tests:
     working_directory: ~/repo/Services/TicketStore.Web/Client
@@ -23,6 +25,7 @@ jobs:
       - run:
           name: run tests
           command: npm test
+      - codecov/upload
       - store_test_results:
           path: reports
   release:
