@@ -36,6 +36,7 @@ blocks:
             - sudo apt-get install -y dotnet-sdk-8.0
             - dotnet --info
             - dotnet tool install --global dotnet-ef --version 8.0.3
+            - sudo snap install ngrok
             # run migrations
             - bash ./Scripts/wait-until-app-is-deployed.sh
             - ASPNETCORE_ENVIRONMENT=TestMigrations ~/.dotnet/tools/dotnet-ef database update --project Services/TicketStore.Data/TicketStore.Data.csproj --verbose
