@@ -11,13 +11,13 @@ public class WebService : TicketStoreService
 
     public RestResponse GetEvents()
     {
-        var request = new RestRequest("api/events");
+        var request = new RestRequest("events");
         return Client.Execute(request);
     }
 
     public RestResponse GetEvents(int merchantId)
     {
-        var request = new RestRequest("api/events");
+        var request = new RestRequest("events");
         request.AddParameter("merchantId", merchantId);
         return Client.Execute(request);
     }

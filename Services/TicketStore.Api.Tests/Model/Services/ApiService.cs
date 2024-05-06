@@ -9,12 +9,12 @@ namespace TicketStore.Api.Tests.Model.Services
     {
         protected override int Port()
         {
-            return 3000;
+            return 80;
         }
 
         public RestResponse SendTestPayment()
         {
-            var request = new RestRequest("api/payments", Method.Post);
+            var request = new RestRequest("store_api/payments", Method.Post);
             request.AddHeader("Content-Type", "application/x-www-form-urlencoded");
             request.AddParameter("test_notification", true);
             return Client.Execute(request);
@@ -22,7 +22,7 @@ namespace TicketStore.Api.Tests.Model.Services
 
         public RestResponse SendPayment(String sender, YandexPaymentLabel label, String email, Decimal withdraw_amount, Decimal amount)
         {
-            var request = new RestRequest("api/payments", Method.Post);
+            var request = new RestRequest("store_api/payments", Method.Post);
             request.AddHeader("Content-Type", "application/x-www-form-urlencoded");
             request.AddParameter("sender", sender);
             request.AddParameter("label", label.Value());
@@ -47,7 +47,7 @@ namespace TicketStore.Api.Tests.Model.Services
 
         private RestRequest CreateVerifyRequest(TurnstileScan scan)
         {
-            var request = new RestRequest("api/verify", Method.Post);
+            var request = new RestRequest("store_api/verify", Method.Post);
             request.AddHeader("Content-Type", "application/json");
             request.AddJsonBody(scan);
             return request;
@@ -55,7 +55,7 @@ namespace TicketStore.Api.Tests.Model.Services
 
         public RestResponse UploadPoster(Poster poster)
         {
-            var request = new RestRequest("api/uploads/poster", Method.Post);
+            var request = new RestRequest("store_api/uploads/poster", Method.Post);
             request.AddHeader("Content-Type", "application/json");
             request.AddJsonBody(poster);
             return Client.Execute(request);
