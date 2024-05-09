@@ -5,7 +5,7 @@ using TicketStore.Data;
 
 namespace TicketStore.Web.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     public class MerchantsController
     {
         private ILogger<MerchantsController> _log;
