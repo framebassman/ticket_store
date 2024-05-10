@@ -36,6 +36,14 @@ start-test:
 		-f Deploy/docker-compose.test.yml \
 		up --build -d
 
+start-test:
+	docker compose \
+		--project-directory=${PWD} \
+		--project-name=ticket_store \
+		-f Deploy/docker-compose.yml \
+		-f Deploy/docker-compose.test.yml \
+		up -d
+
 stop-test:
 	docker compose \
 		--project-directory=${PWD} \
