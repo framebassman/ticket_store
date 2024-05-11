@@ -7,7 +7,7 @@ namespace TicketStore.Api.Tests.Model.Services
     {
         protected override int Port()
         {
-            return 5000;
+            return 5050;
         }
 
         public RestResponse<List<Email>> EmailsForAddress(string to)
