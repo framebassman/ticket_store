@@ -11,9 +11,9 @@ namespace TicketStore.Api.Tests.Data
         public DbSet<Ticket> Tickets { get; set; }
 
         public ApplicationContext() : base(
-            new DbContextOptionsBuilder<ApplicationContext>().UseNpgsql(
-                    $"Host=localhost;Port=5432;Database=store_db;Username=store_user;Password=KqCQzyH2akGB9gQ4"
-                ).Options
+            new DbContextOptionsBuilder<ApplicationContext>()
+                .UseNpgsql("Host=localhost;Port=5432;Database=store_db;Username=store_user;Password=KqCQzyH2akGB9gQ4")
+                .Options
             ) { }
     }
 }
