@@ -80,7 +80,7 @@ try
     var app = builder.Build();
     app.UseRouting();
     app.UseWhen(
-        x => x.Request.Path.StartsWithSegments("/api/verify", StringComparison.OrdinalIgnoreCase),
+        x => x.Request.Path.StartsWithSegments("/store_api/verify", StringComparison.OrdinalIgnoreCase),
         conf => conf.UseMiddleware<AuthorizationMiddleware>()
     );
     app.UseSentryTracing();
