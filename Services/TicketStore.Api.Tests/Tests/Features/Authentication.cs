@@ -24,6 +24,7 @@ namespace TicketStore.Api.Tests.Tests.Verification
             _logger = logger;
         }
 
+        [Trait("Category", "Debug")]
         [Fact]
         public void SendBarcode_WithoutBearerToken_ReturnsUnauthorized()
         {
