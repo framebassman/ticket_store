@@ -17,17 +17,6 @@ services:
         environment:
             - ASPNETCORE_ENVIRONMENT=Production
             - SENTRY_RELEASE=${VERSION}
-    store_proxy:
-        image: "docker.io/framebassman/store-proxy:${VERSION}"
-        build:
-            context: .
-            dockerfile: ./Services/Proxy/Dockerfile.Production
-        ports:
-            - 80:80
-            - 443:443
-        volumes:
-            - /var/run/docker.sock:/var/run/docker.sock
-            - ./Services/Proxy/certs/acme.json:/acme.json
     kabinet:
         image: metabase/metabase:v0.34.1
         container_name: kabinet

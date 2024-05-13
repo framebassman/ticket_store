@@ -1,4 +1,10 @@
 services:
+    store_proxy:
+        ports:
+            - 80:80
+            - 8080:8080
+        labels:
+            - traefik.http.routers.api.rule=Host(`dashboard.localhost`)
     store_api:
         build:
             context: .
@@ -27,12 +33,6 @@ services:
             - ./Services/TicketStore.Web/Controllers:/app/Controllers:ro
             - ./Services/TicketStore.Web/Pages:/app/Pages:ro
             - ./Services/TicketStore.Web/Model:/app/Model:ro
-    store_proxy:
-        build:
-            context: .
-            dockerfile: ./Services/Proxy/Dockerfile.Development
-        logging:
-            driver: none
     postgres:
         build:
             context: .
