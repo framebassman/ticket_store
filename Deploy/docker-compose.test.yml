@@ -1,4 +1,10 @@
 services:
+    store_proxy:
+        ports:
+            - 80:80
+            - 8080:8080
+        labels:
+            - traefik.http.routers.api.rule=Host(`dashboard.localhost`)
     store_api:
         build:
             context: .
@@ -15,12 +21,6 @@ services:
                 - REACT_APP_ENVIRONMENT=Test
         environment:
             - ASPNETCORE_ENVIRONMENT=Test
-    store_proxy:
-        ports:
-            - 80:80
-            - 8080:8080
-        labels:
-            - traefik.http.routers.api.rule=Host(`dashboard.localhost`)
     fake_sender:
         image: framebassman/fake-sender:1.2.0
         container_name: fake_sender
