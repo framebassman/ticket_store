@@ -12,9 +12,8 @@
     "Development": {
       "commandName": "Project",
       "dotnetRunMessages": true,
-      "launchBrowser": true,
-      "launchUrl": "healthcheck",
-      "applicationUrl": "http://localhost:3000",
+      "launchBrowser": false,
+      "applicationUrl": "http://localhost:5259",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
@@ -22,9 +21,8 @@
     "Test": {
       "commandName": "Project",
       "dotnetRunMessages": true,
-      "launchBrowser": true,
-      "launchUrl": "healthcheck",
-      "applicationUrl": "http://localhost:3000",
+      "launchBrowser": false,
+      "applicationUrl": "http://localhost:5259",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Test"
       }

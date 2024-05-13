@@ -39,8 +39,8 @@ blocks:
             # - sudo snap install ngrok
             # - ngrok http 80 > /dev/null &
             # run migrations
-            - ASPNETCORE_ENVIRONMENT=TestMigrations ~/.dotnet/tools/dotnet-ef database update --project Services/TicketStore.Data/TicketStore.Data.csproj --verbose
             - bash ./Scripts/wait-until-app-is-deployed.sh
+            - ASPNETCORE_ENVIRONMENT=TestMigrations ~/.dotnet/tools/dotnet-ef database update --project Services/TicketStore.Data/TicketStore.Data.csproj --verbose
             # run integration tests
             - dotnet test Services/TicketStore.Api.Tests --logger "junit;LogFilePath=TestResults/report.xml" --filter Category!=DevelopmentData
       epilogue:
