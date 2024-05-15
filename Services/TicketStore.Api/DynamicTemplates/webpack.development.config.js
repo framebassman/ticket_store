@@ -6,7 +6,8 @@ module.exports = {
     devServer: {
         static: {
             directory: path.join(__dirname, '..', 'Mode', 'PdfDocument', 'DynamicTemplates'),
-          },
+        },
+        watchFiles: ["./src/*"],
         historyApiFallback: true,
         hot: true,
         port: 8080,

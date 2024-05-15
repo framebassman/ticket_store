@@ -20,5 +20,16 @@
 
 .main {
   max-width: 600px;
+}
 
+body {
+  width: 210mm;
+  height: 297mm;
+  margin: auto;
+  page-break-after: always;
+}
+
+.ticket_frame {
+  display: flex;
+  border-style: solid;
 }
