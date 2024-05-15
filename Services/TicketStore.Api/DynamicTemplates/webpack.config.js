@@ -8,7 +8,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const baseConfig = {
   entry: './src/index.js',
   output: {
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, '..', 'Mode', 'PdfDocument', 'DynamicTemplates'),
     filename: 'bundle.js',
     assetModuleFilename: 'assets/[hash][ext]',
   },
