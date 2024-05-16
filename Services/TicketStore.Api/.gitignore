@@ -1,4 +1,3 @@
 Model/PdfDocument/Templates/Dynamic/*.html
-Model/PdfDocument/Templates/Dynamic/*.css
 Model/PdfDocument/Templates/Dynamic/*.js
 Model/PdfDocument/Templates/Dynamic/*.png
