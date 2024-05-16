@@ -14,6 +14,10 @@ const baseConfig = {
   module: {
     rules: [
       {
+        test: /\.svg/,
+        type: 'asset/inline'
+      },
+      {
         test: /\.css$/i,
         use: [
           {
