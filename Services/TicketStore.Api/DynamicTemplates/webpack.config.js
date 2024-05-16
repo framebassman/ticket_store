@@ -3,7 +3,6 @@ const { merge } = require('webpack-merge');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const baseConfig = {
   entry: './src/index.js',
@@ -14,16 +13,6 @@ const baseConfig = {
   },
   module: {
     rules: [
-      // Images
-      {
-        test: /\.(?:ico|gif|png|jpg|jpeg|svg)$/i,
-        type: 'asset/resource',
-      },
-      // Fonts
-      {
-        test: /\.(woff(2)?|eot|ttf|otf)$/i,
-        type: 'asset/resource',
-      },
       {
         test: /\.css$/i,
         use: [
@@ -36,10 +25,6 @@ const baseConfig = {
           },
           "css-loader"
         ],
-      },
-      {
-        test: /\.geojson$/,
-        type: 'json',
       }
     ]
   },
@@ -47,9 +32,6 @@ const baseConfig = {
     extensions: ['.js']
   },
   plugins: [
-    new MiniCssExtractPlugin({
-       filename: '[name].[contenthash].css'
-    }),
     new HtmlWebpackPlugin({
       template: './src/index.html'
     }),

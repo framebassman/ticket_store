@@ -37,8 +37,9 @@ body {
 }
 
 .logo {
-  font-size: 40px;
-  margin: 16px;
+  max-height: 30px;
+  height: auto;
+  width: auto;
 }
 
 .frame {
@@ -47,6 +48,19 @@ body {
   height: 80px;
 }
 
-.label {
+.left {
   width: 500px;
+  padding: 16px;
+}
+
+.upper-case {
+  text-transform: uppercase;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+p {
+  margin: 0;
 }
