@@ -29,7 +29,24 @@ body {
   page-break-after: always;
 }
 
-.ticket_frame {
+.colonne_titulus {
+  padding-left: 30mm;
+  padding-right: 20mm;
+  padding-top: 20mm;
+  padding-bottom: 20mm;
+}
+
+.logo {
+  font-size: 40px;
+  margin: 16px;
+}
+
+.frame {
   display: flex;
   border-style: solid;
+  height: 80px;
+}
+
+.label {
+  width: 500px;
 }
