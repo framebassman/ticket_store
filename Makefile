@@ -28,7 +28,7 @@ stop-dev:
 		down
 
 # test
-start-test:
+build-test:
 	docker compose \
 		--project-directory=${PWD} \
 		--project-name=ticket_store \

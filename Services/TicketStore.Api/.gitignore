@@ -1,3 +1,4 @@
 Model/PdfDocument/Templates/Dynamic/*.html
 Model/PdfDocument/Templates/Dynamic/*.js
 Model/PdfDocument/Templates/Dynamic/*.png
+Model/PdfDocument/Templates/Dynamic/*.svg
