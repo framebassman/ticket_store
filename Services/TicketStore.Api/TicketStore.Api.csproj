@@ -67,9 +67,9 @@
         <Exec WorkingDirectory="$(SpaRoot)" Command="npm run build" />
         <!-- Include the newly-built files in the publish output -->
         <ItemGroup>
-            <DistFiles Include="Model\PdfDocument\Templates\Static\**" />
+            <DistFiles Include="Model\PdfDocument\Templates\Dynamic\**" />
             <ResolvedFileToPublish Include="@(DistFiles->'%(FullPath)')" Exclude="@(ResolvedFileToPublish)">
-                <RelativePath>Model\PdfDocument\Templates\Static\%(RecursiveDir)%(FileName)%(Extension)</RelativePath>
+                <RelativePath>Model\PdfDocument\Templates\Dynamic\%(RecursiveDir)%(FileName)%(Extension)</RelativePath>
                 <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
                 <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
             </ResolvedFileToPublish>
