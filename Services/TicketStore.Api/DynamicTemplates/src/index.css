@@ -37,7 +37,7 @@ body {
 }
 
 .logo {
-  max-height: 30px;
+  max-height: 20px;
   height: auto;
   width: auto;
 }
@@ -45,11 +45,16 @@ body {
 .frame {
   display: flex;
   border-style: solid;
-  height: 80px;
+  height: 250px;
 }
 
 .left {
-  width: 500px;
+  flex: 2 1 auto;
+  padding: 16px;
+}
+
+.right {
+  flex: 1  1 auto;
   padding: 16px;
 }
 
@@ -63,4 +68,29 @@ body {
 
 p {
   margin: 0;
+}
+
+h1 {
+  margin: 0;
+}
+
+h2 {
+  margin: 0;
+}
+
+h3 {
+  margin: 8px;
+}
+
+h4 {
+  margin: 8px;
+}
+
+h5 {
+  margin: 8px;
+}
+
+.rules {
+  padding-left: 16px;
+  padding-right: 16px;
 }
