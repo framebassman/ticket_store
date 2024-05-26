@@ -5,9 +5,9 @@ import store from './store';
 // import * as serviceWorker from './serviceWorker';
 
 import './index.css';
-import App from './App';
 import { YandexMetrica } from './YandexMetrica';
 import reportWebVitals from './reportWebVitals';
+import { WebRouter } from './WebRouter';
 
 const root = createRoot(
   document.getElementById('root') as HTMLElement
@@ -15,7 +15,7 @@ const root = createRoot(
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App/>
+      <WebRouter />
       <YandexMetrica accounts={[53979967]} />
     </Provider>
   </React.StrictMode>
