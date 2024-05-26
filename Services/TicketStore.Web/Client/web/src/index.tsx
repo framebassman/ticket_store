@@ -6,8 +6,8 @@ import store from './store';
 
 import './index.css';
 import { YandexMetrica } from './YandexMetrica';
-import reportWebVitals from './reportWebVitals';
 import { WebRouter } from './WebRouter';
+import reportWebVitals from './reportWebVitals';
 
 const root = createRoot(
   document.getElementById('root') as HTMLElement
