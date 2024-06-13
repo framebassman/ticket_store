@@ -42,7 +42,7 @@ export const Status = ({ isTicketScanned, isTicketFound, scannedTicket }: Props)
     return (
       <Container>
         <Fab size="small"><ScannerIcon /></Fab>
-        <Description message="Готов к проверке!"/>
+        <Description message="Готов к проверке!" />
         <TicketInfo label="" />
       </Container>
     )
@@ -55,7 +55,7 @@ export const Status = ({ isTicketScanned, isTicketFound, scannedTicket }: Props)
         <Container>
           <Fab color="primary" size="small"><CheckIcon /></Fab>
           <Description message="Билет Действителен" />
-          <TicketInfo label={concertLabel}/>
+          <TicketInfo label={concertLabel} />
         </Container>
       )
     }
@@ -64,7 +64,7 @@ export const Status = ({ isTicketScanned, isTicketFound, scannedTicket }: Props)
       return (
         <Container>
           <Fab color="secondary" size="small"><CancelIcon /></Fab>
-          <Description message="Билет Использован"/>
+          <Description message="Билет Использован" />
           <TicketInfo label={concertLabel} />
         </Container>
       )
@@ -74,7 +74,7 @@ export const Status = ({ isTicketScanned, isTicketFound, scannedTicket }: Props)
   return (
     <Container>
       <Fab color="secondary" size="small"><CancelIcon /></Fab>
-      <Description message="Билет не найден"/>
+      <Description message="Билет не найден" />
       <TicketInfo label="" />
     </Container>
   )
