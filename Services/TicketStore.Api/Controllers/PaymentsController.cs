@@ -74,7 +74,7 @@ namespace TicketStore.Api.Controllers
                 );
             if (concert == null)
             {
-                return new BadRequestObjectResult("There is no event for merchant");
+                throw new Exception("There is no event for merchant");
             }
 
             var merchant = _db.Merchants.First(m => m.Id == concert.MerchantId);
@@ -92,7 +92,7 @@ namespace TicketStore.Api.Controllers
                 )
             )
             {
-                return new BadRequestObjectResult("Secret is not matching");
+                throw new Exception("Secret is not matching");
             }
 
             var tickets = CombineTickets(concert, new Payment { Email = email, Amount = withdraw_amount.Value});

@@ -28,13 +28,13 @@ stop-dev:
 		down
 
 # test
-start-test:
+build-test:
 	docker compose \
 		--project-directory=${PWD} \
 		--project-name=ticket_store \
 		-f Deploy/docker-compose.yml \
 		-f Deploy/docker-compose.test.yml \
-		up --build -d
+		build ${ARGS}
 
 start-test:
 	docker compose \

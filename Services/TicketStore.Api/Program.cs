@@ -48,7 +48,7 @@ try
         options.BucketName = configuration.GetSection("YandexObjectStorage").GetSection("BucketName").Value;
         options.AccessKey = configuration.GetSection("YandexObjectStorage").GetSection("AccessKey").Value;
         options.SecretKey = configuration.GetSection("YandexObjectStorage").GetSection("SecretKey").Value;
-        
+
     });
     builder.Services.AddDbContext<ApplicationContext>();
     builder.Services.AddSingleton<ITools, PdfTools>();
@@ -87,7 +87,7 @@ try
     app.MapControllerRoute(
         name: "default",
         pattern: "{controller}/{action=Index}/{id?}");
-    app.MapHealthChecks("/healthcheck");
+    app.MapHealthChecks("/store_api/healthcheck");
     app.Run();
 }
 catch (Exception ex)
